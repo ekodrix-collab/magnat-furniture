@@ -67,7 +67,7 @@ export default function HeroSection() {
             variants={itemVariants}
             className="mb-4 block text-[0.7rem] font-bold uppercase tracking-[0.4em] text-[#C6A969]"
           >
-            Est. 1999 — Crafting Heritage
+            Est. 2001 — Crafting Heritage
           </motion.span>
           
           <motion.h1 

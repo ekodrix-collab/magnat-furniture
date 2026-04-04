@@ -39,7 +39,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mb-10 text-[#5A5A5A] text-sm leading-8 font-light">
-              Crafting timeless elegance for over 25 years. Our commitment to premium materials and superior design ensures that every piece of furniture we create tells a story of luxury and comfort.
+              Crafting timeless elegance for 25 years. Our commitment to premium materials and superior design ensures that every piece of furniture we create tells a story of luxury and comfort.
             </p>
             <div className="flex items-center gap-5">
               <a 
@@ -127,8 +127,8 @@ export default function Footer() {
               </div>
               <div className="flex gap-4">
                 <Mail size={20} className="text-[#8B1E1E] shrink-0" />
-                <a href="mailto:info@magnatfurniture.com" className="text-sm text-[#1A1A1A] hover:text-[#8B1E1E] transition-colors">
-                  info@magnatfurniture.com
+                <a href="mailto:info@magnat.in" className="text-sm text-[#1A1A1A] hover:text-[#8B1E1E] transition-colors">
+                  info@magnat.in
                 </a>
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function Footer() {
             &copy; {currentYear} Magnat Furniture. Handcrafted with Precision.
           </p>
           <div className="flex items-center gap-10">
-            <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#C6A969]">Premium Quality Since 1999</span>
+            <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#C6A969]">Premium Quality Since 2001</span>
           </div>
         </div>
       </div>

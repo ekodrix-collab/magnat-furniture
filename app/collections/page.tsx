@@ -13,13 +13,13 @@ const collections = [
   {
     name: "Dining Room",
     slug: "dining-room",
-    image: "https://images.unsplash.com/photo-1577113398331-d843d3341a63?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/dining-001.jpg",
     description: "Elegant dining sets for memorable gatherings and shared moments.",
   },
   {
     name: "Bedroom",
     slug: "bedroom",
-    image: "https://images.unsplash.com/photo-1505693413171-293669746a56?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/bedroom-001.jpg",
     description: "Sancutaries of rest featuring our signature beds and wardrobes.",
   },
   {
@@ -31,13 +31,13 @@ const collections = [
   {
     name: "Kids Room",
     slug: "kids-room",
-    image: "https://images.unsplash.com/photo-1595846519845-68e298c2ede9?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/kids-room.jpg",
     description: "Comfortable and safe environments designed for your little ones.",
   },
   {
     name: "Outdoor",
     slug: "outdoor",
-    image: "https://images.unsplash.com/photo-1563298723-dcfebf3620ec?q=80&w=2089&auto=format&fit=crop",
+    image: "/images/outdoor.jpg",
     description: "Premium materials engineered for outdoor luxury and longevity.",
   },
 ];
@@ -71,7 +71,7 @@ export default function CollectionsPage() {
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-500" />
-                
+
                 <div className="absolute inset-x-0 bottom-0 p-10 pt-24 bg-gradient-to-t from-[#1A1A1A] to-transparent">
                   <h3 className="font-playfair text-3xl font-bold text-white mb-3">
                     {collection.name}
@@ -80,7 +80,7 @@ export default function CollectionsPage() {
                     {collection.description}
                   </p>
                   <div className="inline-flex items-center gap-3 text-white text-[0.65rem] font-bold uppercase tracking-[0.25em]">
-                    Discover Collection 
+                    Discover Collection
                     <div className="h-[1px] w-8 bg-[#C6A969] transition-all group-hover:w-16" />
                   </div>
                 </div>

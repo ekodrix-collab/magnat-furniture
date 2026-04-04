@@ -21,7 +21,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const product = {
     name: "Classic Velvet Sofa",
     category: "Living Room",
-    description: "Our Classic Velvet Sofa is the embodiment of timeless luxury. Featuring traditional deep-tufted upholstery and sustainably sourced walnut-finished solid wood legs, this piece is designed to be the centerpiece of any sophisticated living environment. The premium velvet fabric is both incredibly soft to the touch and highly durable, ensuring that your investment maintains its beauty for years to come. Hand-crafted by our master artisans in Kerala with over 25 years of expertise.",
+    description: "Our Classic Velvet Sofa is the embodiment of timeless luxury. Featuring traditional deep-tufted upholstery and sustainably sourced walnut-finished solid wood legs, this piece is designed to be the centerpiece of any sophisticated living environment. The premium velvet fabric is both incredibly soft to the touch and highly durable, ensuring that your investment maintains its beauty for years to come. Hand-crafted by our master artisans in Kerala with 25 years of expertise.",
     features: [
       "Traditional Deep-Tufted Upholstery",
       "Sustainable Solid Walnut Legs",
@@ -154,7 +154,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               </p>
             </div>
             <div className="shrink-0 flex items-center justify-center h-32 w-32 rounded-full border-2 border-[#C6A969] border-dashed">
-              <span className="font-playfair text-xl font-bold text-[#8B1E1E]">Est. 1999</span>
+              <span className="font-playfair text-xl font-bold text-[#8B1E1E]">Est. 2001</span>
             </div>
           </div>
         </FadeInView>

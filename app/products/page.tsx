@@ -1,21 +1,21 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProductCard from "@/components/ui/ProductCard";
 import FadeInView from "@/components/ui/FadeInView";
 import { Filter, SlidersHorizontal } from "lucide-react";
 
 const allProducts = [
-  { id: "1", name: "Classic Velvet Sofa", category: "living-room", slug: "classic-velvet-sofa", images: ["https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop"], short_description: "Deep-tufted velvet upholstery." },
-  { id: "2", name: "Oak Dining Table", category: "dining-room", slug: "oak-dining-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop"], short_description: "European White Oak table." },
-  { id: "3", name: "Leather Armchair", category: "living-room", slug: "leather-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], short_description: "Top-grain Italian leather." },
-  { id: "4", name: "Canopy Bed", category: "bedroom", slug: "heritage-canopy-bed", images: ["https://images.unsplash.com/photo-1505693314120-0d4438678217?q=80&w=2070&auto=format&fit=crop"], short_description: "Architectural metal framing." },
-  { id: "5", name: "Executive Desk", category: "office", slug: "executive-desk", images: ["https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop"], short_description: "Premium office workspace." },
-  { id: "6", name: "Chesterfield Sofa", category: "living-room", slug: "chesterfield-sofa", images: ["https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop"], short_description: "Classic tufted leather sofa." },
-  { id: "7", name: "Marble Coffee Table", category: "living-room", slug: "marble-coffee-table", images: ["https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2069&auto=format&fit=crop"], short_description: "Italian Carrara marble top." },
-  { id: "8", name: "Velvet Dining Chairs", category: "dining-room", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort for dining." },
+  { id: "1", name: "Classic Velvet Sofa", category_id: "living-room", slug: "classic-velvet-sofa", images: ["https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop"], short_description: "Deep-tufted velvet upholstery." },
+  { id: "2", name: "Oak Dining Table", category_id: "dining-room", slug: "oak-dining-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop"], short_description: "European White Oak table." },
+  { id: "3", name: "Leather Armchair", category_id: "living-room", slug: "leather-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], short_description: "Top-grain Italian leather." },
+  { id: "4", name: "Canopy Bed", category_id: "bedroom", slug: "heritage-canopy-bed", images: ["/images/bedroom-001.jpg"], short_description: "Architectural metal framing." },
+  { id: "5", name: "Executive Desk", category_id: "office", slug: "executive-desk", images: ["https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop"], short_description: "Premium office workspace." },
+  { id: "6", name: "Chesterfield Sofa", category_id: "living-room", slug: "chesterfield-sofa", images: ["https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop"], short_description: "Classic tufted leather sofa." },
+  { id: "7", name: "Marble Coffee Table", category_id: "living-room", slug: "marble-coffee-table", images: ["https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2069&auto=format&fit=crop"], short_description: "Italian Carrara marble top." },
+  { id: "8", name: "Velvet Dining Chairs", category_id: "dining-room", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort for dining." },
 ];
 
 const categories = [
@@ -26,14 +26,14 @@ const categories = [
   { label: "Office", value: "office" },
 ];
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return allProducts;
-    return allProducts.filter((p) => p.category === activeCategory);
+    return allProducts.filter((p) => p.category_id === activeCategory);
   }, [activeCategory]);
 
   return (
@@ -46,17 +46,16 @@ export default function ProductsPage() {
             subtitle="Explore our complete range of premium furniture, meticulously organized by collection for your convenience."
             className="max-w-2xl"
           />
-          
+
           <div className="flex flex-wrap gap-4 pt-10 border-t border-brand w-full lg:w-auto lg:border-none">
             {categories.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setActiveCategory(cat.value)}
-                className={`px-8 py-3 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition-all border ${
-                  activeCategory === cat.value
+                className={`px-8 py-3 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition-all border ${activeCategory === cat.value
                     ? "bg-[#1A1A1A] text-white border-[#1A1A1A]"
                     : "bg-transparent text-[#1A1A1A] border-brand hover:border-[#1A1A1A]"
-                }`}
+                  }`}
               >
                 {cat.label}
               </button>
@@ -79,5 +78,19 @@ export default function ProductsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-32 pb-32 min-h-screen bg-brand-primary flex items-center justify-center">
+        <div className="animate-pulse text-[#1A1A1A] tracking-[0.3em] uppercase text-xs font-bold">
+          Loading Catalog...
+        </div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   );
 }

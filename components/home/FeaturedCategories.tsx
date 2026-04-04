@@ -21,13 +21,13 @@ const categories = [
   },
   {
     name: "Dining",
-    image: "https://images.unsplash.com/photo-1577113398331-d843d3341a63?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/dining-001.jpg",
     href: "/collections/dining",
     count: "08+ Designs",
   },
   {
     name: "Bedroom",
-    image: "https://images.unsplash.com/photo-1505693314120-0d4438678217?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/bedroom-001.jpg",
     href: "/collections/bedroom",
     count: "15+ Designs",
   },
@@ -66,7 +66,7 @@ export default function FeaturedCategories() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                
+
                 {/* Overlay Text */}
                 <div className="absolute inset-x-0 bottom-0 p-8 pt-20 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent transition-all duration-500 group-hover:bg-[#1A1A1A]/30">
                   <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#C6A969] mb-2 opacity-100 transition-opacity">
@@ -75,7 +75,7 @@ export default function FeaturedCategories() {
                   <h3 className="font-playfair text-3xl font-semibold text-white">
                     {category.name}
                   </h3>
-                  
+
                   {/* Subtle hover indicator */}
                   <div className="mt-4 h-[1px] w-0 bg-[#C6A969] transition-all duration-500 group-hover:w-full" />
                 </div>

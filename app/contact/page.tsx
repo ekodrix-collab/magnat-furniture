@@ -70,8 +70,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[#1A1A1A] mb-2">Email Inquiries</h4>
-                    <p className="text-body font-light leading-relaxed text-sm">info@magnatfurniture.com</p>
-                    <p className="text-body font-light leading-relaxed text-sm">sales@magnatfurniture.com</p>
+                    <p className="text-body font-light leading-relaxed text-sm">info@magnat.in</p>
+                    <p className="text-body font-light leading-relaxed text-sm">sales@magnat.in</p>
                   </div>
                 </div>
               </FadeInView>

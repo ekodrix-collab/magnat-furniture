@@ -1,4 +1,6 @@
-import { Award, ShieldCheck, Truck, PencilRuler } from "lucide-react";
+"use client";
+
+import { Award, ShieldCheck, PencilRuler, Truck } from "lucide-react";
 import FadeInView from "@/components/ui/FadeInView";
 
 const features = [
@@ -10,12 +12,12 @@ const features = [
   {
     icon: ShieldCheck,
     title: "Premium Materials",
-    description: "Finest selection of sustainably sourced solid woods and fabrics.",
+    description: "Finest sustainably sourced solid woods and fabrics.",
   },
   {
     icon: PencilRuler,
     title: "Custom Design",
-    description: "Bespoke furniture tailored precisely to your unique living space.",
+    description: "Bespoke furniture tailored to your unique living space.",
   },
   {
     icon: Truck,
@@ -24,59 +26,177 @@ const features = [
   },
 ];
 
+const PLAYFAIR = 'var(--font-playfair), "Georgia", serif';
+const INTER = 'var(--font-inter), "Helvetica Neue", sans-serif';
+
 export default function ExperienceSection() {
   return (
-    <section className="bg-brand-primary py-32 px-6 lg:px-12 overflow-hidden border-b border-brand">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          
-          {/* Legacy Number */}
-          <div className="relative group w-full lg:w-1/2">
-            <FadeInView direction="right" duration={1.2}>
-              <div className="flex flex-col items-center lg:items-start">
-                <span className="font-playfair text-[10rem] md:text-[15rem] leading-none font-bold text-[#8B1E1E] opacity-10 blur-[2px] absolute -top-10 -left-4 pointer-events-none transition-all group-hover:opacity-20 group-hover:blur-0">
+    <section className="relative bg-brand-primary border-b border-brand overflow-hidden">
+
+      {/* Corner bracket marks */}
+      <span aria-hidden className="absolute top-7 left-7 w-5 h-5 pointer-events-none"
+        style={{ borderTop: "1px solid rgba(198,169,105,0.45)", borderLeft: "1px solid rgba(198,169,105,0.45)" }} />
+      <span aria-hidden className="absolute bottom-7 right-7 w-5 h-5 pointer-events-none"
+        style={{ borderBottom: "1px solid rgba(198,169,105,0.45)", borderRight: "1px solid rgba(198,169,105,0.45)" }} />
+
+      {/* Full-width wrapper — no container max-width restriction on this section */}
+      <div className="w-full px-8 md:px-16 lg:px-24 py-20 md:py-28">
+        <div className="flex flex-col lg:flex-row items-center gap-0 max-w-screen-xl mx-auto">
+
+          {/* ══ LEFT ══ */}
+          <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-start lg:pr-12 xl:pr-20">
+            <FadeInView direction="right" duration={1.1}>
+              <div className="relative select-none">
+
+                {/* Ghost outline numeral */}
+                <span aria-hidden className="absolute pointer-events-none"
+                  style={{
+                    fontFamily: PLAYFAIR,
+                    fontWeight: 900,
+                    fontSize: "220px",
+                    lineHeight: 1,
+                    top: "-16px",
+                    left: "-12px",
+                    letterSpacing: "-0.05em",
+                    color: "transparent",
+                    WebkitTextStroke: "1.5px rgba(139,30,30,0.07)",
+                  }}>
                   25
                 </span>
-                <div className="relative z-10 flex flex-col items-center lg:items-start">
-                  <h2 className="font-playfair text-[8rem] md:text-[10rem] leading-none font-bold text-[#8B1E1E] drop-shadow-sm">
+
+                {/* Numeral + label row */}
+                <div className="relative z-10 flex items-end gap-3">
+
+                  {/* Large "25" — fixed 160px, not clamped */}
+                  <span style={{
+                    fontFamily: PLAYFAIR,
+                    fontWeight: 900,
+                    fontSize: "160px",
+                    lineHeight: 1,
+                    letterSpacing: "-0.04em",
+                    display: "block",
+                    background: "linear-gradient(160deg, #B82222 0%, #8B1E1E 55%, #5C1010 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>
                     25
-                  </h2>
-                  <div className="mt-[-2rem] ml-4 lg:ml-12">
-                    <span className="block text-2xl font-playfair italic text-[#1A1A1A] font-medium tracking-wide">
-                      Years of
+                  </span>
+
+                  {/* Label stack */}
+                  <div className="flex flex-col justify-end pb-4">
+                    <span style={{
+                      fontFamily: PLAYFAIR,
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: "22px",
+                      letterSpacing: "0.04em",
+                      color: "#5A5A5A",
+                      lineHeight: 1.3,
+                    }}>
+                      years of
                     </span>
-                    <span className="block text-4xl md:text-5xl font-playfair font-bold uppercase tracking-[0.15em] text-[#1A1A1A]">
+
+                    {/* Gold dot + rule */}
+                    <div className="flex items-center gap-1.5 my-2">
+                      <span className="rounded-full flex-shrink-0"
+                        style={{ width: "5px", height: "5px", background: "#C6A969" }} />
+                      <span style={{
+                        display: "block", height: "1px", width: "44px",
+                        background: "linear-gradient(to right, #C6A969, transparent)",
+                      }} />
+                    </div>
+
+                    <span style={{
+                      fontFamily: PLAYFAIR,
+                      fontWeight: 700,
+                      fontSize: "16px",
+                      letterSpacing: "0.36em",
+                      color: "#1A1A1A",
+                      textTransform: "uppercase" as const,
+                      whiteSpace: "nowrap",
+                    }}>
                       Excellence
                     </span>
                   </div>
                 </div>
               </div>
             </FadeInView>
+
+            {/* Heritage line */}
+            <FadeInView delay={0.25} duration={0.9}>
+              <div className="flex items-center gap-3 mt-8">
+                <span style={{ display: "block", height: "1px", width: "32px", background: "#C6A969", opacity: 0.5 }} />
+                <span style={{
+                  fontFamily: PLAYFAIR,
+                  fontStyle: "italic",
+                  fontSize: "13px",
+                  letterSpacing: "0.12em",
+                  color: "#8B8B8B",
+                  whiteSpace: "nowrap",
+                }}>
+                  Est. 2001 &nbsp;·&nbsp; Magnat Furniture
+                </span>
+                <span style={{ display: "block", height: "1px", width: "32px", background: "#C6A969", opacity: 0.5 }} />
+              </div>
+            </FadeInView>
           </div>
 
-          {/* Content & Features */}
-          <div className="w-full lg:w-1/2">
-            <FadeInView delay={0.4}>
-              <p className="mb-16 text-lg text-body leading-relaxed max-w-xl italic">
-                "Since 1999, Magnat Furniture has been redefining luxury living through master craftsmanship and timeless design. Our heritage is built on a foundation of quality and a commitment to creating environments where stories are told."
-              </p>
-            </FadeInView>
+          {/* Vertical gold divider */}
+          <div aria-hidden className="hidden lg:block flex-shrink-0 w-px self-stretch"
+            style={{
+              background: "linear-gradient(to bottom, transparent 0%, #C6A969 25%, #C6A969 75%, transparent 100%)",
+              opacity: 0.3,
+            }} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+          {/* ══ RIGHT — Feature grid ══ */}
+          <div className="w-full lg:w-[55%] lg:pl-12 xl:pl-20 mt-16 lg:mt-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
               {features.map((feature, i) => (
-                <FadeInView key={feature.title} delay={0.5 + i * 0.1}>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-brand text-[#C6A969] shadow-sm transition-all hover:scale-110 hover:bg-[#8B1E1E] hover:text-white">
-                      <feature.icon size={22} strokeWidth={1.5} />
+                <FadeInView key={feature.title} delay={0.3 + i * 0.1}>
+                  <div className="group flex items-start gap-4">
+
+                    {/* Square icon box */}
+                    <div
+                      className="group-hover:bg-luxury-red group-hover:text-white"
+                      style={{
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "42px",
+                        height: "42px",
+                        border: "1px solid rgba(198,169,105,0.35)",
+                        borderRadius: "2px",
+                        background: "rgba(255,255,255,0.65)",
+                        color: "#8B1E1E",
+                        transition: "background 0.28s ease, color 0.28s ease, border-color 0.28s ease",
+                      }}>
+                      <feature.icon size={18} strokeWidth={1.5} />
                     </div>
+
                     <div>
-                      <h4 className="mb-2 text-sm font-bold uppercase tracking-widest text-[#1A1A1A]">
+                      <h4
+                        className="group-hover:text-red transition-colors duration-300"
+                        style={{
+                          fontFamily: INTER,
+                          fontWeight: 700,
+                          fontSize: "10.5px",
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase" as const,
+                          color: "#1A1A1A",
+                          marginBottom: "6px",
+                        }}>
                         {feature.title}
                       </h4>
-                      <p className="text-sm text-body leading-relaxed font-light">
+
+                      <div style={{ height: "1px", width: "20px", background: "#C6A969", opacity: 0.4, marginBottom: "8px" }} />
+
+                      <p style={{ fontFamily: INTER, fontSize: "13.5px", color: "#5A5A5A", lineHeight: 1.75, fontWeight: 300 }}>
                         {feature.description}
                       </p>
                     </div>
+
                   </div>
                 </FadeInView>
               ))}

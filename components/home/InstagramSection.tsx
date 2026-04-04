@@ -6,10 +6,10 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import FadeInView from "@/components/ui/FadeInView";
 
 const instagramPosts = [
-  "https://images.unsplash.com/photo-1583847268964-b28dc2f51ac9?q=80&w=1974&auto=format&fit=crop",
+  "/images/insta-post-001.jpg",
   "https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1594913214710-4497e7428f52?q=80&w=1964&auto=format&fit=crop",
+  "/images/insta-post-002.jpg",
   "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
 ];
@@ -26,8 +26,8 @@ export default function InstagramSection() {
             className="max-w-2xl"
           />
           <FadeInView delay={0.4}>
-            <a 
-              href="#" 
+            <a
+              href="#"
               target="_blank"
               className="flex items-center gap-3 bg-[#1A1A1A] px-8 py-4 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#8B1E1E]"
             >

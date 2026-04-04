@@ -5,13 +5,18 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
+// ── Playfair Display ──────────────────────────────────────
+// variable renamed to --font-playfair (matches globals.css + components)
+// weight 800 & 900 added — required for the large "25" numeral
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-playfair-display",
+  variable: "--font-playfair",        // ← was --font-playfair-display
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],  // ← 800 & 900 added
+  style: ["normal", "italic"],        // ← italic added (used in "years of")
 });
 
+// ── Inter ─────────────────────────────────────────────────
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -20,13 +25,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://magnatfurniture.com"),
+  metadataBase: new URL("https://magnat.in"),
   title: {
     default: "Magnat Furniture — Premium Luxury Furniture & Interior Design",
     template: "%s | Magnat Furniture",
   },
   description:
-    "Discover Magnat Furniture — over 25 years of crafting premium luxury furniture. Explore our exclusive collections of sofas, chairs, dining sets, and bespoke interior design pieces.",
+    "Discover Magnat Furniture — 25 years of crafting premium luxury furniture. Explore our exclusive collections of sofas, chairs, dining sets, and bespoke interior design pieces.",
   keywords: [
     "luxury furniture",
     "premium furniture",
@@ -43,11 +48,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://magnatfurniture.com",
+    url: "https://magnat.in",
     siteName: "Magnat Furniture",
     title: "Magnat Furniture — Premium Luxury Furniture & Interior Design",
     description:
-      "Explore our exclusive collection of luxury furniture designed to elevate your living spaces. 25+ years of excellence in craftsmanship.",
+      "Explore our exclusive collection of luxury furniture designed to elevate your living spaces. 25 years of excellence in craftsmanship.",
     images: [
       {
         url: "/og-image.jpg",
@@ -60,7 +65,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Magnat Furniture — Premium Luxury Furniture",
-    description: "25+ years of crafting luxury furniture. Explore our exclusive collections.",
+    description:
+      "25 years of crafting luxury furniture. Explore our exclusive collections.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -82,10 +88,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${inter.variable}`}
-    >
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="min-h-screen flex flex-col bg-[#F7F3EF]">
         <Navbar />
         <main className="flex-1">{children}</main>

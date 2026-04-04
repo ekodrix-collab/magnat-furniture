@@ -10,7 +10,7 @@ const cards = [
   {
     title: "Leisure Chairs",
     description: "Designed for relaxation, crafted for luxury living rooms.",
-    image: "https://images.unsplash.com/photo-1594913214710-4497e7428f52?q=80&w=1964&auto=format&fit=crop",
+    image: "/images/living-chairs.jpg",
     href: "/collections/chairs",
   },
   {
@@ -36,7 +36,7 @@ export default function HighlightCards() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
-                
+
                 {/* Visual Glassmorphism Card */}
                 <div className="absolute bottom-10 left-10 right-10 z-20 bg-white/10 backdrop-blur-md p-10 border border-white/20 transition-all duration-500 group-hover:bg-[#1A1A1A] group-hover:border-transparent">
                   <h3 className="font-playfair text-3xl font-bold text-white mb-3">
