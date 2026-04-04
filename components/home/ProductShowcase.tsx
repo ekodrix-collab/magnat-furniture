@@ -32,7 +32,7 @@ const featuredProducts = [
     name: "Heritage Canopy Bed",
     slug: "heritage-canopy-bed",
     short_description: "Architectural metal framing with a plush upholstered headboard. The center-piece of your sanctuary.",
-    images: ["https://images.unsplash.com/photo-1505693314120-0d4438678217?q=80&w=2070&auto=format&fit=crop"],
+    images: ["/images/bedroom-001.jpg"],
   },
 ];
 

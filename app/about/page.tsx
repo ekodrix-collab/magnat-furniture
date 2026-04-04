@@ -4,15 +4,15 @@ import FadeInView from "@/components/ui/FadeInView";
 import { History, PencilRuler, Users, Globe } from "lucide-react";
 
 const milestones = [
-  { year: "1999", title: "The Foundation", desc: "Started as a small artisanal workshop in Kerala, driven by a passion for solid wood." },
-  { year: "2008", title: "Regional Expansion", desc: "Opened our first flagship showroom, bringing premium designs to a wider audience." },
-  { year: "2015", title: "Digital Heritage", desc: "Integrated modern design technologies while preserving traditional hand-crafting techniques." },
-  { year: "2024", title: "Magnat Today", desc: "A leading name in premium furniture, known for uncompromising quality and bespoke luxury." },
+  { year: "2001", title: "The Foundation", desc: "Started as a small artisanal workshop in Kerala, driven by a passion for solid wood." },
+  { year: "2010", title: "Regional Expansion", desc: "Opened our first flagship showroom, bringing premium designs to a wider audience." },
+  { year: "2018", title: "Digital Heritage", desc: "Integrated modern design technologies while preserving traditional hand-crafting techniques." },
+  { year: "2026", title: "Magnat Today", desc: "A leading name in premium furniture, known for uncompromising quality and bespoke luxury." },
 ];
 
 export const metadata = {
   title: "Our Story",
-  description: "Learn about the heritage and craftsmanship of Magnat Furniture. 25 years of excellence in luxury interior design.",
+  description: "Learn about the heritage and craftsmanship of Magnat Furniture. Celebrating 25 years of excellence in luxury interior design.",
 };
 
 export default function AboutPage() {
@@ -23,7 +23,7 @@ export default function AboutPage() {
         <div className="flex flex-col lg:flex-row items-center gap-20">
           <div className="lg:w-1/2">
             <FadeInView>
-              <span className="section-label">Since 1999</span>
+              <span className="section-label">Since 2001</span>
               <h1 className="font-playfair text-6xl md:text-7xl font-bold text-[#1A1A1A] mb-10 leading-tight">
                 Crafting <span className="italic text-[#8B1E1E]">Legacy</span>, One Piece at a Time.
               </h1>
@@ -31,7 +31,7 @@ export default function AboutPage() {
                 At Magnat Furniture, we believe that furniture is more than just functionality—it's an expression of your soul and a testament to your lifestyle.
               </p>
               <p className="text-body leading-loose font-light opacity-80 max-w-xl">
-                For over 25 years, our master artisans have blended traditional craftsmanship with contemporary aesthetics to create pieces that stand the test of time. Every curve, every joint, and every finish reflects our dedication to excellence.
+                For 25 years, our master artisans have blended traditional craftsmanship with contemporary aesthetics to create pieces that stand the test of time. Every curve, every joint, and every finish reflects our dedication to excellence.
               </p>
             </FadeInView>
           </div>
