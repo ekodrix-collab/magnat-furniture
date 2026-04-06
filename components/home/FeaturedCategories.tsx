@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import FadeInView from "@/components/ui/FadeInView";
 
@@ -51,7 +50,7 @@ export default function FeaturedCategories() {
           className="mb-20"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => (
             <FadeInView
               key={category.name}

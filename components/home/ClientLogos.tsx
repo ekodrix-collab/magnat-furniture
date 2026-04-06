@@ -1,7 +1,7 @@
 import FadeInView from "@/components/ui/FadeInView";
 
 const clientLogos = [
-  "STORIES", "VILANGADAN", "LUXURY INTERIORS", "ROYAL HOMES", "ELITE DECOR", "DESIGN DISTRICT"
+  "PRESTIGE INTERIORS", "HILTON GROUP", "OBEROI HOTELS", "KOCHI METRO", "LULU MALL", "GRAND HYATT"
 ];
 
 export default function ClientLogos() {
@@ -23,7 +23,7 @@ export default function ClientLogos() {
                 key={index} 
                 className="px-16 flex items-center justify-center"
               >
-                <span className="font-playfair text-3xl font-bold text-[#1A1A1A]/20 tracking-tighter hover:text-[#8B1E1E]/40 transition-colors uppercase cursor-default">
+                <span className="font-playfair text-3xl font-bold text-[#1A1A1A]/20 tracking-tighter hover:text-[#8B1E1E]/40 transition-colors uppercase cursor-default whitespace-nowrap">
                   {logo}
                 </span>
               </div>
@@ -34,7 +34,7 @@ export default function ClientLogos() {
                 key={`loop-${index}`} 
                 className="px-16 flex items-center justify-center"
               >
-                <span className="font-playfair text-3xl font-bold text-[#1A1A1A]/20 tracking-tighter hover:text-[#8B1E1E]/40 transition-colors uppercase cursor-default">
+                <span className="font-playfair text-3xl font-bold text-[#1A1A1A]/20 tracking-tighter hover:text-[#8B1E1E]/40 transition-colors uppercase cursor-default whitespace-nowrap">
                   {logo}
                 </span>
               </div>

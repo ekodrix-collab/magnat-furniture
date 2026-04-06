@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const footerLinks = {
   about: [
     { label: "Our Story", href: "/about" },
     { label: "Craftsmanship", href: "/about" },
     { label: "Heritage", href: "/about" },
-    { label: "Sustainability", href: "/about" },
+    { label: "Contact Us", href: "/contact" },
   ],
   collections: [
     { label: "Living Room", href: "/collections/living-room" },
@@ -18,8 +17,8 @@ const footerLinks = {
   support: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
-    { label: "Contact Us", href: "/contact" },
-    { label: "Store Locator", href: "/contact" },
+    { label: "All Products", href: "/products" },
+    { label: "Visit Showroom", href: "/contact" },
   ],
 };
 
@@ -43,22 +42,28 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-5">
               <a 
-                href="#" 
-                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white"
+                href="https://www.instagram.com/magnatfurniture" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white hover:border-transparent"
                 aria-label="Instagram"
               >
                 <Instagram size={18} />
               </a>
               <a 
-                href="#" 
-                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white"
+                href="https://www.facebook.com/magnatfurniture" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white hover:border-transparent"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
               </a>
               <a 
-                href="#" 
-                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white"
+                href="https://twitter.com/magnatfurniture" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-11 w-11 items-center justify-center border border-[#E5DED6] rounded-full transition-all hover:bg-[#1A1A1A] hover:text-white hover:border-transparent"
                 aria-label="Twitter"
               >
                 <Twitter size={18} />
