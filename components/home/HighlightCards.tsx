@@ -11,7 +11,7 @@ const cards = [
     title: "Leisure Chairs",
     description: "Designed for relaxation, crafted for luxury living rooms.",
     image: "/images/living-chairs.jpg",
-    href: "/collections/chairs",
+    href: "/collections/living-room",
   },
   {
     title: "Arm Chairs",

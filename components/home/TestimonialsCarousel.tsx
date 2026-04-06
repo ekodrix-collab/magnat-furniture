@@ -10,27 +10,33 @@ import FadeInView from "@/components/ui/FadeInView";
 const testimonials = [
   {
     name: "Riya Roy",
-    quote: "Recently ordered a custom made furniture set for my living room from Vilangadan furnitures and couldn’t be more impressed with the results. Every detail was tailored to my preferences.",
+    quote: "Recently ordered a custom made furniture set for my living room from Magnat Furniture and couldn't be more impressed with the results. Every detail was tailored to my preferences — the craftsmanship is truly second to none.",
     rating: 5,
     role: "Architect",
   },
   {
     name: "Sreenath Menon",
-    quote: "We had a very diverse and warm experience when we bought a single door almirah and a queen size mattress from Vilangadan. The showroom has many options which are beautifully presented.",
+    quote: "We had a very warm experience buying a teak almirah and a queen size bed from Magnat. The showroom has an incredible range of options, beautifully displayed. The staff guided us patiently through every choice.",
     rating: 5,
     role: "Home Owner",
   },
   {
     name: "Anjali Sharma",
-    quote: "The quality of the wood and the precision of the polish is simply unmatched. It has been 5 years since my first purchase, and the piece still looks brand new. Truly premium service.",
+    quote: "The quality of the wood and the precision of the polish is simply unmatched. It has been 5 years since my first purchase, and the pieces still look brand new. Truly a premium furniture experience.",
     rating: 5,
     role: "Interior Designer",
   },
   {
     name: "David Wilson",
-    quote: "White-glove delivery service was impeccable. They handled the heavy teak dining table with such care. Magnat is definitely the brand you trust for luxury furniture.",
+    quote: "White-glove delivery service was impeccable. They handled an entire living room set with such care. Magnat is the only brand I trust when it comes to luxury statement furniture.",
     rating: 5,
     role: "VIP Guest",
+  },
+  {
+    name: "Priya Nair",
+    quote: "From the first design consultation to final delivery, every step was handled with professionalism and transparency. The bespoke dining table they created is now the heart of our home.",
+    rating: 5,
+    role: "Restaurateur",
   },
 ];
 
@@ -79,7 +85,7 @@ export default function TestimonialsCarousel() {
                       </div>
 
                       <p className="mb-10 text-body leading-8 font-light italic text-sm line-clamp-4">
-                        "{testimonial.quote}"
+                        &ldquo;{testimonial.quote}&rdquo;
                       </p>
 
                       <div className="flex items-center gap-4">
