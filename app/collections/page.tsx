@@ -1,94 +1,101 @@
-import Image from "next/image";
-import Link from "next/link";
-import SectionHeading from "@/components/ui/SectionHeading";
+"use client";
+
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import FadeInView from "@/components/ui/FadeInView";
 
 const collections = [
-  {
-    name: "Living Room",
-    slug: "living-room",
-    image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2070&auto=format&fit=crop",
-    description: "Sofas, armchairs, and coffee tables that define your personal style.",
+  { 
+    title: "The Milano Collection", 
+    desc: "Italian-inspired minimalism focused on linear comfort and premium hide.",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
+    count: "12 Pieces"
   },
-  {
-    name: "Dining Room",
-    slug: "dining-room",
-    image: "/images/dining-001.jpg",
-    description: "Elegant dining sets for memorable gatherings and shared moments.",
+  { 
+    title: "Heritage Kerala Series", 
+    desc: "A tribute to local timber and artisanal joinery with a modern twist.",
+    image: "https://images.unsplash.com/photo-1574621100236-d25b64cf5615?q=80&w=2600&auto=format&fit=crop",
+    count: "08 Pieces"
   },
-  {
-    name: "Bedroom",
-    slug: "bedroom",
-    image: "/images/bedroom-001.jpg",
-    description: "Sancutaries of rest featuring our signature beds and wardrobes.",
+  { 
+    title: "The Avant-Garde Suite", 
+    desc: "Sculptural seating and dining solutions for the artistic homeowner.",
+    image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2600&auto=format&fit=crop",
+    count: "15 Pieces"
   },
-  {
-    name: "Office Furniture",
-    slug: "office",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
-    description: "Ergonomic designs and premium finishes for executive workspaces.",
-  },
-  {
-    name: "Kids Room",
-    slug: "kids-room",
-    image: "/images/kids-room.jpg",
-    description: "Comfortable and safe environments designed for your little ones.",
-  },
-  {
-    name: "Outdoor",
-    slug: "outdoor",
-    image: "/images/outdoor.jpg",
-    description: "Premium materials engineered for outdoor luxury and longevity.",
-  },
+  { 
+    title: "Aerial Window Systems", 
+    desc: "Bespoke curtains and blinds engineered for the Kerala tropical light.",
+    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2600&auto=format&fit=crop",
+    count: "Custom Made"
+  }
 ];
-
-export const metadata = {
-  title: "Premium Collections",
-  description: "Explore the curated collections of Magnat Furniture — from luxury living rooms to bespoke executive offices.",
-};
 
 export default function CollectionsPage() {
   return (
-    <div className="pt-32 pb-32 min-h-screen bg-brand-primary">
-      <div className="container mx-auto px-6 lg:px-12 mt-12">
-        <SectionHeading
-          label="The Curated World"
-          title="Our Collections"
-          subtitle="Explore our thoughtfully designed categories, each offering a unique perspective on luxury living and master craftsmanship."
-          align="center"
-          className="mb-24"
-        />
+    <main className="pt-24 min-h-screen bg-white">
+      {/* ── Page Header ── */}
+      <section className="py-32">
+        <div className="max-container">
+           <FadeInView className="max-w-4xl space-y-6">
+              <span className="heading-label">Curated Portfolios</span>
+              <h1 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+                 Design <span className="italic font-normal">Narratives.</span>
+              </h1>
+              <p className="text-xl text-black/40 font-light max-w-2xl leading-relaxed">
+                 Explore our thematic collections, each representing a unique dialogue between 
+                 material, form, and functionality.
+              </p>
+           </FadeInView>
+        </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {collections.map((collection, index) => (
-            <FadeInView key={collection.slug} delay={index * 0.1}>
-              <Link href={`/products?category=${collection.slug}`} className="group block relative h-[500px] overflow-hidden">
-                <Image
-                  src={collection.image}
-                  alt={collection.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-500" />
+      {/* ── Collections Grid (Grayscale to Color) ── */}
+      <section className="pb-40">
+        <div className="max-container flex flex-col gap-32">
+          {collections.map((col, index) => (
+            <FadeInView 
+              key={col.title} 
+              delay={index * 0.1} 
+              direction={index % 2 === 0 ? "right" : "left"}
+              className={`flex flex-col lg:flex-row items-center gap-16 lg:gap-32 ${index % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
+            >
+              {/* Image Container */}
+              <div className="lg:w-3/5 w-full aspect-[16/9] overflow-hidden bg-[#f9f9f9] group cursor-pointer relative shadow-sm">
+                 <img 
+                    src={col.image} 
+                    alt={col.title} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-[1.03]"
+                 />
+                 <div className="absolute top-8 right-8 bg-white/90 backdrop-blur-md px-6 py-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#111]">
+                    {col.count}
+                 </div>
+              </div>
 
-                <div className="absolute inset-x-0 bottom-0 p-10 pt-24 bg-gradient-to-t from-[#1A1A1A] to-transparent">
-                  <h3 className="font-playfair text-3xl font-bold text-white mb-3">
-                    {collection.name}
-                  </h3>
-                  <p className="text-white/70 text-sm font-light mb-8 max-w-xs group-hover:text-white transition-colors">
-                    {collection.description}
-                  </p>
-                  <div className="inline-flex items-center gap-3 text-white text-[0.65rem] font-bold uppercase tracking-[0.25em]">
-                    Discover Collection
-                    <div className="h-[1px] w-8 bg-[#C6A969] transition-all group-hover:w-16" />
-                  </div>
-                </div>
-              </Link>
+              {/* Text Content */}
+              <div className="lg:w-2/5 space-y-8 text-left">
+                 <div className="w-12 h-px bg-[#C0001A]" />
+                 <h2 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>{col.title}</h2>
+                 <p className="text-black/50 text-base font-light leading-relaxed">{col.desc}</p>
+                 <button className="flex items-center gap-4 text-[10px] font-bold tracking-[0.3em] uppercase hover:text-[#C0001A] transition-colors group">
+                    Explore Collection <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
+                 </button>
+              </div>
             </FadeInView>
           ))}
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* ── Call to Action ── */}
+      <section className="py-40 bg-[#f9f9f9] border-t border-black/5">
+        <div className="max-container text-center">
+           <FadeInView className="max-w-2xl mx-auto space-y-10">
+              <h2 className="text-5xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Seeking Something Bespoke?</h2>
+              <p className="text-black/45">Our Kondotty manufacturing unit specializes in one-off commission pieces for premium residences and commercial studios.</p>
+              <button className="btn-primary">Commission a Project</button>
+           </FadeInView>
+        </div>
+      </section>
+    </main>
   );
 }

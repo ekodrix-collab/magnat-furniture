@@ -1,28 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import SectionHeading from "@/components/ui/SectionHeading";
 import FadeInView from "@/components/ui/FadeInView";
 
 const craftStories = [
   {
     thumbnail: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
     title: "Master Craftsmanship",
-    description: "Every joint, every curve is shaped by decades of expertise passed down through generations of Kerala artisans.",
+    description: "Every joint, every curve is shaped by decades of expertise passed down through generations of master artisans.",
     stat: "200+",
     statLabel: "Expert Artisans",
   },
   {
     thumbnail: "https://images.unsplash.com/photo-1616137422495-1e96aadd3461?q=80&w=2000&auto=format&fit=crop",
     title: "Premium Materials",
-    description: "We source only the finest sustainably harvested teak, rosewood, and imported hardwoods for lasting beauty.",
+    description: "We source only the finest sustainably harvested teak, rosewood, and imported hardwoods for lasting structural integrity.",
     stat: "100%",
     statLabel: "Sustainably Sourced",
   },
   {
     thumbnail: "https://images.unsplash.com/photo-1634643836960-c345b3c3e998?q=80&w=1964&auto=format&fit=crop",
     title: "Design Philosophy",
-    description: "Where classical Kerala woodcraft traditions meet contemporary minimalism — furniture that transcends trends.",
+    description: "Where classical woodcraft traditions meet contemporary minimalism — furniture that transcends passing trends.",
     stat: "25+",
     statLabel: "Years of Legacy",
   },
@@ -30,49 +29,60 @@ const craftStories = [
 
 export default function VideoSection() {
   return (
-    <section className="bg-brand-primary py-32 px-6 lg:px-12">
-      <div className="container mx-auto">
-        <SectionHeading
-          label="The Magnat Way"
-          title="Stories Behind the Design"
-          subtitle="Discover the passion, precision, and philosophy that goes into every Magnat piece. From raw timber to refined masterpiece."
-          align="center"
-          className="mb-20"
-        />
+    <section className="bg-[#f5f2ee] py-24 lg:py-32 px-8 lg:px-16 overflow-hidden">
+      <div className="max-w-[1600px] mx-auto">
+        
+        {/* Header */}
+        <FadeInView className="mb-20">
+          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+            The Artisan Way
+          </span>
+          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
+            Stories Behind <span className="italic">The Design</span>
+          </h2>
+          <div className="w-12 h-[1px] bg-[#c9a96e] mb-6" />
+        </FadeInView>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Stories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 min-h-[600px]">
           {craftStories.map((story, index) => (
-            <FadeInView key={story.title} delay={index * 0.2} className="group relative h-[600px] overflow-hidden">
+            <FadeInView key={story.title} delay={index * 0.2} className="group relative overflow-hidden h-full">
               <Image
                 src={story.thumbnail}
                 alt={story.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent transition-opacity duration-500" />
+              {/* Scrim */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/90 via-[#0d0d0d]/30 to-transparent transition-opacity duration-700" />
               
-              <div className="absolute inset-x-0 bottom-0 p-10 flex flex-col">
+              <div className="absolute inset-x-0 bottom-0 p-10 flex flex-col justify-end h-full">
                 {/* Stat */}
-                <div className="mb-6">
-                  <span className="font-playfair text-5xl font-bold text-[#C6A969] block leading-none">{story.stat}</span>
-                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-white/60 mt-1 block">{story.statLabel}</span>
+                <div className="mb-8 overflow-hidden">
+                  <span className="text-[#c9a96e] text-5xl font-bold block leading-none translate-y-2 group-hover:translate-y-0 transition-transform duration-700" style={{ fontFamily: "var(--font-playfair)" }}>
+                    {story.stat}
+                  </span>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 mt-2 block" style={{ fontFamily: "var(--font-inter)" }}>
+                    {story.statLabel}
+                  </span>
                 </div>
                 
                 {/* Divider */}
-                <div className="h-[1px] w-12 bg-[#C6A969]/50 mb-6 transition-all duration-500 group-hover:w-full" />
+                <div className="h-[1px] w-12 bg-[#c9a96e]/40 mb-8 transition-all duration-700 group-hover:w-full" />
                 
                 {/* Title & Description */}
-                <h3 className="font-playfair text-2xl font-bold text-white tracking-wide mb-3">
+                <h3 className="text-white text-2xl font-semibold mb-4 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
                   {story.title}
                 </h3>
-                <p className="text-white/60 font-light text-sm leading-relaxed max-w-xs transition-colors group-hover:text-white/80">
+                <p className="text-white/50 text-[13px] leading-relaxed font-light max-w-xs transition-colors group-hover:text-white/70" style={{ fontFamily: "var(--font-inter)" }}>
                   {story.description}
                 </p>
               </div>
             </FadeInView>
           ))}
         </div>
+
       </div>
     </section>
   );

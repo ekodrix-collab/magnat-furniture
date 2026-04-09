@@ -1,39 +1,30 @@
 @import "tailwindcss";
 
 /* ============================================
-   MAGNAT FURNITURE — DESIGN SYSTEM (Tailwind v4)
+   MAGNAT FURNITURE — PREMIUM LUXURY REFINEMENT
+   Full Color Prominence | Architectural Precision
    ============================================ */
 
 @theme {
-  /* Brand Colors */
-  --color-bg-primary: #F7F3EF;
-  --color-bg-secondary: #EFE7DF;
-  --color-luxury-red: #8B1E1E;
-  --color-gold: #C6A969;
-  --color-gold-light: #D4BA80;
-  --color-heading: #1A1A1A;
-  --color-body: #5A5A5A;
-  --color-btn: #1A1A1A;
-  --color-btn-hover: #333333;
-  --color-border: #E5DED6;
-  --color-white: #ffffff;
-
-  /* Typography
-     --font-playfair is injected by Next.js (layout.tsx)
-     --font-inter    is injected by Next.js (layout.tsx)
-  */
-  --font-playfair: var(--font-playfair), "Georgia", serif;
-  --font-inter: var(--font-inter), "Helvetica Neue", sans-serif;
+  /* Core Brand Colors (Standardized Luxury) */
+  --color-red: #C0001A;
+  --color-gold-classic: #c9a96e;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9f9f9;
+  --color-bg-dark: #111111;
+  --color-text-main: #111111;
+  --color-text-muted: #666666;
+  --color-border-subtle: #eeeeee;
+  
+  /* Typography */
+  --font-playfair: "Playfair Display", "Georgia", serif;
+  --font-dm-sans: "DM Sans", "Helvetica Neue", sans-serif;
 
   /* Spacing */
-  --spacing-section: 6rem;
-  --spacing-section-sm: 4rem;
+  --spacing-section: 10rem;
+  --spacing-section-sm: 6rem;
 
-  /* Border radius */
-  --radius-card: 0.5rem;
-  --radius-btn: 0.25rem;
-
-  /* Transition */
+  /* Transitions */
   --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -41,379 +32,102 @@
    GLOBAL BASE STYLES
    ============================================ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 body {
-  background-color: #F7F3EF;
-  color: #1A1A1A;
-  /* Uses CSS variable injected by Next.js via --font-inter */
-  font-family: var(--font-inter), "Helvetica Neue", sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
+  background-color: #ffffff;
+  color: #111111;
+  font-family: var(--font-dm-sans), sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* ============================================
-   TYPOGRAPHY HELPERS
-   Uses CSS variables — guaranteed by Next.js font loader
+   STANDARDIZED LUXURY COMPONENTS
    ============================================ */
 
-.font-playfair {
-  /* var(--font-playfair) is the Next.js CSS variable from layout.tsx */
-  font-family: var(--font-playfair), "Georgia", serif;
-}
-
-.font-inter {
-  font-family: var(--font-inter), "Helvetica Neue", sans-serif;
-}
-
-/* ============================================
-   BRAND UTILITY CLASSES
-   ============================================ */
-
-.text-heading {
-  color: #1A1A1A;
-}
-
-.text-body {
-  color: #5A5A5A;
-}
-
-.text-red {
-  color: #8B1E1E;
-}
-
-.text-gold {
-  color: #C6A969;
-}
-
-.bg-brand-primary {
-  background-color: #F7F3EF;
-}
-
-.bg-brand-secondary {
-  background-color: #EFE7DF;
-}
-
-.bg-luxury-red {
-  background-color: #8B1E1E;
-}
-
-.bg-gold {
-  background-color: #C6A969;
-}
-
-.border-brand {
-  border-color: #E5DED6;
-}
-
-/* ============================================
-   BUTTON STYLES
-   ============================================ */
-
+/* Primary CTA (Standardized) */
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background-color: #1A1A1A;
+  justify-content: center;
+  background-color: #111111;
   color: #ffffff;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  padding: 1.25rem 3.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  text-decoration: none;
+  letter-spacing: 0.25em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #111111;
 }
 
 .btn-primary:hover {
-  background-color: #333333;
-  transform: translateY(-1px);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
   background-color: transparent;
-  color: #1A1A1A;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid #1A1A1A;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  color: #111111;
 }
 
-.btn-outline:hover {
-  background-color: #1A1A1A;
+/* Standard Imagery (Color Prominent) */
+.img-premium {
+  transition: all 1s var(--ease-luxury);
+}
+
+.img-premium-hover:hover .img-premium {
+  transform: scale(1.05);
+}
+
+/* Section Headings */
+.heading-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #C0001A;
+  margin-bottom: 1.5rem;
+}
+
+.heading-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.max-container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+::selection {
+  background: #C0001A;
   color: #ffffff;
 }
 
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background-color: #C6A969;
-  color: #1A1A1A;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.btn-gold:hover {
-  background-color: #b8964f;
-  transform: translateY(-1px);
-}
-
-/* ============================================
-   SECTION HEADINGS
-   ============================================ */
-
-.section-label {
-  display: block;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #C6A969;
-  margin-bottom: 0.75rem;
-}
-
-.section-title {
-  font-family: var(--font-playfair), "Georgia", serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
-  color: #1A1A1A;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.section-subtitle {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
-  color: #5A5A5A;
-  line-height: 1.7;
-  margin-top: 1rem;
-}
-
-/* ============================================
-   CARD STYLES
-   ============================================ */
-
-.product-card {
-  background: #ffffff;
-  border: 1px solid #E5DED6;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.product-card:hover {
-  box-shadow: 0 16px 40px rgba(26, 26, 26, 0.12);
-  transform: translateY(-4px);
-}
-
-.product-card-img {
-  overflow: hidden;
-  aspect-ratio: 4/3;
-}
-
-.product-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease-luxury);
-}
-
-.product-card:hover .product-card-img img {
-  transform: scale(1.08);
-}
-
-/* ============================================
-   NAVBAR
-   ============================================ */
-
-.navbar-scrolled {
-  background-color: rgba(247, 243, 239, 0.95) !important;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 #E5DED6;
-}
-
-/* ============================================
-   CAROUSEL / SLIDER
-   ============================================ */
-
-.embla {
-  overflow: hidden;
-}
-
-.embla__container {
-  display: flex;
-  touch-action: pan-y;
-}
-
-.embla__slide {
-  flex: 0 0 auto;
-  min-width: 0;
-}
-
-@keyframes ticker {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.logo-ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker 20s linear infinite;
-}
-
-.logo-ticker-track:hover {
-  animation-play-state: paused;
-}
-
-/* ============================================
-   WHATSAPP FLOATING BUTTON
-   ============================================ */
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-
-  70% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-}
-
-.whatsapp-pulse::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background-color: #25D366;
-  animation: pulse-ring 2s ease-out infinite;
-}
-
-/* ============================================
-   IMAGE ZOOM OVERLAY
-   ============================================ */
-
-.img-overlay-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.img-overlay-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(26, 26, 26, 0.6) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.img-overlay-container:hover::after {
-  opacity: 1;
-}
-
-/* ============================================
-   SCROLL INDICATOR
-   ============================================ */
-
-@keyframes scroll-bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-.scroll-indicator {
-  animation: scroll-bounce 2s ease-in-out infinite;
-}
-
-/* ============================================
-   CUSTOM SCROLLBAR
-   ============================================ */
-
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F3EF;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C6A969;
-  border-radius: 3px;
+  background: #eeeeee;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B1E1E;
-}
-
-/* ============================================
-   SELECTION COLOR
-   ============================================ */
-
-::selection {
-  background: #C6A969;
-  color: #1A1A1A;
-}
-
-/* ============================================
-   VIDEO MODAL
-   ============================================ */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  background: #111111;
 }
