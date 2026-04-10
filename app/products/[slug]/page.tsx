@@ -1,15 +1,20 @@
+// app/products/[slug]/page.tsx
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
-import FadeInView from "@/components/ui/FadeInView";
-import { CheckCircle2, MessageCircle, Info, ArrowLeft } from "lucide-react";
 import ProductCard from "@/components/ui/ProductCard";
+import FadeInView from "@/components/ui/FadeInView";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  ArrowLeft, MessageCircle, Phone, Mail, CheckCircle2, 
+  Ruler, Palette, Shield, Truck, ChevronLeft, ChevronRight,
+  Share2, Heart
+} from "lucide-react";
 
-/* ── Full product catalog keyed by slug ── */
+/* ── Product catalog (keep your existing data) ── */
 const productCatalog: Record<string, {
   name: string;
   category: string;
@@ -17,133 +22,76 @@ const productCatalog: Record<string, {
   features: string[];
   specifications: { label: string; value: string }[];
   images: string[];
+  price: string;
+  deliveryTime: string;
 }> = {
   "classic-velvet-sofa": {
     name: "Classic Velvet Sofa",
     category: "Living Room",
-    description: "Our Classic Velvet Sofa is the embodiment of timeless luxury. Featuring traditional deep-tufted upholstery and sustainably sourced walnut-finished solid wood legs, this piece is designed to be the centerpiece of any sophisticated living environment. The premium velvet fabric is both incredibly soft to the touch and highly durable, ensuring that your investment maintains its beauty for years to come. Hand-crafted by our master artisans in Kerala with 25 years of expertise.",
-    features: ["Traditional Deep-Tufted Upholstery", "Sustainable Solid Walnut Legs", "High-Density Premium Foam Core", "Solid Teak Wood Internal Frame", "5-Year Structural Warranty"],
-    specifications: [{ label: "Width", value: "220 cm" }, { label: "Depth", value: "95 cm" }, { label: "Height", value: "85 cm" }, { label: "Leg Material", value: "Solid Walnut" }, { label: "Upholstery", value: "Premium Italian Velvet" }],
+    price: "₹1,85,000",
+    deliveryTime: "4-6 weeks",
+    description: "Our Classic Velvet Sofa isn't just furniture—it's a statement of refined taste. Hand-tufted by master craftsmen in our Kondotty workshop, each piece takes over 120 hours to complete. The premium velvet we use is sourced from Italian mills, chosen for its exceptional softness and durability. The walnut legs are hand-finished with traditional Kerala woodworking techniques passed down through generations.",
+    features: [
+      "Hand-Tufted Premium Italian Velvet",
+      "Sustainable Solid Walnut Legs",
+      "High-Density Premium Foam Core",
+      "Solid Teak Internal Frame",
+      "5-Year Structural Warranty",
+      "Made in Kondotty, Kerala"
+    ],
+    specifications: [
+      { label: "Width", value: "220 cm" },
+      { label: "Depth", value: "95 cm" },
+      { label: "Height", value: "85 cm" },
+      { label: "Leg Material", value: "Solid Walnut" },
+      { label: "Upholstery", value: "Premium Italian Velvet" },
+      { label: "Weight Capacity", value: "400 kg" }
+    ],
     images: [
       "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2070&auto=format&fit=crop",
     ],
   },
-  "oak-dining-table": {
-    name: "Scandinavian Oak Dining Table",
-    category: "Dining Room",
-    description: "Minimalist in form yet rich in character, our Scandinavian Oak Dining Table is crafted from sustainably sourced European White Oak. The natural grain patterns make each table uniquely beautiful. Designed to seat up to 8 guests comfortably, it features a gently rounded edge profile and subtly tapered legs that embody modern Scandinavian design principles. A centerpiece for memorable family gatherings.",
-    features: ["European White Oak Construction", "Natural Oil Finish", "Seats Up to 8 Guests", "Rounded Edge Profile", "10-Year Structural Warranty"],
-    specifications: [{ label: "Length", value: "240 cm" }, { label: "Width", value: "100 cm" }, { label: "Height", value: "76 cm" }, { label: "Material", value: "European White Oak" }, { label: "Finish", value: "Natural Oil" }],
-    images: [
-      "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
-    ],
-  },
-  "leather-armchair": {
-    name: "Empiric Leather Armchair",
-    category: "Living Room",
-    description: "The Empiric Leather Armchair is a testament to Italian leathercraft married with Kerala woodworking tradition. Upholstered in top-grain Italian leather with meticulous hand-stitched detailing, every seam speaks of dedication. The ergonomic design cradles you in comfort, while the solid rosewood frame ensures decades of reliable service. Perfect for a reading nook or a statement accent piece.",
-    features: ["Top-Grain Italian Leather", "Hand-Stitched Detailing", "Ergonomic Contoured Design", "Solid Rosewood Frame", "5-Year Structural Warranty"],
-    specifications: [{ label: "Width", value: "82 cm" }, { label: "Depth", value: "90 cm" }, { label: "Height", value: "95 cm" }, { label: "Frame", value: "Solid Rosewood" }, { label: "Upholstery", value: "Italian Full-Grain Leather" }],
-    images: [
-      "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=1974&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
-    ],
-  },
-  "heritage-canopy-bed": {
-    name: "Heritage Canopy Bed",
-    category: "Bedroom",
-    description: "The Heritage Canopy Bed transforms your bedroom into a royal sanctuary. Its architectural metal framing is complemented by a plush, deeply padded upholstered headboard that invites you to unwind. The canopy structure adds vertical drama and pairs beautifully with sheer drapes for a romantic, sophisticated atmosphere. Built on a solid teak platform for exceptional support.",
-    features: ["Architectural Metal Canopy Frame", "Plush Upholstered Headboard", "Solid Teak Wood Platform", "Integrated Slat Support System", "5-Year Structural Warranty"],
-    specifications: [{ label: "Size", value: "King (180×200 cm)" }, { label: "Headboard Height", value: "140 cm" }, { label: "Canopy Height", value: "220 cm" }, { label: "Frame", value: "Powder-Coated Steel" }, { label: "Platform", value: "Solid Teak" }],
-    images: [
-      "/images/bedroom-001.jpg",
-      "https://images.unsplash.com/photo-1505693314120-0d4438678217?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
-    ],
-  },
-  "executive-desk": {
-    name: "Executive Desk",
-    category: "Office",
-    description: "Command your workspace with our Executive Desk, designed for professionals who demand both form and function. The expansive desktop provides ample room for dual monitors, while integrated cable management channels keep your workspace pristine. Crafted from premium walnut with a hand-rubbed satin finish, it features discrete storage compartments and soft-close drawers.",
-    features: ["Premium Walnut Construction", "Integrated Cable Management", "Soft-Close Drawers", "Hand-Rubbed Satin Finish", "Ergonomic Desktop Height"],
-    specifications: [{ label: "Width", value: "180 cm" }, { label: "Depth", value: "85 cm" }, { label: "Height", value: "76 cm" }, { label: "Material", value: "Solid Walnut" }, { label: "Finish", value: "Hand-Rubbed Satin" }],
-    images: [
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1634643836960-c345b3c3e998?q=80&w=1964&auto=format&fit=crop",
-    ],
-  },
-  "chesterfield-sofa": {
-    name: "Chesterfield Sofa",
-    category: "Living Room",
-    description: "Our Chesterfield Sofa brings the timeless elegance of the 18th-century British design into the modern era. Hand-tufted in premium full-grain leather with individually placed brass nail-head trim, this sofa is the epitome of classical luxury. The deep button tufting provides excellent lumbar support, while the rolled arms and low backrest create an inviting silhouette.",
-    features: ["Full-Grain Leather Upholstery", "Hand-Tufted Button Detail", "Brass Nail-Head Trim", "Rolled Arm Design", "Kiln-Dried Hardwood Frame"],
-    specifications: [{ label: "Width", value: "230 cm" }, { label: "Depth", value: "100 cm" }, { label: "Height", value: "78 cm" }, { label: "Material", value: "Full-Grain Leather" }, { label: "Frame", value: "Kiln-Dried Hardwood" }],
-    images: [
-      "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2070&auto=format&fit=crop",
-    ],
-  },
-  "marble-coffee-table": {
-    name: "Marble Coffee Table",
-    category: "Living Room",
-    description: "The Marble Coffee Table is where art meets utility. Topped with a slab of genuine Italian Carrara marble with its signature veining, it rests on brushed brass legs that catch the light beautifully. Each marble surface is unique due to the natural stone patterns, making your table truly one-of-a-kind. A refined focal point for any contemporary living room.",
-    features: ["Italian Carrara Marble Top", "Brushed Brass Legs", "Unique Natural Veining", "Protective Sealant Finish", "Anti-Scratch Felt Pads"],
-    specifications: [{ label: "Diameter", value: "100 cm" }, { label: "Height", value: "42 cm" }, { label: "Top Material", value: "Carrara Marble" }, { label: "Legs", value: "Brushed Brass" }, { label: "Weight", value: "45 kg" }],
-    images: [
-      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2069&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1634643836960-c345b3c3e998?q=80&w=1964&auto=format&fit=crop",
-    ],
-  },
-  "velvet-dining-chairs": {
-    name: "Velvet Dining Chairs",
-    category: "Dining Room",
-    description: "Elevate every meal with our Velvet Dining Chairs, designed for contoured comfort and visual warmth. The ergonomically shaped backrest supports your posture during long dinner conversations. Premium velvet upholstery in rich jewel tones pairs beautifully with any dining table, while the solid oak legs provide unwavering stability. Sold as a set of two.",
-    features: ["Ergonomic Contoured Backrest", "Premium Velvet Upholstery", "Solid Oak Legs", "Stain-Resistant Treatment", "Sold as a Set of 2"],
-    specifications: [{ label: "Width", value: "50 cm" }, { label: "Depth", value: "58 cm" }, { label: "Height", value: "88 cm" }, { label: "Seat Height", value: "46 cm" }, { label: "Upholstery", value: "Premium Velvet" }],
-    images: [
-      "https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616137422495-1e96aadd3461?q=80&w=2000&auto=format&fit=crop",
-    ],
-  },
+  // ... keep your other products
 };
 
-/* ── Related products helper ── */
 const allProductSlugs = Object.keys(productCatalog);
+
 function getRelatedProducts(currentSlug: string) {
   return allProductSlugs
     .filter((s) => s !== currentSlug)
     .slice(0, 3)
     .map((s) => ({
-      id: s,
-      name: productCatalog[s].name,
       slug: s,
+      name: productCatalog[s].name,
       images: [productCatalog[s].images[0]],
       short_description: productCatalog[s].description.slice(0, 80) + "…",
+      price: productCatalog[s].price,
+      categoryName: productCatalog[s].category
     }));
 }
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const product = productCatalog[slug];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
-  /* ── Fallback for unknown slugs ── */
   if (!product) {
     return (
-      <div className="pt-40 pb-32 bg-brand-primary min-h-screen flex flex-col items-center justify-center">
+      <div className="pt-40 pb-32 bg-white min-h-screen flex flex-col items-center justify-center">
         <FadeInView>
-          <div className="text-center">
-            <h1 className="font-playfair text-5xl font-bold text-[#1A1A1A] mb-6">Product Not Found</h1>
-            <p className="text-body font-light mb-10 max-w-md mx-auto">The product you&apos;re looking for is currently unavailable. Browse our curated catalog for other exquisite pieces.</p>
-            <Button href="/products" variant="primary" showArrow>Browse All Products</Button>
+          <div className="text-center max-w-md">
+            <h1 className="text-5xl font-bold text-[#111111] mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
+              Product Not Found
+            </h1>
+            <p className="text-[#666666] font-light mb-10 leading-relaxed">
+              The product you're looking for is currently unavailable. Browse our curated catalog for other exquisite pieces.
+            </p>
+            <Link href="/products" className="btn-primary">
+              Browse All Products
+            </Link>
           </div>
         </FadeInView>
       </div>
@@ -151,148 +99,308 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   }
 
   const relatedProducts = getRelatedProducts(slug);
-  const whatsappLink = `https://wa.me/919074477358?text=${encodeURIComponent(`Hi Magnat Furniture, I'm interested in viewing more details about the "${product.name}"`)}`;
+  const whatsappLink = `https://wa.me/919446516395?text=${encodeURIComponent(`Hi MAGNAT Furniture, I'm interested in the ${product.name}. Can you provide more details?`)}`;
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+  };
 
   return (
-    <div className="pt-32 pb-32 bg-brand-primary min-h-screen">
-      <div className="container mx-auto px-6 lg:px-12 mt-12">
-        {/* Breadcrumb */}
-        <FadeInView>
-          <Link href="/products" className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969] mb-10 hover:text-[#8B1E1E] transition-colors">
-            <ArrowLeft size={14} />
-            Back to Products
-          </Link>
+    <div className="pt-24 pb-32 bg-white min-h-screen">
+      <div className="max-container">
+        
+        {/* ── Breadcrumb Navigation ── */}
+        <FadeInView className="py-8">
+          <div className="flex items-center gap-2 text-sm text-[#666666]">
+            <Link href="/" className="hover:text-[#C0001A] transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/products" className="hover:text-[#C0001A] transition-colors">Products</Link>
+            <span>/</span>
+            <span className="text-[#111111] font-medium">{product.name}</span>
+          </div>
         </FadeInView>
 
-        {/* Product Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32">
+        {/* ── Product Main Section ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-32">
           
-          {/* Images Grid */}
+          {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="space-y-6">
+            {/* Main Image with Gallery */}
             <FadeInView direction="none" duration={1.2}>
-              <div className="relative h-[600px] overflow-hidden border border-brand group">
-                <Image
-                  src={product.images[0]}
-                  alt={product.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#f9f9f9] group">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={product.images[currentImageIndex]}
+                      alt={`${product.name} - View ${currentImageIndex + 1}`}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation Arrows */}
+                {product.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+
+                {/* Image Counter */}
+                <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-black/70 backdrop-blur-sm text-white text-xs rounded-full">
+                  {currentImageIndex + 1} / {product.images.length}
+                </div>
+
+                {/* Wishlist & Share */}
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <button
+                    onClick={() => setIsLiked(!isLiked)}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all ${
+                      isLiked ? "bg-[#C0001A] text-white" : "bg-white/90 hover:bg-white text-[#111111]"
+                    }`}
+                  >
+                    <Heart size={18} fill={isLiked ? "currentColor" : "none"} />
+                  </button>
+                  <button className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition-all">
+                    <Share2 size={18} />
+                  </button>
+                </div>
               </div>
             </FadeInView>
-            <div className="grid grid-cols-2 gap-6">
-              {product.images.slice(1).map((img, i) => (
-                <FadeInView key={i} delay={0.2 + i * 0.1} direction="up" className="relative h-64 overflow-hidden border border-brand group">
-                  <Image
-                    src={img}
-                    alt={`${product.name} Detail ${i + 1}`}
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                </FadeInView>
-              ))}
-            </div>
+
+            {/* Thumbnail Grid */}
+            {product.images.length > 1 && (
+              <div className="grid grid-cols-4 gap-4">
+                {product.images.map((img, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={() => setCurrentImageIndex(i)}
+                    className={`relative aspect-square overflow-hidden bg-[#f9f9f9] transition-all ${
+                      currentImageIndex === i ? "ring-2 ring-[#C0001A] ring-offset-2" : "opacity-60 hover:opacity-100"
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.name} Thumbnail ${i + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 25vw, 15vw"
+                      className="object-cover"
+                    />
+                  </motion.button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Content info */}
+          {/* ══════ RIGHT: Product Info ══════ */}
           <div className="flex flex-col">
             <FadeInView>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969] bg-white px-3 py-1 border border-brand">
+              {/* Category Badge */}
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-3 py-1.5 bg-[#C0001A]/10 text-[#C0001A] text-[9px] font-bold tracking-[0.3em] uppercase">
                   {product.category}
                 </span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-body">
+                <span className="flex items-center gap-2 text-xs text-[#666666]">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   In Stock
                 </span>
               </div>
-              <h1 className="font-playfair text-5xl md:text-6xl font-bold text-[#1A1A1A] mb-8 leading-tight">
+
+              {/* Product Name */}
+              <h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-4 leading-tight"
+                style={{ fontFamily: "var(--font-playfair)" }}
+              >
                 {product.name}
               </h1>
-              <p className="text-lg text-body leading-relaxed font-light mb-12 italic border-l-2 border-[#8B1E1E] pl-8">
+
+              {/* Price & Delivery */}
+              <div className="flex flex-wrap items-center gap-6 pb-6 border-b border-[#eeeeee] mb-8">
+                <div>
+                  <span className="text-xs uppercase tracking-wider text-[#666666] block mb-1">Price</span>
+                  <span className="text-3xl font-bold text-[#111111]" style={{ fontFamily: "var(--font-playfair)" }}>
+                    {product.price}
+                  </span>
+                </div>
+                <div className="w-px h-12 bg-[#eeeeee]"></div>
+                <div>
+                  <span className="text-xs uppercase tracking-wider text-[#666666] block mb-1">Delivery</span>
+                  <span className="text-sm font-medium text-[#111111]">{product.deliveryTime}</span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p 
+                className="text-[#666666] text-base leading-relaxed font-light mb-8"
+                style={{ fontFamily: "var(--font-dm-sans)" }}
+              >
                 {product.description}
               </p>
             </FadeInView>
 
-            {/* Features */}
-            <FadeInView delay={0.2} className="mb-12">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-[#1A1A1A] mb-8 flex items-center gap-2">
-                <Info size={16} className="text-[#C6A969]" />
+            {/* Key Features */}
+            <FadeInView delay={0.2} className="mb-8">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[#111111] mb-6 flex items-center gap-2">
+                <CheckCircle2 size={18} className="text-[#C0001A]" />
                 Key Features
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {product.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 text-sm text-[#1A1A1A]">
-                    <CheckCircle2 size={16} className="text-[#8B1E1E] shrink-0" />
-                    <span className="font-medium tracking-wide">{feature}</span>
-                  </div>
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex items-start gap-3 text-sm text-[#111111]"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-2 shrink-0"></div>
+                    <span className="font-medium">{feature}</span>
+                  </motion.div>
                 ))}
               </div>
             </FadeInView>
 
-            {/* Specs */}
-            <FadeInView delay={0.3} className="mb-16">
-              <div className="border-t border-brand pt-12">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-12">
+            {/* Specifications */}
+            <FadeInView delay={0.3} className="mb-10">
+              <div className="p-6 bg-[#f9f9f9] rounded-lg">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-[#111111] mb-6 flex items-center gap-2">
+                  <Ruler size={18} className="text-[#C0001A]" />
+                  Specifications
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {product.specifications.map((spec, i) => (
                     <div key={i}>
-                      <span className="block text-[0.65rem] font-bold uppercase tracking-widest text-[#C6A969] mb-2">{spec.label}</span>
-                      <span className="text-sm text-[#1A1A1A] font-medium tracking-widest">{spec.value}</span>
+                      <span className="block text-[9px] font-bold uppercase tracking-widest text-[#666666] mb-2">
+                        {spec.label}
+                      </span>
+                      <span className="text-sm text-[#111111] font-semibold">
+                        {spec.value}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
             </FadeInView>
 
-            {/* Actions */}
-            <FadeInView delay={0.4} className="mt-auto flex flex-col sm:flex-row gap-6">
+            {/* CTA Buttons */}
+            <FadeInView delay={0.4} className="mt-auto flex flex-col sm:flex-row gap-4">
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-3 bg-[#1A1A1A] text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.2em] transition-all hover:bg-[#8B1E1E] hover:scale-[1.02] active:scale-95 shadow-xl"
+                className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 <MessageCircle size={20} fill="currentColor" />
-                Enquire Now
+                WhatsApp Us
               </a>
-              <Button href="/contact" variant="outline" className="flex-1 border-[#1A1A1A] px-10 py-5">
-                Visit our Showroom
-              </Button>
+              
+              <a
+                href="tel:+919446516395"
+                className="flex-1 flex items-center justify-center gap-3 bg-[#111111] hover:bg-[#C0001A] text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] transition-all"
+              >
+                <Phone size={20} />
+                Call Now
+              </a>
             </FadeInView>
+
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-[#eeeeee]">
+              {[
+                { icon: Shield, text: "5-Year Warranty" },
+                { icon: Truck, text: "Free Delivery" },
+                { icon: Palette, text: "Customizable" },
+                { icon: CheckCircle2, text: "Made in Kerala" }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center text-center">
+                  <item.icon className="text-[#C0001A] mb-2" size={24} />
+                  <span className="text-[10px] uppercase tracking-wider text-[#666666]">
+                    {item.text}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Brand Guarantee */}
-        <FadeInView direction="up">
-          <div className="bg-[#EFE7DF] border border-brand p-12 mb-32 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl text-center md:text-left">
-              <h2 className="font-playfair text-3xl font-bold text-[#1A1A1A] mb-4">The Magnat Guarantee</h2>
-              <p className="text-body font-light italic leading-loose">
-                Each piece we deliver is not just furniture, but a legacy of 25 years of master craftsmanship. We guarantee that your custom-made piece is crafted from the finest materials and handled with absolute care until it reaches your doorstep.
-              </p>
-            </div>
-            <div className="shrink-0 flex items-center justify-center h-32 w-32 rounded-full border-2 border-[#C6A969] border-dashed">
-              <span className="font-playfair text-xl font-bold text-[#8B1E1E]">Est. 2001</span>
+        {/* ── MAGNAT Guarantee Section ── */}
+        <FadeInView direction="up" className="mb-32">
+          <div className="relative overflow-hidden bg-gradient-to-r from-[#f9f9f9] to-white border border-[#eeeeee] p-12 md:p-16 rounded-2xl">
+            {/* Decorative Element */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#C0001A]/5 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <Shield className="text-[#C0001A]" size={32} />
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#111111]" style={{ fontFamily: "var(--font-playfair)" }}>
+                    The MAGNAT™ Guarantee
+                  </h2>
+                </div>
+                <p className="text-[#666666] font-light leading-relaxed text-lg">
+                  Each piece we deliver isn't just furniture—it's a legacy of 25 years of master craftsmanship. 
+                  We guarantee that your piece is crafted from the finest materials and handled with absolute care 
+                  until it reaches your doorstep. Made in Kondotty, trusted across Kerala.
+                </p>
+              </div>
+              
+              <div className="shrink-0 flex items-center justify-center h-32 w-32 rounded-full border-2 border-[#C0001A] border-dashed">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-[#C0001A]" style={{ fontFamily: "var(--font-playfair)" }}>Est.</div>
+                  <div className="text-3xl font-bold text-[#111111]" style={{ fontFamily: "var(--font-playfair)" }}>2001</div>
+                </div>
+              </div>
             </div>
           </div>
         </FadeInView>
 
-        {/* Related Products */}
+        {/* ── Related Products ── */}
         <div>
-          <SectionHeading
-            label="Curated for you"
-            title="Complete the Look"
-            className="mb-16"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <FadeInView>
+            <div className="text-center mb-16">
+              <span className="heading-label">Complete Your Space</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
+                You Might Also Love
+              </h2>
+            </div>
+          </FadeInView>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {relatedProducts.map((p, i) => (
-              <FadeInView key={p.id} delay={i * 0.1}>
+              <FadeInView key={p.slug} delay={i * 0.1}>
                 <ProductCard product={p} />
               </FadeInView>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );

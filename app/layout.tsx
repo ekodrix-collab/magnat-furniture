@@ -1,9 +1,12 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import WhatsAppFloating from "@/components/ui/WhatsAppFloating"; // ✅ NEW
+import ContactQuickActions from "@/components/ui/ContactQuickActions";
+import Preloader from "@/components/ui/Preloader";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -21,20 +24,21 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://magnat_furniture_kondotty.com"), // Placeholder domain
+  metadataBase: new URL("https://magnatfurniture.com"),
   title: {
-    default: "MAGNAT Furniture & Interior Manufacturing | Kondotty, Kerala",
-    template: "%s | MAGNAT Furniture",
+    default: "MAGNAT™ | Premium Furniture Manufacturing | Kondotty, Kerala",
+    template: "%s | MAGNAT™ Furniture",
   },
   description:
-    "MAGNAT Furniture Kondotty — Manufacturing and showroom excellence for sofas, dining sets, curtains, and full interior solutions in Kerala. Crafted for Kerala, built to last.",
+    "25 Years of Manufacturing Excellence. MAGNAT Furniture Kondotty — Premium sofas, dining sets, curtains, and bespoke interior solutions. Crafted for Kerala, built to last.",
   keywords: [
-    "furniture manufacturing Kondotty",
-    "sofas Kerala",
+    "luxury furniture Kondotty",
+    "premium sofas Kerala",
     "interior design Kondotty",
-    "dining sets Kerala",
+    "custom dining sets Kerala",
     "curtains and blinds Kondotty",
     "Magnat Furniture",
+    "furniture manufacturing Kerala",
   ],
   authors: [{ name: "MAGNAT Furniture & Interiors" }],
   creator: "MAGNAT Furniture",
@@ -42,10 +46,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "/",
-    siteName: "MAGNAT Furniture",
-    title: "MAGNAT Furniture & Interior Manufacturing | Kondotty, Kerala",
+    siteName: "MAGNAT™ Furniture",
+    title: "MAGNAT™ | Premium Furniture Manufacturing | Kondotty",
     description:
-      "Manufacturing sofas, dining sets, and curtains in Kondotty. Kerala's own quality furniture.",
+      "25 Years of Excellence. Manufacturing premium sofas, dining sets, and curtains in Kondotty. Kerala's finest furniture.",
+    images: [
+      {
+        url: "/images/og-image.jpg", // Add your OG image
+        width: 1200,
+        height: 630,
+        alt: "MAGNAT Furniture Showroom",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MAGNAT™ Furniture | Kondotty",
+    description: "25 Years of Manufacturing Excellence",
   },
   robots: {
     index: true,
@@ -60,11 +77,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#F7F4F0]">
+      <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
+        <Preloader />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <WhatsAppFloating /> {/* ✅ Enhanced Version */}
+        <ContactQuickActions />
       </body>
     </html>
   );
