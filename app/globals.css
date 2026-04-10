@@ -163,44 +163,46 @@ button {
   padding-right: 1.5rem;
 }
 
-/* Tablet (Safe side gutters) */
+/* Tablet (Minimizing gutters) */
 @media (min-width: 768px) {
   .max-container {
-    max-width: 680px; 
+    max-width: 740px; 
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* 11-12" Small Laptops */
+@media (min-width: 1024px) {
+  .max-container {
+    max-width: 1000px;
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
-/* 11-12" Small Laptops (Bootstrap lg variant) */
-@media (min-width: 1024px) {
-  .max-container {
-    max-width: 900px;
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
-/* 13-14" Medium Laptops (Balanced side space) */
+/* 13-14" Medium Laptops */
 @media (min-width: 1280px) {
-  .max-container {
-    max-width: 1100px;
-  }
-}
-
-/* 15-16" Large Laptops (The Average Standard) */
-@media (min-width: 1440px) {
   .max-container {
     max-width: 1240px;
   }
 }
 
-/* 17-18" Workstations (Architectural Cap for 'Empty Space') */
-@media (min-width: 1700px) {
+/* 15-16" Large Laptops */
+@media (min-width: 1440px) {
   .max-container {
     max-width: 1400px;
   }
 }
+
+/* 17-18" Workstations */
+@media (min-width: 1700px) {
+  .max-container {
+    max-width: 1640px;
+  }
+}
+
+
 
 
 ::selection {
