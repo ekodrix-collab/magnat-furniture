@@ -241,4 +241,239 @@ button {
 
 .whatsapp-pulse {
   animation: whatsapp-pulse 2s infinite;
+}/* ============================================
+   ENHANCED WHATSAPP & FLOATING ELEMENTS
+   ============================================ */
+
+/* Enhanced WhatsApp Pulse with Glow */
+@keyframes whatsapp-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4),
+                0 0 20px rgba(37, 211, 102, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0),
+                0 0 30px rgba(37, 211, 102, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+.whatsapp-pulse-glow {
+  animation: whatsapp-pulse-glow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth Scale on Hover */
+.hover-lift {
+  transition: transform 0.4s var(--ease-luxury), box-shadow 0.4s var(--ease-luxury);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(17, 17, 17, 0.15);
+}
+
+/* Glass Morphism for Floating Cards */
+.glass-luxury {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Button (Optional Alternative) */
+.btn-gradient-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #20bd5a 100%);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.3s var(--ease-luxury);
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-gradient-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* ============================================
+   LUXURY MICRO-INTERACTIONS
+   ============================================ */
+
+/* Smooth Underline Links */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  color: #111111;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-luxury);
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #C0001A;
+  transition: width 0.4s var(--ease-luxury);
+}
+
+.link-underline:hover {
+  color: #C0001A;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Fade In Animation */
+@keyframes luxury-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: luxury-fade-in 0.8s var(--ease-luxury) forwards;
+}
+
+/* Stagger Animation for Lists */
+.animate-stagger > * {
+  opacity: 0;
+  animation: luxury-fade-in 0.6s var(--ease-luxury) forwards;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* ============================================
+   BADGE & NOTIFICATION STYLES
+   ============================================ */
+
+.badge-live {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background-color: #C0001A;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Mobile-First Contact Bar */
+.mobile-contact-bar {
+  background: #ffffff;
+  box-shadow: 0 -4px 20px rgba(17, 17, 17, 0.1);
+  border-top: 1px solid #eeeeee;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-luxury);
+  z-index: 1000;
+}
+
+.tooltip-trigger:hover .tooltip {
+  opacity: 1;
+}
+
+/* Arrow for Tooltip */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.tooltip-left::before {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #111111 transparent transparent;
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* Focus Styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #C0001A;
+  outline-offset: 4px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (Professional Touch)
+   ============================================ */
+
+@media print {
+  .no-print,
+  .whatsapp-pulse,
+  .mobile-contact-bar {
+    display: none !important;
+  }
+  
+  body {
+    background: #ffffff;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
 }
