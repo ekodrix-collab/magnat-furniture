@@ -104,6 +104,7 @@ export default function HomeHero() {
       </div>
 
       {/* ── Editorial Content ── */}
+
       <div className="max-container relative z-20 h-full flex flex-col justify-center items-center">
         <div className="max-w-4xl w-full space-y-2 flex flex-col items-center">
 
@@ -160,7 +161,7 @@ export default function HomeHero() {
                 >
                   <Link
                     href="/collections"
-                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#62010e] hover:!text-white !border-none py-5 px-12 text-[10px] rounded-sm"
+                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#62010e] hover:!text-white !border-none py-5 px-12 text-[10px] rounded-[8px]"
                   >
                     Explore More
                   </Link>
