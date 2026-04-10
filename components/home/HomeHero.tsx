@@ -161,7 +161,7 @@ export default function HomeHero() {
                 >
                   <Link
                     href="/collections"
-                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#62010e] hover:!text-white !border-none py-5 px-12 text-[10px] rounded-sm"
+                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#62010e] hover:!text-white !border-none py-5 px-12 text-[10px] rounded-[8px]"
                   >
                     Explore More
                   </Link>
