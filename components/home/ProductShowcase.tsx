@@ -1,9 +1,8 @@
 "use client";
 
 import ProductCard from "@/components/ui/ProductCard";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
 import FadeInView from "@/components/ui/FadeInView";
+import Link from "next/link";
 
 const featuredProducts = [
   {
@@ -32,28 +31,42 @@ const featuredProducts = [
     name: "Heritage Canopy Bed",
     slug: "heritage-canopy-bed",
     short_description: "Architectural metal framing with a plush upholstered headboard. The center-piece of your sanctuary.",
-    images: ["/images/bedroom-001.jpg"],
+    images: ["https://images.unsplash.com/photo-1505691938895-1758d7eaa511?q=80&w=2070&auto=format&fit=crop"],
   },
 ];
 
 export default function ProductShowcase() {
   return (
-    <section className="bg-brand-primary py-32 px-6 lg:px-12">
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-          <SectionHeading
-            label="Featured Products"
-            title="The Art of Comfort"
-            subtitle="Explore our most popular pieces, each representing the pinnacle of design and durability. Meticulously crafted for your home."
-            className="max-w-2xl"
-          />
-          <FadeInView delay={0.4}>
-            <Button href="/products" variant="outline" showArrow>
-              View All Products
-            </Button>
+    <section className="bg-[#f5f2ee] py-24 lg:py-32 border-t border-[#f0f0f0]">
+      <div className="max-w-[1600px] mx-auto">
+        
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 lg:mb-24 gap-10">
+          <FadeInView className="max-w-2xl">
+            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+              Selected Works
+            </span>
+            <h2 className="text-[#1a1a1a] leading-[1.1] mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
+              The Art of <br />
+              <span className="italic">Lived Comfort</span>
+            </h2>
+            <div className="w-16 h-[1px] bg-[#c9a96e] mb-6" />
+            <p className="text-[#1a1a1a]/55 text-sm leading-relaxed max-w-md font-light" style={{ fontFamily: "var(--font-inter)" }}>
+              Explore our most iconic pieces, each representing the intersection of artistic form and rigorous engineering.
+            </p>
+          </FadeInView>
+
+          <FadeInView delay={0.3}>
+            <Link href="/products" className="btn-gold-outline">
+              View All Creations
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </FadeInView>
         </div>
 
+        {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
           {featuredProducts.map((product, index) => (
             <FadeInView key={product.id} delay={0.1 * index}>
@@ -61,6 +74,7 @@ export default function ProductShowcase() {
             </FadeInView>
           ))}
         </div>
+        
       </div>
     </section>
   );
