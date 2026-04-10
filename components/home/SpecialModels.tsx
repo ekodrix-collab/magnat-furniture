@@ -1,28 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import Link from "next/link";
 import FadeInView from "@/components/ui/FadeInView";
 
-const specialModels = [
+/* ── Data ── */
+const col1 = {
+  name: "Living",
+  href: "/products?category=sofas",
+  image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
+};
+
+const col2 = [
   {
-    name: "The Milano Suite",
-    series: "Signature Series",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
-    desc: "A masterwork of Italian-inspired geometry and pure comfort."
+    name: "Dining",
+    href: "/products?category=dining",
+    image: "https://images.unsplash.com/photo-1617806118233-18e1c0945594?q=80&w=1600&auto=format&fit=crop",
   },
   {
-    name: "Oxide Curvilinear",
-    series: "Avant Garde",
-    image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2600&auto=format&fit=crop",
-    desc: "Redefining the boundaries of sculptural seating design."
+    name: "Bedroom",
+    href: "/products?category=bedroom",
+    image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1600&auto=format&fit=crop",
+  },
+];
+
+const col3 = [
+  {
+    name: "Office",
+    href: "/products?category=office",
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop",
   },
   {
-    name: "Kondotty Heritage I",
-    series: "Local Excellence",
-    image: "https://images.unsplash.com/photo-1574621100236-d25b64cf5615?q=80&w=2600&auto=format&fit=crop",
-    desc: "Blending raw Kerala teak with modern velvet textures."
-  }
+    name: "School Furniture",
+    href: "/products?category=school",
+    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1600&auto=format&fit=crop",
+  },
+  {
+    name: "Storage",
+    href: "/products?category=storage",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+  },
 ];
 
 export default function SpecialModels() {
@@ -40,56 +57,96 @@ export default function SpecialModels() {
               </h2>
            </FadeInView>
            <FadeInView delay={0.2} className="shrink-0">
-              <button className="btn-primary !px-10 lg:!px-14 !py-4 lg:!py-5 !text-[9px] lg:!text-[10px]">
+              <Link href="/collections" className="btn-primary !px-10 lg:!px-14 !py-4 lg:!py-5 !text-[9px] lg:!text-[10px]">
                  View Full Portfolio
-              </button>
+              </Link>
            </FadeInView>
         </div>
 
-        {/* Special Models Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 xl:gap-16">
+        {/* ── 3-Column Masonry Grid — Standardized Luxury — ════ */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 lg:h-[900px]">
+          
+          {/* Column 1: Large Feature Card */}
+          <FadeInView className="h-[500px] lg:h-full">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -8 }}
+              className="group relative h-full w-full rounded-[28px] lg:rounded-[40px] overflow-hidden cursor-pointer shadow-xl border border-black/5"
+              style={{ background: "#1a1a1a" }}
+            >
+              <Link href={col1.href} className="absolute inset-0 z-20" aria-label={`Explore ${col1.name}`} />
+              <img
+                src={col1.image}
+                alt={col1.name}
+                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-[1.05]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+              
+              <div className="absolute bottom-10 left-10 right-10 pointer-events-none">
+                <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-[#C0001A] mb-4 block">Signature Series</span>
+                <h3 className="text-white font-bold leading-tight" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px, 5vw, 64px)" }}>
+                   {col1.name}
+                </h3>
+              </div>
+            </motion.div>
+          </FadeInView>
 
-           {specialModels.map((model, index) => (
-             <FadeInView 
-                key={model.name} 
-                delay={index * 0.15} 
-                className="group cursor-pointer"
-             >
-                {/* Image Container with Grayscale Effect */}
-                <div className="relative aspect-[4/5] overflow-hidden bg-white mb-8 group-hover:shadow-[0_45px_100px_rgba(0,0,0,0.1)] transition-all duration-700">
-                   <img 
-                    src={model.image} 
-                    alt={model.name} 
-                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
-                   />
-                   
-                   {/* Signature Mark */}
-                   <div className="absolute top-8 left-8 bg-[#111] px-4 py-2 text-[8px] font-bold text-white tracking-[0.3em] uppercase">
-                      Signature Piece
-                   </div>
-                </div>
+          {/* Column 2: Two Medium Cards */}
+          <div className="flex flex-col gap-6 lg:gap-8 xl:gap-10 h-full">
+            {col2.map((cat, i) => (
+              <FadeInView key={cat.name} delay={0.1 * (i + 1)} className="flex-1 min-h-[300px]">
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="group relative h-full w-full rounded-[28px] lg:rounded-[36px] overflow-hidden cursor-pointer shadow-lg border border-black/5"
+                  style={{ background: "#1a1a1a" }}
+                >
+                  <Link href={cat.href} className="absolute inset-0 z-20" aria-label={`Explore ${cat.name}`} />
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-all duration-1000 group-hover:scale-[1.05]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                  <div className="absolute bottom-8 left-8 right-8 pointer-events-none">
+                    <h3 className="text-white font-bold" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(24px, 3.5vw, 40px)" }}>
+                      {cat.name}
+                    </h3>
+                  </div>
+                </motion.div>
+              </FadeInView>
+            ))}
+          </div>
 
-                {/* Content */}
-                <div className="space-y-4 text-left">
-                   <div className="flex items-center gap-3">
-                      <span className="text-[#C0001A] text-[9px] font-bold tracking-[0.2em] uppercase">{model.series}</span>
-                      <div className="h-px flex-1 bg-black/5" />
-                      <div className="flex gap-1">
-                         {[...Array(5)].map((_, i) => <Star key={i} size={8} className="fill-[#111] text-[#111]" />)}
-                      </div>
-                   </div>
-                   
-                   <h3 className="text-3xl font-bold text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>{model.name}</h3>
-                   <p className="text-black/45 text-sm font-light leading-relaxed max-w-xs">{model.desc}</p>
-                   
-                   <div className="pt-4 flex items-center gap-4 text-[9px] font-bold tracking-[0.3em] uppercase group-hover:text-[#C0001A] transition-colors">
-                      Inquire Design <ArrowRight size={14} />
-                   </div>
-                </div>
-             </FadeInView>
-           ))}
+          {/* Column 3: Three Smaller Cards */}
+          <div className="flex flex-col gap-6 lg:gap-8 xl:gap-10 h-full">
+            {col3.map((cat, i) => (
+              <FadeInView key={cat.name} delay={0.15 * (i + 1)} className="flex-1 min-h-[200px]">
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="group relative h-full w-full rounded-[28px] overflow-hidden cursor-pointer shadow-md border border-black/5"
+                  style={{ background: "#1a1a1a" }}
+                >
+                  <Link href={cat.href} className="absolute inset-0 z-20" aria-label={`Explore ${cat.name}`} />
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-1000 group-hover:scale-[1.05]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
+                    <h3 className="text-white font-bold tracking-wide" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(20px, 2.5vw, 32px)" }}>
+                      {cat.name}
+                    </h3>
+                  </div>
+                </motion.div>
+              </FadeInView>
+            ))}
+          </div>
+
         </div>
-
       </div>
     </section>
   );

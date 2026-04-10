@@ -62,7 +62,6 @@ export default function HomeShowroom() {
                     </div>
                  </div>
 
-
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
                     <div className="space-y-2 lg:space-y-3">
                        <span className="text-black/30 text-[8px] lg:text-[9px] uppercase tracking-widest flex items-center gap-2">
@@ -91,7 +90,6 @@ export default function HomeShowroom() {
               </div>
            </div>
         </FadeInView>
-
 
       </div>
     </section>
