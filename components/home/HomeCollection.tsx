@@ -70,7 +70,7 @@ export default function HomeCollection() {
                             <ArrowRight size={20} className="text-[#C0001A] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <p className="text-black/40 text-xs font-light max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                            Discover our manufacturing excellence in {item.title.toLowerCase()}. Custom solutions for premium homes.
+                            Discover Our manufacturing excellence in {item.title.toLowerCase()}. Custom solutions for premium homes.
                         </p>
                      </div>
                   </div>
