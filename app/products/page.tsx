@@ -1,96 +1,100 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useState, useMemo, Suspense } from "react";
-import SectionHeading from "@/components/ui/SectionHeading";
+import { useState } from "react";
 import ProductCard from "@/components/ui/ProductCard";
 import FadeInView from "@/components/ui/FadeInView";
-import { Filter, SlidersHorizontal } from "lucide-react";
 
+// Mock data for products
 const allProducts = [
-  { id: "1", name: "Classic Velvet Sofa", category_id: "living-room", slug: "classic-velvet-sofa", images: ["https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop"], short_description: "Deep-tufted velvet upholstery." },
-  { id: "2", name: "Oak Dining Table", category_id: "dining-room", slug: "oak-dining-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop"], short_description: "European White Oak table." },
-  { id: "3", name: "Leather Armchair", category_id: "living-room", slug: "leather-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], short_description: "Top-grain Italian leather." },
-  { id: "4", name: "Canopy Bed", category_id: "bedroom", slug: "heritage-canopy-bed", images: ["/images/bedroom-001.jpg"], short_description: "Architectural metal framing." },
-  { id: "5", name: "Executive Desk", category_id: "office", slug: "executive-desk", images: ["https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop"], short_description: "Premium office workspace." },
-  { id: "6", name: "Chesterfield Sofa", category_id: "living-room", slug: "chesterfield-sofa", images: ["https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop"], short_description: "Classic tufted leather sofa." },
-  { id: "7", name: "Marble Coffee Table", category_id: "living-room", slug: "marble-coffee-table", images: ["https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2069&auto=format&fit=crop"], short_description: "Italian Carrara marble top." },
-  { id: "8", name: "Velvet Dining Chairs", category_id: "dining-room", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort for dining." },
+  { slug: "milano-sofa", name: "Milano Modular Sofa", short_description: "Architectural comfort with Italian-sourced leather foundations.", images: ["https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop"], categoryName: "Sofas" },
+  { slug: "oxide-chair", name: "Oxide Accent Chair", short_description: "A sculptural masterpiece blending velvet and matte steel.", images: ["https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2600&auto=format&fit=crop"], categoryName: "Chairs" },
+  { slug: "kondotty-table", name: "Kondotty Heritage Table", short_description: "Hand-finished Kerala teak with a minimalist glass inlay.", images: ["https://images.unsplash.com/photo-1574621100236-d25b64cf5615?q=80&w=2600&auto=format&fit=crop"], categoryName: "Dining" },
+  { slug: "zenith-curtains", name: "Zenith Sheer Series", short_description: "Light-filtering sheers designed for tropical ventilation.", images: ["https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2600&auto=format&fit=crop"], categoryName: "Curtains" },
+  { slug: "monolith-bed", name: "Monolith Master Bed", short_description: "Upholstered luxury with integrated ambient lighting slots.", images: ["https://images.unsplash.com/photo-1505691938895-1758d7eaa511?q=80&w=2600&auto=format&fit=crop"], categoryName: "Bedroom" },
+  { slug: "vector-recliner", name: "Vector Ergonomic Recliner", short_description: "Precision-engineered support for the modern executive lounge.", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], categoryName: "Chairs" },
 ];
 
-const categories = [
-  { label: "All Products", value: "all" },
-  { label: "Living Room", value: "living-room" },
-  { label: "Dining Room", value: "dining-room" },
-  { label: "Bedroom", value: "bedroom" },
-  { label: "Office", value: "office" },
-];
-
-function ProductsContent() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "all";
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
-
-  const filteredProducts = useMemo(() => {
-    if (activeCategory === "all") return allProducts;
-    return allProducts.filter((p) => p.category_id === activeCategory);
-  }, [activeCategory]);
-
-  return (
-    <div className="pt-32 pb-32 min-h-screen bg-brand-primary">
-      <div className="container mx-auto px-6 lg:px-12 mt-12">
-        <div className="flex flex-col lg:flex-row items-end justify-between mb-24 gap-12">
-          <SectionHeading
-            label="Exclusive Catalog"
-            title="Our Masterpieces"
-            subtitle="Explore our complete range of premium furniture, meticulously organized by collection for your convenience."
-            className="max-w-2xl"
-          />
-
-          <div className="flex flex-wrap gap-4 pt-10 border-t border-brand w-full lg:w-auto lg:border-none">
-            {categories.map((cat) => (
-              <button
-                key={cat.value}
-                onClick={() => setActiveCategory(cat.value)}
-                className={`px-8 py-3 text-[0.65rem] font-bold uppercase tracking-[0.2em] transition-all border ${activeCategory === cat.value
-                    ? "bg-[#1A1A1A] text-white border-[#1A1A1A]"
-                    : "bg-transparent text-[#1A1A1A] border-brand hover:border-[#1A1A1A]"
-                  }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-            {filteredProducts.map((product, index) => (
-              <FadeInView key={product.id} delay={index * 0.05}>
-                <ProductCard product={product} />
-              </FadeInView>
-            ))}
-          </div>
-        ) : (
-          <div className="py-20 text-center">
-            <p className="text-body font-light text-lg italic">No products found in this category.</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+const categories = ["All", "Sofas", "Chairs", "Dining", "Curtains", "Bedroom"];
 
 export default function ProductsPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProducts = activeCategory === "All" 
+    ? allProducts 
+    : allProducts.filter(p => p.categoryName === activeCategory);
+
   return (
-    <Suspense fallback={
-      <div className="pt-32 pb-32 min-h-screen bg-brand-primary flex items-center justify-center">
-        <div className="animate-pulse text-[#1A1A1A] tracking-[0.3em] uppercase text-xs font-bold">
-          Loading Catalog...
+    <main className="pt-24 min-h-screen bg-white">
+      {/* ── Page Header ── */}
+      <section className="py-24 border-b border-black/5">
+        <div className="max-container">
+           <FadeInView className="max-w-4xl space-y-4">
+              <span className="heading-label">Product Showcase</span>
+              <h1 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+                 Signature <span className="italic font-normal">Inventory.</span>
+              </h1>
+           </FadeInView>
         </div>
-      </div>
-    }>
-      <ProductsContent />
-    </Suspense>
+      </section>
+
+      {/* ── Filter Bar ── */}
+      <section className="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-b border-black/5">
+         <div className="max-container flex items-center justify-between py-6">
+            <div className="flex items-center gap-10 overflow-x-auto no-scrollbar">
+               {categories.map((cat) => (
+                 <button
+                   key={cat}
+                   onClick={() => setActiveCategory(cat)}
+                   className={`text-[10px] font-bold tracking-[0.25em] uppercase transition-all whitespace-nowrap pb-1 border-b-2 ${
+                     activeCategory === cat ? "border-[#C0001A] text-[#111]" : "border-transparent text-black/30 hover:text-black"
+                   }`}
+                 >
+                   {cat}
+                 </button>
+               ))}
+            </div>
+            <div className="hidden md:flex items-center gap-4 text-black/30 text-[9px] font-bold tracking-widest uppercase">
+               <span>Display Mode:</span>
+               <div className="flex gap-2">
+                  <div className="w-3 h-3 bg-black" />
+                  <div className="w-3 h-3 border border-black/20" />
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* ── Product Grid ── */}
+      <section className="py-24">
+        <div className="max-container">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+              {filteredProducts.map((product, index) => (
+                <FadeInView key={product.slug} delay={index * 0.05}>
+                   <ProductCard product={product} />
+                </FadeInView>
+              ))}
+           </div>
+           
+           {filteredProducts.length === 0 && (
+             <div className="py-40 text-center">
+                <span className="text-black/30 italic">No pieces found in this category.</span>
+             </div>
+           )}
+        </div>
+      </section>
+
+      {/* ── Personalized Service ── */}
+      <section className="py-32 bg-[#111] text-white">
+         <div className="max-container flex flex-col items-center text-center">
+            <FadeInView className="max-w-xl space-y-8">
+               <h2 className="text-4xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Can&apos;t find the exact piece?</h2>
+               <p className="text-white/40 text-sm font-light leading-relaxed">
+                  Our Kondotty studio specializes in bespoke furniture design. 
+                  Share your inspiration and we will manufacture it tailored to your home.
+               </p>
+               <button className="btn-primary border-white">Request Custom Design</button>
+            </FadeInView>
+         </div>
+      </section>
+    </main>
   );
 }

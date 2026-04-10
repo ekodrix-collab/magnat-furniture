@@ -3,46 +3,35 @@
 import React, { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
-import SectionHeading from "@/components/ui/SectionHeading";
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import FadeInView from "@/components/ui/FadeInView";
 
 const testimonials = [
   {
     name: "Riya Roy",
     quote: "Recently ordered a custom made furniture set for my living room from Magnat Furniture and couldn't be more impressed with the results. Every detail was tailored to my preferences — the craftsmanship is truly second to none.",
-    rating: 5,
     role: "Architect",
   },
   {
     name: "Sreenath Menon",
-    quote: "We had a very warm experience buying a teak almirah and a queen size bed from Magnat. The showroom has an incredible range of options, beautifully displayed. The staff guided us patiently through every choice.",
-    rating: 5,
+    quote: "We had a very warm experience buying a teak almirah and a queen size bed from Magnat. The showroom has an incredible range of options, beautifully displayed. The staff guided us patientsly through every choice.",
     role: "Home Owner",
   },
   {
     name: "Anjali Sharma",
     quote: "The quality of the wood and the precision of the polish is simply unmatched. It has been 5 years since my first purchase, and the pieces still look brand new. Truly a premium furniture experience.",
-    rating: 5,
     role: "Interior Designer",
-  },
-  {
-    name: "David Wilson",
-    quote: "White-glove delivery service was impeccable. They handled an entire living room set with such care. Magnat is the only brand I trust when it comes to luxury statement furniture.",
-    rating: 5,
-    role: "VIP Guest",
   },
   {
     name: "Priya Nair",
     quote: "From the first design consultation to final delivery, every step was handled with professionalism and transparency. The bespoke dining table they created is now the heart of our home.",
-    rating: 5,
     role: "Restaurateur",
   },
 ];
 
 export default function TestimonialsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center", slidesToScroll: 1 }, [
-    Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true }),
+    Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }),
   ]);
 
   const scrollPrev = useCallback(() => {
@@ -54,50 +43,48 @@ export default function TestimonialsCarousel() {
   }, [emblaApi]);
 
   return (
-    <section className="bg-brand-secondary py-32 px-6 lg:px-12 border-y border-brand">
-      <div className="container mx-auto">
-        <SectionHeading
-          label="Testimonials"
-          title="Client Experiences"
-          subtitle="Hear from those who have transformed their houses into homes with Magnat Furniture. Our commitment is your satisfaction."
-          align="center"
-          className="mb-20"
-        />
+    <section className="bg-[#f5f2ee] py-24 lg:py-32 px-8 lg:px-16 overflow-hidden">
+      <div className="max-w-[1600px] mx-auto">
+        
+        {/* Header */}
+        <FadeInView className="mb-20 text-center">
+          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+            Perspectives
+          </span>
+          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
+            Curated <span className="italic">Experiences</span>
+          </h2>
+          <div className="w-12 h-[1px] bg-[#c9a96e] mx-auto" />
+        </FadeInView>
 
         <FadeInView direction="up">
           <div className="relative group">
-            <div className="embla overflow-hidden" ref={emblaRef}>
-              <div className="embla__container flex">
+            <div className="embla overflow-hidden px-4" ref={emblaRef}>
+              <div className="embla__container flex gap-6 lg:gap-8">
                 {testimonials.map((testimonial, index) => (
                   <div 
                     key={index} 
-                    className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4"
+                    className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-h-[400px]"
                   >
-                    <div className="h-full bg-white p-12 shadow-sm border border-brand transition-all hover:border-[#C6A969] group/card">
-                      <div className="mb-8 text-[#C6A969]">
-                        <Quote size={40} fill="currentColor" opacity={0.2} />
-                      </div>
+                    <div className="h-full bg-[#f9f9f9] p-10 lg:p-14 flex flex-col justify-between border border-transparent hover:border-[#c9a96e]/20 transition-all duration-500">
                       
-                      <div className="flex mb-6 text-[#C6A969] gap-1">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} size={14} fill="currentColor" />
-                        ))}
+                      <div className="mb-8">
+                        <Quote size={32} strokeWidth={1} className="text-[#c9a96e]/30 mb-8" />
+                        <p className="text-[#1a1a1a]/70 text-base leading-relaxed font-light italic" style={{ fontFamily: "var(--font-inter)" }}>
+                          &ldquo;{testimonial.quote}&rdquo;
+                        </p>
                       </div>
 
-                      <p className="mb-10 text-body leading-8 font-light italic text-sm line-clamp-4">
-                        &ldquo;{testimonial.quote}&rdquo;
-                      </p>
-
-                      <div className="flex items-center gap-4">
-                        <div className="h-[1px] w-8 bg-[#8B1E1E]" />
-                        <div>
-                          <h4 className="text-sm font-bold uppercase tracking-widest text-[#1A1A1A]">
-                            {testimonial.name}
-                          </h4>
-                          <span className="text-[0.65rem] uppercase tracking-widest text-[#C6A969]">
-                            {testimonial.role}
-                          </span>
-                        </div>
+                      <div className="flex items-center gap-4 mt-auto">
+                         <div className="w-8 h-[1px] bg-[#c9a96e]/30" />
+                         <div>
+                            <h4 className="text-[#1a1a1a] text-[11px] font-bold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>
+                              {testimonial.name}
+                            </h4>
+                            <span className="text-[#c9a96e] text-[9px] uppercase tracking-widest mt-1 block" style={{ fontFamily: "var(--font-inter)" }}>
+                              {testimonial.role}
+                            </span>
+                         </div>
                       </div>
                     </div>
                   </div>
@@ -105,22 +92,22 @@ export default function TestimonialsCarousel() {
               </div>
             </div>
 
-            {/* Navigation */}
-            <div className="absolute top-1/2 left-[-20px] md:left-[-40px] -translate-y-1/2 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <button 
-                onClick={scrollPrev}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-brand text-[#1A1A1A] hover:bg-[#8B1E1E] hover:text-white hover:border-transparent transition-all"
-              >
-                <ChevronLeft size={20} />
-              </button>
-            </div>
-            <div className="absolute top-1/2 right-[-20px] md:right-[-40px] -translate-y-1/2 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <button 
-                onClick={scrollNext}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-brand text-[#1A1A1A] hover:bg-[#8B1E1E] hover:text-white hover:border-transparent transition-all"
-              >
-                <ChevronRight size={20} />
-              </button>
+            {/* Navigation Arrows — Refined Gold Circles */}
+            <div className="hidden lg:flex justify-center gap-6 mt-16">
+               <button 
+                  onClick={scrollPrev}
+                  className="w-12 h-12 flex items-center justify-center border border-[#1a1a1a]/10 text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-all duration-300 rounded-full"
+                  aria-label="Previous Testimonial"
+               >
+                 <ChevronLeft size={18} strokeWidth={1.5} />
+               </button>
+               <button 
+                  onClick={scrollNext}
+                  className="w-12 h-12 flex items-center justify-center border border-[#1a1a1a]/10 text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-all duration-300 rounded-full"
+                  aria-label="Next Testimonial"
+               >
+                 <ChevronRight size={18} strokeWidth={1.5} />
+               </button>
             </div>
           </div>
         </FadeInView>

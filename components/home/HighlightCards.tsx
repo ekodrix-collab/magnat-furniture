@@ -2,53 +2,71 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import SectionHeading from "@/components/ui/SectionHeading";
 import FadeInView from "@/components/ui/FadeInView";
-import { ArrowRight } from "lucide-react";
 
-const cards = [
+const highlights = [
   {
-    title: "Leisure Chairs",
-    description: "Designed for relaxation, crafted for luxury living rooms.",
-    image: "/images/living-chairs.jpg",
+    title: "The Lounge Suite",
+    description: "Sculptural forms designed for the modern architectural home.",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
     href: "/collections/living-room",
+    size: "lg:col-span-3",
   },
   {
-    title: "Arm Chairs",
-    description: "Versatile, ergonomic designs for classic and modern interiors.",
-    image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=1974&auto=format&fit=crop",
-    href: "/collections/chairs",
+    title: "Executive Objects",
+    description: "Functionality meet the aesthetic of leadership.",
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
+    href: "/collections/office",
+    size: "lg:col-span-2",
   },
 ];
 
 export default function HighlightCards() {
   return (
-    <section className="bg-brand-secondary py-32 px-6 lg:px-12">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-          {cards.map((card, i) => (
-            <FadeInView key={card.title} delay={i * 0.2} direction={i === 0 ? "right" : "left"}>
-              <Link href={card.href} className="group relative block h-[500px] overflow-hidden lg:h-[600px]">
+    <section className="bg-[#f5f2ee] py-24 lg:py-32 px-8 lg:px-16 overflow-hidden">
+      <div className="max-w-[1600px] mx-auto">
+        
+        <FadeInView className="mb-16">
+           <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+            Curated Spaces
+          </span>
+          <h2 className="text-[#1a1a1a] leading-none" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 600 }}>
+             Articulated <span className="italic">Lifestyles</span>
+          </h2>
+          <div className="mt-6 w-12 h-[1px] bg-[#c9a96e]" />
+        </FadeInView>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+          {highlights.map((item, i) => (
+            <FadeInView key={item.title} delay={i * 0.2} className={`${item.size}`}>
+              <Link href={item.href} className="group relative block h-[500px] lg:h-[650px] overflow-hidden">
                 <Image
-                  src={card.image}
-                  alt={card.title}
+                  src={item.image}
+                  alt={item.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  className="object-cover grayscale-[0.5] transition-all duration-1000 group-hover:scale-110 group-hover:grayscale-0"
                 />
 
-                {/* Visual Glassmorphism Card */}
-                <div className="absolute bottom-10 left-10 right-10 z-20 bg-white/10 backdrop-blur-md p-10 border border-white/20 transition-all duration-500 group-hover:bg-[#1A1A1A] group-hover:border-transparent">
-                  <h3 className="font-playfair text-3xl font-bold text-white mb-3">
-                    {card.title}
-                  </h3>
-                  <p className="text-white/80 font-light mb-6 text-sm max-w-xs transition-colors group-hover:text-white/70">
-                    {card.description}
-                  </p>
-                  <div className="flex items-center gap-3 text-white text-[0.7rem] font-bold uppercase tracking-[0.2em]">
-                    Discover More
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
-                  </div>
+                {/* Subtle Overlay */}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors duration-700" />
+
+                {/* Content Box — Editorial Vertical Layout */}
+                <div className="absolute inset-0 p-10 lg:p-14 flex flex-col items-start justify-end pointer-events-none">
+                   <div className="bg-white/95 backdrop-blur-sm p-8 lg:p-10 max-w-sm border border-black/5 translate-y-6 group-hover:translate-y-0 transition-all duration-700">
+                      <h3 className="text-[#1a1a1a] text-2xl lg:text-3xl font-semibold mb-3 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                        {item.title}
+                      </h3>
+                      <p className="text-[#1a1a1a]/60 text-sm font-light leading-relaxed mb-8" style={{ fontFamily: "var(--font-inter)" }}>
+                        {item.description}
+                      </p>
+                      <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.3em] uppercase flex items-center gap-3">
+                         Explore Gallery
+                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                         </svg>
+                      </span>
+                   </div>
                 </div>
               </Link>
             </FadeInView>
