@@ -27,11 +27,11 @@ const specialModels = [
 
 export default function SpecialModels() {
   return (
-    <section className="bg-[#f9f9f9] py-40 overflow-hidden">
+    <section className="bg-[#f9f9f9] py-24 lg:py-40 overflow-hidden">
       <div className="max-container">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-24 gap-10 lg:gap-12">
            <FadeInView className="max-w-2xl text-left">
               <span className="heading-label">Curated Masterpieces</span>
               <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
@@ -39,13 +39,16 @@ export default function SpecialModels() {
                 <span className="italic font-normal">Models.</span>
               </h2>
            </FadeInView>
-           <FadeInView delay={0.2}>
-              <button className="btn-primary">View Full Portfolio</button>
+           <FadeInView delay={0.2} className="shrink-0">
+              <button className="btn-primary !px-10 lg:!px-14 !py-4 lg:!py-5 !text-[9px] lg:!text-[10px]">
+                 View Full Portfolio
+              </button>
            </FadeInView>
         </div>
 
         {/* Special Models Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 xl:gap-16">
+
            {specialModels.map((model, index) => (
              <FadeInView 
                 key={model.name} 

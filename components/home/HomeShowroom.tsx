@@ -12,29 +12,29 @@ const features = [
 
 export default function HomeShowroom() {
   return (
-    <section id="showroom" className="bg-white py-40 overflow-hidden relative border-t border-black/5">
+    <section id="showroom" className="bg-white py-24 lg:py-40 overflow-hidden relative border-t border-black/5">
       {/* Decorative Background Text */}
-      <div className="absolute top-10 right-0 opacity-[0.03] select-none text-[250px] font-black leading-none text-black pointer-events-none italic">
+      <div className="absolute top-10 right-0 opacity-[0.03] select-none text-[150px] lg:text-[250px] xl:text-[300px] font-black leading-none text-black pointer-events-none italic">
          VISIT
       </div>
 
-      <div className="max-container flex flex-col lg:flex-row items-center gap-24">
+      <div className="max-container flex flex-col lg:flex-row items-center gap-16 lg:gap-24 xl:gap-32">
         
         {/* Left: Text & Features */}
-        <div className="lg:w-1/2 space-y-12 relative z-10">
+        <div className="lg:w-1/2 space-y-10 lg:space-y-12 relative z-10">
            <FadeInView>
               <span className="heading-label">The Studio Experience</span>
               <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
                  Experience the <br />
                  <span className="italic font-normal">Standard of Luxury.</span>
               </h2>
-              <p className="text-black/50 text-base font-light max-w-lg leading-relaxed mb-10">
+              <p className="text-black/50 text-base lg:text-lg font-light max-w-lg leading-relaxed mb-8 lg:mb-10">
                  Step into our flagship Kondotty studio to witness the fusion of heritage craft 
                  and modern architectural design. Meet our designers and find your inspiration.
               </p>
            </FadeInView>
 
-           <div className="flex flex-col sm:flex-row items-center gap-10">
+           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:gap-10">
               {features.map((feat, i) => (
                 <FadeInView key={feat} delay={i * 0.1} className="flex items-center gap-3">
                    <div className="w-5 h-5 rounded-full border border-[#C0001A]/20 flex items-center justify-center">
@@ -48,41 +48,42 @@ export default function HomeShowroom() {
 
         {/* Right: Modern Showroom Card (Standardized White Theme) */}
         <FadeInView delay={0.4} direction="left" className="lg:w-1/2 w-full">
-           <div className="bg-[#f9f9f9] border border-black/5 p-12 lg:p-20 relative overflow-hidden group">
+           <div className="bg-[#f9f9f9] border border-black/5 p-8 lg:p-16 xl:p-20 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#C0001A]/5 -mr-24 -mt-24 rounded-full blur-3xl opacity-50" />
               
-              <div className="space-y-16 relative z-10 text-left">
-                 <div className="space-y-8">
+              <div className="space-y-12 xl:space-y-16 relative z-10 text-left">
+                 <div className="space-y-6 lg:space-y-8">
                     <span className="text-[9px] font-bold text-[#C0001A] tracking-[0.4em] uppercase">The Kondotty Flagship</span>
                     <div className="flex items-start gap-4 text-[#111]">
-                       <MapPin size={24} className="text-[#C0001A] shrink-0 mt-1" />
-                       <p className="text-2xl font-semibold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                       <MapPin className="w-5 h-5 lg:w-6 lg:h-6 text-[#C0001A] shrink-0 mt-1" />
+                       <p className="text-xl lg:text-2xl font-semibold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
                           Kondotty — Malappuram Road,<br />Next to City Center, Kondotty
                        </p>
                     </div>
                  </div>
 
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-                    <div className="space-y-3">
-                       <span className="text-black/30 text-[9px] uppercase tracking-widest flex items-center gap-2">
+
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
+                    <div className="space-y-2 lg:space-y-3">
+                       <span className="text-black/30 text-[8px] lg:text-[9px] uppercase tracking-widest flex items-center gap-2">
                           <Clock size={12} /> Studio Hours
                        </span>
-                       <p className="text-[#111] text-sm font-semibold">9:30 AM — 08:30 PM</p>
+                       <p className="text-[#111] text-xs lg:text-sm font-semibold">9:30 AM — 08:30 PM</p>
                     </div>
-                    <div className="space-y-3">
-                       <span className="text-black/30 text-[9px] uppercase tracking-widest flex items-center gap-2">
+                    <div className="space-y-2 lg:space-y-3">
+                       <span className="text-black/30 text-[8px] lg:text-[9px] uppercase tracking-widest flex items-center gap-2">
                           <Phone size={12} /> Direct Line
                        </span>
-                       <p className="text-[#111] text-sm font-semibold">+91 9446516395</p>
+                       <p className="text-[#111] text-xs lg:text-sm font-semibold">+91 9446516395</p>
                     </div>
                  </div>
 
-                 <div className="pt-10 border-t border-black/5">
+                 <div className="pt-8 lg:pt-10 border-t border-black/5">
                     <a 
                       href="https://wa.me/919446516395" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="btn-primary w-full"
+                      className="btn-primary w-full !py-4 lg:!py-5 !text-[9px] lg:!text-[10px]"
                     >
                        Book Private Consultation
                     </a>
@@ -90,6 +91,7 @@ export default function HomeShowroom() {
               </div>
            </div>
         </FadeInView>
+
 
       </div>
     </section>

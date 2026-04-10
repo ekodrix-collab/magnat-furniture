@@ -15,7 +15,8 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="bg-[#111111] text-[#F7F4F0] border-t-2 border-[#C0001A]">
-      <div className="max-w-[1400px] mx-auto px-8 py-24">
+      <div className="max-container py-24">
+
         
         {/* ── Main Footer Grid ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
@@ -59,12 +60,12 @@ export default function Footer() {
                   className="w-full bg-white/5 border border-white/10 px-6 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors resize-none"
                 ></textarea>
 
-                <button type="submit" disabled={formState === "submitting"} className="btn-red w-full">
+                <button type="submit" disabled={formState === "submitting"} className="btn-red w-full !py-5 rounded-full shadow-lg">
                    {formState === "submitting" ? "Sending..." : "Send Inquiry"}
                 </button>
               </form>
             ) : (
-              <div className="bg-[#C0001A]/10 border border-[#C0001A]/40 p-10 text-center">
+              <div className="bg-[#C0001A]/10 border border-[#C0001A]/40 p-10 rounded-3xl text-center">
                  <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>Inquiry Sent Successfully</h3>
                  <p className="text-white/60 text-sm">Thank you for choosing Magnat. Our Kondotty studio will reach out to you within 24 hours.</p>
               </div>
@@ -78,26 +79,27 @@ export default function Footer() {
                <div className="space-y-8">
                   <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase" style={{ fontFamily: "var(--font-dm-sans)" }}>Connect Directly</h4>
                   <div className="space-y-6">
-                    <a href="tel:9446516395" className="flex items-center gap-4 group">
-                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#C0001A] transition-colors">
-                          <Phone size={16} className="text-[#C0001A]" />
+                    <a href="tel:9446516395" className="flex items-center gap-4 group cursor-pointer">
+                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#C0001A] group-hover:border-[#C0001A] transition-all duration-300">
+                          <Phone size={16} className="text-[#C0001A] group-hover:text-white transition-colors" />
                        </div>
-                       <span className="text-sm font-semibold">9446516395</span>
+                       <span className="text-sm font-semibold group-hover:text-[#C0001A] transition-colors">9446516395</span>
                     </a>
-                    <a href="https://wa.me/919446516395" className="flex items-center gap-4 group">
-                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#C0001A] transition-colors">
-                          <MessageSquare size={16} className="text-[#C0001A]" />
+                    <a href="https://wa.me/919446516395" className="flex items-center gap-4 group cursor-pointer">
+                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#25D366] group-hover:border-[#25D366] transition-all duration-300">
+                          <MessageSquare size={16} className="text-[#C0001A] group-hover:text-white transition-colors" />
                        </div>
-                       <span className="text-sm font-semibold">Message on WhatsApp</span>
+                       <span className="text-sm font-semibold group-hover:text-[#25D366] transition-colors">Message on WhatsApp</span>
                     </a>
-                    <a href="https://instagram.com/magnat_furniture_.kondotty" className="flex items-center gap-4 group">
-                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#C0001A] transition-colors">
-                          <Instagram size={16} className="text-[#C0001A]" />
+                    <a href="https://instagram.com/magnat_furniture_.kondotty" className="flex items-center gap-4 group cursor-pointer">
+                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#E1306C] group-hover:border-[#E1306C] transition-all duration-300">
+                          <Instagram size={16} className="text-[#C0001A] group-hover:text-white transition-colors" />
                        </div>
-                       <span className="text-sm font-semibold">@magnat_furniture_.kondotty</span>
+                       <span className="text-sm font-semibold group-hover:text-[#E1306C] transition-colors">@magnat_furniture_.kondotty</span>
                     </a>
                   </div>
                </div>
+
 
                {/* Studio Info */}
                <div className="space-y-8">

@@ -17,34 +17,35 @@ const items = [
 
 export default function KondottyGallery() {
   return (
-    <section className="bg-[#111111] py-32 overflow-hidden border-t border-white/5">
+    <section className="bg-[#111111] py-24 lg:py-32 overflow-hidden border-t border-white/5">
       <div className="max-container">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-20 gap-8">
            <FadeInView>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white leading-none mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-none mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
                  From Our <span className="italic text-[#C0001A]">Showroom.</span>
               </h2>
-              <p className="text-white/30 text-[10px] font-bold tracking-[0.4em] uppercase">Visual Journey of Craft</p>
+              <p className="text-white/30 text-[9px] lg:text-[10px] font-bold tracking-[0.3em] lg:tracking-[0.4em] uppercase">Visual Journey of Craft</p>
            </FadeInView>
            
-           <FadeInView delay={0.2}>
+           <FadeInView delay={0.2} className="shrink-0">
               <a 
                 href="https://instagram.com/magnat_furniture_.kondotty" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-3 text-white/50 hover:text-[#C0001A] transition-colors group"
               >
-                 <Instagram size={20} />
-                 <span className="text-xs font-bold tracking-widest uppercase">Follow Perspective</span>
+                 <Instagram className="w-[18px] h-[18px] lg:w-5 lg:h-5" />
+                 <span className="text-[10px] lg:text-xs font-bold tracking-widest uppercase">Follow Perspective</span>
+
                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </a>
            </FadeInView>
         </div>
 
         {/* Masonry Grid Simulation */}
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[250px] gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] lg:auto-rows-[250px] gap-3 lg:gap-4 xl:gap-6">
            {items.map((item, index) => (
              <FadeInView 
                 key={index} 
@@ -61,6 +62,7 @@ export default function KondottyGallery() {
              </FadeInView>
            ))}
         </div>
+
 
       </div>
     </section>

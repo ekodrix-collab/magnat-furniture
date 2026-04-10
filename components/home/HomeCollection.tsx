@@ -33,24 +33,27 @@ const collections = [
 
 export default function HomeCollection() {
   return (
-    <section id="collection" className="bg-white py-40 overflow-hidden border-t border-black/5">
+    <section id="collection" className="bg-white py-24 lg:py-40 overflow-hidden border-t border-black/5">
       <div className="max-container">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-24 gap-10">
            <FadeInView className="max-w-2xl">
               <span className="heading-label">The Portfolio</span>
               <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
                 Our <span className="italic font-normal text-black/90">Curated Work.</span>
               </h2>
            </FadeInView>
-           <FadeInView delay={0.2}>
-              <button className="btn-primary">Explore All</button>
+           <FadeInView delay={0.2} className="shrink-0">
+              <button className="btn-primary !px-10 lg:!px-14 !py-4 lg:!py-5 !text-[9px] lg:!text-[10px]">
+                 Explore All
+              </button>
            </FadeInView>
         </div>
 
         {/* 3x2 Grid (Standardized grayscale-to-color) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 xl:gap-16">
+
           {collections.map((item, index) => (
             <FadeInView key={item.title} delay={index * 0.1} direction="up" className="group cursor-pointer">
                <div className="relative aspect-[4/5] bg-[#f9f9f9] overflow-hidden">

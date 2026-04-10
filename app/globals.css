@@ -47,11 +47,21 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
+button, a {
+  cursor: pointer;
+  transition: all 0.4s var(--ease-luxury);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+
 /* ============================================
    STANDARDIZED LUXURY COMPONENTS
    ============================================ */
 
-/* Primary CTA (Standardized) */
+/* Primary CTA (Standardized - Sophisticated Curved) */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -66,12 +76,47 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.25em;
   transition: all 0.4s var(--ease-luxury);
   border: 1px solid #111111;
+  border-radius: 9999px; /* Pill Shape */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:hover {
-  background-color: transparent;
+  background-color: #ffffff;
   color: #111111;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
+
+/* Red Secondary CTA (Sophisticated Curved) */
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #C0001A;
+  color: #ffffff;
+  padding: 1.25rem 3.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #C0001A;
+  border-radius: 9999px; /* Pill Shape */
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(192, 0, 26, 0.15);
+}
+
+.btn-red:hover {
+  background-color: transparent;
+  color: #C0001A;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(192, 0, 26, 0.2);
+}
+
 
 /* Standard Imagery (Color Prominent) */
 .img-premium {
@@ -103,13 +148,57 @@ h1, h2, h3, h4, h5, h6 {
    UTILITIES
    ============================================ */
 
+/* ============================================
+   UTILITIES — RESPONSIVE CONTAINER SYSTEM
+   Multi-Tier Logic for Mobile, Tablet, and All Laptop Sizes (11" - 18")
+   ============================================ */
+
 .max-container {
-  max-width: 1600px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  /* Mobile (Base) */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
+
+/* Tablet / Large Mobile */
+@media (min-width: 640px) {
+  .max-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* 11" - 13" Laptops / IPad Pro */
+@media (min-width: 1024px) {
+  .max-container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* 14" - 16" Standard Laptops (Most Common) */
+@media (min-width: 1440px) {
+  .max-container {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+/* 17" - 18" Desktop Workstations */
+@media (min-width: 1700px) {
+  .max-container {
+    padding-left: 9rem;
+    padding-right: 9rem;
+  }
+}
+
+/* Maximum Cap for Large Screens (Prevents awkward line lengths) */
+.max-container {
+  max-width: 1800px;
+}
+
 
 ::selection {
   background: #C0001A;
