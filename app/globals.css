@@ -47,6 +47,10 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* ============================================
    STANDARDIZED LUXURY COMPONENTS
    ============================================ */
@@ -66,11 +70,59 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.25em;
   transition: all 0.4s var(--ease-luxury);
   border: 1px solid #111111;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
   background-color: transparent;
   color: #111111;
+}
+
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #C0001A;
+  color: #ffffff;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #C0001A;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-red:hover {
+  background-color: #111111;
+  border-color: #111111;
+}
+
+.btn-ghost-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #111111;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #111111;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-ghost-dark:hover {
+  background-color: #111111;
+  color: #ffffff;
 }
 
 /* Standard Imagery (Color Prominent) */
@@ -104,12 +156,52 @@ h1, h2, h3, h4, h5, h6 {
    ============================================ */
 
 .max-container {
-  max-width: 1600px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
+
+/* Tablet */
+@media (min-width: 768px) {
+  .max-container {
+    max-width: 720px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* 11-12" Small Laptops (Bootstrap lg) */
+@media (min-width: 1024px) {
+  .max-container {
+    max-width: 960px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* 13-14" Medium Laptops (Bootstrap xl) */
+@media (min-width: 1280px) {
+  .max-container {
+    max-width: 1140px;
+  }
+}
+
+/* 15-16" Large Laptops (The Average Standard) */
+@media (min-width: 1440px) {
+  .max-container {
+    max-width: 1320px;
+  }
+}
+
+/* 17-18" Workstations (Architectural Cap) */
+@media (min-width: 1700px) {
+  .max-container {
+    max-width: 1500px;
+  }
+}
+
 
 ::selection {
   background: #C0001A;
@@ -130,4 +222,21 @@ h1, h2, h3, h4, h5, h6 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #111111;
+}
+
+/* WhatsApp Pulse Animation */
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-pulse {
+  animation: whatsapp-pulse 2s infinite;
 }

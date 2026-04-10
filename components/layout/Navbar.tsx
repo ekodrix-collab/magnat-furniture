@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Search, User, Heart, Menu, X } from "lucide-react";
+import { Instagram, Search, User, Heart, Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const mainNav = [
@@ -95,12 +95,15 @@ export default function Navbar() {
           </nav>
 
           {/* Right: Interaction Trigger */}
-          <div className="flex items-center gap-6">
-             <Link href="/contact" className="hidden md:flex btn-primary !py-3.2 !px-8 !text-[9px]">
+          <div className="flex items-center gap-4 lg:gap-6">
+             <Link href="/contact" className="hidden md:flex btn-primary !py-3 !px-8 !text-[9px]">
                 Enquire Project
              </Link>
-             <button className="xl:hidden p-2 text-[#111]" onClick={() => setMobileOpen(true)}>
-               <Menu size={28} strokeWidth={1.5} />
+             <a href="tel:+919446516395" className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]">
+                <Phone size={18} />
+             </a>
+             <button className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" onClick={() => setMobileOpen(true)}>
+               <Menu size={24} strokeWidth={1.5} />
              </button>
           </div>
         </div>
@@ -128,21 +131,22 @@ export default function Navbar() {
               </div>
               <div className="flex-1 overflow-y-auto px-10 py-12 flex flex-col gap-8">
                  {mainNav.map((item, i) => (
-                   <motion.div
-                     key={item.label}
-                     initial={{ opacity: 0, x: 20 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     transition={{ delay: i * 0.05 }}
-                   >
-                      <Link 
-                        href={item.href} 
-                        onClick={() => setMobileOpen(false)}
-                        className="text-4xl font-bold tracking-tight text-[#111] hover:text-[#C0001A] transition-colors" 
-                        style={{ fontFamily: "var(--font-playfair)" }}
-                      >
-                         {item.label}
-                      </Link>
-                   </motion.div>
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                       <Link 
+                         href={item.href} 
+                         onClick={() => setMobileOpen(false)}
+                         className="text-4xl font-bold tracking-tight text-[#111] hover:text-[#C0001A] transition-colors relative group" 
+                         style={{ fontFamily: "var(--font-playfair)" }}
+                       >
+                          {item.label}
+                          <span className="block h-0.5 w-0 bg-[#C0001A] transition-all duration-500 group-hover:w-full" />
+                       </Link>
+                    </motion.div>
                  ))}
               </div>
               <div className="p-10 bg-[#111] text-white space-y-8">

@@ -46,7 +46,7 @@ export default function HomeHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 className="text-white leading-[0.95] font-semibold tracking-[-0.04em]"
-                style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(4.5rem, 11vw, 11.5rem)" }}
+                style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(3.2rem, 14vw, 11.5rem)" }}
               >
                 Go big on <br />
                 <span className="italic font-normal opacity-90 text-[#f0f0f0]">Living.</span>
@@ -59,7 +59,7 @@ export default function HomeHero() {
             transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
             className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-20"
            >
-              <p className="text-white/70 text-lg lg:text-2xl font-light leading-relaxed max-w-xl border-l-2 border-[#C0001A]/30 pl-8" style={{ fontFamily: "var(--font-dm-sans)" }}>
+              <p className="text-white/70 text-lg lg:text-2xl font-light leading-relaxed max-w-xl border-l-2 border-[#C0001A]/30 pl-6 lg:pl-8" style={{ fontFamily: "var(--font-dm-sans)" }}>
                  A quarter-century legacy of handcrafted excellence. We curate the world&apos;s 
                  finest designs for the most sophisticated Kerala interiors.
               </p>

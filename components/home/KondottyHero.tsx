@@ -37,8 +37,8 @@ export default function KondottyHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#F7F4F0] leading-[1.1] font-bold"
-              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(3.5rem, 8vw, 7.5rem)" }}
+              className="text-[#F7F4F0] leading-[1.05] font-bold tracking-tight"
+              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(3rem, 12vw, 7.5rem)" }}
              >
                 Crafted for Kerala.<br />
                 <span className="italic font-normal text-white/90">Built to Last.</span>
@@ -49,10 +49,10 @@ export default function KondottyHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-[#F7F4F0]/60 text-lg lg:text-2xl font-light leading-relaxed max-w-2xl"
+            className="text-[#F7F4F0]/60 text-lg lg:text-2xl font-light leading-relaxed max-w-2xl border-l-[3px] border-[#C0001A]/40 pl-6 lg:pl-10"
           >
              Sofas, Dining, Curtains & Full Interiors — 
-             <span className="text-[#C0001A] font-semibold"> Manufactured in Kondotty</span> for the modern Kerala home.
+             <span className="text-white font-semibold"> Manufactured in Kondotty</span> for the modern Kerala home.
           </motion.p>
 
           <motion.div 
@@ -71,20 +71,6 @@ export default function KondottyHero() {
           </motion.div>
         </div>
       </div>
-
-      {/* ── Floating WhatsApp (Requested for bottom-left but typically on right, prioritizing bottom-left per prompt) ── */}
-      <motion.a 
-        href="https://wa.me/919446516395"
-        target="_blank"
-        rel="noopener noreferrer"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-        className="absolute bottom-10 left-10 z-50 bg-[#25D366] text-white p-5 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center gap-3 pr-8"
-      >
-         <MessageCircle size={28} />
-         <span className="text-[10px] font-bold uppercase tracking-widest hidden md:block">Chat with us</span>
-      </motion.a>
 
       {/* ── Subtle Texture ── */}
       <div className="absolute bottom-0 right-0 p-20 opacity-10 pointer-events-none select-none">
