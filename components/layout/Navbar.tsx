@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Search, User, Heart, Menu, X } from "lucide-react";
+import { Instagram, Search, User, Heart, Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const mainNav = [
