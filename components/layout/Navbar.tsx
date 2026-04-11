@@ -61,38 +61,32 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
           </Link>
 
           {/* Center: Curated Navigation */}
-          <nav className="hidden xl:flex items-center gap-6">
-            <LayoutGroup id="nav-pill">
-              {mainNav.map((item) => {
-                const itemUrl = new URL(item.href, "https://magnat.com");
-                const itemCategory = itemUrl.searchParams.get("category");
-                const currentCategory = searchParams.get("category");
-                
-                const isActive = itemCategory 
-                  ? currentCategory === itemCategory 
-                  : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
-                
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={`relative px-4 py-2 text-[10px] font-bold tracking-[0.25em] uppercase transition-all duration-500 rounded-full flex items-center justify-center ${
-                      isActive ? "text-[#C0001A]" : "text-[#111]/60 hover:text-[#111]"
-                    }`}
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-pill"
-                        className="absolute inset-0 bg-[#C0001A]/5 backdrop-blur-[2px] rounded-full -z-10"
-                        transition={{ type: "spring", bounce: 0, duration: 0.4, stiffness: 200, damping: 25 }}
-                      />
-                    )}
-                    <span className="relative z-10">{item.label}</span>
-                  </Link>
-                );
-              })}
-            </LayoutGroup>
+          <nav className="hidden xl:flex items-center gap-8">
+            {mainNav.map((item) => {
+              const itemUrl = new URL(item.href, "https://magnat.com");
+              const itemCategory = itemUrl.searchParams.get("category");
+              const currentCategory = searchParams.get("category");
+              
+              const isActive = itemCategory 
+                ? currentCategory === itemCategory 
+                : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+              
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`relative group text-[10px] font-bold tracking-[0.25em] uppercase transition-all py-2 ${
+                    isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
+                  }`}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                >
+                  {item.label}
+                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right: Interaction Trigger */}
