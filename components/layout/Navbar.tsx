@@ -162,7 +162,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
             <div className="absolute inset-0 bg-gradient-to-b from-[#F7F4F0]/80 via-transparent to-[#F7F4F0]/95 dark:from-[#0A0A0A]/80 dark:to-[#0A0A0A]/95" />
 
             {/* Header Section */}
-            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-8 mt-[-60px]">
+            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-12">
                <motion.div
                  initial={{ x: -20, opacity: 0 }}
                  animate={{ x: 0, opacity: 1 }}
@@ -182,7 +182,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
             </div>
 
             {/* Menu Links */}
-            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col justify-center">
+            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col">
                <nav className="flex flex-col space-y-2">
                   {mainNav.map((item, i) => {
                      const isActive = checkIsActive(item, pathname, currentCategory);
