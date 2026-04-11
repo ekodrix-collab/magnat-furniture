@@ -36,14 +36,14 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <Link
             href="/"
-            className="flex items-center gap-3 bg-[#1A1A1A] text-white px-10 py-5 text-[0.7rem] font-bold uppercase tracking-[0.2em] transition-all hover:bg-[#8B1E1E] active:scale-95"
+            className="btn-primary"
           >
             Back to Home
-            <ArrowRight size={16} />
+            <ArrowRight size={16} className="ml-3" />
           </Link>
           <Link
             href="/collections"
-            className="flex items-center gap-3 border border-[#1A1A1A] text-[#1A1A1A] px-10 py-5 text-[0.7rem] font-bold uppercase tracking-[0.2em] transition-all hover:bg-[#1A1A1A] hover:text-white active:scale-95"
+            className="btn-ghost-dark"
           >
             Explore Collections
           </Link>

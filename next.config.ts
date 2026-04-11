@@ -1,7 +1,15 @@
+// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // ═══════════════════════════════════════════════════════════
+  // IMAGE OPTIMIZATION — FASTEST LOADING
+  // ═══════════════════════════════════════════════════════════
   images: {
+    // Modern formats (AVIF is smallest, WebP is fallback)
+    formats: ["image/avif", "image/webp"],
+
+    // Allowed remote image sources
     remotePatterns: [
       {
         protocol: "https",
@@ -20,7 +28,84 @@ const nextConfig: NextConfig = {
         hostname: "www.vilangadanfurniture.com",
       },
     ],
+    
+    // Device sizes for responsive images
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    
+    // Image sizes for different layouts
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    
+    // Enable dangerous use of SVG (if you use SVGs from remote)
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    
+    // Minimize CLS (Cumulative Layout Shift)
+    minimumCacheTTL: 60,
+    
+    // Unoptimized for dev (faster builds)
+    unoptimized: process.env.NODE_ENV === "development",
   },
+
+  // ═══════════════════════════════════════════════════════════
+  // PERFORMANCE OPTIMIZATIONS
+  // ═══════════════════════════════════════════════════════════
+  
+    // Default optimizations apply
+
+  // Compress pages
+  compress: true,
+  
+  // Enable React strict mode (catches bugs)
+  reactStrictMode: true,
+  
+  // Optimize CSS
+  experimental: {
+    optimizeCss: true,
+    
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // HEADERS FOR CACHING & SECURITY
+  // ═══════════════════════════════════════════════════════════
+  async headers() {
+    return [
+      {
+        source: "/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
+
+  // Turbopack handles optimization automatically.
+
+  // ═══════════════════════════════════════════════════════════
+  // POWEREDBYHEADER (Remove X-Powered-By for security)
+  // ═══════════════════════════════════════════════════════════
+  poweredByHeader: false,
+
+  // ═══════════════════════════════════════════════════════════
+  // TRAILING SLASH (SEO)
+  // ═══════════════════════════════════════════════════════════
+  trailingSlash: false,
+
+  // ═══════════════════════════════════════════════════════════
+  // REDIRECTS (If needed)
+  // ═══════════════════════════════════════════════════════════
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/old-path',
+  //       destination: '/new-path',
+  //       permanent: true,
+  //     },
+  //   ]
+  // },
 };
 
 export default nextConfig;

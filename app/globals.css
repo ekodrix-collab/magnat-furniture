@@ -1,39 +1,30 @@
 @import "tailwindcss";
 
 /* ============================================
-   MAGNAT FURNITURE — DESIGN SYSTEM (Tailwind v4)
+   MAGNAT FURNITURE — PREMIUM LUXURY REFINEMENT
+   Full Color Prominence | Architectural Precision
    ============================================ */
 
 @theme {
-  /* Brand Colors */
-  --color-bg-primary: #F7F3EF;
-  --color-bg-secondary: #EFE7DF;
-  --color-luxury-red: #8B1E1E;
-  --color-gold: #C6A969;
-  --color-gold-light: #D4BA80;
-  --color-heading: #1A1A1A;
-  --color-body: #5A5A5A;
-  --color-btn: #1A1A1A;
-  --color-btn-hover: #333333;
-  --color-border: #E5DED6;
-  --color-white: #ffffff;
-
-  /* Typography
-     --font-playfair is injected by Next.js (layout.tsx)
-     --font-inter    is injected by Next.js (layout.tsx)
-  */
-  --font-playfair: var(--font-playfair), "Georgia", serif;
-  --font-inter: var(--font-inter), "Helvetica Neue", sans-serif;
+  /* Core Brand Colors (Standardized Luxury) */
+  --color-red: #C0001A;
+  --color-gold-classic: #c9a96e;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9f9f9;
+  --color-bg-dark: #111111;
+  --color-text-main: #111111;
+  --color-text-muted: #666666;
+  --color-border-subtle: #eeeeee;
+  
+  /* Typography */
+  --font-playfair: "Playfair Display", "Georgia", serif;
+  --font-dm-sans: "DM Sans", "Helvetica Neue", sans-serif;
 
   /* Spacing */
-  --spacing-section: 6rem;
-  --spacing-section-sm: 4rem;
+  --spacing-section: 10rem;
+  --spacing-section-sm: 6rem;
 
-  /* Border radius */
-  --radius-card: 0.5rem;
-  --radius-btn: 0.25rem;
-
-  /* Transition */
+  /* Transitions */
   --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -41,379 +32,448 @@
    GLOBAL BASE STYLES
    ============================================ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 body {
-  background-color: #F7F3EF;
-  color: #1A1A1A;
-  /* Uses CSS variable injected by Next.js via --font-inter */
-  font-family: var(--font-inter), "Helvetica Neue", sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
+  background-color: #ffffff;
+  color: #111111;
+  font-family: var(--font-dm-sans), sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+button {
+  cursor: pointer;
 }
 
 /* ============================================
-   TYPOGRAPHY HELPERS
-   Uses CSS variables — guaranteed by Next.js font loader
+   STANDARDIZED LUXURY COMPONENTS
    ============================================ */
 
-.font-playfair {
-  /* var(--font-playfair) is the Next.js CSS variable from layout.tsx */
-  font-family: var(--font-playfair), "Georgia", serif;
-}
-
-.font-inter {
-  font-family: var(--font-inter), "Helvetica Neue", sans-serif;
-}
-
-/* ============================================
-   BRAND UTILITY CLASSES
-   ============================================ */
-
-.text-heading {
-  color: #1A1A1A;
-}
-
-.text-body {
-  color: #5A5A5A;
-}
-
-.text-red {
-  color: #8B1E1E;
-}
-
-.text-gold {
-  color: #C6A969;
-}
-
-.bg-brand-primary {
-  background-color: #F7F3EF;
-}
-
-.bg-brand-secondary {
-  background-color: #EFE7DF;
-}
-
-.bg-luxury-red {
-  background-color: #8B1E1E;
-}
-
-.bg-gold {
-  background-color: #C6A969;
-}
-
-.border-brand {
-  border-color: #E5DED6;
-}
-
-/* ============================================
-   BUTTON STYLES
-   ============================================ */
-
+/* Primary CTA (Standardized) */
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background-color: #1A1A1A;
+  justify-content: center;
+  background-color: #111111;
   color: #ffffff;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  padding: 1.25rem 3.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  border: none;
+  letter-spacing: 0.25em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #111111;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  text-decoration: none;
 }
 
 .btn-primary:hover {
-  background-color: #333333;
-  transform: translateY(-1px);
+  background-color: transparent;
+  color: #111111;
 }
 
-.btn-outline {
+.btn-red {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background-color: transparent;
-  color: #1A1A1A;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  justify-content: center;
+  background-color: #C0001A;
+  color: #ffffff;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid #1A1A1A;
+  letter-spacing: 0.2em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #C0001A;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
 }
 
-.btn-outline:hover {
-  background-color: #1A1A1A;
+.btn-red:hover {
+  background-color: #111111;
+  border-color: #111111;
+}
+
+.btn-ghost-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #111111;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all 0.4s var(--ease-luxury);
+  border: 1px solid #111111;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-ghost-dark:hover {
+  background-color: #111111;
   color: #ffffff;
 }
 
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background-color: #C6A969;
-  color: #1A1A1A;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+/* Standard Imagery (Color Prominent) */
+.img-premium {
+  transition: all 1s var(--ease-luxury);
 }
 
-.btn-gold:hover {
-  background-color: #b8964f;
-  transform: translateY(-1px);
+.img-premium-hover:hover .img-premium {
+  transform: scale(1.05);
 }
 
-/* ============================================
-   SECTION HEADINGS
-   ============================================ */
-
-.section-label {
+/* Section Headings */
+.heading-label {
   display: block;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #C6A969;
-  margin-bottom: 0.75rem;
+  color: #C0001A;
+  margin-bottom: 1.5rem;
 }
 
-.section-title {
-  font-family: var(--font-playfair), "Georgia", serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
-  color: #1A1A1A;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.section-subtitle {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
-  color: #5A5A5A;
-  line-height: 1.7;
-  margin-top: 1rem;
+.heading-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.1;
+  margin-bottom: 2rem;
 }
 
 /* ============================================
-   CARD STYLES
+   UTILITIES
    ============================================ */
 
-.product-card {
-  background: #ffffff;
-  border: 1px solid #E5DED6;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.product-card:hover {
-  box-shadow: 0 16px 40px rgba(26, 26, 26, 0.12);
-  transform: translateY(-4px);
-}
-
-.product-card-img {
-  overflow: hidden;
-  aspect-ratio: 4/3;
-}
-
-.product-card-img img {
+.max-container {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease-luxury);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-.product-card:hover .product-card-img img {
-  transform: scale(1.08);
-}
-
-/* ============================================
-   NAVBAR
-   ============================================ */
-
-.navbar-scrolled {
-  background-color: rgba(247, 243, 239, 0.95) !important;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 #E5DED6;
-}
-
-/* ============================================
-   CAROUSEL / SLIDER
-   ============================================ */
-
-.embla {
-  overflow: hidden;
-}
-
-.embla__container {
-  display: flex;
-  touch-action: pan-y;
-}
-
-.embla__slide {
-  flex: 0 0 auto;
-  min-width: 0;
-}
-
-@keyframes ticker {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
+/* Tablet (Minimizing gutters) */
+@media (min-width: 768px) {
+  .max-container {
+    max-width: 740px; 
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
-.logo-ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker 20s linear infinite;
-}
-
-.logo-ticker-track:hover {
-  animation-play-state: paused;
-}
-
-/* ============================================
-   WHATSAPP FLOATING BUTTON
-   ============================================ */
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-
-  70% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1.4);
-    opacity: 0;
+/* 11-12" Small Laptops */
+@media (min-width: 1024px) {
+  .max-container {
+    max-width: 1000px;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
-.whatsapp-pulse::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background-color: #25D366;
-  animation: pulse-ring 2s ease-out infinite;
-}
-
-/* ============================================
-   IMAGE ZOOM OVERLAY
-   ============================================ */
-
-.img-overlay-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.img-overlay-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(26, 26, 26, 0.6) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.img-overlay-container:hover::after {
-  opacity: 1;
-}
-
-/* ============================================
-   SCROLL INDICATOR
-   ============================================ */
-
-@keyframes scroll-bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(8px);
+/* 13-14" Medium Laptops */
+@media (min-width: 1280px) {
+  .max-container {
+    max-width: 1240px;
   }
 }
 
-.scroll-indicator {
-  animation: scroll-bounce 2s ease-in-out infinite;
+/* 15-16" Large Laptops */
+@media (min-width: 1440px) {
+  .max-container {
+    max-width: 1400px;
+  }
 }
 
-/* ============================================
-   CUSTOM SCROLLBAR
-   ============================================ */
+/* 17-18" Workstations */
+@media (min-width: 1700px) {
+  .max-container {
+    max-width: 1640px;
+  }
+}
+
+
+
+
+::selection {
+  background: #C0001A;
+  color: #ffffff;
+}
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F3EF;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C6A969;
-  border-radius: 3px;
+  background: #eeeeee;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B1E1E;
+  background: #111111;
+}
+
+/* WhatsApp Pulse Animation */
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-pulse {
+  animation: whatsapp-pulse 2s infinite;
+}/* ============================================
+   ENHANCED WHATSAPP & FLOATING ELEMENTS
+   ============================================ */
+
+/* Enhanced WhatsApp Pulse with Glow */
+@keyframes whatsapp-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4),
+                0 0 20px rgba(37, 211, 102, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0),
+                0 0 30px rgba(37, 211, 102, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+.whatsapp-pulse-glow {
+  animation: whatsapp-pulse-glow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth Scale on Hover */
+.hover-lift {
+  transition: transform 0.4s var(--ease-luxury), box-shadow 0.4s var(--ease-luxury);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(17, 17, 17, 0.15);
+}
+
+/* Glass Morphism for Floating Cards */
+.glass-luxury {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Button (Optional Alternative) */
+.btn-gradient-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #20bd5a 100%);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.3s var(--ease-luxury);
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-gradient-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
 }
 
 /* ============================================
-   SELECTION COLOR
+   LUXURY MICRO-INTERACTIONS
    ============================================ */
 
-::selection {
-  background: #C6A969;
-  color: #1A1A1A;
+/* Smooth Underline Links */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  color: #111111;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-luxury);
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #C0001A;
+  transition: width 0.4s var(--ease-luxury);
+}
+
+.link-underline:hover {
+  color: #C0001A;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Fade In Animation */
+@keyframes luxury-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: luxury-fade-in 0.8s var(--ease-luxury) forwards;
+}
+
+/* Stagger Animation for Lists */
+.animate-stagger > * {
+  opacity: 0;
+  animation: luxury-fade-in 0.6s var(--ease-luxury) forwards;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* ============================================
+   BADGE & NOTIFICATION STYLES
+   ============================================ */
+
+.badge-live {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background-color: #C0001A;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
 }
 
 /* ============================================
-   VIDEO MODAL
+   RESPONSIVE UTILITIES
    ============================================ */
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+/* Mobile-First Contact Bar */
+.mobile-contact-bar {
+  background: #ffffff;
+  box-shadow: 0 -4px 20px rgba(17, 17, 17, 0.1);
+  border-top: 1px solid #eeeeee;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-luxury);
+  z-index: 1000;
+}
+
+.tooltip-trigger:hover .tooltip {
+  opacity: 1;
+}
+
+/* Arrow for Tooltip */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.tooltip-left::before {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #111111 transparent transparent;
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* Focus Styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #C0001A;
+  outline-offset: 4px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   PRINT STYLES (Professional Touch)
+   ============================================ */
+
+@media print {
+  .no-print,
+  .whatsapp-pulse,
+  .mobile-contact-bar {
+    display: none !important;
+  }
+  
+  body {
+    background: #ffffff;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
 }

@@ -1,84 +1,72 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import WhatsAppFloating from "@/components/ui/WhatsAppFloating"; // ✅ NEW
+import ContactQuickActions from "@/components/ui/ContactQuickActions";
+import Preloader from "@/components/ui/Preloader";
 
-// ── Playfair Display ──────────────────────────────────────
-// variable renamed to --font-playfair (matches globals.css + components)
-// weight 800 & 900 added — required for the large "25" numeral
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-playfair",        // ← was --font-playfair-display
+  variable: "--font-playfair",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],  // ← 800 & 900 added
-  style: ["normal", "italic"],        // ← italic added (used in "years of")
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
-// ── Inter ─────────────────────────────────────────────────
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://magnat.in"),
+  metadataBase: new URL("https://magnatfurniture.com"),
   title: {
-    default: "Magnat Furniture — Premium Luxury Furniture & Interior Design",
-    template: "%s | Magnat Furniture",
+    default: "MAGNAT™ | Premium Furniture Manufacturing | Kondotty, Kerala",
+    template: "%s | MAGNAT™ Furniture",
   },
   description:
-    "Discover Magnat Furniture — 25 years of crafting premium luxury furniture. Explore our exclusive collections of sofas, chairs, dining sets, and bespoke interior design pieces.",
+    "25 Years of Manufacturing Excellence. MAGNAT Furniture Kondotty — Premium sofas, dining sets, curtains, and bespoke interior solutions. Crafted for Kerala, built to last.",
   keywords: [
-    "luxury furniture",
-    "premium furniture",
-    "interior design",
-    "bespoke furniture",
-    "sofa",
-    "dining table",
-    "bedroom furniture",
-    "home decor",
+    "luxury furniture Kondotty",
+    "premium sofas Kerala",
+    "interior design Kondotty",
+    "custom dining sets Kerala",
+    "curtains and blinds Kondotty",
     "Magnat Furniture",
+    "furniture manufacturing Kerala",
   ],
-  authors: [{ name: "Magnat Furniture" }],
-  creator: "Magnat Furniture",
+  authors: [{ name: "MAGNAT Furniture & Interiors" }],
+  creator: "MAGNAT Furniture",
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://magnat.in",
-    siteName: "Magnat Furniture",
-    title: "Magnat Furniture — Premium Luxury Furniture & Interior Design",
+    url: "/",
+    siteName: "MAGNAT™ Furniture",
+    title: "MAGNAT™ | Premium Furniture Manufacturing | Kondotty",
     description:
-      "Explore our exclusive collection of luxury furniture designed to elevate your living spaces. 25 years of excellence in craftsmanship.",
+      "25 Years of Excellence. Manufacturing premium sofas, dining sets, and curtains in Kondotty. Kerala's finest furniture.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/og-image.jpg", // Add your OG image
         width: 1200,
         height: 630,
-        alt: "Magnat Furniture — Premium Luxury Collections",
+        alt: "MAGNAT Furniture Showroom",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Magnat Furniture — Premium Luxury Furniture",
-    description:
-      "25 years of crafting luxury furniture. Explore our exclusive collections.",
-    images: ["/og-image.jpg"],
+    title: "MAGNAT™ Furniture | Kondotty",
+    description: "25 Years of Manufacturing Excellence",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -88,12 +76,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#F7F3EF]">
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
+      <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
+        <Preloader />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <WhatsAppFloating /> {/* ✅ Enhanced Version */}
+        <ContactQuickActions />
       </body>
     </html>
   );
