@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Instagram, Search, User, Heart, Menu, X, Phone } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup, useScroll, useMotionValueEvent } from "framer-motion";
 
 const mainNav = [
   { label: "Collections", href: "/collections" },
@@ -16,20 +16,259 @@ const mainNav = [
   { label: "About Us", href: "/about" },
 ];
 
+/**
+ * NavbarInner: Contains the logic that depends on searchParams.
+ * Must be wrapped in Suspense.
+ */
+function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: { 
+  scrolled: boolean, 
+  mobileOpen: boolean, 
+  setMobileOpen: (open: boolean) => void,
+  isVisible: boolean
+}) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  return (
+    <motion.div
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full"
+    >
+      <div className={`w-full transition-all duration-700 ease-in-out ${scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] h-20" : "bg-white h-24"}`}>
+        <div className="max-container h-full flex items-center justify-between">
+          
+          {/* Left: Brand Identity */}
+          <Link href="/" className="flex items-center gap-8 group">
+             <div className="relative">
+                <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
+                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+                      MAGNAT
+                   </span>
+                </div>
+                <span className="absolute -top-1 -right-2 text-[8px] font-bold text-[#C0001A]">™</span>
+             </div>
+
+             {/* 25 Year Milestone */}
+             <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5">
+                <div className="flex items-center gap-2">
+                   <span className="text-[15px] font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
+                   <span className="text-[10px] font-bold text-[#111]">Years</span>
+                </div>
+                <span className="text-[7px] font-bold tracking-[0.35em] uppercase text-black/25">Manufacturing Heritage</span>
+             </div>
+          </Link>
+
+          {/* Center: Curated Navigation */}
+          <nav className="hidden xl:flex items-center gap-8">
+            {mainNav.map((item) => {
+              const itemUrl = new URL(item.href, "https://magnat.com");
+              const itemCategory = itemUrl.searchParams.get("category");
+              const currentCategory = searchParams.get("category");
+              
+              const isActive = itemCategory 
+                ? currentCategory === itemCategory 
+                : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+              
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`relative group text-[10px] font-bold tracking-[0.25em] uppercase transition-all py-2 ${
+                    isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
+                  }`}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                >
+                  {item.label}
+                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right: Interaction Trigger */}
+          <div className="flex items-center gap-4 lg:gap-6">
+             <div className="hidden lg:block">
+                <Link href="/contact" className="btn-primary !py-3 !px-8 !text-[9px]">
+                   Enquire Project
+                </Link>
+             </div>
+             <a href="tel:+919446516395" className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]">
+                <Phone size={18} />
+             </a>
+             <button className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" onClick={() => setMobileOpen(true)}>
+               <Menu size={24} strokeWidth={1.5} />
+             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Sophisticated Mobile Experience (Immersive Overlay) ── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex flex-col pt-24"
+          >
+            {/* Background Layers */}
+            <div className="absolute inset-0 bg-[#F7F4F0] dark:bg-[#0A0A0A] transition-colors duration-500" />
+            <div className="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none overflow-hidden">
+               <motion.img 
+                 initial={{ scale: 1.1, opacity: 0 }}
+                 animate={{ scale: 1, opacity: 1 }}
+                 transition={{ duration: 2, ease: "easeOut" }}
+                 src="/images/luxury-nav-bg.png" 
+                 className="w-full h-full object-cover blur-sm"
+                 alt=""
+               />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#F7F4F0]/80 via-transparent to-[#F7F4F0]/95 dark:from-[#0A0A0A]/80 dark:to-[#0A0A0A]/95" />
+
+            {/* Header Section */}
+            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-8 mt-[-60px]">
+               <motion.div
+                 initial={{ x: -20, opacity: 0 }}
+                 animate={{ x: 0, opacity: 1 }}
+                 transition={{ delay: 0.2 }}
+               >
+                  <span className="font-black tracking-[0.3em] text-[10px] uppercase text-[#C0001A]">Navigation</span>
+               </motion.div>
+               <motion.button 
+                 whileHover={{ rotate: 90 }}
+                 whileTap={{ scale: 0.9 }}
+                 onClick={() => setMobileOpen(false)} 
+                 className="w-12 h-12 flex items-center justify-center bg-black/5 dark:bg-white/5 rounded-full border border-black/10 dark:border-white/10"
+               >
+                  <X size={20} className="text-[#111] dark:text-white" />
+               </motion.button>
+            </div>
+
+            {/* Menu Links */}
+            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col justify-center">
+               <nav className="flex flex-col space-y-2">
+                  {mainNav.map((item, i) => {
+                     const itemUrl = new URL(item.href, "https://magnat.com");
+                     const itemCategory = itemUrl.searchParams.get("category");
+                     const currentCategory = searchParams.get("category");
+                     
+                     const isActive = itemCategory 
+                       ? currentCategory === itemCategory 
+                       : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+                     
+                     return (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 + i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                         <Link 
+                           href={item.href} 
+                           onClick={() => setMobileOpen(false)}
+                           className={`group block relative py-3 px-6 rounded-2xl transition-all duration-500 ${
+                             isActive ? "bg-[#C0001A] shadow-xl shadow-red-500/10" : "hover:bg-black/5 dark:hover:bg-white/5"
+                           }`}
+                         >
+                            <span className={`text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight leading-[1.1] transition-colors inline-block ${
+                              isActive ? "text-white" : "text-[#111] dark:text-white"
+                            }`}
+                              style={{ fontFamily: "var(--font-playfair)" }}
+                            >
+                               {item.label}
+                            </span>
+                         </Link>
+                      </motion.div>
+                     );
+                  })}
+               </nav>
+
+               <motion.div 
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.8 }}
+                 className="mt-16 pt-8 border-t border-black/5 dark:border-white/5"
+               >
+                  <div className="grid grid-cols-2 gap-8">
+                     <div className="space-y-4">
+                        <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Connect</span>
+                        <div className="flex gap-5">
+                           <Link href="https://instagram.com" className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors">
+                              <Instagram size={20} strokeWidth={1.5} />
+                           </Link>
+                           <Link href="/wishlist" className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors">
+                              <Heart size={20} strokeWidth={1.5} />
+                           </Link>
+                        </div>
+                     </div>
+                     <div className="space-y-4">
+                        <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Enquiries</span>
+                        <a href="tel:+919446516395" className="text-[14px] font-bold text-[#111] dark:text-white hover:underline">+91 9446516395</a>
+                     </div>
+                  </div>
+               </motion.div>
+            </div>
+
+            {/* Million Dollar Action: WhatsApp Integration */}
+            <motion.div 
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 1, type: "spring", stiffness: 100 }}
+              className="relative z-[210] p-10 bg-[#111] dark:bg-[#C0001A] text-white"
+            >
+               <div className="max-container flex items-center justify-between">
+                  <div className="space-y-1">
+                     <span className="text-[7px] font-bold tracking-[0.4em] uppercase opacity-60">Design Consultation</span>
+                     <p className="text-sm font-medium">Chat with our experts via WhatsApp</p>
+                  </div>
+                  <a 
+                    href="https://wa.me/919446516395" 
+                    className="bg-white text-[#111] px-6 py-3 rounded-md text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0001A] hover:text-white dark:hover:bg-white dark:hover:text-[#C0001A] transition-all flex items-center gap-3 shadow-xl"
+                  >
+                     Book Now
+                  </a>
+               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    
+    // Scrolled state for visual changes (hiding top bar)
+    setScrolled(latest > 20);
+
+    // Hide on scroll down, show on scroll up
+    if (latest > previous && latest > 150) {
+      setIsVisible(false);
+    } else if (latest < previous) {
+      setIsVisible(true);
+    }
+
+    // Always show at the very top
+    if (latest < 50) {
+      setIsVisible(true);
+    }
+  });
 
   return (
     <header className="fixed top-0 z-[100] w-full">
-      {/* ── Top Accessory Bar (Architectural Precision) ── */}
+      {/* ── Top Accessory Bar (Only shown at top) ── */}
       <div className={`w-full bg-[#111] text-white/60 transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-12 opacity-100"}`}>
         <div className="max-container h-full flex items-center justify-between">
            <div className="flex items-center gap-6">
@@ -54,115 +293,16 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Main Signature Bar ── */}
-      <div className={`w-full transition-all duration-700 ease-in-out ${scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] h-20" : "bg-white h-24"}`}>
-        <div className="max-container h-full flex items-center justify-between">
-          
-          {/* Left: Brand Identity (Standardized Red Badge) */}
-          <Link href="/" className="flex items-center gap-8 group">
-             <div className="relative">
-                <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
-                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
-                      MAGNAT
-                   </span>
-                </div>
-                <span className="absolute -top-1 -right-2 text-[8px] font-bold text-[#C0001A]">™</span>
-             </div>
-
-             {/* 25 Year Milestone */}
-             <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5">
-                <div className="flex items-center gap-2">
-                   <span className="text-[15px] font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
-                   <span className="text-[10px] font-bold text-[#111]">Years</span>
-                </div>
-                <span className="text-[7px] font-bold tracking-[0.35em] uppercase text-black/25">Manufacturing Heritage</span>
-             </div>
-          </Link>
-
-          {/* Center: Curated Navigation */}
-          <nav className="hidden xl:flex items-center gap-10">
-            {mainNav.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="relative group text-[10px] font-bold tracking-[0.25em] uppercase text-[#111]/80 hover:text-[#C0001A] transition-all py-2"
-                style={{ fontFamily: "var(--font-dm-sans)" }}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury group-hover:w-full" />
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right: Interaction Trigger */}
-          <div className="flex items-center gap-4 lg:gap-6">
-             <Link href="/contact" className="hidden md:flex btn-primary !py-3 !px-8 !text-[9px]">
-                Enquire Project
-             </Link>
-             <a href="tel:+919446516395" className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]">
-                <Phone size={18} />
-             </a>
-             <button className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" onClick={() => setMobileOpen(true)}>
-               <Menu size={24} strokeWidth={1.5} />
-             </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Experience (Drawer) */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm"
-          >
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 200 }}
-              className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl flex flex-col"
-            >
-              <div className="h-24 px-10 flex items-center justify-between border-b border-black/5">
-                  <span className="font-black tracking-[0.2em] text-lg text-[#C0001A]">MAGNAT</span>
-                  <button onClick={() => setMobileOpen(false)} className="p-2 bg-black/5 rounded-full"><X size={24} /></button>
-              </div>
-              <div className="flex-1 overflow-y-auto px-10 py-12 flex flex-col gap-8">
-                 {mainNav.map((item, i) => (
-                    <motion.div
-                      key={item.label}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                       <Link 
-                         href={item.href} 
-                         onClick={() => setMobileOpen(false)}
-                         className="text-4xl font-bold tracking-tight text-[#111] hover:text-[#C0001A] transition-colors relative group" 
-                         style={{ fontFamily: "var(--font-playfair)" }}
-                       >
-                          {item.label}
-                          <span className="block h-0.5 w-0 bg-[#C0001A] transition-all duration-500 group-hover:w-full" />
-                       </Link>
-                    </motion.div>
-                 ))}
-              </div>
-              <div className="p-10 bg-[#111] text-white space-y-8">
-                 <div className="flex flex-col gap-2">
-                    <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-white/30">Connect</span>
-                    <p className="text-xl font-semibold">+91 9446516395</p>
-                 </div>
-                 <div className="flex gap-6">
-                    <Instagram size={20} className="text-white/60 hover:text-white transition-colors" />
-                    <Heart size={20} className="text-white/60 hover:text-white transition-colors" />
-                 </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ── Navbar Content wrapped in Suspense ── */}
+      <Suspense fallback={<div className="bg-white h-24 w-full" />}>
+        <NavbarContent 
+          scrolled={scrolled} 
+          mobileOpen={mobileOpen} 
+          setMobileOpen={setMobileOpen} 
+          isVisible={isVisible}
+        />
+      </Suspense>
     </header>
   );
 }
+

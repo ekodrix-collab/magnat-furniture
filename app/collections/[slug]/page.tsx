@@ -8,88 +8,62 @@ import ProductCard from "@/components/ui/ProductCard";
 import FadeInView from "@/components/ui/FadeInView";
 import Button from "@/components/ui/Button";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 /* ── Static product data keyed by collection slug ── */
 const collectionData: Record<string, {
   name: string;
   description: string;
   heroImage: string;
-  products: { id: string; name: string; slug: string; images: string[]; short_description: string }[];
+  products: { id: string; name: string; slug: string; images: string[]; short_description: string; price?: string; categoryName?: string; isNew?: boolean; isBestseller?: boolean }[];
 }> = {
-  "living-room": {
-    name: "Living Room",
-    description: "Sofas, armchairs, and statement pieces that define your personal style and elevate your everyday living.",
-    heroImage: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2070&auto=format&fit=crop",
+  "luxury-living-room-collections": {
+    name: "Luxury Living Room",
+    description: "Architectural seating and statement pieces that define the modern interior. Hand-curated for the uncompromising connoisseur.",
+    heroImage: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
     products: [
-      { id: "1", name: "Classic Velvet Sofa", slug: "classic-velvet-sofa", images: ["https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop"], short_description: "Deep-tufted velvet upholstery with walnut-finished solid wood legs." },
-      { id: "3", name: "Leather Armchair", slug: "leather-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], short_description: "Top-grain Italian leather with hand-stitched detailing." },
-      { id: "6", name: "Chesterfield Sofa", slug: "chesterfield-sofa", images: ["https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop"], short_description: "Classic tufted leather sofa with rolled arms." },
-      { id: "7", name: "Marble Coffee Table", slug: "marble-coffee-table", images: ["https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=2069&auto=format&fit=crop"], short_description: "Italian Carrara marble top with brass legs." },
+      { id: "lr1", name: "Aurelius Modular Sofa", slug: "aurelius-sofa", images: ["https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000"], short_description: "Top-grain Italian leather with walnut base.", price: "₹2,45,000", categoryName: "Seating", isBestseller: true },
+      { id: "lr2", name: "Caspian Velvet Armchair", slug: "caspian-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1000"], short_description: "Deep-tufted velvet with brass accent legs.", price: "₹85,000", categoryName: "Chairs" },
+      { id: "lr3", name: "Vesper Marble Coffee Table", slug: "vesper-table", images: ["https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=1000"], short_description: "Hand-picked Carrara marble with steel frame.", price: "₹1,15,000", categoryName: "Tables", isNew: true },
+      { id: "lr4", name: "Helios Lounge Chair", slug: "helios-chair", images: ["https://images.unsplash.com/photo-1567016432779-094069958ad5?q=80&w=1000"], short_description: "Ergonomic design in premium teak and leather.", price: "₹92,000", categoryName: "Seating" },
+      { id: "lr5", name: "Zenith Media Console", slug: "zenith-console", images: ["https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?q=80&w=1000"], short_description: "Minimalist oak console with hidden cable management.", price: "₹1,35,000", categoryName: "Storage" },
+      { id: "lr6", name: "Atlas Sectional", slug: "atlas-sectional", images: ["https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1000"], short_description: "Expansive comfort in performance linen fabric.", price: "₹3,10,000", categoryName: "Seating" },
     ],
   },
-  "dining-room": {
-    name: "Dining Room",
-    description: "Elegant dining sets crafted for memorable gatherings, shared moments, and celebrations around the table.",
-    heroImage: "/images/dining-001.jpg",
+  "designer-dining-furniture": {
+    name: "Designer Dining",
+    description: "Gather around masterworks of timber and marble. Where every meal becomes a shared moment of architectural beauty.",
+    heroImage: "https://images.unsplash.com/photo-1574621100236-d25b64cf5615?q=80&w=2600&auto=format&fit=crop",
     products: [
-      { id: "2", name: "Oak Dining Table", slug: "oak-dining-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop"], short_description: "European White Oak table seats up to 8." },
-      { id: "8", name: "Velvet Dining Chairs", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort with premium velvet upholstery." },
+      { id: "dr1", name: "Solstice Oak Table", slug: "solstice-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=1000"], short_description: "Solid European white oak dining table seats 8.", price: "₹1,85,000", categoryName: "Tables", isBestseller: true },
+      { id: "dr2", name: "Nova Dining Chair", slug: "nova-chair", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=1000"], short_description: "Contoured back with premium upholstery.", price: "₹18,500", categoryName: "Chairs" },
+      { id: "dr3", name: "Lunar Sideboard", slug: "lunar-sideboard", images: ["https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1000"], short_description: "Walnut sideboard with hand-carved textures.", price: "₹1,45,000", categoryName: "Storage", isNew: true },
+      { id: "dr4", name: "Tiber Round Table", slug: "tiber-table", images: ["https://images.unsplash.com/photo-1577140917170-285929fb55b7?q=80&w=1000"], short_description: "Compact marble-top bistro table for 4.", price: "₹75,000", categoryName: "Tables" },
+      { id: "dr5", name: "Solis Bench", slug: "solis-bench", images: ["https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1000"], short_description: "Minimalist oak bench with fabric cushion.", price: "₹42,000", categoryName: "Seating" },
+      { id: "dr6", name: "Elite Bar Stool", slug: "elite-stool", images: ["https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=1000"], short_description: "Sleek industrial design for modern bars.", price: "₹12,400", categoryName: "Chairs" },
     ],
   },
-  bedroom: {
-    name: "Bedroom",
-    description: "Sanctuaries of rest featuring our signature beds, wardrobes, and nightstands designed for ultimate comfort.",
-    heroImage: "/images/bedroom-001.jpg",
+  "bespoke-bedroom-sanctuaries": {
+    name: "Bedroom Sanctuaries",
+    description: "Retreat into luxury. Precision-engineered beds and storage designed for ultimate restoration and privacy.",
+    heroImage: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2070&auto=format&fit=crop",
     products: [
-      { id: "4", name: "Heritage Canopy Bed", slug: "heritage-canopy-bed", images: ["/images/bedroom-001.jpg"], short_description: "Architectural metal framing with a plush upholstered headboard." },
+      { id: "br1", name: "Heritage Canopy Bed", slug: "heritage-bed", images: ["https://images.unsplash.com/photo-1505691938895-1758d7eaa511?q=80&w=1000"], short_description: "Solid walnut frame with upholstered headboard.", price: "₹2,10,000", categoryName: "Beds", isBestseller: true },
+      { id: "br2", name: "Odessa Nightstand", slug: "odessa-stand", images: ["https://images.unsplash.com/photo-1532372320978-9a4d0ecf432b?q=80&w=1000"], short_description: "Twin-drawer stand with brass hardware.", price: "₹32,000", categoryName: "Storage" },
+      { id: "br3", name: "Lyra Dresser", slug: "lyra-dresser", images: ["https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1000"], short_description: "6-drawer dress in American walnut finish.", price: "₹1,25,000", categoryName: "Storage", isNew: true },
+      { id: "br4", name: "Astra Platform Bed", slug: "astra-bed", images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1000"], short_description: "Japanese-inspired low-profile oak bed.", price: "₹1,65,000", categoryName: "Beds" },
+      { id: "br5", name: "Comet Bench", slug: "comet-bench", images: ["https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=1000"], short_description: "End-of-bed bench in premium navy velvet.", price: "₹48,000", categoryName: "Seating" },
     ],
   },
-  office: {
-    name: "Office Furniture",
-    description: "Ergonomic designs and premium finishes for executive workspaces that inspire productivity and prestige.",
-    heroImage: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
+  "custom-interior-systems": {
+    name: "Custom Systems",
+    description: "Intelligent window and light management. Tailored solutions that define the atmosphere of your space.",
+    heroImage: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2600&auto=format&fit=crop",
     products: [
-      { id: "5", name: "Executive Desk", slug: "executive-desk", images: ["https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop"], short_description: "Premium workspace desk with cable management." },
+      { id: "cs1", name: "Motorized Zebra Blinds", slug: "zebra-blinds", images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000"], short_description: "Smart-home integrated dual-layer blinds.", price: "Custom", categoryName: "Window Systems", isBestseller: true },
+      { id: "cs2", name: "Velvet Blackout Curtains", slug: "velvet-curtains", images: ["https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"], short_description: "Floor-to-ceiling soundproof velvet drapes.", price: "Custom", categoryName: "Curtains" },
+      { id: "cs3", name: "Honeycomb Solar Blinds", slug: "honeycomb-blinds", images: ["https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=1000"], short_description: "Energy-efficient cellular blinds for Kerala's tropical light.", price: "Custom", categoryName: "Window Systems", isNew: true },
     ],
-  },
-  sofas: {
-    name: "Sofas",
-    description: "From classic Chesterfields to modern modular designs — discover sofas that become the heart of your home.",
-    heroImage: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
-    products: [
-      { id: "1", name: "Classic Velvet Sofa", slug: "classic-velvet-sofa", images: ["https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop"], short_description: "Deep-tufted velvet upholstery with walnut-finished solid wood legs." },
-      { id: "6", name: "Chesterfield Sofa", slug: "chesterfield-sofa", images: ["https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=2009&auto=format&fit=crop"], short_description: "Classic tufted leather sofa with rolled arms." },
-    ],
-  },
-  chairs: {
-    name: "Chairs",
-    description: "Ergonomic armchairs, accent chairs, and dining chairs — each designed for both comfort and visual impact.",
-    heroImage: "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop",
-    products: [
-      { id: "3", name: "Leather Armchair", slug: "leather-armchair", images: ["https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop"], short_description: "Top-grain Italian leather with hand-stitched detailing." },
-      { id: "8", name: "Velvet Dining Chairs", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort for dining with premium fabric." },
-    ],
-  },
-  dining: {
-    name: "Dining",
-    description: "Tables and chairs for the most important room in the house — where families come together.",
-    heroImage: "/images/dining-001.jpg",
-    products: [
-      { id: "2", name: "Oak Dining Table", slug: "oak-dining-table", images: ["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop"], short_description: "European White Oak table seats up to 8." },
-      { id: "8", name: "Velvet Dining Chairs", slug: "velvet-dining-chairs", images: ["https://images.unsplash.com/photo-1617582907226-c49e2d8200d9?q=80&w=2070&auto=format&fit=crop"], short_description: "Contoured comfort with premium velvet upholstery." },
-    ],
-  },
-  "kids-room": {
-    name: "Kids Room",
-    description: "Comfortable, safe, and imaginative furniture designed for your little ones to grow, play, and dream.",
-    heroImage: "/images/kids-room.jpg",
-    products: [],
-  },
-  outdoor: {
-    name: "Outdoor",
-    description: "Premium materials engineered for outdoor luxury, longevity, and effortless elegance under the open sky.",
-    heroImage: "/images/outdoor.jpg",
-    products: [],
   },
 };
 
@@ -99,56 +73,95 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
 
   if (!collection) {
     return (
-      <div className="pt-40 pb-32 bg-brand-primary min-h-screen flex flex-col items-center justify-center">
-        <h1 className="font-playfair text-5xl font-bold text-[#1A1A1A] mb-6">Collection Not Found</h1>
-        <p className="text-body font-light mb-10">The collection you're looking for doesn't exist.</p>
-        <Button href="/collections" variant="primary" showArrow>Back to Collections</Button>
+      <div className="pt-40 pb-32 bg-[#F7F4F0] dark:bg-zinc-950 min-h-screen flex flex-col items-center justify-center transition-colors duration-500">
+        <FadeInView align="center">
+          <h1 className="font-playfair text-5xl font-bold text-[#111] dark:text-white mb-6">Collection Not Found</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 font-light mb-10 max-w-md">The curation you're looking for might have been moved or updated.</p>
+          <Link href="/collections" className="btn-red">Back to Collections</Link>
+        </FadeInView>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-brand-primary">
-      {/* Hero Banner */}
-      <section className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
-        <Image
-          src={collection.heroImage}
-          alt={collection.name}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-[#1A1A1A]/30 to-transparent" />
-        <div className="container relative z-10 mx-auto flex h-full flex-col justify-end px-6 lg:px-12 pb-16">
-          <FadeInView>
-            <Link href="/collections" className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969] mb-6 hover:text-white transition-colors">
-              <ArrowLeft size={14} />
-              All Collections
+    <div className="min-h-screen bg-[#F7F4F0] dark:bg-zinc-950 transition-colors duration-500 pt-20 md:pt-28">
+      
+      {/* ============================================
+          EDITORIAL HERO — PARALLAX HEADER
+          ============================================ */}
+      <section className="relative h-[70vh] w-full overflow-hidden flex items-end">
+        <motion.div 
+          className="absolute inset-0 z-0"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+           <Image
+            src={collection.heroImage}
+            alt={collection.name}
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        </motion.div>
+
+        <div className="max-container relative z-10 pb-20 w-full">
+          <FadeInView className="max-w-4xl">
+            <Link 
+              href="/collections" 
+              className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.4em] text-white/70 hover:text-[#C0001A] transition-all mb-8 group"
+            >
+              <div className="w-8 h-px bg-white/30 group-hover:bg-[#C0001A] group-hover:w-12 transition-all" />
+              All Portfolios
             </Link>
-            <h1 className="font-playfair text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
+            
+            <h1 className="font-playfair text-6xl md:text-8xl font-bold text-white mb-6 leading-[0.9] tracking-tighter">
               {collection.name}
             </h1>
-            <p className="text-lg text-white/70 font-light max-w-2xl leading-relaxed">
+            
+            <p className="text-xl text-white/80 font-light max-w-2xl leading-relaxed">
               {collection.description}
             </p>
           </FadeInView>
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section className="py-24 px-6 lg:px-12">
-        <div className="container mx-auto">
+      {/* ============================================
+          SHOP CONTEXT — FILTERS & GRID
+          ============================================ */}
+      <section className="py-24">
+        <div className="max-container">
           {collection.products.length > 0 ? (
             <>
+              {/* Refined Filter Bar */}
               <FadeInView>
-                <div className="flex items-center justify-between mb-16 border-b border-brand pb-8">
-                  <p className="text-sm text-body font-light">
-                    Showing <span className="font-semibold text-[#1A1A1A]">{collection.products.length}</span> {collection.products.length === 1 ? "piece" : "pieces"}
-                  </p>
+                <div className="flex flex-col md:flex-row items-center justify-between mb-16 pb-8 border-b border-zinc-200 dark:border-zinc-800 gap-6">
+                   <div className="flex items-center gap-8">
+                      <div className="flex flex-col">
+                         <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Curation</span>
+                         <span className="text-sm font-semibold dark:text-white uppercase tracking-widest">{collection.name}</span>
+                      </div>
+                      <div className="w-px h-10 bg-zinc-200 dark:bg-zinc-800 hidden sm:block" />
+                      <div className="flex flex-col">
+                         <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Availability</span>
+                         <span className="text-sm font-semibold dark:text-white uppercase tracking-widest">{collection.products.length} Pieces</span>
+                      </div>
+                   </div>
+
+                   <div className="flex gap-4">
+                      <button className="px-6 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest dark:text-white hover:bg-[#C0001A] hover:border-[#C0001A] hover:text-white transition-all">
+                         Filter by Category
+                      </button>
+                      <button className="px-6 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest dark:text-white hover:bg-[#C0001A] hover:border-[#C0001A] hover:text-white transition-all">
+                         Sort By
+                      </button>
+                   </div>
                 </div>
               </FadeInView>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+
+              {/* Advanced Shop Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {collection.products.map((product, index) => (
                   <FadeInView key={product.id} delay={index * 0.08}>
                     <ProductCard product={product} />
@@ -157,38 +170,44 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
               </div>
             </>
           ) : (
-            <div className="py-24 text-center">
-              <FadeInView>
-                <h2 className="font-playfair text-3xl font-bold text-[#1A1A1A] mb-4">Coming Soon</h2>
-                <p className="text-body font-light italic leading-loose max-w-md mx-auto mb-10">
-                  Our artisans are currently crafting exquisite pieces for this collection. Contact us to discuss bespoke options.
+            <div className="py-32 text-center max-w-2xl mx-auto space-y-12">
+              <FadeInView align="center">
+                <div className="w-20 h-20 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mx-auto mb-8">
+                   <span className="text-zinc-300">Coming</span>
+                </div>
+                <h2 className="font-playfair text-4xl md:text-5xl font-bold dark:text-white mb-6">Artisanally Crafting</h2>
+                <p className="text-zinc-500 dark:text-zinc-400 font-light italic leading-loose text-lg">
+                  Our master craftsmen in Kondotty are currently hand-curating new additions for this collection. 
+                  Every piece undergoes rigorous quality checks before arrival.
                 </p>
-                <Button href="/contact" variant="primary" showArrow>
-                  Discuss Bespoke Options
-                </Button>
+                <div className="pt-8">
+                   <Link href="/contact" className="btn-red">Inquire About Pre-launch Pieces</Link>
+                </div>
               </FadeInView>
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="bg-[#EFE7DF] border-y border-brand py-20 px-6 lg:px-12">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-          <FadeInView>
-            <div className="max-w-xl text-center md:text-left">
-              <h2 className="font-playfair text-3xl font-bold text-[#1A1A1A] mb-4">
-                Can&apos;t find what you&apos;re looking for?
-              </h2>
-              <p className="text-body font-light leading-relaxed">
-                We specialize in bespoke furniture. Share your vision and our master designers will bring it to life.
-              </p>
-            </div>
+      {/* ============================================
+          BESPOKE FOOTER CALLOUT
+          ============================================ */}
+      <section className="bg-zinc-50 dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800 py-24">
+        <div className="max-container flex flex-col md:flex-row items-center justify-between gap-12">
+          <FadeInView className="max-w-2xl text-center md:text-left">
+            <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Tailored Luxury</span>
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold dark:text-white mb-6">
+              Didn't find the perfect match?
+            </h2>
+            <p className="text-zinc-600 dark:text-zinc-400 text-lg leading-relaxed font-light">
+              We specialize in custom-engineered furniture solutions. Share your blueprints 
+              or vision, and our designers will provide a detailed execution plan.
+            </p>
           </FadeInView>
           <FadeInView delay={0.2}>
-            <Button href="/contact" variant="gold" showArrow className="px-10 py-5 text-sm">
-              Request Custom Design
-            </Button>
+            <Link href="/contact" className="px-12 py-5 bg-[#C0001A] text-white text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-zinc-950 transition-all shadow-xl rounded-sm">
+              Request Bespoke Design
+            </Link>
           </FadeInView>
         </div>
       </section>
