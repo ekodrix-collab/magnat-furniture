@@ -112,11 +112,16 @@ export default function Footer() {
                </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="aspect-[16/7] bg-white/5 relative border border-white/5 overflow-hidden flex items-center justify-center text-white/10 group">
-               <MapPin size={48} className="group-hover:scale-110 transition-transform duration-700" />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#111]/80 to-transparent" />
-               <span className="absolute bottom-4 left-6 text-[10px] font-bold tracking-widest uppercase text-white/40">Launch Kondotty Studio Map</span>
+            {/* Interactive Google Map */}
+            <div className="aspect-[16/7] bg-white/5 relative border border-white/5 overflow-hidden">
+               <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.577732999317!2d75.9678667!3d11.1447936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba64ee03d3e05f3%3A0x895ea8e05f23c7d8!2sMagnat%20Furniture%20and%20Interiors!5e0!3m2!1sen!2sin!4v1775902098710!5m2!1sen!2sin" 
+                  className="w-full h-full grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-700" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+               ></iframe>
             </div>
           </div>
 
@@ -127,7 +132,7 @@ export default function Footer() {
            <div className="flex items-center gap-4">
               <div className="bg-[#C0001A] px-3 py-1 text-[10px] font-black tracking-tighter italic">MAGNAT</div>
               <p className="text-[11px] text-white/20 font-bold tracking-widest uppercase">
-                © 2024 Magnat Furniture, Kondotty | All Rights Reserved.
+                © {new Date().getFullYear()} Magnat Furniture, Kondotty | All Rights Reserved.
               </p>
            </div>
            
