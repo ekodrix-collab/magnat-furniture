@@ -191,15 +191,15 @@ export default function FurnitureCarousel() {
 
                
                     <div className="px-2">
-                        <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold text-left">
+                        <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold text-left" style={{ fontFamily: "var(--font-inter)" }}>
                       {product.category}
                     </span>
 
-                    <h3 className="text-md font-bold text-gray-800 mt-1 text-left" style={{ fontFamily: "monospace" }}>
+                    <h3 className="text-md font-medium text-gray-800 mt-1 text-left" style={{ fontFamily: "var(--font-inter)" }}>
                       {product.name}
                     </h3>
 
-                    <p className="text-xs text-gray-400 text-left">
+                    <p className="text-xs text-gray-400 text-left" style={{ fontFamily: "var(--font-inter)" }}>
                       {product.subtitle}
                     </p>
                     </div>
