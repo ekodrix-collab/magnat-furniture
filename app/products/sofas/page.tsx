@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MessageCircle, ArrowRight, ChevronDown } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────
-// SEO METADATA — Targeted for Kerala sofa buyers
+// SEO METADATA
 // ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   title: "Sofas in Kondotty, Kerala | Premium Sofa Collection | MAGNAT™",
@@ -40,17 +40,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-  alternates: {
-    canonical: "https://magnat.in/products/sofas",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  alternates: { canonical: "https://magnat.in/products/sofas" },
+  robots: { index: true, follow: true },
 };
 
 // ─────────────────────────────────────────────────────────────
-// SOFA PRODUCTS DATA
+// DATA
 // ─────────────────────────────────────────────────────────────
 const sofaProducts = [
   {
@@ -199,44 +194,82 @@ const sofaProducts = [
   },
 ];
 
+const seoStats = [
+  { num: "25+", label: "Years Manufacturing" },
+  { num: "16", label: "Sofa Styles" },
+  { num: "100%", label: "Made in Kondotty" },
+  { num: "2–4wk", label: "Delivery Across Kerala" },
+];
+
+const seoTags = [
+  "L-Shaped Sofas",
+  "Modular Sets",
+  "Teak Wood",
+  "Recliner Sofas",
+  "Custom Fabric",
+];
+
+const faqItems = [
+  {
+    q: "Do you deliver sofas across Kerala?",
+    a: "Yes. We deliver our sofas to all major cities and towns in Kerala including Kozhikode, Kochi, Thrissur, Palakkad, Malappuram, and Kannur. Contact us for delivery charges to your location.",
+  },
+  {
+    q: "Can I customize the sofa fabric or size?",
+    a: "Absolutely. All our sofas are made-to-order in our Kondotty factory. You can choose from a wide range of fabrics, leather, velvet, and leatherette options, as well as custom dimensions.",
+  },
+  {
+    q: "How long does manufacturing and delivery take?",
+    a: "Most sofas are delivered within 2–4 weeks after order confirmation. Custom orders may take slightly longer depending on material availability and complexity.",
+  },
+  {
+    q: "Do you offer a warranty on sofas?",
+    a: "Yes. We provide a manufacturer's warranty on the frame and upholstery. Our after-sales team is always available for repairs, refinishing, and support.",
+  },
+  {
+    q: "Can I visit your showroom to see the sofas?",
+    a: "Yes, our showroom is located in Kondotty, Malappuram, Kerala. You can visit us to experience the sofas in person. Call +91 94465 16395 to confirm showroom hours.",
+  },
+  {
+    q: "What sofa materials are available at MAGNAT?",
+    a: "We offer a wide range of upholstery options including premium fabric, velvet, leatherette, top-grain leather, cotton canvas, and natural rattan. For wooden frames, we use Kerala teak, solid mahogany, and rubberwood. All materials are sourced for durability and suited to Kerala's climate.",
+  },
+];
+
 // ─────────────────────────────────────────────────────────────
-// SOFA CARD COMPONENT
+// SOFA CARD
 // ─────────────────────────────────────────────────────────────
-function SofaCard({
-  product,
-}: {
-  product: (typeof sofaProducts)[number];
-}) {
+function SofaCard({ product }: { product: (typeof sofaProducts)[number] }) {
   return (
-    <article className="sofa-card group">
+    <article className="sofa-card group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb]">
       {/* Image */}
-      <div className="sofa-card__image-wrap">
+      <div className="relative w-full overflow-hidden bg-[#f7f7f5] flex-shrink-0" style={{ aspectRatio: "3/2.8" }}>
         <Image
           src={product.image}
           alt={`${product.name} — MAGNAT Furniture Kondotty Kerala`}
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1300px) 33vw, 25vw"
-          className="sofa-card__image"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           priority={false}
         />
       </div>
 
-      {/* Content */}
-      <div className="sofa-card__body">
-        {/* Material Tag */}
-        <span className="sofa-card__material">{product.material}</span>
-
-        {/* Name */}
-        <h3 className="sofa-card__name">{product.name}</h3>
-
-        {/* Description — 2 line clamp */}
-        <p className="sofa-card__desc">{product.description}</p>
-
-        {/* CTA Row */}
-        <div className="sofa-card__actions">
+      {/* Body */}
+      <div className="flex flex-col flex-1 px-5 pt-6 pb-7 min-h-[220px] max-sm:px-3 max-sm:pt-2.5 max-sm:pb-3.5 max-sm:min-h-[140px]">
+        <span className="block mb-2 text-[10px] font-medium tracking-[0.25em] uppercase text-[#C0001A] max-sm:text-[8px] max-sm:mb-[5px]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+          {product.material}
+        </span>
+        <h3 className="text-base font-medium leading-snug text-[#111] mb-2 transition-colors duration-300 group-hover:text-[#C0001A] max-sm:text-[0.88rem] max-sm:mb-1.5" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+          {product.name}
+        </h3>
+        <p className="text-sm text-[#666] leading-relaxed mb-4 flex-1 line-clamp-2 max-sm:text-[0.72rem] max-sm:mb-3" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+          {product.description}
+        </p>
+        <div className="flex items-center gap-2.5 mt-auto">
           <Link
             href={`/products/${product.slug}`}
-            className="sofa-card__detail-btn"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#111] text-white text-sm font-semibold tracking-[0.15em] uppercase px-4 py-3 rounded-[4px] no-underline transition-colors duration-300 hover:bg-[#C0001A] max-sm:py-2.5 max-sm:text-[9px] max-sm:tracking-[0.12em]"
+            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
             aria-label={`View details for ${product.name}`}
           >
             Details
@@ -244,122 +277,6 @@ function SofaCard({
           </Link>
         </div>
       </div>
-
-      {/* Scoped Styles */}
-      <style>{`
-        .sofa-card {
-          background: #fff;
-          border: 1px solid #f0f0f0;
-          border-radius: 4px;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
-        }
-        .sofa-card:hover {
-          box-shadow: 0 16px 48px rgba(17,17,17,0.10);
-          transform: translateY(-4px);
-          border-color: #ebebeb;
-        }
-
-        /* ── Image ── */
-        .sofa-card__image-wrap {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 3 / 2.8; /* Increased height from 4 / 3 */
-          overflow: hidden;
-          background: #f7f7f5;
-          flex-shrink: 0;
-        }
-        .sofa-card__image {
-          object-fit: cover;
-          transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .sofa-card:hover .sofa-card__image {
-          transform: scale(1.06);
-        }
-
-
-
-
-
-        /* ── Body ── */
-        .sofa-card__body {
-          padding: 24px 20px 28px;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          min-height: 220px;
-        }
-        .sofa-card__material {
-          font-size: 10px;
-          font-weight: 500;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: #C0001A;
-          font-family: var(--font-inter, sans-serif);
-          display: block;
-          margin-bottom: 8px;
-        }
-        .sofa-card__name {
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1.4;
-          color: #111;
-          font-family: var(--font-inter, sans-serif);
-          margin: 0 0 8px;
-          transition: color 0.3s;
-        }
-        .sofa-card:hover .sofa-card__name {
-          color: #C0001A;
-        }
-        .sofa-card__desc {
-          font-size: 14px;
-          color: #666;
-          line-height: 1.6;
-          font-family: var(--font-inter, sans-serif);
-          margin: 0 0 16px;
-          flex: 1;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-height: 2.8rem; /* Exact height for 2 lines (14px * 1.6 * 2) */
-        }
-
-        /* ── Actions ── */
-        .sofa-card__actions {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-top: auto;
-        }
-        .sofa-card__detail-btn {
-          flex: 1;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-          background: #111;
-          color: #fff;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          padding: 12px 16px;
-          text-decoration: none;
-          font-family: var(--font-inter, sans-serif);
-          transition: background 0.3s, color 0.3s;
-          border-radius: 4px;
-        }
-        .sofa-card__detail-btn:hover {
-          background: #C0001A;
-        }
-        .sofa-card__enquire-btn {
-          display: none;
-        }
-      `}</style>
     </article>
   );
 }
@@ -369,103 +286,122 @@ function SofaCard({
 // ─────────────────────────────────────────────────────────────
 export default function SofasPage() {
   return (
-    <main className="sofas-page">
-      {/* ── Page Header ── */}
-      <section className="sofas-header">
+    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+
+
+
+      {/* ── SEO Intro — desktop only ── */}
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
         <div className="max-container">
-          {/* Breadcrumb */}
-          <nav className="sofas-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/products">Products</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Sofas</span>
-          </nav>
 
-          {/* Title Block */}
-          <div className="sofas-title-block">
-            <span className="heading-label">Kondotty Craftsmanship · Kerala</span>
-            <h1 className="sofas-h1">
-              Sofa <span className="sofas-h1__accent">Collection</span>
-            </h1>
-            <p className="sofas-subtitle sofas-subtitle--desktop">
-              Handcrafted sofas made at our Kondotty manufacturing unit. Each piece is built
-              with premium-grade materials and finished by skilled Kerala artisans — designed
-              to complement modern and traditional homes alike.
-            </p>
-
-            {/* Quick Stats */}
-            <div className="sofas-stats sofas-stats--desktop">
-              <div className="sofas-stat">
-                <span className="sofas-stat__num">{sofaProducts.length}</span>
-                <span className="sofas-stat__label">Sofa Styles</span>
-              </div>
-              <div className="sofas-stat__divider" aria-hidden="true" />
-              <div className="sofas-stat">
-                <span className="sofas-stat__num">25+</span>
-                <span className="sofas-stat__label">Years Manufacturing</span>
-              </div>
-              <div className="sofas-stat__divider" aria-hidden="true" />
-              <div className="sofas-stat">
-                <span className="sofas-stat__num">Custom</span>
-                <span className="sofas-stat__label">Size &amp; Fabric</span>
-              </div>
-            </div>
+          {/* Kicker with line */}
+          <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+            Manufacturer · Kondotty, Kerala · Est. 1999
+            <span className="flex-1 h-px bg-[#f0f0f0]" aria-hidden="true" />
           </div>
-        </div>
-      </section>
 
-      {/* ── SEO Intro Text ── */}
-      <section className="sofas-seo-intro sofas-seo-intro--desktop-only">
-        <div className="max-container">
-          <div className="sofas-seo-intro__inner">
-            <div className="sofas-seo-intro__left">
-              <h2 className="sofas-seo-intro__heading">
-                Buy Sofas Directly from the Manufacturer in Kondotty
+          {/* Two-column layout */}
+          <div className="grid grid-cols-2 gap-0">
+
+            {/* Left — editorial copy */}
+            <div className="pr-16 border-r border-[#f0f0f0]">
+              <h2 className="text-[40px] font-normal leading-[1.15] tracking-[-0.01em] text-[#111] mb-6" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+                Buy Sofas Directly from the{" "}
+                <em className="text-[#C0001A]" style={{ fontStyle: "italic" }}>Manufacturer</em>{" "}
+                in Kondotty
               </h2>
-              <p>
-                MAGNAT Furniture is a leading furniture manufacturer based in Kondotty, Malappuram district,
-                Kerala. We specialize in premium sofa sets — from L-shaped sectionals and wooden sofa sets
-                to recliner sofas and modular configurations. Every sofa is built in-house at our Kondotty
-                factory and delivered directly to your home, eliminating middlemen for the best value.
+
+              {/* Red rule */}
+              <div className="w-10 h-px bg-[#C0001A] mb-5" />
+
+              <p className="text-sm text-[#666] leading-[1.85] font-light mb-4" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                MAGNAT Furniture is a leading furniture manufacturer based in Kondotty,
+                Malappuram district, Kerala. We specialize in premium sofa sets — from
+                L-shaped sectionals and wooden sofa sets to recliner sofas and modular
+                configurations. Every sofa is built in-house at our Kondotty factory and
+                delivered directly to your home, eliminating middlemen for the best value.
               </p>
-              <p>
-                Whether you&apos;re furnishing a new home in Kozhikode, Malappuram, Thrissur, or anywhere
-                across Kerala, our team can help you choose the perfect sofa and customize it to your space,
-                color, and fabric preference. Visit our showroom or send us an enquiry to get started.
+              <p className="text-sm text-[#666] leading-[1.85] font-light mb-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                Whether you&apos;re furnishing a new home in Kozhikode, Malappuram, Thrissur,
+                or anywhere across Kerala, our team can help you choose the perfect sofa and
+                customize it to your space, color, and fabric preference.
               </p>
+
+              {/* Pull quote */}
+              <blockquote className="mt-6 pl-4 border-l-2 border-[#C0001A] text-[15px] italic text-[#999] leading-[1.7]" style={{ fontFamily: "var(--font-playfair, serif)", fontStyle: "italic" }}>
+                Handcrafted at source. No middlemen. Delivered across Kerala.
+              </blockquote>
             </div>
-            <div className="sofas-seo-intro__ctas">
-              <a
-                href="https://wa.me/919446516395?text=Hello%20MAGNAT%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20sofa%20collection."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sofas-whatsapp-cta"
-              >
-                <MessageCircle size={18} strokeWidth={2} />
-                WhatsApp Enquiry
-              </a>
-              <Link href="/contact" className="sofas-contact-cta">
-                Visit Showroom
-              </Link>
+
+            {/* Right — stats + tags + CTAs */}
+            <div className="pl-16 flex flex-col justify-between gap-7">
+
+              {/* 2×2 stat grid */}
+              <div className="grid grid-cols-2 gap-px bg-[#f0f0f0] border border-[#f0f0f0]">
+                {seoStats.map((s) => (
+                  <div key={s.label} className="bg-white px-5 py-6 flex flex-col gap-1.5">
+                    <span className="text-[30px] font-medium text-[#111] leading-none" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+                      {s.num}
+                    </span>
+                    <span className="text-[10px] tracking-[0.18em] uppercase text-[#999]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                      {s.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Keyword tags */}
+              <div className="flex flex-wrap gap-2">
+                {seoTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] tracking-[0.15em] uppercase text-[#888] border border-[#e8e8e8] px-3 py-1.5"
+                    style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="flex gap-2.5">
+                <a
+                  href="https://wa.me/919446516395?text=Hello%20MAGNAT%20Furniture%2C%20I%20want%20to%20enquire%20about%20your%20sofa%20collection."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3.5 no-underline rounded-[3px] transition-colors hover:bg-[#1ab954]"
+                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                >
+                  <MessageCircle size={16} strokeWidth={2} />
+                  WhatsApp Enquiry
+                </a>
+                <Link
+                  href="/contact"
+                  className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3 no-underline border border-[#ddd] rounded-[3px] transition-all hover:bg-[#111] hover:text-white hover:border-[#111]"
+                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                >
+                  Visit Showroom
+                </Link>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Count Bar ── */}
-      <div className="sofas-count-bar">
+      <div className="py-3.5 bg-[#f4f4f2] border-b border-[#ebebeb] max-sm:py-2.5">
         <div className="max-container">
-          <p className="sofas-count-text">
-            Showing <strong>{sofaProducts.length} sofas</strong> — All handcrafted in Kondotty, Kerala
+          <p className="text-xs text-[#666] m-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+            Showing <strong className="text-[#111]">{sofaProducts.length} sofas</strong> — All handcrafted in Kondotty, Kerala
           </p>
         </div>
       </div>
 
       {/* ── Product Grid ── */}
-      <section className="sofas-grid-section" aria-label="Sofa products">
+      <section className="py-12 max-sm:py-7" aria-label="Sofa products">
         <div className="max-container">
-          <div className="sofas-grid">
+          <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4 max-sm:gap-3">
             {sofaProducts.map((product) => (
               <SofaCard key={product.slug} product={product} />
             ))}
@@ -473,379 +409,64 @@ export default function SofasPage() {
         </div>
       </section>
 
-      {/* ── SEO FAQ Section ── */}
-      <section className="sofas-faq">
+      {/* ── FAQ — desktop only ── */}
+      <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">
         <div className="max-container">
-          <h2 className="sofas-faq__heading">Frequently Asked Questions — Sofas in Kerala</h2>
-          <div className="sofas-faq__list">
-            {[
-              {
-                q: "Do you deliver sofas across Kerala?",
-                a: "Yes. We deliver our sofas to all major cities and towns in Kerala including Kozhikode, Kochi, Thrissur, Palakkad, Malappuram, and Kannur. Contact us for delivery charges to your location.",
-              },
-              {
-                q: "Can I customize the sofa fabric or size?",
-                a: "Absolutely. All our sofas are made-to-order in our Kondotty factory. You can choose from a wide range of fabrics, leather, velvet, and leatherette options, as well as custom dimensions.",
-              },
-              {
-                q: "How long does manufacturing and delivery take?",
-                a: "Most sofas are delivered within 2–4 weeks after order confirmation. Custom orders may take slightly longer depending on material availability and complexity.",
-              },
-              {
-                q: "Do you offer a warranty on sofas?",
-                a: "Yes. We provide a manufacturer's warranty on the frame and upholstery. Our after-sales team is always available for repairs, refinishing, and support.",
-              },
-              {
-                q: "Can I visit your showroom to see the sofas?",
-                a: "Yes, our showroom is located in Kondotty, Malappuram, Kerala. You can visit us to experience the sofas in person. Call +91 94465 16395 to confirm showroom hours.",
-              },
-            ].map((item) => (
-              <details key={item.q} className="sofas-faq__item">
-                <summary className="sofas-faq__q">
-                  {item.q}
-                  <ChevronDown className="sofas-faq__icon" size={18} />
+
+          {/* Header row */}
+          <div className="flex items-end justify-between mb-12 pb-8 border-b border-[#ebebeb]">
+            <div>
+              <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] mb-3" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                Common Questions
+              </span>
+              <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] m-0" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+                Frequently Asked <em style={{ fontStyle: "italic" }} className="text-[#C0001A]">Questions</em>
+              </h2>
+            </div>
+            <div className="flex flex-col items-end gap-3">
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-transparent text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3 no-underline border border-[#ddd] rounded-[3px] transition-all hover:bg-[#111] hover:text-white hover:border-[#111]"
+                style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+              >
+                Send an Enquiry
+              </Link>
+            </div>
+          </div>
+
+          {/* FAQ grid — 2 columns */}
+          <div className="grid grid-cols-2 gap-x-16 gap-y-0">
+            {faqItems.map((item, i) => (
+              <details
+                key={item.q}
+                className="group/faq border-b border-[#ebebeb] py-0 open:pb-2"
+              >
+                <summary
+                  className="py-6 text-[15px] font-medium text-[#111] cursor-pointer flex items-center justify-between gap-4 list-none select-none hover:text-[#C0001A] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                >
+                  <span className="flex items-center gap-4">
+                    <span className="text-[11px] text-[#C0001A] font-normal tracking-widest w-5 flex-shrink-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {item.q}
+                  </span>
+                  <ChevronDown
+                    className="text-[#C0001A] transition-transform duration-300 group-open/faq:rotate-180 flex-shrink-0"
+                    size={16}
+                  />
                 </summary>
-                <div className="sofas-faq__a">
-                  <p>{item.a}</p>
+                <div className="pb-6 pl-9 text-sm text-[#666] leading-[1.8]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                  {item.a}
                 </div>
               </details>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* ── Page-Level Styles ── */}
-      <style>{`
-        .sofas-page {
-          padding-top: 80px; /* navbar clearance */
-          background: #fafaf9;
-          min-height: 100vh;
-        }
-
-        /* ── Header ── */
-        .sofas-header {
-          background: #fff;
-          border-bottom: 1px solid #f0f0f0;
-          padding: 48px 0 40px;
-        }
-        .sofas-breadcrumb {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 12px;
-          color: #888;
-          font-family: var(--font-inter, sans-serif);
-          margin-bottom: 28px;
-        }
-        .sofas-breadcrumb a {
-          color: #888;
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-        .sofas-breadcrumb a:hover { color: #C0001A; }
-        .sofas-breadcrumb span[aria-current] { color: #111; font-weight: 600; }
-
-        .sofas-title-block { max-width: 680px; }
-        .sofas-h1 {
-          font-size: 36px;
-          font-weight: 500;
-          line-height: 1.1;
-          letter-spacing: -0.01em;
-          color: #111;
-          font-family: var(--font-playfair, serif);
-          margin: 0 0 1rem;
-        }
-        @media (min-width: 768px) {
-          .sofas-h1 { font-size: 48px; margin-bottom: 1.25rem; }
-        }
-        @media (min-width: 1024px) {
-          .sofas-h1 { font-size: 56px; margin-bottom: 1.5rem; }
-        }
-        .sofas-h1__accent {
-          color: #C0001A;
-          font-style: italic;
-          font-weight: 400;
-        }
-        .sofas-subtitle {
-          font-size: 1rem;
-          color: #555;
-          line-height: 1.7;
-          font-family: var(--font-inter, sans-serif);
-          margin: 0 0 28px;
-          max-width: 600px;
-        }
-        .sofas-stats {
-          display: flex;
-          align-items: center;
-          gap: 24px;
-          flex-wrap: wrap;
-        }
-        .sofas-stat {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-        .sofas-stat__num {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #C0001A;
-          font-family: var(--font-playfair, serif);
-          line-height: 1;
-        }
-        .sofas-stat__label {
-          font-size: 10px;
-          color: #888;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          font-family: var(--font-inter, sans-serif);
-        }
-        .sofas-stat__divider {
-          width: 1px;
-          height: 36px;
-          background: #e8e8e8;
-        }
-
-        /* ── SEO Intro ── */
-        .sofas-seo-intro {
-          background: #fff;
-          border-bottom: 1px solid #f0f0f0;
-          padding: 40px 0;
-        }
-        .sofas-seo-intro__inner {
-          display: flex;
-          gap: 48px;
-          align-items: flex-start;
-        }
-        .sofas-seo-intro__left {
-          flex: 1;
-        }
-        .sofas-seo-intro__heading {
-          font-size: 28px;
-          font-weight: 600;
-          color: #111;
-          font-family: var(--font-playfair, serif);
-          margin: 0 0 1rem;
-        }
-        @media (min-width: 768px) {
-          .sofas-seo-intro__heading { font-size: 36px; margin-bottom: 1.25rem; }
-        }
-        @media (min-width: 1024px) {
-          .sofas-seo-intro__heading { font-size: 44px; margin-bottom: 1.5rem; }
-        }
-        .sofas-seo-intro__left p {
-          font-size: 0.875rem;
-          color: #666;
-          line-height: 1.75;
-          font-family: var(--font-inter, sans-serif);
-          margin: 0 0 12px;
-        }
-        .sofas-seo-intro__ctas {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          flex-shrink: 0;
-          min-width: 200px;
-        }
-        .sofas-whatsapp-cta {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: #25D366;
-          color: #fff;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          padding: 13px 22px;
-          text-decoration: none;
-          font-family: var(--font-inter, sans-serif);
-          transition: background 0.3s;
-          border-radius: 3px;
-          justify-content: center;
-        }
-        .sofas-whatsapp-cta:hover { background: #1ab954; }
-        .sofas-contact-cta {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          background: transparent;
-          color: #111;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          padding: 12px 22px;
-          text-decoration: none;
-          font-family: var(--font-inter, sans-serif);
-          border: 1px solid #ddd;
-          transition: background 0.3s, color 0.3s, border-color 0.3s;
-          border-radius: 3px;
-        }
-        .sofas-contact-cta:hover {
-          background: #111;
-          color: #fff;
-          border-color: #111;
-        }
-
-        /* ── Count Bar ── */
-        .sofas-count-bar {
-          padding: 14px 0;
-          background: #f4f4f2;
-          border-bottom: 1px solid #ebebeb;
-        }
-        .sofas-count-text {
-          font-size: 12px;
-          color: #666;
-          font-family: var(--font-inter, sans-serif);
-          margin: 0;
-        }
-        .sofas-count-text strong { color: #111; }
-
-        /* ── Grid ── */
-        .sofas-grid-section {
-          padding: 48px 0 64px;
-        }
-        .sofas-grid {
-          display: grid;
-          gap: 24px;
-          /* Mobile & tablet: 2 columns */
-          grid-template-columns: repeat(2, 1fr);
-        }
-        /* ≥1024px — 3 columns */
-        @media (min-width: 1024px) {
-          .sofas-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-        /* ≥1300px — 4 columns */
-        @media (min-width: 1300px) {
-          .sofas-grid {
-            grid-template-columns: repeat(4, 1fr);
-          }
-        }
-
-        /* ── FAQ ── */
-        .sofas-faq {
-          background: #fff;
-          border-top: 1px solid #f0f0f0;
-          padding: 56px 0;
-        }
-        .sofas-faq__heading {
-          font-size: 28px;
-          font-weight: 600;
-          color: #111;
-          font-family: var(--font-playfair, serif);
-          margin: 0 0 1rem;
-        }
-        @media (min-width: 768px) {
-          .sofas-faq__heading { font-size: 36px; margin-bottom: 1.25rem; }
-        }
-        @media (min-width: 1024px) {
-          .sofas-faq__heading { font-size: 44px; margin-bottom: 1.5rem; }
-        }
-        .sofas-faq__list {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          max-width: 900px;
-        }
-        .sofas-faq__item {
-          background: #fff;
-          border: 1px solid #f0f0f0;
-          border-radius: 4px;
-          overflow: hidden;
-          transition: border-color 0.3s;
-        }
-        .sofas-faq__item:hover {
-          border-color: #C0001A;
-        }
-        .sofas-faq__item[open] {
-          border-color: #C0001A;
-          background: #fafaf9;
-        }
-        .sofas-faq__q {
-          padding: 20px 24px;
-          font-size: 1rem;
-          font-weight: 600;
-          color: #111;
-          font-family: var(--font-playfair, serif);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          list-style: none;
-          user-select: none;
-        }
-        .sofas-faq__q::-webkit-details-marker {
-          display: none;
-        }
-        .sofas-faq__icon {
-          transition: transform 0.3s ease;
-          color: #C0001A;
-        }
-        .sofas-faq__item[open] .sofas-faq__icon {
-          transform: rotate(180deg);
-        }
-        .sofas-faq__a {
-          padding: 0 24px 24px;
-          font-size: 0.875rem;
-          color: #555;
-          line-height: 1.7;
-          font-family: var(--font-inter, sans-serif);
-        }
-        .sofas-faq__a p { margin: 0; }
-
-
-
-        /* ── Mobile-first: hide heavy content, show images fast ── */
-
-        /* Description — visible on all screens with 2-line clamp */
-        .sofa-card__desc { 
-          display: -webkit-box !important; 
-        }
-
-        /* SEO intro block — desktop only */
-        .sofas-seo-intro--desktop-only { display: none; }
-        @media (min-width: 768px) {
-          .sofas-seo-intro--desktop-only { display: block; }
-        }
-
-        /* Header subtitle — hide on mobile */
-        .sofas-subtitle--desktop { display: none; }
-        @media (min-width: 768px) {
-          .sofas-subtitle--desktop { display: block; }
-        }
-
-        /* Stats row — hide on mobile */
-        .sofas-stats--desktop { display: none; }
-        @media (min-width: 768px) {
-          .sofas-stats--desktop { display: flex; }
-        }
-
-
-
-        /* Mobile general tweaks */
-        @media (max-width: 767px) {
-          .sofas-header { padding: 28px 0 24px; }
-          .sofas-breadcrumb { margin-bottom: 16px; }
-          .sofas-h1 { font-size: 1.8rem; margin-bottom: 0; }
-          .sofas-grid { gap: 12px; }
-          .sofas-grid-section { padding: 28px 0 40px; }
-          .sofa-card__image-wrap { aspect-ratio: 4 / 3; }
-          .sofa-card__body { padding: 10px 12px 14px; min-height: 140px; }
-          .sofa-card__material { font-size: 8px; margin-bottom: 5px; }
-          .sofa-card__name { font-size: 0.88rem; margin-bottom: 6px; }
-          .sofa-card__desc { 
-            font-size: 0.72rem; 
-            margin-bottom: 12px; 
-            max-height: 2.16rem; /* 0.72 * 1.5 * 2 = exact 2 lines */
-          }
-          .sofa-card__detail-btn { padding: 10px 10px; font-size: 9px; letter-spacing: 0.12em; }
-          .sofas-faq { display: none; }
-          .sofas-count-bar { padding: 10px 0; }
-        }
-      `}</style>
-    </main>
+    </main >
   );
 }

@@ -3,8 +3,9 @@
 import { useState, useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Instagram, Search, User, Heart, Menu, X, Phone } from "lucide-react";
+import { Instagram, Search, User, Heart, Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence, LayoutGroup, useScroll, useMotionValueEvent } from "framer-motion";
+import { useFavorites } from "@/lib/context/FavoritesContext";
 
 /**
  * Navbar Configuration Constants
@@ -55,6 +56,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
+  const { favoritesCount, setDrawerOpen } = useFavorites();
 
   return (
     <motion.div
@@ -112,7 +114,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
 
           {/* Right: Interaction Trigger */}
           <div className="flex items-center gap-4 lg:gap-6">
-             <div className="hidden lg:block">
+             <div className="hidden lg:flex items-center gap-6">
                 <Link href="/contact" className="btn-primary !py-3 !px-8 !text-[9px]">
                    Enquire Project
                 </Link>
@@ -234,13 +236,18 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                            >
                               <Instagram size={20} strokeWidth={1.5} />
                            </Link>
-                           <Link 
-                             href="/wishlist" 
-                             className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
-                             aria-label="My Wishlist"
+                           <button 
+                             onClick={() => setDrawerOpen(true)} 
+                             className="relative text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
+                             aria-label="My Favorites"
                            >
                               <Heart size={20} strokeWidth={1.5} />
-                           </Link>
+                              {favoritesCount > 0 && (
+                                <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full shadow-md">
+                                  {favoritesCount}
+                                </span>
+                              )}
+                           </button>
                         </div>
                      </div>
                      <div className="space-y-4">
@@ -292,6 +299,7 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   
   const { scrollY } = useScroll();
+  const { favoritesCount, setDrawerOpen } = useFavorites();
   
   /**
    * Scroll Lock implementation for Mobile Menu
@@ -327,39 +335,35 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 z-[100] w-full">
       {/* ── Top Accessory Bar (Only shown at top) ── */}
-      <div className={`w-full bg-[#111] text-white/60 transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-12 opacity-100"}`}>
-        <div className="max-container h-full flex items-center justify-between">
+      <div className={`w-full bg-[#111] text-white transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-10 md:h-12 opacity-100"}`}>
+        <div className="max-container h-full flex items-center justify-between px-6 xl:px-0">
            <div className="flex items-center gap-6">
-              <span className="text-[9px] font-bold tracking-[0.3em] uppercase">Kondotty Flagship</span>
-              <div className="h-3 w-px bg-white/10" />
-              <Link href="/appointment" className="text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors">Book Consult</Link>
+              <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/80">Kondotty Flagship</span>
            </div>
            
-           <div className="flex items-center gap-8">
-              <Link href="/subscribe" className="text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors">Subscribe</Link>
-              <button 
-                className="hover:text-white transition-colors"
-                aria-label="Search"
-              >
-                 <Search size={14} strokeWidth={1.5} />
-              </button>
-              <Link 
-                href="/account" 
-                className="flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors"
-                aria-label="My Account"
-              >
-                 <User size={14} strokeWidth={1.5} />
-                 My List
-              </Link>
+           <div className="flex items-center gap-6">
               <Link 
                 href={NAV_CONFIG.socials.instagram} 
-                className="hover:text-white transition-colors"
+                className="text-white/60 hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
               >
                  <Instagram size={14} strokeWidth={1.5} />
               </Link>
+              
+              <button 
+                onClick={() => setDrawerOpen(true)} 
+                className="relative group text-white/60 hover:text-white transition-colors flex items-center gap-2" 
+                aria-label="Favorites"
+              >
+                <Heart size={14} strokeWidth={1.5} />
+                {favoritesCount > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full">
+                    {favoritesCount}
+                  </span>
+                )}
+              </button>
            </div>
         </div>
       </div>

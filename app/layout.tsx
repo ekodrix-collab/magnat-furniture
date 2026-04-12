@@ -7,6 +7,8 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppFloating from "@/components/ui/WhatsAppFloating"; // ✅ NEW
 import ContactQuickActions from "@/components/ui/ContactQuickActions";
 import Preloader from "@/components/ui/Preloader";
+import FavoritesDrawer from "@/components/ui/FavoritesDrawer";
+import { FavoritesProvider } from "@/lib/context/FavoritesContext";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -78,11 +80,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
-        <Preloader />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloating /> {/* ✅ Enhanced Version */}
+        <FavoritesProvider>
+          <Preloader />
+          <Navbar />
+          <FavoritesDrawer />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFloating /> {/* ✅ Enhanced Version */}
+        </FavoritesProvider>
       </body>
     </html>
   );
