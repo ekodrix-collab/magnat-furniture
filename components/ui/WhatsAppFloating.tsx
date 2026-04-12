@@ -29,7 +29,7 @@ export default function WhatsAppFloating() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed bottom-28 left-6 z-[102] w-80 bg-white rounded-2xl shadow-2xl border border-[#C0001A]/10 overflow-hidden"
+              className="fixed bottom-28 right-6 z-[102] w-80 bg-white rounded-2xl shadow-2xl border border-[#C0001A]/10 overflow-hidden"
             >
               {/* Header */}
               <div className="bg-gradient-to-r from-[#111111] to-[#2a2a2a] p-4 relative">
@@ -92,7 +92,7 @@ export default function WhatsAppFloating() {
       {/* Main Floating Button */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="fixed bottom-8 left-6 z-[101] group"
+        className="fixed bottom-8 right-6 z-[101] group"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
@@ -107,17 +107,13 @@ export default function WhatsAppFloating() {
         <span className="absolute inset-0 rounded-full bg-[#25D366]/20 blur-xl group-hover:bg-[#25D366]/30 transition-all duration-500"></span>
         
         {/* Main Button */}
-        <div className="relative flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#20bd5a] text-white pl-5 pr-6 py-4 rounded-full shadow-2xl border-2 border-white/30 backdrop-blur-sm">
+        <div className="relative flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#20bd5a] text-white p-4 md:pl-5 md:pr-6 md:py-4 rounded-full shadow-2xl border-2 border-white/30 backdrop-blur-sm">
           <MessageCircle size={24} fill="currentColor" className="animate-pulse" />
-          <span className="font-dm-sans font-semibold text-sm whitespace-nowrap">
+          <span className="font-dm-sans font-semibold text-sm whitespace-nowrap hidden md:block">
             Chat with Us
           </span>
         </div>
 
-        {/* Badge */}
-        <div className="absolute -top-1 -right-1 bg-[#C0001A] text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white shadow-lg">
-          LIVE
-        </div>
       </motion.button>
     </>
   );

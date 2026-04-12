@@ -24,7 +24,7 @@ const NAV_CONFIG = {
 
 const mainNav = [
   { label: "Collections", href: "/collections" },
-  { label: "Sofas", href: "/products?category=sofas", category: "sofas" },
+  { label: "Sofas", href: "/products/sofas" },
   { label: "Chairs", href: "/products?category=chairs", category: "chairs" },
   { label: "Dining", href: "/products?category=dining", category: "dining" },
   { label: "Curtains", href: "/products?category=curtains", category: "curtains" },
@@ -36,7 +36,7 @@ const mainNav = [
  * Helper to determine if a nav link is active
  */
 const checkIsActive = (item: typeof mainNav[0], pathname: string, currentCategory: string | null) => {
-  if (item.category) {
+  if ("category" in item && item.category) {
     return currentCategory === item.category;
   }
   return pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
