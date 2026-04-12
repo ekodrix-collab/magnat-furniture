@@ -45,10 +45,10 @@ export default function KondottyCollection() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
            <FadeInView className="max-w-2xl">
-              <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block" style={{ fontFamily: "var(--font-dm-sans)" }}>
+              <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
                 The Portfolio
               </span>
-              <h2 className="text-5xl md:text-6xl font-black text-[#111111] leading-none" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-[20px] md:text-[24px] lg:text-[30px] font-semibold text-[#111111] leading-tight mb-4 md:mb-5 lg:mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
                 Our <span className="italic">Collection.</span>
               </h2>
            </FadeInView>

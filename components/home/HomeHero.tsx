@@ -122,8 +122,8 @@ export default function HomeHero() {
                 className="space-y-2 text-center w-full"
               >
                 <h1
-                  className="text-white text-center leading-[0.95] font-semibold tracking-[-0.04em]"
-                  style={{ fontFamily: "sans-serif", fontSize: "clamp(2.2rem, 8vw, 5.5rem)" }}
+                  className="text-white text-center leading-[1.1] font-bold tracking-tight"
+                  style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
                 >
                   {SLIDES[current].heading}
                 </h1>
@@ -141,8 +141,8 @@ export default function HomeHero() {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 1.6, ease: smoothEase, delay: 0.12 }}
-                  className="text-white/90 text-sm lg:text-lg text-center font-light leading-relaxed max-w-xl"
-                  style={{ fontFamily: "cursive" }}
+                  className="text-white/90 text-sm lg:text-lg text-center font-normal leading-relaxed max-w-xl"
+                  style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {SLIDES[current].description}
                 </motion.p>
@@ -160,10 +160,11 @@ export default function HomeHero() {
                   className="flex flex-col sm:flex-row items-center gap-8"
                 >
                   <Link
-                    href="/collections"
-                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#62010e] hover:!text-white !border-none py-5 px-12 text-[10px] rounded-[8px]"
+                    href="/products"
+                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#900014] hover:!text-white !border-none py-5 px-12 text-[14px] font-semibold rounded-[4px] uppercase tracking-widest"
+                    style={{ fontFamily: "var(--font-inter)" }}
                   >
-                    Explore More
+                    Explore Collection
                   </Link>
                 </motion.div>
               </AnimatePresence>

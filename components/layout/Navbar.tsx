@@ -70,7 +70,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
           <Link href="/" className="flex items-center gap-8 group" aria-label={`${NAV_CONFIG.brand} Home`}>
              <div className="relative">
                 <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
-                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-inter)" }}>
                       {NAV_CONFIG.brand}
                    </span>
                 </div>
@@ -96,10 +96,10 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`relative group text-[10px] font-bold tracking-[0.25em] uppercase transition-all py-2 ${
+                  className={`relative group text-[11px] font-semibold tracking-[0.2em] uppercase transition-all py-2 ${
                     isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
                   }`}
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {item.label}
                   <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${

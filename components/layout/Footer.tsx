@@ -23,7 +23,7 @@ export default function Footer() {
           {/* ── Left: Professional Inquiry Form ── */}
           <div className="space-y-10">
             <div>
-              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>Get a Free Quote</h2>
+              <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>Get a Free Quote</h2>
               <p className="text-white/40 text-[15px] font-light max-w-md">Our manufacturing unit in Kondotty is ready to bring your vision to life. Message us for custom sofas or full interior projects.</p>
             </div>
 
@@ -76,7 +76,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                {/* Contact Block */}
                <div className="space-y-8">
-                  <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase" style={{ fontFamily: "var(--font-dm-sans)" }}>Connect Directly</h4>
+                  <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>Connect Directly</h4>
                   <div className="space-y-6">
                     <a href="tel:9446516395" className="flex items-center gap-4 group">
                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#C0001A] transition-colors">
@@ -101,7 +101,7 @@ export default function Footer() {
 
                {/* Studio Info */}
                <div className="space-y-8">
-                  <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase" style={{ fontFamily: "var(--font-dm-sans)" }}>Our Studio</h4>
+                  <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>Our Studio</h4>
                   <div className="space-y-4">
                     <p className="flex items-start gap-4 text-sm font-light leading-relaxed">
                        <MapPin size={18} className="text-[#C0001A] shrink-0" />

@@ -292,21 +292,21 @@ function SofaCard({
           min-height: 220px;
         }
         .sofa-card__material {
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 0.3em;
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 0.25em;
           text-transform: uppercase;
           color: #C0001A;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           display: block;
           margin-bottom: 8px;
         }
         .sofa-card__name {
-          font-size: 1.05rem;
-          font-weight: 600;
-          line-height: 1.3;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1.4;
           color: #111;
-          font-family: var(--font-playfair, serif);
+          font-family: var(--font-inter, sans-serif);
           margin: 0 0 8px;
           transition: color 0.3s;
         }
@@ -314,10 +314,10 @@ function SofaCard({
           color: #C0001A;
         }
         .sofa-card__desc {
-          font-size: 0.82rem;
+          font-size: 14px;
           color: #666;
-          line-height: 1.5;
-          font-family: var(--font-dm-sans, sans-serif);
+          line-height: 1.6;
+          font-family: var(--font-inter, sans-serif);
           margin: 0 0 16px;
           flex: 1;
           display: -webkit-box;
@@ -325,7 +325,7 @@ function SofaCard({
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-height: 2.46rem; /* Exact height for 2 lines (0.82 * 1.5 * 2) */
+          max-height: 2.8rem; /* Exact height for 2 lines (14px * 1.6 * 2) */
         }
 
         /* ── Actions ── */
@@ -343,15 +343,15 @@ function SofaCard({
           gap: 6px;
           background: #111;
           color: #fff;
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: 0.2em;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
-          padding: 11px 16px;
+          padding: 12px 16px;
           text-decoration: none;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           transition: background 0.3s, color 0.3s;
-          border-radius: 3px;
+          border-radius: 4px;
         }
         .sofa-card__detail-btn:hover {
           background: #C0001A;
@@ -534,7 +534,7 @@ export default function SofasPage() {
           gap: 8px;
           font-size: 12px;
           color: #888;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           margin-bottom: 28px;
         }
         .sofas-breadcrumb a {
@@ -547,13 +547,19 @@ export default function SofasPage() {
 
         .sofas-title-block { max-width: 680px; }
         .sofas-h1 {
-          font-size: clamp(2.2rem, 5vw, 3.5rem);
-          font-weight: 700;
+          font-size: 36px;
+          font-weight: 500;
           line-height: 1.1;
-          letter-spacing: -0.02em;
+          letter-spacing: -0.01em;
           color: #111;
           font-family: var(--font-playfair, serif);
-          margin: 0 0 16px;
+          margin: 0 0 1rem;
+        }
+        @media (min-width: 768px) {
+          .sofas-h1 { font-size: 48px; margin-bottom: 1.25rem; }
+        }
+        @media (min-width: 1024px) {
+          .sofas-h1 { font-size: 56px; margin-bottom: 1.5rem; }
         }
         .sofas-h1__accent {
           color: #C0001A;
@@ -564,7 +570,7 @@ export default function SofasPage() {
           font-size: 1rem;
           color: #555;
           line-height: 1.7;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           margin: 0 0 28px;
           max-width: 600px;
         }
@@ -591,7 +597,7 @@ export default function SofasPage() {
           color: #888;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
         }
         .sofas-stat__divider {
           width: 1px;
@@ -614,17 +620,23 @@ export default function SofasPage() {
           flex: 1;
         }
         .sofas-seo-intro__heading {
-          font-size: 1.25rem;
+          font-size: 28px;
           font-weight: 600;
           color: #111;
           font-family: var(--font-playfair, serif);
-          margin: 0 0 14px;
+          margin: 0 0 1rem;
+        }
+        @media (min-width: 768px) {
+          .sofas-seo-intro__heading { font-size: 36px; margin-bottom: 1.25rem; }
+        }
+        @media (min-width: 1024px) {
+          .sofas-seo-intro__heading { font-size: 44px; margin-bottom: 1.5rem; }
         }
         .sofas-seo-intro__left p {
           font-size: 0.875rem;
           color: #666;
           line-height: 1.75;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           margin: 0 0 12px;
         }
         .sofas-seo-intro__ctas {
@@ -646,7 +658,7 @@ export default function SofasPage() {
           text-transform: uppercase;
           padding: 13px 22px;
           text-decoration: none;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           transition: background 0.3s;
           border-radius: 3px;
           justify-content: center;
@@ -665,7 +677,7 @@ export default function SofasPage() {
           text-transform: uppercase;
           padding: 12px 22px;
           text-decoration: none;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           border: 1px solid #ddd;
           transition: background 0.3s, color 0.3s, border-color 0.3s;
           border-radius: 3px;
@@ -685,7 +697,7 @@ export default function SofasPage() {
         .sofas-count-text {
           font-size: 12px;
           color: #666;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
           margin: 0;
         }
         .sofas-count-text strong { color: #111; }
@@ -720,11 +732,17 @@ export default function SofasPage() {
           padding: 56px 0;
         }
         .sofas-faq__heading {
-          font-size: 1.5rem;
-          font-weight: 700;
+          font-size: 28px;
+          font-weight: 600;
           color: #111;
           font-family: var(--font-playfair, serif);
-          margin: 0 0 32px;
+          margin: 0 0 1rem;
+        }
+        @media (min-width: 768px) {
+          .sofas-faq__heading { font-size: 36px; margin-bottom: 1.25rem; }
+        }
+        @media (min-width: 1024px) {
+          .sofas-faq__heading { font-size: 44px; margin-bottom: 1.5rem; }
         }
         .sofas-faq__list {
           display: flex;
@@ -774,7 +792,7 @@ export default function SofasPage() {
           font-size: 0.875rem;
           color: #555;
           line-height: 1.7;
-          font-family: var(--font-dm-sans, sans-serif);
+          font-family: var(--font-inter, sans-serif);
         }
         .sofas-faq__a p { margin: 0; }
 

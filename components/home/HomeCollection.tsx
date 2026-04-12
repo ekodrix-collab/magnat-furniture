@@ -95,11 +95,11 @@ export default function FurnitureCarousel() {
       {/* Header */}
       <div className="text-center mb-10 max-w-xl ">
         <h1
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900"
-          style={{ fontFamily: "-apple-system" }}
+          className="heading-title text-gray-900"
+          style={{ fontFamily: "var(--font-playfair)" }}
         >
           Top Selling Furniture <br />
-          <span className="text-[#C0001A]">
+          <span className="text-[#C0001A] italic font-normal">
             At Unbeatable Prices
           </span>
         </h1>

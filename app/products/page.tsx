@@ -121,7 +121,7 @@ export default function ProductsPage() {
               
               {/* Main Title */}
               <h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight" 
+                className="text-[26px] md:text-[34px] lg:text-[44px] font-semibold leading-tight tracking-tight mb-4 md:mb-5 lg:mb-6" 
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 Signature <span className="italic font-normal text-[#C0001A]">Collection</span>
@@ -168,7 +168,7 @@ export default function ProductsPage() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 border border-[#eeeeee] rounded-lg text-sm focus:outline-none focus:border-[#C0001A] transition-colors"
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                 />
               </div>
 
@@ -179,7 +179,7 @@ export default function ProductsPage() {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-4 py-3 border border-[#eeeeee] rounded-lg text-xs font-medium uppercase tracking-wider focus:outline-none focus:border-[#C0001A] transition-colors cursor-pointer"
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {sortOptions.map(option => (
                     <option key={option} value={option}>{option}</option>
@@ -228,7 +228,7 @@ export default function ProductsPage() {
                      className={`relative text-xs font-bold tracking-[0.2em] uppercase transition-all whitespace-nowrap pb-2 group ${
                        activeCategory === cat ? "text-[#111111]" : "text-[#666666] hover:text-[#111111]"
                      }`}
-                     style={{ fontFamily: "var(--font-dm-sans)" }}
+                     style={{ fontFamily: "var(--font-inter)" }}
                    >
                      {cat}
                      <span className={`absolute bottom-0 left-0 h-0.5 bg-[#C0001A] transition-all duration-300 ${
@@ -279,7 +279,7 @@ export default function ProductsPage() {
            {/* Results Header */}
            <FadeInView>
              <div className="flex items-center justify-between mb-8">
-               <p className="text-sm text-[#666666]" style={{ fontFamily: "var(--font-dm-sans)" }}>
+               <p className="text-sm text-[#666666]" style={{ fontFamily: "var(--font-inter)" }}>
                  Showing <span className="font-semibold text-[#111111]">{sortedProducts.length}</span> of {allProducts.length} pieces
                </p>
              </div>
@@ -351,7 +351,7 @@ export default function ProductsPage() {
                   <span className="inline-block px-4 py-1.5 bg-[#C0001A] text-white text-[9px] font-bold tracking-[0.3em] uppercase mb-6">
                     Bespoke Manufacturing
                   </span>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
                     Can&apos;t find the exact piece?
                   </h2>
                   <p className="text-white/70 text-lg font-light leading-relaxed mb-8">
@@ -402,7 +402,7 @@ export default function ProductsPage() {
         <div className="max-container">
           <FadeInView className="text-center mb-16">
             <span className="heading-label">The MAGNAT™ Difference</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="heading-title mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
               Why Kondotty Families Trust Us
             </h2>
           </FadeInView>

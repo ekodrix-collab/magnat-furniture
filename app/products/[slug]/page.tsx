@@ -236,7 +236,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
               {/* Product Name */}
               <h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-4 leading-tight"
+                className="text-[26px] md:text-[34px] lg:text-[44px] font-semibold text-[#111111] leading-tight mb-4 md:mb-5 lg:mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {product.name}
@@ -260,7 +260,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               {/* Description */}
               <p 
                 className="text-[#666666] text-base leading-relaxed font-light mb-8"
-                style={{ fontFamily: "var(--font-dm-sans)" }}
+                style={{ fontFamily: "var(--font-inter)" }}
               >
                 {product.description}
               </p>
@@ -360,7 +360,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
                   <Shield className="text-[#C0001A]" size={32} />
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#111111]" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="heading-title text-[#111111]" style={{ fontFamily: "var(--font-playfair)" }}>
                     The MAGNAT™ Guarantee
                   </h2>
                 </div>
@@ -386,7 +386,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           <FadeInView>
             <div className="text-center mb-16">
               <span className="heading-label">Complete Your Space</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="heading-title mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
                 You Might Also Love
               </h2>
             </div>

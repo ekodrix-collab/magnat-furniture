@@ -27,7 +27,7 @@ export default function Button({
     primary: "btn-primary",
     outline: "btn-outline",
     gold: "btn-gold",
-    text: "p-0 bg-transparent text-[#1A1A1A] font-semibold uppercase tracking-widest text-xs hover:text-[#8B1E1E]",
+    text: "p-0 bg-transparent text-[#1A1A1A] font-semibold uppercase tracking-widest text-sm hover:text-[#8B1E1E]",
   };
 
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${className}`;

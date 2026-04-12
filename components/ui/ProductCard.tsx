@@ -100,8 +100,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
              rel="noopener noreferrer"
              whileHover={{ scale: 1.02 }}
              whileTap={{ scale: 0.98 }}
-             className="w-full bg-white dark:bg-zinc-100 text-[#111111] py-3 text-[10px] font-bold tracking-[0.2em] uppercase text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-2xl rounded-sm"
-             style={{ fontFamily: "var(--font-dm-sans)" }}
+             className="w-full bg-white dark:bg-zinc-100 text-[#111111] py-3 text-[10px] font-semibold tracking-[0.2em] uppercase text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-2xl rounded-sm"
            >
              <MessageCircle size={14} strokeWidth={2.5} />
              Enquire on WhatsApp
@@ -115,8 +114,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         <div className="flex items-center justify-between mb-2">
           {categoryName ? (
             <span 
-              className="text-[#C0001A] text-[9px] font-bold tracking-[0.3em] uppercase" 
-              style={{ fontFamily: "var(--font-dm-sans)" }}
+              className="text-[#C0001A] text-[9px] font-medium tracking-[0.3em] uppercase" 
             >
               {categoryName}
             </span>
@@ -133,8 +131,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         
         {/* Product Name */}
         <h3 
-          className={`text-[#111111] dark:text-white ${compact ? 'text-lg' : 'text-xl'} font-semibold leading-tight mb-2 group-hover:text-[#C0001A] transition-colors duration-300 line-clamp-1`}
-          style={{ fontFamily: "var(--font-playfair)" }}
+          className={`text-[#111111] dark:text-white ${compact ? 'text-[15px]' : 'text-[16px]'} font-medium leading-tight mb-2 group-hover:text-[#C0001A] transition-colors duration-300 line-clamp-1`}
         >
           <Link href={`/products/${slug}`}>
             {name}
@@ -144,8 +141,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {/* Description */}
         {!compact && short_description && (
           <p 
-            className="text-[#666666] dark:text-zinc-400 text-xs leading-relaxed line-clamp-2 mb-4 font-light" 
-            style={{ fontFamily: "var(--font-dm-sans)" }}
+            className="text-[#666666] dark:text-zinc-400 text-[13px] md:text-[14px] leading-relaxed line-clamp-2 mb-4 font-normal" 
           >
             {short_description}
           </p>
@@ -156,8 +152,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <div className="flex flex-col">
             <span className="text-[10px] uppercase tracking-widest text-[#999] mb-1">Starting from</span>
             <span 
-              className="text-[#111111] dark:text-white font-bold text-lg" 
-              style={{ fontFamily: "var(--font-playfair)" }}
+              className="text-[#111111] dark:text-white font-semibold text-[16px]" 
             >
               {price || "Contact for Price"}
             </span>
