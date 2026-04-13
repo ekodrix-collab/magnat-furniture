@@ -61,8 +61,7 @@ const nextConfig: NextConfig = {
 
   // Optimize CSS
   experimental: {
-    optimizeCss: true,
-
+    // optimizeCss requires the 'critters' package — omit until installed
   },
 
   // ═══════════════════════════════════════════════════════════

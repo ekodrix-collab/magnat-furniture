@@ -23,10 +23,10 @@ export default function KondottyGallery() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
            <FadeInView>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white leading-none mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-[20px] md:text-[24px] lg:text-[30px] font-semibold text-white leading-tight mb-4 md:mb-5 lg:mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
                  From Our <span className="italic text-[#C0001A]">Showroom.</span>
               </h2>
-              <p className="text-white/30 text-[10px] font-bold tracking-[0.4em] uppercase">Visual Journey of Craft</p>
+              <p className="text-white/30 text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>Visual Journey of Craft</p>
            </FadeInView>
            
            <FadeInView delay={0.2}>

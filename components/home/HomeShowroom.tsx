@@ -28,7 +28,7 @@ export default function HomeShowroom() {
                  Experience the <br />
                  <span className="italic font-normal">Standard of Luxury.</span>
               </h2>
-              <p className="text-black/50 text-base font-light max-w-lg leading-relaxed mb-10">
+              <p className="text-black/50 text-base font-normal max-w-lg leading-relaxed mb-10" style={{ fontFamily: "var(--font-inter)" }}>
                  Step into our flagship Kondotty studio to witness the fusion of heritage craft 
                  and modern architectural design. Meet our designers and find your inspiration.
               </p>

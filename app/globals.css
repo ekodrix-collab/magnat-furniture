@@ -18,7 +18,7 @@
   
   /* Typography */
   --font-playfair: "Playfair Display", "Georgia", serif;
-  --font-dm-sans: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-inter: "Inter", "Helvetica Neue", sans-serif;
 
   /* Spacing */
   --spacing-section: 10rem;
@@ -35,20 +35,51 @@
 body {
   background-color: #ffffff;
   color: #111111;
-  font-family: var(--font-dm-sans), sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-playfair), serif;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
 }
+
+h1 { 
+  font-size: 26px; 
+  margin-bottom: 1rem;
+}
+
+h2 { 
+  font-size: 20px; 
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 34px; margin-bottom: 1.25rem; }
+  h2 { font-size: 24px; margin-bottom: 1.25rem; }
+}
+
+@media (min-width: 1024px) {
+  h1 { font-size: 44px; margin-bottom: 1.5rem; }
+  h2 { font-size: 30px; margin-bottom: 1.5rem; }
+}
+
+h3 { font-size: clamp(18px, 3vw, 20px); }
 
 button {
   cursor: pointer;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* ============================================
@@ -62,12 +93,12 @@ button {
   justify-content: center;
   background-color: #111111;
   color: #ffffff;
-  padding: 1.25rem 3.5rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
+  padding: 1rem 3rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.15em;
   transition: all 0.4s var(--ease-luxury);
   border: 1px solid #111111;
   border-radius: 8px;
@@ -85,12 +116,12 @@ button {
   justify-content: center;
   background-color: #C0001A;
   color: #ffffff;
-  padding: 1rem 2.5rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
+  padding: 0.875rem 2.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   transition: all 0.4s var(--ease-luxury);
   border: 1px solid #C0001A;
   border-radius: 8px;
@@ -108,12 +139,12 @@ button {
   justify-content: center;
   background-color: transparent;
   color: #111111;
-  padding: 1rem 2.5rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
+  padding: 0.875rem 2.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   transition: all 0.4s var(--ease-luxury);
   border: 1px solid #111111;
   border-radius: 8px;
@@ -137,18 +168,63 @@ button {
 /* Section Headings */
 .heading-label {
   display: block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.4em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: #C0001A;
   margin-bottom: 1.5rem;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .heading-title {
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: 36px;
   line-height: 1.1;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .heading-title { font-size: 48px; margin-bottom: 1.25rem; }
+}
+
+@media (min-width: 1024px) {
+  .heading-title { font-size: 56px; margin-bottom: 1.5rem; }
+}
+
+/* Reusable Section Styles */
+.section-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #C0001A;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.section-title {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  font-family: var(--font-playfair), serif;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .section-title { font-size: 36px; margin-bottom: 1.25rem; }
+}
+
+@media (min-width: 1024px) {
+  .section-title { font-size: 44px; margin-bottom: 1.5rem; }
+}
+
+.section-subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  font-family: var(--font-inter), sans-serif;
+  max-width: 600px;
 }
 
 /* ============================================
@@ -287,7 +363,7 @@ button {
   color: #ffffff;
   padding: 1rem 2rem;
   border-radius: 999px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -407,7 +483,7 @@ button {
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.75rem;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
