@@ -26,9 +26,9 @@ const NAV_CONFIG = {
 const mainNav = [
   { label: "Collections", href: "/collections" },
   { label: "Sofas", href: "/products/sofas" },
-  { label: "Chairs", href: "/products?category=chairs", category: "chairs" },
-  { label: "Dining", href: "/products?category=dining", category: "dining" },
-  { label: "Curtains", href: "/products?category=curtains", category: "curtains" },
+  { label: "Chairs", href: "/products/chairs" },
+  { label: "Dining", href: "/products/dining" },
+  { label: "Curtains", href: "/products/curtains" },
   { label: "Showrooms", href: "/showrooms" },
   { label: "About Us", href: "/about" },
 ];

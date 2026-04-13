@@ -1,8 +1,8 @@
 // app/products/sofas/page.tsx
 import type { Metadata } from "next";
-import Image from "next/image";
+import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { MessageCircle, ArrowRight, ChevronDown } from "lucide-react";
+import ProductCard from "@/components/ui/ProductCard";
 
 // ─────────────────────────────────────────────────────────────
 // SEO METADATA
@@ -236,59 +236,9 @@ const faqItems = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────
-// SOFA CARD
-// ─────────────────────────────────────────────────────────────
-function SofaCard({ product }: { product: (typeof sofaProducts)[number] }) {
-  return (
-    <article className="sofa-card group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb]">
-      {/* Image */}
-      <div className="relative w-full overflow-hidden bg-[#f7f7f5] flex-shrink-0" style={{ aspectRatio: "3/2.8" }}>
-        <Image
-          src={product.image}
-          alt={`${product.name} — MAGNAT Furniture Kondotty Kerala`}
-          fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1300px) 33vw, 25vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-          priority={false}
-        />
-      </div>
-
-      {/* Body */}
-      <div className="flex flex-col flex-1 px-5 pt-6 pb-7 min-h-[220px] max-sm:px-3 max-sm:pt-2.5 max-sm:pb-3.5 max-sm:min-h-[140px]">
-        <span className="block mb-2 text-[10px] font-medium tracking-[0.25em] uppercase text-[#C0001A] max-sm:text-[8px] max-sm:mb-[5px]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
-          {product.material}
-        </span>
-        <h3 className="text-base font-medium leading-snug text-[#111] mb-2 transition-colors duration-300 group-hover:text-[#C0001A] max-sm:text-[0.88rem] max-sm:mb-1.5" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
-          {product.name}
-        </h3>
-        <p className="text-sm text-[#666] leading-relaxed mb-4 flex-1 line-clamp-2 max-sm:text-[0.72rem] max-sm:mb-3" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
-          {product.description}
-        </p>
-        <div className="flex items-center gap-2.5 mt-auto">
-          <Link
-            href={`/products/${product.slug}`}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#111] text-white text-sm font-semibold tracking-[0.15em] uppercase px-4 py-3 rounded-[4px] no-underline transition-colors duration-300 hover:bg-[#C0001A] max-sm:py-2.5 max-sm:text-[9px] max-sm:tracking-[0.12em]"
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
-            aria-label={`View details for ${product.name}`}
-          >
-            Details
-            <ArrowRight size={14} strokeWidth={2} />
-          </Link>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// PAGE
-// ─────────────────────────────────────────────────────────────
 export default function SofasPage() {
   return (
     <main className="pt-20 bg-[#fafaf9] min-h-screen">
-
-
 
       {/* ── SEO Intro — desktop only ── */}
       <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
@@ -403,7 +353,7 @@ export default function SofasPage() {
         <div className="max-container">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4 max-sm:gap-3">
             {sofaProducts.map((product) => (
-              <SofaCard key={product.slug} product={product} />
+              <ProductCard key={product.slug} product={product} />
             ))}
           </div>
         </div>
