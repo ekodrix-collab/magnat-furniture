@@ -44,7 +44,8 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const displayBadge = badge || (isNew ? "New Arrival" : isBestseller ? "Best Seller" : null);
 
   return (
-    <article className={`group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb] h-full`}>
+    <article className={`group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb] h-full cursor-pointer`}>
+
       {/* ── Image Container ── */}
       <div className="relative w-full overflow-hidden bg-[#f7f7f5] flex-shrink-0" style={{ aspectRatio: "3/2.8" }}>
         <Image
