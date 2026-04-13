@@ -93,13 +93,13 @@ export default function FurnitureCarousel() {
     <section className="min-h-screen bg-[#f0eeec] flex flex-col items-center justify-center py-20 px-4 overflow-hidden">
       
       {/* Header */}
-      <div className="text-center mb-10 max-w-xl ">
+      <div className="text-center lg:mb-10 max-w-xl ">
         <h1
-          className="heading-title text-gray-900"
-          style={{ fontFamily: "var(--font-playfair)" }}
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900"
+          style={{ fontFamily: "-apple-system" }}
         >
           Top Selling Furniture <br />
-          <span className="text-[#C0001A] italic font-normal">
+          <span className="text-[#C0001A]">
             At Unbeatable Prices
           </span>
         </h1>
@@ -191,15 +191,15 @@ export default function FurnitureCarousel() {
 
                
                     <div className="px-2">
-                        <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold text-left" style={{ fontFamily: "var(--font-inter)" }}>
+                        <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold text-left">
                       {product.category}
                     </span>
 
-                    <h3 className="text-md font-medium text-gray-800 mt-1 text-left" style={{ fontFamily: "var(--font-inter)" }}>
+                    <h3 className="text-md font-bold text-gray-800 mt-1 text-left" style={{ fontFamily: "monospace" }}>
                       {product.name}
                     </h3>
 
-                    <p className="text-xs text-gray-400 text-left" style={{ fontFamily: "var(--font-inter)" }}>
+                    <p className="text-xs text-gray-400 text-left">
                       {product.subtitle}
                     </p>
                     </div>
