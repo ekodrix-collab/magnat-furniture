@@ -2,7 +2,8 @@
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import ProductCard from "@/components/ui/ProductCard";
+import { allProducts } from "@/lib/data/products";
+import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
 // ─────────────────────────────────────────────────────────────
 // SEO METADATA
@@ -47,152 +48,7 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────
-const sofaProducts = [
-  {
-    slug: "milano-modular-sofa",
-    name: "Milano Modular Sofa",
-    description:
-      "Architectural comfort with premium fabric upholstery. Fully customizable in size and fabric. Handstitched in our Kondotty workshop.",
-    image: "/images/sofa3d.png",
-    badge: "Best Seller",
-    material: "Premium Fabric",
-  },
-  {
-    slug: "royal-l-shaped-sofa",
-    name: "Royal L-Shaped Sofa",
-    description:
-      "Space-maximizing L-design with deep cushioning. Available in fabric and velvet options. Ideal for Kerala living rooms.",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1200&auto=format&fit=crop",
-    badge: "New Arrival",
-    material: "Velvet / Fabric",
-  },
-  {
-    slug: "heritage-wooden-sofa-set",
-    name: "Heritage Wooden Sofa Set",
-    description:
-      "Kerala teak frame with handwoven cushions. A timeless 3+1+1 set built to last generations. Polished with premium lacquer.",
-    image: "/images/sofa3d1.png",
-    badge: null,
-    material: "Kerala Teak",
-  },
-  {
-    slug: "zen-single-seater",
-    name: "Zen Single Seater",
-    description:
-      "Minimalist silhouette, maximum comfort. Perfect accent sofa for bedroom or reading nook. Solid wood legs, removable cover.",
-    image: "/images/singlesofa.png",
-    badge: null,
-    material: "Leather / Fabric",
-  },
-  {
-    slug: "luxe-recliner-sofa",
-    name: "Luxe Recliner Sofa",
-    description:
-      "Full manual recliner mechanism with plush padding. Available in 3-seater configuration. Premium leatherette finish.",
-    image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200&auto=format&fit=crop",
-    badge: "Popular",
-    material: "Leatherette",
-  },
-  {
-    slug: "kochi-sectional-sofa",
-    name: "Kochi Sectional Sofa",
-    description:
-      "Contemporary sectional design with modular configuration options. Deep-seat cushions with pocket spring support.",
-    image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1200&auto=format&fit=crop",
-    badge: null,
-    material: "Premium Fabric",
-  },
-  {
-    slug: "canvas-3-seater",
-    name: "Canvas 3-Seater",
-    description:
-      "Clean lines and neutral tones — a versatile 3-seater that complements any interior. Washable cotton canvas cover.",
-    image: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1200&auto=format&fit=crop",
-    badge: null,
-    material: "Cotton Canvas",
-  },
-  {
-    slug: "verde-chaise-lounge",
-    name: "Verde Chaise Lounge",
-    description:
-      "Elongated chaise silhouette perfect for balconies and reading corners. Solid rubber wood frame with foam cushion.",
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop",
-    badge: "New Arrival",
-    material: "Rubberwood",
-  },
-  {
-    slug: "malabar-velvet-sofa",
-    name: "Malabar Velvet Sofa",
-    description:
-      "Deep emerald velvet with gold-finished legs. A statement piece for luxury Kerala homes. High-density foam for lasting comfort.",
-    image: "https://images.unsplash.com/photo-1549187771-b4e99744ad66?q=80&w=1200&auto=format&fit=crop",
-    badge: "Premium",
-    material: "Luxury Velvet",
-  },
-  {
-    slug: "calicut-teak-classic",
-    name: "Calicut Teak Classic",
-    description:
-      "Traditional 3-seater crafted from seasoned Calicut teak. Hand-carved details with premium oil finish. Built to last generations.",
-    image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop",
-    badge: null,
-    material: "Solid Teak",
-  },
-  {
-    slug: "urban-chesterfield",
-    name: "Urban Chesterfield",
-    description:
-      "Timeless tufted design in aged tan leather. Perfectly balanced proportions with deep-buttoned backrest and rolled arms.",
-    image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd?q=80&w=1200&auto=format&fit=crop",
-    badge: "Classic",
-    material: "Top Grain Leather",
-  },
-  {
-    slug: "nordic-minimalist",
-    name: "Nordic Minimalist",
-    description:
-      "Breathable linen upholstery with light oak legs. A subtle, airy design that brings brightness to any modern living space.",
-    image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=1200&auto=format&fit=crop",
-    badge: null,
-    material: "Premium Linen",
-  },
-  {
-    slug: "trivandrum-daybed",
-    name: "Trivandrum Daybed",
-    description:
-      "Versatile daybed with a solid mahogany frame. Perfect for afternoon siestas or as additional seating during guest visits.",
-    image: "https://images.unsplash.com/photo-1505691938895-1758d7eaa511?q=80&w=1200&auto=format&fit=crop",
-    badge: null,
-    material: "Mahogany Wood",
-  },
-  {
-    slug: "sultan-power-recliner",
-    name: "Sultan Power Recliner",
-    description:
-      "The ultimate relaxation experience with electric reclining and USB charging ports. Padded with cooling gel memory foam.",
-    image: "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?q=80&w=1200&auto=format&fit=crop",
-    badge: "High-Tech",
-    material: "Performance Leatherette",
-  },
-  {
-    slug: "palm-shore-rattan-sofa",
-    name: "Palm Shore Rattan Sofa",
-    description:
-      "Sustainable rattan weave with weather-resistant cushions. Ideal for semi-outdoor verandas and garden-facing rooms.",
-    image: "https://images.unsplash.com/photo-1519947486511-46149fa0a254?q=80&w=1200&auto=format&fit=crop",
-    badge: "Eco-Friendly",
-    material: "Natural Rattan",
-  },
-  {
-    slug: "nilgiri-sectional",
-    name: "Nilgiri Sectional",
-    description:
-      "Large-scale corner sectional for family gatherings. Features pet-friendly performance fabric and adjustable headrests.",
-    image: "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=1200&auto=format&fit=crop",
-    badge: "Family Choice",
-    material: "Performance Fabric",
-  },
-];
+const sofaProducts = allProducts.filter(p => p.category === "Sofas");
 
 const seoStats = [
   { num: "25+", label: "Years Manufacturing" },
@@ -339,25 +195,8 @@ export default function SofasPage() {
         </div>
       </section>
 
-      {/* ── Count Bar ── */}
-      <div className="py-3.5 bg-[#f4f4f2] border-b border-[#ebebeb] max-sm:py-2.5">
-        <div className="max-container">
-          <p className="text-xs text-[#666] m-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
-            Showing <strong className="text-[#111]">{sofaProducts.length} sofas</strong> — All handcrafted in Kondotty, Kerala
-          </p>
-        </div>
-      </div>
-
-      {/* ── Product Grid ── */}
-      <section className="py-12 max-sm:py-7" aria-label="Sofa products">
-        <div className="max-container">
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4 max-sm:gap-3">
-            {sofaProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Product List with Filter ── */}
+      <ProductListWithFilter initialProducts={sofaProducts} category="Sofas" />
 
       {/* ── FAQ — desktop only ── */}
       <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">
