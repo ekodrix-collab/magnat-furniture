@@ -24,7 +24,10 @@ export default function HeritageSection() {
 
                <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center text-left pt-12">
                   <FadeInView direction="right" className="space-y-8">
-                     <p className="text-2xl font-light text-[#111]/70 leading-relaxed" style={{ fontFamily: "var(--font-playfair)" }}>
+                     <p 
+                        className="text-xl md:text-2xl font-light text-[#111]/70 leading-relaxed" 
+                        style={{ fontFamily: "var(--font-inter)" }}
+                     >
                         Since 2001, Magnat has been at the forefront of the furniture industry in Kerala,
                         transforming over 5,000 homes with our signature blend of international
                         design and artisanal production.
@@ -34,8 +37,8 @@ export default function HeritageSection() {
 
                   <FadeInView direction="left" className="space-y-10">
                      <div className="space-y-4">
-                        <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#111]">Our Philosophy</h4>
-                        <p className="text-[#111]/50 text-sm leading-relaxed">
+                        <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#111]" style={{ fontFamily: "var(--font-inter)" }}>Our Philosophy</h4>
+                        <p className="text-[#111]/50 text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
                            We believe that a home is a living gallery. Every piece of furniture
                            carrying the Magnat name is a testament to 25 years of material
                            intelligence and structural integrity.
@@ -45,12 +48,12 @@ export default function HeritageSection() {
                      <div className="flex items-end gap-6 border-l border-[#C0001A]/20 pl-8">
                         <div className="flex flex-col">
                            <span className="text-5xl font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>2001</span>
-                           <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-black/30">Founder Era</span>
+                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-black/30" style={{ fontFamily: "var(--font-inter)" }}>Founder Era</span>
                         </div>
                         <div className="h-px flex-1 bg-black/5 mb-4" />
                         <div className="flex flex-col items-end">
                            <span className="text-5xl font-black text-[#C0001A]" style={{ fontFamily: "var(--font-playfair)" }}>2026</span>
-                           <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">Global Vision</span>
+                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-[#C0001A]" style={{ fontFamily: "var(--font-inter)" }}>Global Vision</span>
                         </div>
                      </div>
                   </FadeInView>

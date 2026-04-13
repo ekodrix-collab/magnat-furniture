@@ -28,21 +28,21 @@ const nextConfig: NextConfig = {
         hostname: "www.vilangadanfurniture.com",
       },
     ],
-    
+
     // Device sizes for responsive images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    
+
     // Image sizes for different layouts
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    
+
     // Enable dangerous use of SVG (if you use SVGs from remote)
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    
+
     // Minimize CLS (Cumulative Layout Shift)
     minimumCacheTTL: 60,
-    
+
     // Unoptimized for dev (faster builds)
     unoptimized: process.env.NODE_ENV === "development",
   },
@@ -50,19 +50,18 @@ const nextConfig: NextConfig = {
   // ═══════════════════════════════════════════════════════════
   // PERFORMANCE OPTIMIZATIONS
   // ═══════════════════════════════════════════════════════════
-  
-    // Default optimizations apply
+
+  // Default optimizations apply
 
   // Compress pages
   compress: true,
-  
+
   // Enable React strict mode (catches bugs)
   reactStrictMode: true,
-  
+
   // Optimize CSS
   experimental: {
-    optimizeCss: true,
-    
+    // optimizeCss requires the 'critters' package — omit until installed
   },
 
   // ═══════════════════════════════════════════════════════════

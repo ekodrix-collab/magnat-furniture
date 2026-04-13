@@ -20,7 +20,7 @@ export default function ContactQuickActions() {
             className="flex flex-col items-center justify-center py-3 hover:bg-[#25D366] hover:text-white transition-all duration-300 group"
           >
             <MessageCircle size={20} className="mb-1" />
-            <span className="text-[10px] font-dm-sans font-medium">WhatsApp</span>
+            <span className="text-[10px] font-inter font-medium">WhatsApp</span>
           </a>
 
           {/* Call */}
@@ -29,7 +29,7 @@ export default function ContactQuickActions() {
             className="flex flex-col items-center justify-center py-3 hover:bg-[#C0001A] hover:text-white transition-all duration-300 group"
           >
             <Phone size={20} className="mb-1" />
-            <span className="text-[10px] font-dm-sans font-medium">Call</span>
+            <span className="text-[10px] font-inter font-medium">Call</span>
           </a>
 
           {/* Email */}
@@ -38,7 +38,7 @@ export default function ContactQuickActions() {
             className="flex flex-col items-center justify-center py-3 hover:bg-[#111111] hover:text-white transition-all duration-300 group"
           >
             <Mail size={20} className="mb-1" />
-            <span className="text-[10px] font-dm-sans font-medium">Email</span>
+            <span className="text-[10px] font-inter font-medium">Email</span>
           </a>
 
           {/* Location */}
@@ -47,7 +47,7 @@ export default function ContactQuickActions() {
             className="flex flex-col items-center justify-center py-3 hover:bg-[#c9a96e] hover:text-white transition-all duration-300 group"
           >
             <MapPin size={20} className="mb-1" />
-            <span className="text-[10px] font-dm-sans font-medium">Visit</span>
+            <span className="text-[10px] font-inter font-medium">Visit</span>
           </a>
         </div>
       </div>

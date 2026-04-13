@@ -3,18 +3,45 @@
 import { useState, useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Instagram, Search, User, Heart, Menu, X, Phone } from "lucide-react";
+import { Instagram, Search, User, Heart, Menu, X, Phone, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence, LayoutGroup, useScroll, useMotionValueEvent } from "framer-motion";
+import { useFavorites } from "@/lib/context/FavoritesContext";
+
+/**
+ * Navbar Configuration Constants
+ */
+const NAV_CONFIG = {
+  brand: "MAGNAT",
+  phone: "+91 94465 16395",
+  phoneRaw: "+919446516395",
+  whatsapp: "https://wa.me/919446516395",
+  colors: {
+    brand: "#C0001A",
+  },
+  socials: {
+    instagram: "https://instagram.com",
+  }
+};
 
 const mainNav = [
   { label: "Collections", href: "/collections" },
-  { label: "Sofas", href: "/products?category=sofas" },
-  { label: "Chairs", href: "/products?category=chairs" },
-  { label: "Dining", href: "/products?category=dining" },
-  { label: "Curtains", href: "/products?category=curtains" },
+  { label: "Sofas", href: "/products/sofas" },
+  { label: "Chairs", href: "/products/chairs" },
+  { label: "Dining", href: "/products/dining" },
+  { label: "Curtains", href: "/products/curtains" },
   { label: "Showrooms", href: "/showrooms" },
   { label: "About Us", href: "/about" },
 ];
+
+/**
+ * Helper to determine if a nav link is active
+ */
+const checkIsActive = (item: typeof mainNav[0], pathname: string, currentCategory: string | null) => {
+  if ("category" in item && item.category) {
+    return currentCategory === item.category;
+  }
+  return pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+};
 
 /**
  * NavbarInner: Contains the logic that depends on searchParams.
@@ -28,6 +55,8 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const currentCategory = searchParams.get("category");
+  const { favoritesCount, setDrawerOpen } = useFavorites();
 
   return (
     <motion.div
@@ -40,18 +69,18 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
         <div className="max-container h-full flex items-center justify-between">
           
           {/* Left: Brand Identity */}
-          <Link href="/" className="flex items-center gap-8 group">
+          <Link href="/" className="flex items-center gap-8 group" aria-label={`${NAV_CONFIG.brand} Home`}>
              <div className="relative">
                 <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
-                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-dm-sans)" }}>
-                      MAGNAT
+                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-inter)" }}>
+                      {NAV_CONFIG.brand}
                    </span>
                 </div>
                 <span className="absolute -top-1 -right-2 text-[8px] font-bold text-[#C0001A]">™</span>
              </div>
 
              {/* 25 Year Milestone */}
-             <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5">
+             <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5" aria-hidden="true">
                 <div className="flex items-center gap-2">
                    <span className="text-[15px] font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
                    <span className="text-[10px] font-bold text-[#111]">Years</span>
@@ -61,24 +90,18 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
           </Link>
 
           {/* Center: Curated Navigation */}
-          <nav className="hidden xl:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-8" aria-label="Main Navigation">
             {mainNav.map((item) => {
-              const itemUrl = new URL(item.href, "https://magnat.com");
-              const itemCategory = itemUrl.searchParams.get("category");
-              const currentCategory = searchParams.get("category");
-              
-              const isActive = itemCategory 
-                ? currentCategory === itemCategory 
-                : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+              const isActive = checkIsActive(item, pathname, currentCategory);
               
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`relative group text-[10px] font-bold tracking-[0.25em] uppercase transition-all py-2 ${
+                  className={`relative group text-[11px] font-semibold tracking-[0.2em] uppercase transition-all py-2 ${
                     isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
                   }`}
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {item.label}
                   <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${
@@ -91,15 +114,23 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
 
           {/* Right: Interaction Trigger */}
           <div className="flex items-center gap-4 lg:gap-6">
-             <div className="hidden lg:block">
+             <div className="hidden lg:flex items-center gap-6">
                 <Link href="/contact" className="btn-primary !py-3 !px-8 !text-[9px]">
                    Enquire Project
                 </Link>
              </div>
-             <a href="tel:+919446516395" className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]">
+             <a 
+               href={`tel:${NAV_CONFIG.phoneRaw}`} 
+               className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]"
+               aria-label={`Call ${NAV_CONFIG.brand}`}
+             >
                 <Phone size={18} />
              </a>
-             <button className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" onClick={() => setMobileOpen(true)}>
+             <button 
+               className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" 
+               onClick={() => setMobileOpen(true)}
+               aria-label="Open Mobile Menu"
+             >
                <Menu size={24} strokeWidth={1.5} />
              </button>
           </div>
@@ -114,6 +145,9 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[200] flex flex-col pt-24"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation Menu"
           >
             {/* Background Layers */}
             <div className="absolute inset-0 bg-[#F7F4F0] dark:bg-[#0A0A0A] transition-colors duration-500" />
@@ -130,7 +164,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
             <div className="absolute inset-0 bg-gradient-to-b from-[#F7F4F0]/80 via-transparent to-[#F7F4F0]/95 dark:from-[#0A0A0A]/80 dark:to-[#0A0A0A]/95" />
 
             {/* Header Section */}
-            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-8 mt-[-60px]">
+            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-12">
                <motion.div
                  initial={{ x: -20, opacity: 0 }}
                  animate={{ x: 0, opacity: 1 }}
@@ -143,22 +177,17 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                  whileTap={{ scale: 0.9 }}
                  onClick={() => setMobileOpen(false)} 
                  className="w-12 h-12 flex items-center justify-center bg-black/5 dark:bg-white/5 rounded-full border border-black/10 dark:border-white/10"
+                 aria-label="Close Mobile Menu"
                >
                   <X size={20} className="text-[#111] dark:text-white" />
                </motion.button>
             </div>
 
             {/* Menu Links */}
-            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col justify-center">
+            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col">
                <nav className="flex flex-col space-y-2">
                   {mainNav.map((item, i) => {
-                     const itemUrl = new URL(item.href, "https://magnat.com");
-                     const itemCategory = itemUrl.searchParams.get("category");
-                     const currentCategory = searchParams.get("category");
-                     
-                     const isActive = itemCategory 
-                       ? currentCategory === itemCategory 
-                       : (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+                     const isActive = checkIsActive(item, pathname, currentCategory);
                      
                      return (
                       <motion.div
@@ -173,6 +202,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                            className={`group block relative py-3 px-6 rounded-2xl transition-all duration-500 ${
                              isActive ? "bg-[#C0001A] shadow-xl shadow-red-500/10" : "hover:bg-black/5 dark:hover:bg-white/5"
                            }`}
+                           aria-current={isActive ? "page" : undefined}
                          >
                             <span className={`text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight leading-[1.1] transition-colors inline-block ${
                               isActive ? "text-white" : "text-[#111] dark:text-white"
@@ -197,17 +227,37 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                      <div className="space-y-4">
                         <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Connect</span>
                         <div className="flex gap-5">
-                           <Link href="https://instagram.com" className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors">
+                           <Link 
+                             href={NAV_CONFIG.socials.instagram} 
+                             className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             aria-label="Instagram"
+                           >
                               <Instagram size={20} strokeWidth={1.5} />
                            </Link>
-                           <Link href="/wishlist" className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors">
+                           <button 
+                             onClick={() => setDrawerOpen(true)} 
+                             className="relative text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
+                             aria-label="My Favorites"
+                           >
                               <Heart size={20} strokeWidth={1.5} />
-                           </Link>
+                              {favoritesCount > 0 && (
+                                <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full shadow-md">
+                                  {favoritesCount}
+                                </span>
+                              )}
+                           </button>
                         </div>
                      </div>
                      <div className="space-y-4">
                         <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Enquiries</span>
-                        <a href="tel:+919446516395" className="text-[14px] font-bold text-[#111] dark:text-white hover:underline">+91 9446516395</a>
+                        <a 
+                          href={`tel:${NAV_CONFIG.phoneRaw}`} 
+                          className="text-[14px] font-bold text-[#111] dark:text-white hover:underline transition-all"
+                        >
+                          {NAV_CONFIG.phone}
+                        </a>
                      </div>
                   </div>
                </motion.div>
@@ -226,8 +276,11 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                      <p className="text-sm font-medium">Chat with our experts via WhatsApp</p>
                   </div>
                   <a 
-                    href="https://wa.me/919446516395" 
+                    href={NAV_CONFIG.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-white text-[#111] px-6 py-3 rounded-md text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0001A] hover:text-white dark:hover:bg-white dark:hover:text-[#C0001A] transition-all flex items-center gap-3 shadow-xl"
+                    aria-label="Book via WhatsApp"
                   >
                      Book Now
                   </a>
@@ -246,6 +299,19 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   
   const { scrollY } = useScroll();
+  const { favoritesCount, setDrawerOpen } = useFavorites();
+  
+  /**
+   * Scroll Lock implementation for Mobile Menu
+   */
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [mobileOpen]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -269,26 +335,35 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 z-[100] w-full">
       {/* ── Top Accessory Bar (Only shown at top) ── */}
-      <div className={`w-full bg-[#111] text-white/60 transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-12 opacity-100"}`}>
-        <div className="max-container h-full flex items-center justify-between">
+      <div className={`w-full bg-[#111] text-white transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-10 md:h-12 opacity-100"}`}>
+        <div className="max-container h-full flex items-center justify-between px-6 xl:px-0">
            <div className="flex items-center gap-6">
-              <span className="text-[9px] font-bold tracking-[0.3em] uppercase">Kondotty Flagship</span>
-              <div className="h-3 w-px bg-white/10" />
-              <Link href="/appointment" className="text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors">Book Consult</Link>
+              <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/80">Kondotty Flagship</span>
            </div>
            
-           <div className="flex items-center gap-8">
-              <Link href="/subscribe" className="text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors">Subscribe</Link>
-              <button className="hover:text-white transition-colors">
-                 <Search size={14} strokeWidth={1.5} />
-              </button>
-              <Link href="/account" className="flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] uppercase hover:text-white transition-colors">
-                 <User size={14} strokeWidth={1.5} />
-                 My List
-              </Link>
-              <a href="https://instagram.com" className="hover:text-white transition-colors">
+           <div className="flex items-center gap-6">
+              <Link 
+                href={NAV_CONFIG.socials.instagram} 
+                className="text-white/60 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
                  <Instagram size={14} strokeWidth={1.5} />
-              </a>
+              </Link>
+              
+              <button 
+                onClick={() => setDrawerOpen(true)} 
+                className="relative group text-white/60 hover:text-white transition-colors flex items-center gap-2" 
+                aria-label="Favorites"
+              >
+                <Heart size={14} strokeWidth={1.5} />
+                {favoritesCount > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full">
+                    {favoritesCount}
+                  </span>
+                )}
+              </button>
            </div>
         </div>
       </div>

@@ -122,11 +122,16 @@ export default function ContactPage() {
                 </div>
              </div>
 
-             {/* Interactive Map Placeholder */}
-             <div className="aspect-video bg-[#f9f9f9] border border-black/5 relative group cursor-pointer overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 bg-white/40 group-hover:bg-white/0 transition-all duration-700" />
-                <MapPin size={48} className="text-black/10 group-hover:text-[#C0001A] transition-all duration-700" />
-                <div className="absolute bottom-6 left-8 text-[8px] font-bold tracking-[0.4em] uppercase text-black/20">Navigate to Showroom</div>
+             {/* Interactive Google Map */}
+             <div className="aspect-video bg-[#f9f9f9] border border-black/5 relative overflow-hidden">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.577732999317!2d75.9678667!3d11.1447936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba64ee03d3e05f3%3A0x895ea8e05f23c7d8!2sMagnat%20Furniture%20and%20Interiors!5e0!3m2!1sen!2sin!4v1775902098710!5m2!1sen!2sin" 
+                  className="w-full h-full" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
              </div>
           </div>
 
