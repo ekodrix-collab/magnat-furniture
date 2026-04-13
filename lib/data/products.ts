@@ -25,7 +25,6 @@ export const allProducts: Product[] = [
     deliveryTime: "4-6 weeks",
     short_description: "Architectural comfort with premium fabric upholstery.",
     description: "Architectural comfort with premium fabric upholstery. Fully customizable in size and fabric. Handstitched in our Kondotty workshop.",
-    image: "/images/sofa3d.png",
     images: ["/images/sofa3d.png", "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop"],
     badge: "Best Seller",
     material: "Premium Fabric",
