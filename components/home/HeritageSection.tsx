@@ -5,27 +5,27 @@ import FadeInView from "@/components/ui/FadeInView";
 
 export default function HeritageSection() {
    return (
-      <section className="bg-white py-40 overflow-hidden relative border-b border-black/5">
+      <section className="py-20 sm:py-30 overflow-hidden bg-white relative border-b border-black/5">
          {/* Architectural Background Numeral */}
-         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-            <span className="text-[60vw] font-black leading-none" style={{ fontFamily: "var(--font-playfair)" }}>25</span>
+         <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] mt-20 pointer-events-none select-none">
+            <span className="text-[80vw] md:text-[40vw] font-black leading-none" style={{ fontFamily: "var(--font-playfair)" }}>25</span>
          </div>
 
          <div className="max-container flex flex-col items-center text-center relative z-10">
             <div className="max-w-4xl space-y-12">
 
-               <FadeInView className="space-y-6">
+               <FadeInView className="">
                   <span className="heading-label">The Legacy of Craft</span>
-                  <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="heading-title  text-nowrap" style={{ fontFamily: "var(--font-playfair)" }}>
                      A Quarter Century of <br />
-                     <span className="italic font-normal">Design Excellence.</span>
+                     <span className="text-[#C0001A]">Design Excellence.</span>
                   </h2>
                </FadeInView>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center text-left pt-12">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center text-left sm:pt-12">
                   <FadeInView direction="right" className="space-y-8">
                      <p 
-                        className="text-xl md:text-2xl font-light text-[#111]/70 leading-relaxed" 
+                        className="text-md md:text-xl font-light text-[#111]/80 leading-relaxed" 
                         style={{ fontFamily: "var(--font-inter)" }}
                      >
                         Since 2001, Magnat has been at the forefront of the furniture industry in Kerala,
