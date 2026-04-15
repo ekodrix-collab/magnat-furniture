@@ -8,10 +8,14 @@ import HomeCurtains from "@/components/home/HomeCurtains";
 import HomeShowroom from "@/components/home/HomeShowroom";
 import KondottyGallery from "@/components/home/KondottyGallery";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
+import FAQSchema, { HOMEPAGE_FAQS } from "@/components/schemas/FAQSchema";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
+      {/* ── SEO Schema Injections (Invisible to users) ── */}
+      <FAQSchema faqs={HOMEPAGE_FAQS} />
+
       {/* ── 1. Cinematic Hero (Premium Standards) ── */}
       <HomeHero />
 

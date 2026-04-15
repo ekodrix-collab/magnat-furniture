@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // ═══════════════════════════════════════════════════════════
-  // IMAGE OPTIMIZATION — FASTEST LOADING
+  // IMAGE OPTIMIZATION — FASTEST LOADING + BEST SEO
   // ═══════════════════════════════════════════════════════════
   images: {
     // Modern formats (AVIF is smallest, WebP is fallback)
@@ -11,22 +11,10 @@ const nextConfig: NextConfig = {
 
     // Allowed remote image sources
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "*.supabase.co",
-      },
-      {
-        protocol: "https",
-        hostname: "www.storieshomes.com",
-      },
-      {
-        protocol: "https",
-        hostname: "www.vilangadanfurniture.com",
-      },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "*.supabase.co" },
+      { protocol: "https", hostname: "www.storieshomes.com" },
+      { protocol: "https", hostname: "www.vilangadanfurniture.com" },
     ],
 
     // Device sizes for responsive images
@@ -35,15 +23,14 @@ const nextConfig: NextConfig = {
     // Image sizes for different layouts
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 
-    // Enable dangerous use of SVG (if you use SVGs from remote)
+    // Cache images for 1 year (31536000 seconds) — major Core Web Vitals boost
+    minimumCacheTTL: 31536000,
+
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
-    // Minimize CLS (Cumulative Layout Shift)
-    minimumCacheTTL: 60,
-
-    // Unoptimized for dev (faster builds)
+    // In production always optimize; skip in dev for faster builds
     unoptimized: process.env.NODE_ENV === "development",
   },
 
