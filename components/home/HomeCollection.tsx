@@ -25,7 +25,7 @@ const products: Product[] = [
     name: "Skyline Sofa",
     subtitle:
       "A premium skyline sofa offering superior comfort and elegant design, ideal for relaxing and entertaining guests.",
-    image: "/images/sofa3d1.png",
+    image: "/images/singlesofa4.png",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const products: Product[] = [
     name: "Bloom Sofa",
     subtitle:
       "A cozy and compact bloom sofa that blends softness with contemporary design for small and large spaces.",
-    image: "/images/singlesofa.png",
+    image: "/images/singlesofa3.png",
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const products: Product[] = [
     name: "Crest Desk Chair",
     subtitle:
       "An ergonomic office chair designed for long working hours, providing excellent back support and comfort.",
-    image: "/images/singlesofa.png",
+    image: "/images/chair.png",
   },
 ];
 
@@ -137,16 +137,19 @@ export default function FurnitureCarousel() {
   };
 
   return (
-    <section className="min-h-screen bg-[#e9ddd1] flex flex-col items-center justify-center py-10 lg:py-20 px-4 overflow-hidden">
+    <section className="min-h-screen bg-[#faf8f6] flex flex-col items-center justify-center py-10 lg:py-20 px-4 overflow-hidden">
       {/* Header */}
-      <div className="text-center lg:mb-10 max-w-xl">
-        <h1
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900"
-          style={{ fontFamily: "-apple-system" }}
-        >
-          Top Selling Furniture <br />
-          <span className="text-[#C0001A] mt-2">At Unbeatable Prices</span>
+      <div className="text-center lg:mb-10">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 md:text-nowrap">
+          Top Selling Furniture{" "}
+          <span className="text-[#C0001A] block sm:inline text-[22px] sm:text-4xl md:text-5xl ">
+            At Unbeatable Prices
+          </span>
         </h1>
+        <p className="text-gray-500 hidden md:block text-sm">
+          Explore our best-selling furniture at great prices. Stylish,
+          comfortable, <br /> and perfect for every home
+        </p>
       </div>
 
       {/* Carousel Container */}
@@ -236,22 +239,25 @@ export default function FurnitureCarousel() {
                     style={{ paddingTop: "50px" }}
                   >
                     <div className="flex flex-col pt-20 ">
-                      <div className="px-2">
-                        <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold text-left">
+                      <div className="px-4 ">
+                        <span className="block text-[10px] uppercase tracking-widest text-[#C0001A] font-[900] text-left">
                           {product.category}
                         </span>
-                        <h3
-                          className="text-md font-bold text-gray-800 mt-1 text-left"
-                          style={{ fontFamily: "monospace" }}
-                        >
+                        <h3 className="text-md font-bold text-gray-800 mt-1 text-left">
                           {product.name}
                         </h3>
-                        <p className="text-xs text-gray-400 text-left py-2">
+                        <p
+                          className="text-xs text-gray-500 text-left pt-2 line-clamp-2  overflow-hidden"
+                          style={{ marginTop: isCenter ? "5px" : "" }}
+                        >
                           {product.subtitle}
                         </p>
                       </div>
-                      <div className="px-10">
-                        <button className="mt-4 px-4 py-3 bg-[#000000] text-white text-sm rounded-[50px] w-full transition-transform duration-200 ease-out hover:scale-[1.04] active:scale-[0.98]">
+                      <div
+                        className="px-10"
+                        style={{ marginTop: isCenter ? "15px" : "" }}
+                      >
+                        <button className="mt-4 px-4 py-3 bg-black text-white text-sm rounded-[50px] w-full transition-transform duration-200 ease-out hover:scale-[1.04] active:scale-[0.98]">
                           View Details
                         </button>
                       </div>
@@ -288,8 +294,8 @@ export default function FurnitureCarousel() {
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`transition-all duration-300 rounded-full h-2 ${
-              i === currentIndex ? "w-8 bg-[#C0001A]" : "w-2 bg-gray-300"
+            className={`transition-all duration-300 rounded-full h-1 ${
+              i === currentIndex ? "w-2 bg-[#C0001A]" : "w-2 bg-gray-300"
             }`}
           />
         ))}
