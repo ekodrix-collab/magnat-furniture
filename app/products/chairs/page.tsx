@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { allProducts } from "@/lib/data/products";
+import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
 // ─────────────────────────────────────────────────────────────
@@ -43,21 +43,11 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────
-const chairProducts = allProducts.filter(p => p.category === "Chairs");
-
 const seoStats = [
   { num: "5000+", label: "Chairs Delivered" },
   { num: "24", label: "Unique Designs" },
   { num: "5yr", label: "Structural Warranty" },
   { num: "48hr", label: "Fast Shipping" },
-];
-
-const seoTags = [
-  "Office Chairs",
-  "Accent Chairs",
-  "Dining Chairs",
-  "Ergonomic Design",
-  "Solid Wood",
 ];
 
 const faqItems = [
@@ -75,7 +65,14 @@ const faqItems = [
   },
 ];
 
-export default function ChairsPage() {
+export default async function ChairsPage() {
+  const allProducts = await getProducts();
+  const chairProducts = allProducts.filter(p => 
+    p.category_id === "Chairs" || 
+    p.category?.name === "Chairs" || 
+    p.category?.slug === "chairs"
+  );
+
   return (
     <main className="pt-20 bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}

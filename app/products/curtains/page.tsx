@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { allProducts } from "@/lib/data/products";
+import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
 // ─────────────────────────────────────────────────────────────
@@ -26,8 +26,6 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────
-const curtainProducts = allProducts.filter(p => p.category === "Curtains");
-
 const seoStats = [
   { num: "1000+", label: "Windows Dressed" },
   { num: "50+", label: "Fabric Choices" },
@@ -35,7 +33,14 @@ const seoStats = [
   { num: "7day", label: "Expert Setup" },
 ];
 
-export default function CurtainsPage() {
+export default async function CurtainsPage() {
+  const allProducts = await getProducts();
+  const curtainProducts = allProducts.filter(p => 
+    p.category_id === "Curtains" || 
+    p.category?.name === "Curtains" || 
+    p.category?.slug === "curtains"
+  );
+
   return (
     <main className="pt-20 bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}

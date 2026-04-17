@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { allProducts } from "@/lib/data/products";
+import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
 // ─────────────────────────────────────────────────────────────
@@ -42,8 +42,6 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────
-const diningProducts = allProducts.filter(p => p.category === "Dining");
-
 const seoStats = [
   { num: "1500+", label: "Homes Furnished" },
   { num: "12", label: "Table Designs" },
@@ -62,7 +60,14 @@ const faqItems = [
   },
 ];
 
-export default function DiningPage() {
+export default async function DiningPage() {
+  const allProducts = await getProducts();
+  const diningProducts = allProducts.filter(p => 
+    p.category_id === "Dining" || 
+    p.category?.name === "Dining" || 
+    p.category?.slug === "dining"
+  );
+
   return (
     <main className="pt-20 bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}

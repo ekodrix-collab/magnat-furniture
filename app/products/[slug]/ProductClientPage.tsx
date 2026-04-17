@@ -18,7 +18,7 @@ export default function ProductClientPage({
   product, 
   relatedProducts 
 }: { 
-  product: Product;
+  product: Product | null;
   relatedProducts: Product[];
 }) {
   const router = useRouter();

@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { allProducts } from "@/lib/data/products";
+import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
 // ─────────────────────────────────────────────────────────────
@@ -48,8 +48,6 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────
-const sofaProducts = allProducts.filter(p => p.category === "Sofas");
-
 const seoStats = [
   { num: "25+", label: "Years Manufacturing" },
   { num: "16", label: "Sofa Styles" },
@@ -92,7 +90,14 @@ const faqItems = [
   },
 ];
 
-export default function SofasPage() {
+export default async function SofasPage() {
+  const allProducts = await getProducts();
+  const sofaProducts = allProducts.filter(p => 
+    p.category_id === "Sofas" || 
+    p.category?.name === "Sofas" || 
+    p.category?.slug === "sofas"
+  );
+
   return (
     <main className="pt-20 bg-[#fafaf9] min-h-screen">
 
