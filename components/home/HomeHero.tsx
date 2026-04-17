@@ -4,46 +4,75 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const SLIDES = [
+import { HeroSlide } from "@/lib/types";
+
+const FALLBACK_SLIDES: HeroSlide[] = [
   {
-    src: "/images/hero-section.png",
-    alt: "MAGNAT Premium Living Room",
+    id: "fallback-1",
+    image_url: "/images/hero-section.png",
+    alt_text: "MAGNAT Premium Living Room",
     heading: "Living Room",
     description: "A quarter-century legacy of handcrafted excellence. We curate the world's finest designs for the most sophisticated Kerala interiors.",
+    sort_order: 0,
+    is_active: true,
   },
   {
-    src: "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Luxury Interior",
+    id: "fallback-2",
+    image_url: "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2600&auto=format&fit=crop",
+    alt_text: "MAGNAT Luxury Interior",
     heading: "Luxury Spaces",
     description: "From timeless classics to contemporary masterpieces — every piece tells a story of unmatched craftsmanship and refined taste.",
+    sort_order: 1,
+    is_active: true,
   },
   {
-    src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Sofa Collection",
+    id: "fallback-3",
+    image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
+    alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
     description: "Sink into comfort without sacrificing style. Our exclusive sofa collections redefine relaxation for the discerning homeowner.",
+    sort_order: 2,
+    is_active: true,
   },
   {
-    src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Contemporary Design",
+    id: "fallback-4",
+    image_url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2600&auto=format&fit=crop",
+    alt_text: "MAGNAT Contemporary Design",
     heading: "Contemporary Design",
     description: "Bold lines, rich textures, and thoughtful detail — our contemporary range brings modern elegance to Kerala's finest homes.",
+    sort_order: 3,
+    is_active: true,
   },
 ];
 
 const INTERVAL = 6500;
 
-export default function HomeHero() {
+import { getHeroSlides } from "@/lib/api/hero";
+
+export default function HomeHero({ slides: initialSlides }: { slides?: HeroSlide[] }) {
+  const [slides, setSlides] = useState<HeroSlide[]>(initialSlides || FALLBACK_SLIDES);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
 
   useEffect(() => {
+    async function loadSlides() {
+      if (!initialSlides) {
+        const fetched = await getHeroSlides();
+        setSlides(fetched);
+      }
+    }
+    loadSlides();
+  }, [initialSlides]);
+
+  const activeSlides = slides;
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setDirection(1);
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
+      setCurrent((prev) => (prev + 1) % activeSlides.length);
     }, INTERVAL);
     return () => clearInterval(timer);
-  }, []);
+  }, [activeSlides.length]);
 
   const goTo = (index: number) => {
     setDirection(index > current ? 1 : -1);
@@ -92,8 +121,8 @@ export default function HomeHero() {
               className="relative w-full h-full"
             >
               <img
-                src={SLIDES[current].src}
-                alt={SLIDES[current].alt}
+                src={activeSlides[current].image_url}
+                alt={activeSlides[current].alt_text || activeSlides[current].heading}
                 className="w-full h-full object-cover grayscale-[0.3] brightness-75"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent z-10" />
@@ -125,7 +154,7 @@ export default function HomeHero() {
                   className="text-white text-center leading-[1.1] font-bold tracking-tight"
                   style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
                 >
-                  {SLIDES[current].heading}
+                  {activeSlides[current].heading}
                 </h1>
               </motion.div>
             </AnimatePresence>
@@ -144,7 +173,7 @@ export default function HomeHero() {
                   className="text-white/90 text-sm lg:text-lg text-center font-normal leading-relaxed max-w-xl"
                   style={{ fontFamily: "var(--font-inter)" }}
                 >
-                  {SLIDES[current].description}
+                  {activeSlides[current].description}
                 </motion.p>
               </AnimatePresence>
 
@@ -177,7 +206,7 @@ export default function HomeHero() {
 
       {/* ── Carousel Dot Indicators — right center on lg, bottom center on small ── */}
       <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-3 hidden lg:flex">
-        {SLIDES.map((_, i) => (
+        {activeSlides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
@@ -196,7 +225,7 @@ export default function HomeHero() {
       </div>
 
       <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 flex lg:hidden flex-row items-center gap-2">
-        {SLIDES.map((_, i) => (
+        {activeSlides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}

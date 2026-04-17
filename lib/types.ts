@@ -6,12 +6,21 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
-  description: string | null;
-  short_description: string | null;
-  category_id: string | null;
+  description: string | null | undefined;
+  short_description: string | null | undefined;
+  category_id: string | null | undefined;
   images: string[];
-  is_featured: boolean;
+  features: string[];
+  specifications: { label: string; value: string }[];
+  price: string | null | undefined;
+  delivery_time: string | null | undefined;
+  material: string | null | undefined;
+  badge: string | null | undefined;
+  is_new: boolean;
+  is_bestseller: boolean;
   is_active: boolean;
+  is_featured: boolean;
+  type: string | null | undefined;
   sort_order: number;
   created_at: string;
   category?: Category;
@@ -21,8 +30,8 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
-  description: string | null;
-  image_url: string | null;
+  description: string | null | undefined;
+  image_url: string | null | undefined;
   sort_order: number;
   is_featured: boolean;
   created_at: string;
@@ -32,11 +41,43 @@ export interface Testimonial {
   id: string;
   client_name: string;
   client_image: string | null;
+  client_role: string | null;
   quote: string;
   rating: number;
   is_active: boolean;
   sort_order: number;
   created_at: string;
+}
+
+export interface HeroSlide {
+  id: string;
+  image_url: string;
+  alt_text: string | null;
+  heading: string;
+  description: string | null;
+  sort_order: number;
+  is_active: boolean;
+}
+
+export interface ProcessStep {
+  id: string;
+  step_number: string;
+  label: string;
+  title: string;
+  description: string | null;
+  tag: string | null;
+  image_url: string | null;
+  sort_order: number;
+}
+
+export interface FeaturedItem {
+  id: string;
+  name: string;
+  category: string | null;
+  subtitle: string | null;
+  image_url: string;
+  sort_order: number;
+  is_active: boolean;
 }
 
 export interface HomepageSection {
@@ -75,7 +116,9 @@ export interface Inquiry {
   email: string | null;
   phone: string | null;
   message: string | null;
+  interest_category: string | null;
   product_id: string | null;
+  status: 'pending' | 'contacted' | 'resolved' | 'archived';
   created_at: string;
 }
 

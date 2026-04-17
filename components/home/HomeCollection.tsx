@@ -1,55 +1,57 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { FeaturedItem } from "@/lib/types";
 
-interface Product {
-  id: number;
-  category: string;
-  name: string;
-  subtitle: string;
-  image: string;
-}
-
-const products: Product[] = [
+const FALLBACK_PRODUCTS: FeaturedItem[] = [
   {
-    id: 1,
+    id: "1",
     category: "Living Area",
     name: "Nordic Chair",
-    subtitle:
-      "A stylish and comfortable Nordic chair designed with minimal aesthetics, perfect for modern living rooms.",
-    image: "/images/singlesofa.png",
+    subtitle: "A stylish and comfortable Nordic chair designed with minimal aesthetics.",
+    image_url: "/images/singlesofa.png",
+    sort_order: 0,
+    is_active: true
   },
   {
-    id: 2,
+    id: "2",
     category: "Living Area",
     name: "Skyline Sofa",
     subtitle:
       "A premium skyline sofa offering superior comfort and elegant design, ideal for relaxing and entertaining guests.",
-    image: "/images/singlesofa4.png",
+    image_url: "/images/singlesofa4.png",
+    sort_order: 1,
+    is_active: true
   },
   {
-    id: 3,
+    id: "3",
     category: "Living Area",
     name: "Bloom Sofa",
     subtitle:
       "A cozy and compact bloom sofa that blends softness with contemporary design for small and large spaces.",
-    image: "/images/singlesofa3.png",
+    image_url: "/images/singlesofa3.png",
+    sort_order: 2,
+    is_active: true
   },
   {
-    id: 4,
+    id: "4",
     category: "Bedroom",
     name: "Luna Armchair",
     subtitle:
       "A luxurious armchair crafted for bedroom comfort, featuring soft cushioning and a sleek modern look.",
-    image: "/images/sofa3d1.png",
+    image_url: "/images/sofa3d1.png",
+    sort_order: 3,
+    is_active: true
   },
   {
-    id: 5,
+    id: "5",
     category: "Office",
     name: "Crest Desk Chair",
     subtitle:
       "An ergonomic office chair designed for long working hours, providing excellent back support and comfort.",
-    image: "/images/chair.png",
+    image_url: "/images/chair.png",
+    sort_order: 4,
+    is_active: true
   },
 ];
 
@@ -69,7 +71,8 @@ const getVisibleCount = () => {
   return 3; // tablet + desktop: always 3
 };
 
-export default function FurnitureCarousel() {
+export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] }) {
+  const activeProducts = items && items.length > 0 ? items : FALLBACK_PRODUCTS;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState<number | null>(null);
@@ -96,7 +99,7 @@ export default function FurnitureCarousel() {
   if (cardWidth === null || visibleCount === null) return null;
 
   const STEP = cardWidth + CARD_GAP;
-  const maxIndex = products.length - visibleCount;
+  const maxIndex = activeProducts.length - visibleCount;
 
   const prev = () => setCurrentIndex((i) => Math.max(0, i - 1));
   const next = () => setCurrentIndex((i) => Math.min(maxIndex, i + 1));
@@ -192,7 +195,7 @@ export default function FurnitureCarousel() {
               transition: "transform 0.5s ease-in-out",
             }}
           >
-            {products.map((product, index) => {
+            {activeProducts.map((product, index) => {
               const relIndex = index - currentIndex;
               // On desktop/tablet: center card is middle of 3 visible
               // On mobile: only 1 visible, that one is "center"
@@ -227,7 +230,7 @@ export default function FurnitureCarousel() {
                     }}
                   >
                     <img
-                      src={product.image}
+                      src={product.image_url}
                       alt={product.name}
                       className="max-h-full max-w-full object-contain drop-shadow-2xl mx-auto"
                     />
@@ -294,9 +297,8 @@ export default function FurnitureCarousel() {
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`transition-all duration-300 rounded-full h-1 ${
-              i === currentIndex ? "w-2 bg-[#C0001A]" : "w-2 bg-gray-300"
-            }`}
+            className={`transition-all duration-300 rounded-full h-1 ${i === currentIndex ? "w-2 bg-[#C0001A]" : "w-2 bg-gray-300"
+              }`}
           />
         ))}
       </div>

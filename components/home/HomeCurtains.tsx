@@ -1,40 +1,48 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { ProcessStep } from "@/lib/types";
 
-/* ── Steps ── */
-const steps = [
+const FALLBACK_STEPS: ProcessStep[] = [
   {
-    step: "01",
+    id: "1",
+    step_number: "01",
     label: "Design & Selection",
     title: "Crafting Your Vision",
-    desc: "Our designers sit with you to understand your space, lifestyle, and aesthetic — translating ideas into detailed blueprints.",
+    description: "Our designers sit with you to understand your space, lifestyle, and aesthetic — translating ideas into detailed blueprints.",
     tag: "Expert Design",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    image_url: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    sort_order: 0,
   },
   {
-    step: "02",
+    id: "2",
+    step_number: "02",
     label: "Material Sourcing",
     title: "Only the Finest Materials",
-    desc: "Premium timber, imported fabrics and precision hardware — handpicked from trusted global suppliers for every project.",
+    description: "Premium timber, imported fabrics and precision hardware — handpicked from trusted global suppliers for every project.",
     tag: "Top Quality",
-    image: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop",
+    image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop",
+    sort_order: 1,
   },
   {
-    step: "03",
+    id: "3",
+    step_number: "03",
     label: "Artisan Craftsmanship",
     title: "Built by Master Hands",
-    desc: "Each piece is hand-cut, joined and finished in our Kondotty workshop — with decades of expertise guiding every detail.",
+    description: "Each piece is hand-cut, joined and finished in our Kondotty workshop — with decades of expertise guiding every detail.",
     tag: "Handcrafted",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    sort_order: 2,
   },
   {
-    step: "04",
+    id: "4",
+    step_number: "04",
     label: "White Glove Delivery",
     title: "Delivered with Care",
-    desc: "We deliver, install, and position every piece personally — your satisfaction is the final signature on every project.",
+    description: "We deliver, install, and position every piece personally — your satisfaction is the final signature on every project.",
     tag: "5-Star Service",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop",
+    image_url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop",
+    sort_order: 3,
   },
 ];
 
@@ -44,7 +52,7 @@ function StepCard({
   index,
   triggered,
 }: {
-  step: (typeof steps)[0];
+  step: ProcessStep;
   index: number;
   triggered: boolean;
 }) {
@@ -64,7 +72,7 @@ function StepCard({
       {/* Image area */}
       <div className="relative overflow-hidden" style={{ height: "clamp(140px, 18vw, 200px)" }}>
         <img
-          src={step.image}
+          src={step.image_url || "/images/placeholder-furniture.jpg"}
           alt={step.title}
           loading="lazy"
           className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
@@ -74,10 +82,8 @@ function StepCard({
             transition: `transform 1.6s cubic-bezier(0.22,1,0.36,1) ${delay + 0.1}s, filter 0.4s ease`,
           }}
         />
-        {/* Subtle warm overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
 
-        {/* Glancing shimmer sweep effect */}
         <div
           className="absolute inset-0 pointer-events-none mix-blend-overlay"
           style={{
@@ -87,18 +93,16 @@ function StepCard({
           }}
         />
 
-        {/* Step number top-left */}
         <div className="absolute top-3 left-3">
           <span
             className="text-white/90 font-bold"
             style={{ fontFamily: "var(--font-playfair)", fontSize: "11px", letterSpacing: "0.2em" }}
           >
-            {step.step}
+            {step.step_number}
           </span>
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-5 flex flex-col gap-2 flex-1">
         <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">{step.label}</p>
         <h3
@@ -107,9 +111,8 @@ function StepCard({
         >
           {step.title}
         </h3>
-        <p className="text-black/45 text-xs leading-relaxed flex-1 mt-1">{step.desc}</p>
+        <p className="text-black/45 text-xs leading-relaxed flex-1 mt-1">{step.description}</p>
 
-        {/* Tag */}
         <span className="mt-3 self-start inline-block text-[10px] font-semibold text-black/40 bg-white border border-black/8 px-3 py-1.5 rounded-full tracking-wide">
           {step.tag}
         </span>
@@ -118,7 +121,6 @@ function StepCard({
   );
 }
 
-/* ── Progress line between cards (desktop only) ── */
 function ProgressDot({ index, triggered }: { index: number; triggered: boolean }) {
   return (
     <div
@@ -138,8 +140,8 @@ function ProgressDot({ index, triggered }: { index: number; triggered: boolean }
   );
 }
 
-/* ── Main Component ── */
-export default function HomeCurtains() {
+export default function HomeCurtains({ steps }: { steps?: ProcessStep[] }) {
+  const activeSteps = steps && steps.length > 0 ? steps : FALLBACK_STEPS;
   const sectionRef = useRef<HTMLDivElement>(null);
   const [triggered, setTriggered] = useState(false);
 
@@ -147,7 +149,6 @@ export default function HomeCurtains() {
     const el = sectionRef.current;
     if (!el) return;
 
-    // Fallback: always show within 1.5s regardless of scroll
     const fallback = setTimeout(() => setTriggered(true), 1500);
 
     const observer = new IntersectionObserver(
@@ -174,8 +175,6 @@ export default function HomeCurtains() {
       style={{ background: "linear-gradient(180deg, #eeeee8 0%, #e8e8e2 100%)" }}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 py-10 md:py-14">
-
-        {/* ── White rounded frame ── */}
         <div
           className="bg-white rounded-[28px] overflow-hidden"
           style={{
@@ -188,11 +187,7 @@ export default function HomeCurtains() {
             transition: "opacity 0.9s ease, transform 1.1s cubic-bezier(0.22,1,0.36,1), box-shadow 1.3s ease 0.2s",
           }}
         >
-
-          {/* ── Header ── */}
           <div className="text-center px-6 pt-12 pb-10 md:pt-16 md:pb-12">
-
-            {/* Pill */}
             <div
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/8 bg-[#f5f5f0] mb-7"
               style={{
@@ -207,7 +202,6 @@ export default function HomeCurtains() {
               </span>
             </div>
 
-            {/* Title */}
             <div
               style={{
                 opacity: triggered ? 1 : 0,
@@ -235,26 +229,24 @@ export default function HomeCurtains() {
             </div>
           </div>
 
-          {/* ── Cards — desktop: horizontal row | mobile: vertical stack ── */}
           <div className="px-4 sm:px-6 md:px-8 pb-10 md:pb-12">
-
-            {/* Desktop row — large screens only */}
+            {/* Desktop row */}
             <div className="hidden lg:flex items-stretch gap-0">
-              {steps.map((step, i) => (
-                <div key={step.step} className="flex items-stretch flex-1 min-w-0">
+              {activeSteps.map((step, i) => (
+                <div key={step.id} className="flex items-stretch flex-1 min-w-0">
                   <StepCard step={step} index={i} triggered={triggered} />
-                  {i < steps.length - 1 && (
+                  {i < activeSteps.length - 1 && (
                     <ProgressDot index={i} triggered={triggered} />
                   )}
                 </div>
               ))}
             </div>
 
-            {/* Mobile + Tablet vertical stack */}
+            {/* Mobile stack */}
             <div className="lg:hidden flex flex-col gap-5">
-              {steps.map((step, i) => (
+              {activeSteps.map((step, i) => (
                 <div
-                  key={step.step}
+                  key={step.id}
                   className="flex flex-col sm:flex-row gap-4 bg-[#f7f7f3] rounded-2xl overflow-hidden"
                   style={{
                     opacity: triggered ? 1 : 0,
@@ -262,42 +254,26 @@ export default function HomeCurtains() {
                     transition: `opacity 0.9s ease ${i * 0.14 + 0.35}s, transform 0.9s cubic-bezier(0.22,1,0.36,1) ${i * 0.14 + 0.35}s`,
                   }}
                 >
-                  {/* Image */}
                   <div className="relative overflow-hidden rounded-none sm:rounded-2xl sm:w-44 shrink-0" style={{ height: "180px" }}>
                     <img
-                      src={step.image}
+                      src={step.image_url || "/images/placeholder-furniture.jpg"}
                       alt={step.title}
-                      loading="lazy"
                       className="w-full h-full object-cover"
-                      style={{ filter: "saturate(0.85) contrast(0.95)" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent sm:bg-gradient-to-r" />
-                    <span
-                      className="absolute top-3 left-4 text-white/80 font-bold"
-                      style={{ fontFamily: "var(--font-playfair)", fontSize: "11px", letterSpacing: "0.2em" }}
-                    >
-                      {step.step}
+                    <span className="absolute top-3 left-4 text-white/80 font-bold" style={{ fontSize: "11px", letterSpacing: "0.2em" }}>
+                      {step.step_number}
                     </span>
                   </div>
-
-                  {/* Content */}
                   <div className="p-5 flex flex-col justify-center gap-2">
                     <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">{step.label}</p>
-                    <h3
-                      className="font-bold text-[#111] leading-snug"
-                      style={{ fontFamily: "var(--font-playfair)", fontSize: "18px" }}
-                    >
-                      {step.title}
-                    </h3>
-                    <p className="text-black/45 text-xs leading-relaxed">{step.desc}</p>
-                    <span className="mt-1 self-start text-[10px] font-semibold text-black/40 bg-white border border-black/8 px-3 py-1.5 rounded-full">
-                      {step.tag}
-                    </span>
+                    <h3 className="font-bold text-[#111] leading-snug" style={{ fontSize: "18px" }}>{step.title}</h3>
+                    <p className="text-black/45 text-xs leading-relaxed">{step.description}</p>
+                    <span className="mt-1 self-start text-[10px] font-semibold text-black/40 bg-white border border-black/8 px-3 py-1.5 rounded-full">{step.tag}</span>
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </div>

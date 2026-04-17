@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getProductBySlug, getRelatedProducts } from "@/lib/data/products";
+import { getProductBySlug, getRelatedProducts } from "@/lib/api/products";
 import ProductClientPage from "./ProductClientPage";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -15,13 +15,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${product.name} | Premium Furniture by MAGNAT™`,
-    description: product.short_description || product.description.slice(0, 160),
+    description: product.short_description || product.description?.slice(0, 160) || "",
     openGraph: {
       title: `${product.name} | MAGNAT™`,
-      description: product.short_description || product.description.slice(0, 160),
+      description: product.short_description || product.description?.slice(0, 160) || "",
       images: [
         {
-          url: product.images[0] || "/images/placeholder-furniture.jpg",
+          url: (product.images && product.images[0]) || "/images/placeholder-furniture.jpg",
           width: 1200,
           height: 630,
           alt: product.name,
@@ -36,11 +36,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const product = await getProductBySlug(slug);
   
   if (!product) {
-    // Will naturally pass null to client page, which will render the 404 UI
     return <ProductClientPage product={null} relatedProducts={[]} />;
   }
 
-  const relatedProducts = await getRelatedProducts(product.category, slug);
+  const relatedProducts = await getRelatedProducts(product.category_id || "", slug);
 
   return <ProductClientPage product={product} relatedProducts={relatedProducts} />;
 }
