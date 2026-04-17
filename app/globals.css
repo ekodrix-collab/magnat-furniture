@@ -19,6 +19,7 @@
   /* Typography */
   --font-playfair: "Playfair Display", "Georgia", serif;
   --font-inter: "Inter", "Helvetica Neue", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
 
   /* Spacing */
   --spacing-section: 10rem;
@@ -230,6 +231,12 @@ button {
 /* ============================================
    UTILITIES
    ============================================ */
+
+.font-number {
+  font-family: var(--font-outfit), sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
 
 .max-container {
   width: 100%;

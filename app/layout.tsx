@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,6 +9,7 @@ import ContactQuickActions from "@/components/ui/ContactQuickActions";
 import Preloader from "@/components/ui/Preloader";
 import FavoritesDrawer from "@/components/ui/FavoritesDrawer";
 import { FavoritesProvider } from "@/lib/context/FavoritesContext";
+import AdminExclusionWrapper from "@/components/layout/AdminExclusionWrapper";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,6 +24,13 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
   weight: ["400", "500", "600"],
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -78,15 +86,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${outfit.variable}`}>
       <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
         <FavoritesProvider>
           <Preloader />
-          <Navbar />
-          <FavoritesDrawer />
+          
+          <AdminExclusionWrapper>
+            <Navbar />
+            <FavoritesDrawer />
+          </AdminExclusionWrapper>
+
           <main className="flex-1">{children}</main>
-          <Footer />
-          <WhatsAppFloating /> {/* ✅ Enhanced Version */}
+          
+          <AdminExclusionWrapper>
+            <Footer />
+            <WhatsAppFloating />
+          </AdminExclusionWrapper>
         </FavoritesProvider>
       </body>
     </html>

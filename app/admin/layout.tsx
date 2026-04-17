@@ -14,11 +14,22 @@ const adminNavItems = [
   { label: "Media Assets", href: "/admin/media", icon: ImageIcon },
 ];
 
+import { handleLogout } from "@/app/actions/auth";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isLoginPage = pathname === "/admin/login";
+
+  if (isLoginPage) {
+    return (
+      <div className="min-h-screen bg-[#1A1A1A] flex items-center justify-center p-6">
+        {children}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-screen bg-[#F0F2F5]">
+    <div className="flex min-h-screen bg-[#F0F2F5] font-inter">
       {/* Sidebar */}
       <aside className="w-72 bg-[#1A1A1A] text-white flex flex-col fixed inset-y-0 z-50">
         <div className="p-8 pb-12">
@@ -59,13 +70,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="mt-auto p-8 space-y-4">
           <div className="bg-white/5 p-6 rounded-xl border border-white/10 mb-8">
             <p className="text-[0.6rem] uppercase tracking-widest text-[#C6A969] mb-2 font-bold">Premium Support</p>
-            <p className="text-xs text-white/50 leading-relaxed font-light mb-4 italic italic">Need assistance with your CMS? Contact development.</p>
+            <p className="text-xs text-white/50 leading-relaxed font-light mb-4 italic">Need assistance with your CMS? Contact development.</p>
             <a href="mailto:dev@magnat.com" className="text-[0.65rem] font-bold text-white hover:underline flex items-center gap-2">
               Help Center <ExternalLink size={12} />
             </a>
           </div>
           
-          <button className="flex items-center gap-4 px-4 py-4 w-full text-xs font-bold uppercase tracking-[0.15em] text-[#8B1E1E] hover:bg-[#8B1E1E]/10 rounded-lg transition-all border border-transparent hover:border-[#8B1E1E]/20">
+          <button 
+            onClick={() => handleLogout()}
+            className="flex items-center gap-4 px-4 py-4 w-full text-xs font-bold uppercase tracking-[0.15em] text-[#8B1E1E] hover:bg-[#8B1E1E]/10 rounded-lg transition-all border border-transparent hover:border-[#8B1E1E]/20"
+          >
             <LogOut size={18} />
             Logout Account
           </button>
@@ -74,7 +88,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Content */}
       <main className="flex-1 ml-72 p-12">
-        <header className="flex items-center justify-between mb-12">
+        <header className="flex items-center justify-between mb-12 font-inter">
           <div>
             <h1 className="text-[0.7rem] font-bold uppercase tracking-[0.4em] text-[#C6A969] mb-2">Back-office Management</h1>
             <h2 className="font-playfair text-3xl font-bold text-[#1A1A1A]">Admin Control Panel</h2>
@@ -83,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-6">
             <div className="flex flex-col items-end text-right">
               <span className="text-xs font-bold text-[#1A1A1A]">Anwar Hossain</span>
-              <span className="text-[0.6rem] text-body uppercase tracking-widest">Master Admin</span>
+              <span className="text-[0.6rem] text-body uppercase tracking-widest opacity-60">Master Admin</span>
             </div>
             <div className="h-12 w-12 rounded-full border-2 border-[#C6A969] bg-[#1A1A1A]" />
           </div>

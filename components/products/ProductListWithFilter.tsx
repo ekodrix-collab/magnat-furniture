@@ -5,22 +5,11 @@ import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import ProductCard from "@/components/ui/ProductCard";
+import { Product } from "@/lib/types";
 import FilterSection from "./FilterSection";
 
-interface Product {
-  slug: string;
-  name: string;
-  category: string;
-  type?: string;
-  description: string;
-  images: string[];
-  badge: string | null;
-  material: string;
-  price: string;
-}
-
 interface ProductListWithFilterProps {
-  initialProducts: any[];
+  initialProducts: Product[];
   category: string;
 }
 
@@ -30,7 +19,7 @@ export default function ProductListWithFilter({
 }: ProductListWithFilterProps) {
   const [activeType, setActiveType] = useState("All");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
   // Navbar Sync States
   const [scrolled, setScrolled] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -39,7 +28,7 @@ export default function ProductListWithFilter({
   // Replicate Navbar visibility logic for sync
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    
+
     // Scrolled state
     setScrolled(latest > 20);
 
@@ -85,14 +74,14 @@ export default function ProductListWithFilter({
   // Dynamic Sticky Offset
   // Navbar Scrolled Height = 80px (top-20)
   // Navbar Initial Height = 136px (top-[136px])
-  const stickyTop = isNavbarVisible 
-    ? (scrolled ? "80px" : "136px") 
+  const stickyTop = isNavbarVisible
+    ? (scrolled ? "80px" : "136px")
     : "0px";
 
   return (
     <>
       {/* Count Bar (Dynamic Sticky) */}
-      <motion.div 
+      <motion.div
         animate={{ top: stickyTop }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="sticky z-40 bg-white border-b border-[#f0f0f0] py-5 max-sm:py-4 shadow-sm"
@@ -100,7 +89,7 @@ export default function ProductListWithFilter({
         <div className="max-container">
           <div className="flex items-center justify-between">
             <p className="text-[10px] tracking-[0.1em] uppercase text-[#666] m-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
-              Showing <strong className="text-[#111]">{filteredProducts.length} {category.toLowerCase()}</strong> 
+              Showing <strong className="text-[#111]">{filteredProducts.length} {category.toLowerCase()}</strong>
               {activeType !== "All" && (
                 <span className="hidden sm:inline"> — Filtered by <strong className="text-[#C0001A]">{activeType}</strong></span>
               )}
@@ -116,7 +105,7 @@ export default function ProductListWithFilter({
               <Filter size={14} className="group-hover:scale-110 transition-transform" />
             </button>
           </div>
-          
+
           {activeType !== "All" && (
             <div className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
               <span className="text-[9px] uppercase tracking-widest text-[#999] whitespace-nowrap">Active Filter:</span>
@@ -170,7 +159,7 @@ export default function ProductListWithFilter({
       <section className="pt-20 pb-12 max-sm:pt-16 max-sm:pb-7 min-h-[400px]">
 
         <div className="max-container">
-          <motion.div 
+          <motion.div
             layout
             className="grid grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4 max-sm:gap-3"
           >
@@ -189,7 +178,7 @@ export default function ProductListWithFilter({
               ))}
             </AnimatePresence>
           </motion.div>
-          
+
           {filteredProducts.length === 0 && (
             <div className="py-20 text-center">
               <p className="text-[#666]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>

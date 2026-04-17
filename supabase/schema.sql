@@ -28,6 +28,13 @@ create table if not exists products (
   images text[] default '{}',              -- Array of image URLs
   features text[] default '{}',            -- Array of feature strings
   specifications jsonb default '[]',       -- JSON array of {label, value}
+  price text,
+  delivery_time text,
+  material text,
+  badge text,
+  is_new boolean default false,
+  is_bestseller boolean default false,
+  type text,
   is_featured boolean default false,
   is_active boolean default true,
   sort_order int default 0,
@@ -47,7 +54,44 @@ create table if not exists testimonials (
   created_at timestamptz default now()
 );
 
--- 4. HOMEPAGE SECTIONS (CMS)
+-- 4. HERO SLIDES
+create table if not exists hero_slides (
+  id uuid primary key default gen_random_uuid(),
+  image_url text not null,
+  alt_text text,
+  heading text not null,
+  description text,
+  sort_order int default 0,
+  is_active boolean default true,
+  created_at timestamptz default now()
+);
+
+-- 5. PROCESS STEPS (How It Works)
+create table if not exists process_steps (
+  id uuid primary key default gen_random_uuid(),
+  step_number text not null,
+  label text not null,
+  title text not null,
+  description text,
+  tag text,
+  image_url text,
+  sort_order int default 0,
+  created_at timestamptz default now()
+);
+
+-- 6. FEATURED ITEMS (HomeCollection carousel)
+create table if not exists featured_items (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  category text,
+  subtitle text,
+  image_url text not null,
+  sort_order int default 0,
+  is_active boolean default true,
+  created_at timestamptz default now()
+);
+
+-- 7. HOMEPAGE SECTIONS (CMS)
 create table if not exists homepage_sections (
   id uuid primary key default gen_random_uuid(),
   section_key text unique not null,   -- e.g. 'hero', 'banner', 'experience'
@@ -61,7 +105,7 @@ create table if not exists homepage_sections (
   updated_at timestamptz default now()
 );
 
--- 5. CLIENT LOGOS
+-- 8. CLIENT LOGOS
 create table if not exists client_logos (
   id uuid primary key default gen_random_uuid(),
   name text not null,
@@ -71,7 +115,7 @@ create table if not exists client_logos (
   created_at timestamptz default now()
 );
 
--- 6. INSTAGRAM CONTENT
+-- 9. INSTAGRAM CONTENT
 create table if not exists instagram_posts (
   id uuid primary key default gen_random_uuid(),
   image_url text not null,
@@ -82,16 +126,17 @@ create table if not exists instagram_posts (
   created_at timestamptz default now()
 );
 
--- 7. INQUIRIES (LEAD GENERATION)
+-- 10. INQUIRIES (LEAD GENERATION)
 create table if not exists inquiries (
   id uuid primary key default gen_random_uuid(),
-  name text not null,
+  full_name text not null,
   email text,
   phone text,
+  subject text,
   message text,
   interest_category text,
   product_id uuid references products(id) on delete set null,
-  status text default 'pending' check (status in ('pending', 'contacted', 'resolved', 'archived')),
+  status text default 'new' check (status in ('new', 'contacted', 'resolved', 'archived')),
   created_at timestamptz default now()
 );
 
@@ -120,6 +165,36 @@ create policy "Allow auth admin full access to products" on products for all usi
 alter table testimonials enable row level security;
 create policy "Allow public read-only access to testimonials" on testimonials for select using (is_active = true);
 create policy "Allow auth admin full access to testimonials" on testimonials for all using (auth.role() = 'authenticated');
+
+-- Hero Slides: Public Read, Auth Write
+alter table hero_slides enable row level security;
+create policy "Allow public read-only access to hero_slides" on hero_slides for select using (is_active = true);
+create policy "Allow auth admin full access to hero_slides" on hero_slides for all using (auth.role() = 'authenticated');
+
+-- Process Steps: Public Read, Auth Write
+alter table process_steps enable row level security;
+create policy "Allow public read-only access to process_steps" on process_steps for select using (true);
+create policy "Allow auth admin full access to process_steps" on process_steps for all using (auth.role() = 'authenticated');
+
+-- Featured Items: Public Read, Auth Write
+alter table featured_items enable row level security;
+create policy "Allow public read-only access to featured_items" on featured_items for select using (is_active = true);
+create policy "Allow auth admin full access to featured_items" on featured_items for all using (auth.role() = 'authenticated');
+
+-- Homepage Sections: Public Read, Auth Write
+alter table homepage_sections enable row level security;
+create policy "Allow public read-only access to homepage_sections" on homepage_sections for select using (is_active = true);
+create policy "Allow auth admin full access to homepage_sections" on homepage_sections for all using (auth.role() = 'authenticated');
+
+-- Client Logos: Public Read, Auth Write
+alter table client_logos enable row level security;
+create policy "Allow public read-only access to client_logos" on client_logos for select using (is_active = true);
+create policy "Allow auth admin full access to client_logos" on client_logos for all using (auth.role() = 'authenticated');
+
+-- Instagram Posts: Public Read, Auth Write
+alter table instagram_posts enable row level security;
+create policy "Allow public read-only access to instagram_posts" on instagram_posts for select using (is_active = true);
+create policy "Allow auth admin full access to instagram_posts" on instagram_posts for all using (auth.role() = 'authenticated');
 
 -- Inquiries: Auth Insert (from form), Auth Read/Write (from dashboard)
 alter table inquiries enable row level security;
