@@ -14,6 +14,7 @@ import HomeCurtains from "@/components/home/HomeCurtains";
 import HomeShowroom from "@/components/home/HomeShowroom";
 import KondottyGallery from "@/components/home/KondottyGallery";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
+import FAQSchema, { HOMEPAGE_FAQS } from "@/components/schemas/FAQSchema";
 
 export default async function HomePage() {
   // Fetch everything in parallel
@@ -44,6 +45,9 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* ── SEO Schema Injections (Invisible to users) ── */}
+      <FAQSchema faqs={HOMEPAGE_FAQS} />
+
       {/* ── 1. Cinematic Hero (Premium Standards) ── */}
       <HomeHero slides={heroSlides} />
 
