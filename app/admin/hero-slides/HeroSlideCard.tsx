@@ -39,7 +39,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
       layout
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      className="bg-white border border-[#E5DED6] rounded-2zl overflow-hidden hover:border-[#8B1E1E] transition-all group flex h-48 relative shadow-sm"
+      className="bg-white border border-[#eeeeee] rounded-2zl overflow-hidden hover:border-[#C0001A] transition-all group flex h-48 relative shadow-sm"
     >
       <div className="w-80 relative shrink-0">
         <img src={slide.image_url} alt={slide.heading} className="w-full h-full object-cover" />
@@ -53,9 +53,9 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
       
       <div className="p-8 flex flex-col justify-center flex-1">
         <div className="flex items-center gap-3 mb-2">
-          <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C6A969]">Slide Order: {slide.sort_order + 1}</span>
+          <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C0001A]">Slide Order: {slide.sort_order + 1}</span>
         </div>
-        <h3 className="font-playfair text-2xl font-bold text-[#1A1A1A] mb-2">{slide.heading}</h3>
+        <h3 className="font-playfair text-2xl font-bold text-[#111111] mb-2">{slide.heading}</h3>
         <p className="text-xs text-body line-clamp-2 max-w-xl font-light italic opacity-60">
           {slide.description}
         </p>
@@ -64,7 +64,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
       <div className="px-8 flex items-center gap-4 border-l border-[#F0F2F5]">
         <button 
           onClick={toggleStatus}
-          className={`p-3 transition-colors rounded-xl ${isActive ? "text-body/40 hover:text-[#1A1A1A] bg-[#F9F9F9]" : "text-white bg-[#8B1E1E]"}`}
+          className={`p-3 transition-colors rounded-none ${isActive ? "text-body/40 hover:text-[#111111] bg-[#F9F9F9]" : "text-white bg-[#C0001A]"}`}
           title={isActive ? "Hide Slide" : "Show Slide"}
         >
           {isActive ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -72,7 +72,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
         
         <a 
           href={`/admin/hero-slides/${slide.id}`}
-          className="p-3 text-body/40 hover:text-[#C6A969] transition-colors bg-[#F9F9F9] rounded-xl"
+          className="p-3 text-body/40 hover:text-[#C0001A] transition-colors bg-[#F9F9F9] rounded-none"
           title="Edit Slide"
         >
           <Edit2 size={18} />
@@ -80,7 +80,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
         
         <button 
           onClick={handleDelete}
-          className="p-3 text-body/40 hover:text-[#8B1E1E] transition-colors bg-[#F9F9F9] rounded-xl"
+          className="p-3 text-body/40 hover:text-[#C0001A] transition-colors bg-[#F9F9F9] rounded-none"
           title="Delete Slide"
         >
           <Trash2 size={18} />

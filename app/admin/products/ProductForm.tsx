@@ -6,6 +6,7 @@ import { saveProduct } from "@/app/actions/cms";
 import { Product, Category } from "@/lib/types";
 import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
+import ImageUpload from "@/components/ui/ImageUpload";
 
 interface ProductFormProps {
   product?: Partial<Product>;
@@ -15,6 +16,7 @@ interface ProductFormProps {
 export default function ProductForm({ product, categories }: ProductFormProps) {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // State for dynamic lists
@@ -58,28 +60,28 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-12 pb-24">
       {/* Header */}
-      <div className="flex items-center justify-between sticky top-0 z-30 bg-[#F0F2F5]/80 backdrop-blur-md py-6 border-b border-[#E5DED6]">
+      <div className="flex items-center justify-between sticky top-0 z-30 bg-[#F0F2F5]/80 backdrop-blur-md py-6 border-b border-[#eeeeee]">
         <div className="flex items-center gap-6">
           <Link href="/admin/products" className="p-2 hover:bg-white rounded-full transition-colors">
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <h2 className="text-xl font-playfair font-bold text-[#1A1A1A]">
+            <h2 className="text-xl font-playfair font-bold text-[#111111]">
               {product?.id ? `Edit: ${product.name}` : "Create New Product"}
             </h2>
           </div>
         </div>
         <button
           type="submit"
-          disabled={isPending}
-          className="bg-[#1A1A1A] text-white px-8 py-3 text-[0.7rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#8B1E1E] transition-all flex items-center gap-2 shadow-lg disabled:opacity-50"
+          disabled={isPending || isUploadingImage}
+          className="bg-[#111111] text-white px-8 py-3 text-[0.7rem] font-bold uppercase tracking-widest rounded-none hover:bg-[#C0001A] transition-all flex items-center gap-2 shadow-lg disabled:opacity-50"
         >
-          {isPending ? "Saving..." : <><Save size={16} /> Save Product</>}
+          {isPending ? "Saving..." : isUploadingImage ? "Upload in Progress..." : <><Save size={16} /> Save Product</>}
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl text-sm italic">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-none text-sm italic">
           {error}
         </div>
       )}
@@ -87,8 +89,8 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Left Column: General Info */}
         <div className="lg:col-span-2 space-y-8">
-          <section className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5DED6] space-y-6">
-            <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969] mb-4">Core Essentials</h3>
+          <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee] space-y-6">
+            <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A] mb-4">Core Essentials</h3>
             
             <div className="grid grid-cols-2 gap-6">
               <input type="hidden" name="id" value={product?.id || "new"} />
@@ -100,7 +102,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   defaultValue={product?.name}
                   required
                   placeholder="e.g. Nordic Lounge Chair"
-                  className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E] transition-all"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
                 />
               </div>
 
@@ -111,7 +113,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   defaultValue={product?.slug}
                   required
                   placeholder="nordic-lounge-chair"
-                  className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E] transition-all font-mono"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all font-mono"
                 />
               </div>
 
@@ -120,7 +122,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 <select
                   name="category_id"
                   defaultValue={product?.category_id || ""}
-                  className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E] transition-all appearance-none"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all appearance-none"
                 >
                   <option value="">Select Category</option>
                   {categories.map(cat => (
@@ -136,7 +138,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 name="description"
                 defaultValue={product?.description || ""}
                 rows={6}
-                className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E] transition-all resize-none"
+                className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all resize-none"
               />
             </div>
 
@@ -146,19 +148,19 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 name="short_description"
                 defaultValue={product?.short_description || ""}
                 rows={2}
-                className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E] transition-all resize-none"
+                className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all resize-none"
               />
             </div>
           </section>
 
           {/* Features Section */}
-          <section className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5DED6]">
+          <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee]">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969]">Distinctive Features</h3>
+              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Distinctive Features</h3>
               <button 
                 type="button"
                 onClick={() => setFeatures([...features, ""])}
-                className="text-[0.6rem] font-bold uppercase tracking-widest text-[#8B1E1E] flex items-center gap-1 hover:underline"
+                className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C0001A] flex items-center gap-1 hover:underline"
               >
                 <Plus size={12} /> Add Feature
               </button>
@@ -174,7 +176,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                       setFeatures(newFeatures);
                     }}
                     placeholder="e.g. Hand-carved teak wood base"
-                    className="flex-1 bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm"
+                    className="flex-1 bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm"
                   />
                   <button 
                     type="button"
@@ -192,53 +194,39 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
         {/* Right Column: Sidebar Panels */}
         <div className="space-y-8">
           {/* Images Section */}
-          <section className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5DED6] space-y-6">
+          <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee] space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969]">Visual Assets</h3>
-              <button 
-                type="button"
-                onClick={() => setImages([...images, ""])}
-                className="text-[0.6rem] font-bold uppercase tracking-widest text-[#8B1E1E] flex items-center gap-1"
-              >
-                <Plus size={12} /> Add URL
-              </button>
+              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Visual Assets</h3>
             </div>
             
-            <div className="space-y-4">
-              {images.map((img, idx) => (
-                <div key={idx} className="space-y-2">
-                  <div className="flex gap-2">
-                    <input
-                      value={img}
-                      onChange={(e) => {
-                        const newImages = [...images];
-                        newImages[idx] = e.target.value;
-                        setImages(newImages);
-                      }}
-                      placeholder="Image URL"
-                      className="flex-1 bg-[#F9F9F9] border border-[#E5DED6] rounded-lg px-3 py-2 text-[0.7rem] font-mono"
-                    />
-                    <button 
-                      type="button"
-                      onClick={() => setImages(images.filter((_, i) => i !== idx))}
-                      className="text-body/30 hover:text-red-500"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+            <ImageUpload 
+              isUploading={isUploadingImage}
+              setIsUploading={setIsUploadingImage}
+              onUploadSuccess={(url) => setImages(prev => [...prev.filter(img => img !== ""), url])}
+            />
+            
+            <div className="space-y-4 pt-2">
+              {images.filter(img => img).map((img, idx) => (
+                <div key={idx} className="relative group border border-[#eeeeee] bg-[#F9F9F9] p-2 flex items-center justify-between">
+                  <div className="h-12 w-12 overflow-hidden bg-gray-50 border border-[#eeeeee] flex-shrink-0">
+                    <img src={img} className="w-full h-full object-cover" alt="Preview" />
                   </div>
-                  {img && (
-                    <div className="h-20 w-full overflow-hidden rounded-lg bg-gray-50 border border-black/5">
-                      <img src={img} className="w-full h-full object-cover" alt="Preview" />
-                    </div>
-                  )}
+                  <span className="text-[9px] font-mono text-[#666] truncate mx-4 flex-1">{img.split('/').pop()}</span>
+                  <button 
+                    type="button"
+                    onClick={() => setImages(images.filter((_, i) => i !== idx))}
+                    className="p-2 text-[#666] hover:text-[#C0001A] hover:bg-white transition-colors border border-transparent hover:border-[#eeeeee]"
+                  >
+                    <Trash2 size={14} />
+                  </button>
                 </div>
               ))}
             </div>
           </section>
 
           {/* Pricing & Status */}
-          <section className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5DED6] space-y-6">
-            <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C6A969]">Market Positioning</h3>
+          <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee] space-y-6">
+            <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Market Positioning</h3>
             
             <div className="space-y-4">
               <div className="space-y-2">
@@ -247,7 +235,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   name="price"
                   defaultValue={product?.price || ""}
                   placeholder="e.g. ₹85,000 or Start from..."
-                  className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E]"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A]"
                 />
               </div>
 
@@ -257,23 +245,23 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   name="badge"
                   defaultValue={product?.badge || ""}
                   placeholder="e.g. Signature Series"
-                  className="w-full bg-[#F9F9F9] border border-[#E5DED6] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#8B1E1E]"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A]"
                 />
               </div>
 
               <div className="flex items-center gap-3 pt-4">
-                <input type="checkbox" name="is_new" defaultChecked={product?.is_new} value="true" className="w-4 h-4 accent-[#8B1E1E]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#1A1A1A]">New Arrival</label>
+                <input type="checkbox" name="is_new" defaultChecked={product?.is_new} value="true" className="w-4 h-4 accent-[#C0001A]" />
+                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
               </div>
 
               <div className="flex items-center gap-3">
-                <input type="checkbox" name="is_bestseller" defaultChecked={product?.is_bestseller} value="true" className="w-4 h-4 accent-[#8B1E1E]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#1A1A1A]">Bestseller</label>
+                <input type="checkbox" name="is_bestseller" defaultChecked={product?.is_bestseller} value="true" className="w-4 h-4 accent-[#C0001A]" />
+                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Bestseller</label>
               </div>
 
               <div className="flex items-center gap-3">
-                <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#8B1E1E]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#1A1A1A]">Published / Live</label>
+                <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#C0001A]" />
+                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Published / Live</label>
               </div>
             </div>
           </section>

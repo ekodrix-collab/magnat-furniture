@@ -68,7 +68,6 @@ export async function saveProduct(formData: FormData) {
     images: images.filter(img => img), // Remove empty strings
     features,
     specifications,
-    updated_at: new Date().toISOString(),
   };
 
   let query;

@@ -39,21 +39,21 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm text-body hover:text-[#1A1A1A] transition-colors"
+          className="flex items-center gap-2 text-sm text-body hover:text-[#111111] transition-colors"
         >
           <ArrowLeft size={16} /> Back to Reviews
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#1A1A1A] text-white px-8 py-3 rounded-lg flex items-center gap-2 font-bold text-xs uppercase tracking-widest hover:bg-[#8B1E1E] transition-all disabled:opacity-50"
+          className="bg-[#111111] text-white px-8 py-3 rounded-none flex items-center gap-2 font-bold text-xs uppercase tracking-widest hover:bg-[#C0001A] transition-all disabled:opacity-50"
         >
           <Save size={16} /> {loading ? "Saving..." : "Save Review"}
         </button>
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 border border-red-100 text-[#8B1E1E] rounded-xl text-sm font-medium">
+        <div className="p-4 bg-[#C0001A]/5 border border-[#C0001A]/20 text-[#C0001A] rounded-none text-sm font-medium">
           {error}
         </div>
       )}
@@ -63,12 +63,12 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Review Content Column */}
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm relative overflow-hidden">
+          <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
               <Quote size={120} />
             </div>
             
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Client Perspective</h3>
+            <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Client Perspective</h3>
             
             <div className="space-y-6">
               <div>
@@ -79,7 +79,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                   rows={5}
                   required
                   placeholder="e.g., The craftsmanship and attention to detail is exceptional..."
-                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#E5DED6] rounded-xl focus:outline-none focus:border-[#C6A969] transition-all text-sm resize-none relative z-10"
+                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm resize-none relative z-10"
                 />
               </div>
 
@@ -95,19 +95,19 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                     >
                       <Star 
                         size={24} 
-                        className={`${star <= rating ? "fill-[#C6A969] text-[#C6A969]" : "text-[#E5DED6]"} transition-colors`}
+                        className={`${star <= rating ? "fill-[#C0001A] text-[#C0001A]" : "text-[#eeeeee]"} transition-colors`}
                       />
                     </button>
                   ))}
-                  <span className="ml-4 text-sm font-bold text-[#C6A969]">{rating}/5 Stars</span>
+                  <span className="ml-4 text-sm font-bold text-[#C0001A]">{rating}/5 Stars</span>
                   <input type="hidden" name="rating" value={rating} />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Client Identity</h3>
+          <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
+            <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Client Identity</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
@@ -118,7 +118,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                   defaultValue={testimonial?.client_name}
                   required
                   placeholder="e.g., Abdul Rahman"
-                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#E5DED6] rounded-xl focus:outline-none focus:border-[#C6A969] transition-all text-sm"
+                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm"
                 />
               </div>
               
@@ -129,7 +129,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                   name="client_role"
                   defaultValue={testimonial?.client_role || ""}
                   placeholder="e.g., Kondotty"
-                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#E5DED6] rounded-xl focus:outline-none focus:border-[#C6A969] transition-all text-sm"
+                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm"
                 />
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                 name="client_image"
                 defaultValue={testimonial?.client_image || ""}
                 placeholder="https://..."
-                className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#E5DED6] rounded-xl focus:outline-none focus:border-[#C6A969] transition-all text-sm font-mono"
+                className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-mono"
               />
             </div>
           </div>
@@ -149,8 +149,8 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
 
         {/* Sidebar Settings Column */}
         <div className="space-y-8">
-          <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm sticky top-8">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C6A969] mb-6">Configuration</h3>
+          <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm sticky top-8">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C0001A] mb-6">Configuration</h3>
             
             <div className="space-y-6">
               <div>
@@ -166,10 +166,10 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                         hiddenInput.value = e.target.checked ? "true" : "false";
                       }}
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#8B1E1E]"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#C0001A]"></div>
                   </div>
                   <input type="hidden" id="is_active_hidden" name="is_active" value={testimonial ? String(testimonial.is_active) : "true"} />
-                  <span className="text-xs font-bold uppercase tracking-widest text-body group-hover:text-[#1A1A1A] transition-colors">Visible on Site</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-body group-hover:text-[#111111] transition-colors">Visible on Site</span>
                 </label>
               </div>
 
