@@ -19,7 +19,7 @@ export default function Preloader() {
   // Main Loading Timer
   useEffect(() => {
     if (!isLoading) return;
-    
+
     // Smooth timer - long enough to see the elegant drawing
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -39,35 +39,35 @@ export default function Preloader() {
           key="preloader-overlay"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a] overflow-hidden"
           initial={{ opacity: 1 }}
-          exit={{ 
+          exit={{
             opacity: 0,
-            transition: { duration: 1.2, ease: "easeInOut" } 
+            transition: { duration: 1.2, ease: "easeInOut" }
           }}
         >
           <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-sm px-6">
-            
+
             {/* ── Line Art Sofa Reveal ── */}
             <div className="mb-6 opacity-90">
               <svg width="68" height="auto" viewBox="0 0 120 50" fill="none" stroke="#F7F4F0" xmlns="http://www.w3.org/2000/svg">
                 {/* Backrest */}
-                <motion.path 
-                  d="M24 20C24 11.1634 31.1634 4 40 4H80C88.8366 4 96 11.1634 96 20V32H24V20Z" 
+                <motion.path
+                  d="M24 20C24 11.1634 31.1634 4 40 4H80C88.8366 4 96 11.1634 96 20V32H24V20Z"
                   strokeWidth="2"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 1.2, ease: luxuryEase }}
                 />
                 {/* Armrests & Seat */}
-                <motion.path 
-                  d="M10 22C10 17.5817 13.5817 14 18 14H24V32H96V14H102C106.418 14 110 17.5817 110 22V36C110 38.2091 108.209 40 106 40H14C11.7909 40 10 38.2091 10 36V22Z" 
+                <motion.path
+                  d="M10 22C10 17.5817 13.5817 14 18 14H24V32H96V14H102C106.418 14 110 17.5817 110 22V36C110 38.2091 108.209 40 106 40H14C11.7909 40 10 38.2091 10 36V22Z"
                   strokeWidth="2"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 1.2, delay: 0.3, ease: luxuryEase }}
                 />
                 {/* Legs */}
-                <motion.path 
-                  d="M24 40L20 48M96 40L100 48" 
+                <motion.path
+                  d="M24 40L20 48M96 40L100 48"
                   strokeWidth="3" strokeLinecap="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}

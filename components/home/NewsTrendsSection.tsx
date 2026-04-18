@@ -115,14 +115,14 @@ export default function NewsTrendsSection() {
             <div className="flex items-center gap-3 mb-3">
               <span
                 className="text-[#c9a96e] text-[8px] font-bold tracking-[0.35em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {article.category}
               </span>
               <span className="text-[#5a5a5a]/40 text-[10px]">·</span>
               <span
                 className="text-[#5a5a5a] text-[8px] tracking-[0.2em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {article.date}
               </span>
@@ -131,7 +131,7 @@ export default function NewsTrendsSection() {
             {/* Title */}
             <h3
               className="text-[#1a1a1a] text-xl font-semibold leading-snug mb-3 transition-colors duration-300 group-hover:text-[#c9a96e]"
-              style={{ fontFamily: "var(--font-playfair)" }}
+              
             >
               {article.title}
             </h3>
@@ -139,7 +139,7 @@ export default function NewsTrendsSection() {
             {/* Excerpt */}
             <p
               className="text-[#5a5a5a] text-sm leading-relaxed font-light line-clamp-3"
-              style={{ fontFamily: "var(--font-inter)" }}
+              
             >
               {article.excerpt}
             </p>
@@ -148,7 +148,7 @@ export default function NewsTrendsSection() {
             <div className="mt-5 flex items-center gap-2">
               <span
                 className="text-[#c9a96e] text-[9px] font-bold tracking-[0.3em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Read More
               </span>

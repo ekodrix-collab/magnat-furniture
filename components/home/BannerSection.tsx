@@ -26,17 +26,17 @@ export default function BannerSection() {
         <div className="max-w-4xl pt-12">
           
           <FadeInView direction="up">
-            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.5em] uppercase mb-8 block" style={{ fontFamily: "var(--font-inter)" }}>
+            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.5em] uppercase mb-8 block" >
               The Concierge Service
             </span>
             
-            <h2 className="text-white leading-[1.05] mb-8" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)", fontWeight: 600 }}>
+            <h2 className="text-white leading-[1.05] mb-8" style={{  fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)", fontWeight: 600 }}>
               Design Your <span className="italic text-[#dfc08a]">Private Sanctuary</span>
             </h2>
             
             <div className="w-20 h-[1px] bg-[#c9a96e] mb-10" />
             
-            <p className="text-white/60 text-lg lg:text-xl font-light leading-relaxed max-w-2xl mb-12" style={{ fontFamily: "var(--font-inter)" }}>
+            <p className="text-white/60 text-lg lg:text-xl font-light leading-relaxed max-w-2xl mb-12" >
               Consult with our master designers to create a bespoke living environment that becomes an extension of your legacy. Every detail is a testament to your taste.
             </p>
             
@@ -44,14 +44,14 @@ export default function BannerSection() {
               <Link
                 href="/contact"
                 className="bg-[#c9a96e] hover:bg-[#b8976a] text-[#1a1a1a] px-10 py-4 text-[10px] font-bold tracking-[0.25em] uppercase transition-all duration-300"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Book a Consultation
               </Link>
               <Link
                 href="/about"
                 className="border border-white/20 text-white hover:border-white px-10 py-4 text-[10px] font-bold tracking-[0.25em] uppercase transition-all duration-300"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Our Legacy
               </Link>

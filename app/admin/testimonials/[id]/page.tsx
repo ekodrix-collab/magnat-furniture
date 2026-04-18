@@ -23,7 +23,7 @@ export default async function EditTestimonialPage({
   return (
     <div className="p-10 max-w-7xl mx-auto">
       <div className="mb-10">
-        <h2 className="text-3xl font-playfair font-bold text-[#1A1A1A]">Edit Review</h2>
+        <h2 className="text-3xl  font-bold text-[#1A1A1A]">Edit Review</h2>
         <p className="text-xs text-body uppercase tracking-[0.2em] mt-2">Update client feedback or adjust the rating</p>
       </div>
       

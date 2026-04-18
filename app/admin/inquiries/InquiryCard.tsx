@@ -24,7 +24,7 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
   };
 
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
               <p className="text-[9px] text-[#666] uppercase tracking-widest font-bold mt-1">{inquiry.subject || "General Inquiry"}</p>
             </div>
           </div>
-          
+
           <p className="text-sm text-[#111111]/80 leading-relaxed font-light italic bg-[#F7F4F0] p-6 border border-[#eeeeee]">
             "{inquiry.message}"
           </p>
@@ -66,17 +66,16 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
         </div>
 
         <div className="flex flex-col gap-3 min-w-[200px]">
-          <div className={`px-4 py-3 border text-center text-[9px] font-bold uppercase tracking-widest transition-colors ${
-            currentStatus === "new" ? "bg-[#C0001A] border-[#C0001A] text-white" : 
-            currentStatus === "contacted" ? "bg-[#111] border-[#111] text-white" : 
-            currentStatus === "resolved" ? "bg-[#F7F4F0] border-[#eeeeee] text-[#111]" :
-            "bg-white border-[#eeeeee] text-[#999] strike-through line-through"
-          }`}>
+          <div className={`px-4 py-3 border text-center text-[9px] font-bold uppercase tracking-widest transition-colors ${currentStatus === "new" ? "bg-[#C0001A] border-[#C0001A] text-white" :
+              currentStatus === "contacted" ? "bg-[#111] border-[#111] text-white" :
+                currentStatus === "resolved" ? "bg-[#F7F4F0] border-[#eeeeee] text-[#111]" :
+                  "bg-white border-[#eeeeee] text-[#999] strike-through line-through"
+            }`}>
             {isUpdating ? "Updating..." : currentStatus}
           </div>
-          
+
           {currentStatus === "new" && (
-            <button 
+            <button
               onClick={() => handleStatusChange("contacted")}
               disabled={isUpdating}
               className="w-full py-3 border border-[#eeeeee] text-[#111111] text-[10px] font-bold uppercase tracking-widest hover:bg-[#111111] hover:text-white transition-all disabled:opacity-50"
@@ -86,7 +85,7 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
           )}
 
           {currentStatus === "contacted" && (
-            <button 
+            <button
               onClick={() => handleStatusChange("resolved")}
               disabled={isUpdating}
               className="w-full py-3 border border-[#eeeeee] text-[#111111] text-[10px] font-bold uppercase tracking-widest hover:bg-[#111111] hover:text-white transition-all disabled:opacity-50"
@@ -96,7 +95,7 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
           )}
 
           {currentStatus !== "archived" ? (
-            <button 
+            <button
               onClick={() => handleStatusChange("archived")}
               disabled={isUpdating}
               className="w-full py-3 border border-[#C0001A] text-[#C0001A] text-[10px] font-bold uppercase tracking-widest hover:bg-[#C0001A] hover:text-white transition-all disabled:opacity-50"
@@ -104,7 +103,7 @@ export default function InquiryCard({ inquiry, onStatusChange }: InquiryCardProp
               Archive
             </button>
           ) : (
-            <button 
+            <button
               onClick={() => handleStatusChange("contacted")}
               disabled={isUpdating}
               className="w-full py-3 border border-[#eeeeee] text-[#111] text-[10px] font-bold uppercase tracking-widest hover:bg-[#111] hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"

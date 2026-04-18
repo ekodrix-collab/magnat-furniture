@@ -17,7 +17,7 @@
   --color-border-subtle: #eeeeee;
   
   /* Typography */
-  --font-playfair: "Playfair Display", "Georgia", serif;
+  --font-lato: "Lato", "Helvetica Neue", sans-serif;
   --font-inter: "Inter", "Helvetica Neue", sans-serif;
   --font-outfit: "Outfit", sans-serif;
 
@@ -54,8 +54,9 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair), serif;
-  font-weight: 600;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-style: italic;
   letter-spacing: 0.01em;
   line-height: 1.25;
 }
@@ -183,6 +184,9 @@ button {
 }
 
 .heading-title {
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-style: italic;
   font-size: 36px;
   line-height: 1.1;
   margin-bottom: 1rem;
@@ -212,8 +216,9 @@ button {
   font-size: 28px;
   line-height: 1.2;
   margin-bottom: 1rem;
-  font-family: var(--font-playfair), serif;
-  font-weight: 600;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
 @media (min-width: 768px) {
@@ -351,7 +356,9 @@ button {
 
 .whatsapp-pulse {
   animation: whatsapp-pulse 2s infinite;
-}/* ============================================
+}
+
+/* ============================================
    ENHANCED WHATSAPP & FLOATING ELEMENTS
    ============================================ */
 

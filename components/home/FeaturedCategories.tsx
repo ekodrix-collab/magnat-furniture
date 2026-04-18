@@ -50,10 +50,10 @@ export default function FeaturedCategories() {
         {/* Header */}
         <FadeInView className="mb-16 lg:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div className="max-w-2xl">
-            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" >
               Curated Collections
             </span>
-            <h2 className="text-[#1a1a1a] leading-[1.1]" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
+            <h2 className="text-[#1a1a1a] leading-[1.1]" style={{  fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
               The World of <br />
               <span className="italic">Magnat Furniture</span>
             </h2>
@@ -87,10 +87,10 @@ export default function FeaturedCategories() {
                 {/* Overlay Text — Bottom left editorial style */}
                 <div className="absolute inset-0 p-10 flex flex-col justify-end">
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
-                    <span className="block text-[9px] font-bold tracking-[0.3em] uppercase text-[#c9a96e] mb-2" style={{ fontFamily: "var(--font-inter)" }}>
+                    <span className="block text-[9px] font-bold tracking-[0.3em] uppercase text-[#c9a96e] mb-2" >
                       {category.label}
                     </span>
-                    <h3 className="text-white text-3xl font-semibold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                    <h3 className="text-white text-3xl font-semibold leading-tight" >
                       {category.name}
                     </h3>
                   </div>

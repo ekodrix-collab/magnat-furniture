@@ -106,7 +106,7 @@ export default async function SofasPage() {
         <div className="max-container">
 
           {/* Kicker with line */}
-          <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+          <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" >
             Manufacturer · Kondotty, Kerala · Est. 1999
             <span className="flex-1 h-px bg-[#f0f0f0]" aria-hidden="true" />
           </div>
@@ -116,7 +116,7 @@ export default async function SofasPage() {
 
             {/* Left — editorial copy */}
             <div className="pr-16 border-r border-[#f0f0f0]">
-              <h2 className="text-[40px] font-normal leading-[1.15] tracking-[-0.01em] text-[#111] mb-6" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+              <h2 className="text-[40px] font-normal leading-[1.15] tracking-[-0.01em] text-[#111] mb-6" >
                 Buy Sofas Directly from the{" "}
                 <em className="text-[#C0001A]" style={{ fontStyle: "italic" }}>Manufacturer</em>{" "}
                 in Kondotty
@@ -125,21 +125,21 @@ export default async function SofasPage() {
               {/* Red rule */}
               <div className="w-10 h-px bg-[#C0001A] mb-5" />
 
-              <p className="text-sm text-[#666] leading-[1.85] font-light mb-4" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+              <p className="text-sm text-[#666] leading-[1.85] font-light mb-4" >
                 MAGNAT Furniture is a leading furniture manufacturer based in Kondotty,
                 Malappuram district, Kerala. We specialize in premium sofa sets — from
                 L-shaped sectionals and wooden sofa sets to recliner sofas and modular
                 configurations. Every sofa is built in-house at our Kondotty factory and
                 delivered directly to your home, eliminating middlemen for the best value.
               </p>
-              <p className="text-sm text-[#666] leading-[1.85] font-light mb-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+              <p className="text-sm text-[#666] leading-[1.85] font-light mb-0" >
                 Whether you&apos;re furnishing a new home in Kozhikode, Malappuram, Thrissur,
                 or anywhere across Kerala, our team can help you choose the perfect sofa and
                 customize it to your space, color, and fabric preference.
               </p>
 
               {/* Pull quote */}
-              <blockquote className="mt-6 pl-4 border-l-2 border-[#C0001A] text-[15px] italic text-[#999] leading-[1.7]" style={{ fontFamily: "var(--font-playfair, serif)", fontStyle: "italic" }}>
+              <blockquote className="mt-6 pl-4 border-l-2 border-[#C0001A] text-[15px] italic text-[#999] leading-[1.7]" style={{  fontStyle: "italic" }}>
                 Handcrafted at source. No middlemen. Delivered across Kerala.
               </blockquote>
             </div>
@@ -151,10 +151,10 @@ export default async function SofasPage() {
               <div className="grid grid-cols-2 gap-px bg-[#f0f0f0] border border-[#f0f0f0]">
                 {seoStats.map((s) => (
                   <div key={s.label} className="bg-white px-5 py-6 flex flex-col gap-1.5">
-                    <span className="text-[30px] font-medium text-[#111] leading-none" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+                    <span className="text-[30px] font-medium text-[#111] leading-none" >
                       {s.num}
                     </span>
-                    <span className="text-[10px] tracking-[0.18em] uppercase text-[#999]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                    <span className="text-[10px] tracking-[0.18em] uppercase text-[#999]" >
                       {s.label}
                     </span>
                   </div>
@@ -167,7 +167,7 @@ export default async function SofasPage() {
                   <span
                     key={tag}
                     className="text-[10px] tracking-[0.15em] uppercase text-[#888] border border-[#e8e8e8] px-3 py-1.5"
-                    style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                    
                   >
                     {tag}
                   </span>
@@ -181,7 +181,7 @@ export default async function SofasPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3.5 no-underline rounded-[3px] transition-colors hover:bg-[#1ab954]"
-                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                  
                 >
                   <MessageCircle size={16} strokeWidth={2} />
                   WhatsApp Enquiry
@@ -189,7 +189,7 @@ export default async function SofasPage() {
                 <Link
                   href="/contact"
                   className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3 no-underline border border-[#ddd] rounded-[3px] transition-all hover:bg-[#111] hover:text-white hover:border-[#111]"
-                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                  
                 >
                   Visit Showroom
                 </Link>
@@ -210,10 +210,10 @@ export default async function SofasPage() {
           {/* Header row */}
           <div className="flex items-end justify-between mb-12 pb-8 border-b border-[#ebebeb]">
             <div>
-              <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] mb-3" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+              <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] mb-3" >
                 Common Questions
               </span>
-              <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] m-0" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+              <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] m-0" >
                 Frequently Asked <em style={{ fontStyle: "italic" }} className="text-[#C0001A]">Questions</em>
               </h2>
             </div>
@@ -222,7 +222,7 @@ export default async function SofasPage() {
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-transparent text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3 no-underline border border-[#ddd] rounded-[3px] transition-all hover:bg-[#111] hover:text-white hover:border-[#111]"
-                style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                
               >
                 Send an Enquiry
               </Link>
@@ -238,10 +238,10 @@ export default async function SofasPage() {
               >
                 <summary
                   className="py-6 text-[15px] font-medium text-[#111] cursor-pointer flex items-center justify-between gap-4 list-none select-none hover:text-[#C0001A] transition-colors duration-200"
-                  style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+                  
                 >
                   <span className="flex items-center gap-4">
-                    <span className="text-[11px] text-[#C0001A] font-normal tracking-widest w-5 flex-shrink-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                    <span className="text-[11px] text-[#C0001A] font-normal tracking-widest w-5 flex-shrink-0" >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {item.q}
@@ -251,7 +251,7 @@ export default async function SofasPage() {
                     size={16}
                   />
                 </summary>
-                <div className="pb-6 pl-9 text-sm text-[#666] leading-[1.8]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+                <div className="pb-6 pl-9 text-sm text-[#666] leading-[1.8]" >
                   {item.a}
                 </div>
               </details>

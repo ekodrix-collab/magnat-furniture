@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Lato } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -13,13 +13,12 @@ import AdminExclusionWrapper from "@/components/layout/AdminExclusionWrapper";
 import OrganizationSchema from "@/components/schemas/OrganizationSchema";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema";
 
-const playfair = Playfair_Display({
+const lato = Lato({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-lato",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["100", "300", "400", "700", "900"],
   style: ["normal", "italic"],
-  preload: true,
 });
 
 const inter = Inter({
@@ -171,13 +170,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${lato.variable} ${inter.variable} ${outfit.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

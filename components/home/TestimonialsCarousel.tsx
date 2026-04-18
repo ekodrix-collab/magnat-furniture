@@ -48,10 +48,10 @@ export default function TestimonialsCarousel() {
         
         {/* Header */}
         <FadeInView className="mb-20 text-center">
-          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" >
             Perspectives
           </span>
-          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
+          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{  fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
             Curated <span className="italic">Experiences</span>
           </h2>
           <div className="w-12 h-[1px] bg-[#c9a96e] mx-auto" />
@@ -70,7 +70,7 @@ export default function TestimonialsCarousel() {
                       
                       <div className="mb-8">
                         <Quote size={32} strokeWidth={1} className="text-[#c9a96e]/30 mb-8" />
-                        <p className="text-[#1a1a1a]/70 text-base leading-relaxed font-light italic" style={{ fontFamily: "var(--font-inter)" }}>
+                        <p className="text-[#1a1a1a]/70 text-base leading-relaxed font-light italic" >
                           &ldquo;{testimonial.quote}&rdquo;
                         </p>
                       </div>
@@ -78,10 +78,10 @@ export default function TestimonialsCarousel() {
                       <div className="flex items-center gap-4 mt-auto">
                          <div className="w-8 h-[1px] bg-[#c9a96e]/30" />
                          <div>
-                            <h4 className="text-[#1a1a1a] text-[11px] font-bold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>
+                            <h4 className="text-[#1a1a1a] text-[11px] font-bold tracking-[0.2em] uppercase" >
                               {testimonial.name}
                             </h4>
-                            <span className="text-[#c9a96e] text-[9px] uppercase tracking-widest mt-1 block" style={{ fontFamily: "var(--font-inter)" }}>
+                            <span className="text-[#c9a96e] text-[9px] uppercase tracking-widest mt-1 block" >
                               {testimonial.role}
                             </span>
                          </div>

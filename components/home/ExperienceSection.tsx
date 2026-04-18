@@ -33,7 +33,7 @@ export default function ExperienceSection() {
       {/* ── Background Highlight ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none" aria-hidden="true">
         <span 
-          style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(300px, 40vw, 600px)", fontWeight: 900, lineHeight: 1 }}
+          style={{  fontSize: "clamp(300px, 40vw, 600px)", fontWeight: 900, lineHeight: 1 }}
           className="text-[#1a1a1a]"
         >
           25
@@ -49,17 +49,17 @@ export default function ExperienceSection() {
               <div className="flex flex-col items-start gap-6">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-[1px] bg-[#c9a96e]" />
-                  <span className="text-[#c9a96e] text-[10px] font-bold tracking-[0.5em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>
+                  <span className="text-[#c9a96e] text-[10px] font-bold tracking-[0.5em] uppercase" >
                     Since 2001
                   </span>
                 </div>
                 
-                <h2 className="text-[#1a1a1a] leading-[1.05] tracking-tight" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(3rem, 6vw, 5rem)", fontWeight: 600 }}>
+                <h2 className="text-[#1a1a1a] leading-[1.05] tracking-tight" style={{  fontSize: "clamp(3rem, 6vw, 5rem)", fontWeight: 600 }}>
                   A Quarter Century of <br />
                   <span className="italic font-normal serif-accent text-[#dfc08a]">Timeless Design</span>
                 </h2>
                 
-                <p className="text-[#1a1a1a]/60 text-lg leading-relaxed max-w-lg font-light mt-4" style={{ fontFamily: "var(--font-inter)" }}>
+                <p className="text-[#1a1a1a]/60 text-lg leading-relaxed max-w-lg font-light mt-4" >
                   The art of Magnat is the art of endurance. For 25 years, we have mastered the 
                   delicate balance between heritage woodcraft and the contemporary vision—crafting 
                   furniture that doesn&apos;t just fill a space, but defines a legacy.
@@ -68,12 +68,12 @@ export default function ExperienceSection() {
                 {/* Enhanced 25y Highlight Badge */}
                 <div className="mt-12 flex items-center gap-10">
                    <div className="flex flex-col items-start border-l border-[#c9a96e]/30 pl-8">
-                      <span className="text-[#c9a96e] text-[28px] font-bold leading-none mb-2" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
-                      <span className="text-[#1a1a1a]/40 text-[9px] font-bold uppercase tracking-[0.3em] whitespace-nowrap" style={{ fontFamily: "var(--font-inter)" }}>Years Experience</span>
+                      <span className="text-[#c9a96e] text-[28px] font-bold leading-none mb-2" >25+</span>
+                      <span className="text-[#1a1a1a]/40 text-[9px] font-bold uppercase tracking-[0.3em] whitespace-nowrap" >Years Experience</span>
                    </div>
                    <div className="flex flex-col items-start border-l border-[#c9a96e]/30 pl-8">
-                      <span className="text-[#1a1a1a] text-[28px] font-bold leading-none mb-2" style={{ fontFamily: "var(--font-playfair)" }}>5000+</span>
-                      <span className="text-[#1a1a1a]/40 text-[9px] font-bold uppercase tracking-[0.3em] whitespace-nowrap" style={{ fontFamily: "var(--font-inter)" }}>Homes Transformed</span>
+                      <span className="text-[#1a1a1a] text-[28px] font-bold leading-none mb-2" >5000+</span>
+                      <span className="text-[#1a1a1a]/40 text-[9px] font-bold uppercase tracking-[0.3em] whitespace-nowrap" >Homes Transformed</span>
                    </div>
                 </div>
               </div>
@@ -94,10 +94,10 @@ export default function ExperienceSection() {
                     </div>
                     
                     <div>
-                      <h4 className="text-[#1a1a1a] text-[12px] font-bold tracking-[0.25em] uppercase mb-4" style={{ fontFamily: "var(--font-inter)" }}>
+                      <h4 className="text-[#1a1a1a] text-[12px] font-bold tracking-[0.25em] uppercase mb-4" >
                         {feature.title}
                       </h4>
-                      <p className="text-[#1a1a1a]/55 text-[14px] leading-relaxed font-light" style={{ fontFamily: "var(--font-inter)" }}>
+                      <p className="text-[#1a1a1a]/55 text-[14px] leading-relaxed font-light" >
                         {feature.description}
                       </p>
                     </div>

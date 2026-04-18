@@ -77,7 +77,7 @@ function TestimonialCard({ review }: { review: (typeof reviews)[0] }) {
       {/* Review text */}
       <p
         className="text-[#2A2A2A] text-[15px] font-normal leading-[1.8] mb-4 flex-grow italic"
-        style={{ fontFamily: "var(--font-inter)" }}
+        
       >
         &ldquo;{review.text}&rdquo;
       </p>
@@ -185,7 +185,7 @@ export default function HomeTestimonials({ reviews: dbReviews }: { reviews?: Tes
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.25 }}
             className="heading-title text-[#1A1A1A]"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            
           >
             Trusted by{" "}
             <br />

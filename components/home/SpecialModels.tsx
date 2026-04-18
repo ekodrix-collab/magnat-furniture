@@ -72,7 +72,7 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
         {/* Header & Controls */}
         <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-[clamp(28px,4vw,36px)] font-bold text-[#111] mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="text-[clamp(28px,4vw,36px)] font-bold text-[#111] mb-2" >
               Top Sellers
             </h2>
           </div>

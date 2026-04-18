@@ -30,7 +30,7 @@ export default function ProductTable({ products }: ProductTableProps) {
   };
 
   return (
-    <div className="overflow-x-auto font-inter">
+    <div className="overflow-x-auto ">
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b border-[#eeeeee] text-left">

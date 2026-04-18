@@ -25,7 +25,7 @@ export default function InstagramSection({ posts }: { posts?: InstagramPost[] })
         <div className="flex flex-col lg:flex-row items-end justify-between mb-16 gap-8">
           <FadeInView className="max-w-2xl">
             <span className="heading-label">Follow Perspective</span>
-            <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="heading-title" >
               Magnat on <br />
               <span className="italic font-normal">Instagram.</span>
             </h2>
