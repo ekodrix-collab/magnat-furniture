@@ -5,23 +5,30 @@ import Link from "next/link";
 
 const footNav = [
   {
+    title: "Collections",
     links: [
-      { label: "Home", href: "/" },
-      { label: "Packages & offers", href: "/offers" },
-      { label: "Contact Us", href: "/contact" },
+      { label: "Bespoke Sofas", href: "/products/sofas" },
+      { label: "Designer Chairs", href: "/products/chairs" },
+      { label: "Luxury Dining", href: "/products/dining" },
+      { label: "Custom Curtains", href: "/products/curtains" },
     ]
   },
   {
+    title: "Shop by Room",
     links: [
-      { label: "About Us", href: "/about" },
-      { label: "Clients", href: "/clients" },
-      { label: "Store Locator", href: "/showrooms" },
+      { label: "Living Room", href: "/rooms/living-room" },
+      { label: "Dining Room", href: "/rooms/dining-room" },
+      { label: "Master Bedroom", href: "/rooms/bedroom" },
+      { label: "Executive Office", href: "/rooms/office" },
     ]
   },
   {
+    title: "The Brand",
     links: [
-      { label: "Gallery", href: "/gallery" },
-      { label: "Brands", href: "/brands" },
+      { label: "Our Showrooms", href: "/showrooms" },
+      { label: "About Magnat", href: "/about" },
+      { label: "Bespoke Enquiries", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy" },
     ]
   }
 ];
@@ -38,19 +45,21 @@ export default function Footer() {
           
           {/* Column 1-8: Quick Links Section */}
           <div className="lg:col-span-8">
-             <h4 className="text-[#C0001A] text-[13px] md:text-[15px] font-bold tracking-[0.1em] mb-10 md:mb-12" style={{ fontFamily: "var(--font-playfair)" }}>Quick Links</h4>
-             <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6 md:gap-x-12">
+             <div className="grid grid-cols-2 md:grid-cols-3 gap-y-12 md:gap-x-12">
                 {footNav.map((column, idx) => (
-                  <div key={idx} className="flex flex-col gap-4">
-                     {column.links.map((link) => (
-                       <Link 
-                         key={link.label} 
-                         href={link.href}
-                         className="text-[13px] md:text-[14px] text-white/50 hover:text-white transition-colors duration-300"
-                       >
-                          {link.label}
-                       </Link>
-                     ))}
+                  <div key={idx} className="flex flex-col gap-6">
+                     <h4 className="text-[#C0001A] text-[11px] font-black tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>{column.title}</h4>
+                     <div className="flex flex-col gap-4">
+                        {column.links.map((link) => (
+                          <Link 
+                            key={link.label} 
+                            href={link.href}
+                            className="text-[14px] text-white/40 hover:text-white transition-colors duration-300 font-medium"
+                          >
+                             {link.label}
+                          </Link>
+                        ))}
+                     </div>
                   </div>
                 ))}
              </div>
