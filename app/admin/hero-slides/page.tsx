@@ -15,30 +15,30 @@ export default async function AdminHeroPage() {
   }
 
   return (
-    <div className="p-10">
-      <div className="flex items-center justify-between mb-10">
+    <div className="p-4 md:p-10 font-inter max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
         <div>
-          <h2 className="text-2xl font-playfair font-bold text-[#1A1A1A]">Homepage Hero Slides</h2>
-          <p className="text-xs text-body uppercase tracking-widest mt-1">Manage cinematic intro imagery</p>
+          <h2 className="text-2xl font-playfair font-black text-[#111111] tracking-tight">Main Showcase Cinematic</h2>
+          <p className="text-[10px] text-[#C0001A] uppercase tracking-[0.2em] mt-2 font-bold">Manage the first impression of your luxury brand</p>
         </div>
         <Link 
           href="/admin/hero-slides/new"
-          className="bg-[#1A1A1A] text-white px-6 py-3 text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#8B1E1E] transition-all flex items-center gap-2 shadow-md"
+          className="bg-[#111111] text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest rounded-none hover:bg-[#C0001A] transition-all flex items-center gap-3 shadow-lg group"
         >
-          <Plus size={14} /> Add Slide
+          <Plus size={16} className="group-hover:rotate-90 transition-transform" /> Add New Slide
         </Link>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {slides && slides.length > 0 ? (
           slides.map((slide) => (
             <HeroSlideCard key={slide.id} slide={slide} />
           ))
         ) : (
-          <div className="py-24 text-center border-2 border-dashed border-[#E5DED6] rounded-3xl bg-[#F9F9F9]/50">
-            <ImageIcon size={48} className="mx-auto text-body/20 mb-6" />
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-2">No Custom Slides</h3>
-            <p className="text-xs text-body uppercase tracking-widest">You are currently using the hardcoded cinematic slides.</p>
+          <div className="py-32 text-center border border-[#eeeeee] bg-white">
+            <ImageIcon size={40} className="mx-auto text-[#111111]/10 mb-6" strokeWidth={1} />
+            <h3 className="text-xl font-playfair font-black text-[#111111] mb-2">No Cinematic Slides</h3>
+            <p className="text-[10px] text-[#666666] uppercase tracking-widest leading-relaxed">You are currently using the default placeholders. Add custom slides to personalize the hero section.</p>
           </div>
         )}
       </div>

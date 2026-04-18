@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Edit2, Trash2, Save, X, Eye, EyeOff } from "lucide-react";
+import { Edit2, Trash2, Eye, EyeOff } from "lucide-react";
 import { deleteHeroSlide, saveHeroSlide } from "@/app/actions/cms";
 import { HeroSlide } from "@/lib/types";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface HeroSlideCardProps {
   slide: HeroSlide;
@@ -38,34 +38,34 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
   return (
     <motion.div 
       layout
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="bg-white border border-[#eeeeee] rounded-2zl overflow-hidden hover:border-[#C0001A] transition-all group flex h-48 relative shadow-sm"
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="bg-white border border-[#eeeeee] rounded-none overflow-hidden hover:border-[#C0001A] transition-all group flex flex-col md:flex-row h-auto md:h-56 relative shadow-sm"
     >
-      <div className="w-80 relative shrink-0">
-        <img src={slide.image_url} alt={slide.heading} className="w-full h-full object-cover" />
-        <div className={`absolute inset-0 transition-colors ${isActive ? "bg-black/10" : "bg-black/60 backdrop-blur-[1px]"}`} />
+      <div className="w-full md:w-96 h-48 md:h-full relative shrink-0 overflow-hidden">
+        <img src={slide.image_url} alt={slide.heading} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+        <div className={`absolute inset-0 transition-all duration-500 ${isActive ? "bg-black/5" : "bg-black/70 backdrop-blur-sm"}`} />
         {!isActive && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-white bg-black/40 px-3 py-1 rounded-full border border-white/20">Hidden Slide</span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white border border-white/20 px-4 py-2 bg-black/40">Inactive Canvas</span>
           </div>
         )}
       </div>
       
       <div className="p-8 flex flex-col justify-center flex-1">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C0001A]">Slide Order: {slide.sort_order + 1}</span>
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#C0001A] bg-[#F7F4F0] px-3 py-1">SEQUENCE {slide.sort_order + 1}</span>
         </div>
-        <h3 className="font-playfair text-2xl font-bold text-[#111111] mb-2">{slide.heading}</h3>
-        <p className="text-xs text-body line-clamp-2 max-w-xl font-light italic opacity-60">
+        <h3 className="font-playfair text-2xl font-black text-[#111111] mb-3 tracking-tight">{slide.heading}</h3>
+        <p className="text-xs text-[#111111]/60 line-clamp-2 max-w-xl font-light italic leading-relaxed">
           {slide.description}
         </p>
       </div>
 
-      <div className="px-8 flex items-center gap-4 border-l border-[#F0F2F5]">
+      <div className="px-8 py-6 md:py-0 flex flex-row md:flex-col justify-center gap-3 border-t md:border-t-0 md:border-l border-[#f5f5f5] bg-[#fafafa]/50 md:bg-transparent">
         <button 
           onClick={toggleStatus}
-          className={`p-3 transition-colors rounded-none ${isActive ? "text-body/40 hover:text-[#111111] bg-[#F9F9F9]" : "text-white bg-[#C0001A]"}`}
+          className={`p-4 transition-all rounded-none border ${isActive ? "text-[#111111]/30 border-[#eeeeee] hover:text-[#111111] hover:bg-white" : "text-white bg-[#C0001A] border-[#C0001A]"}`}
           title={isActive ? "Hide Slide" : "Show Slide"}
         >
           {isActive ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -73,7 +73,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
         
         <Link 
           href={`/admin/hero-slides/${slide.id}`}
-          className="p-3 text-body/40 hover:text-[#C0001A] transition-colors bg-[#F9F9F9] rounded-none"
+          className="p-4 text-[#111111]/30 hover:text-[#C0001A] border border-[#eeeeee] hover:bg-white transition-all rounded-none"
           title="Edit Slide"
         >
           <Edit2 size={18} />
@@ -81,7 +81,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
         
         <button 
           onClick={handleDelete}
-          className="p-3 text-body/40 hover:text-[#C0001A] transition-colors bg-[#F9F9F9] rounded-none"
+          className="p-4 text-[#111111]/30 hover:text-[#C0001A] border border-[#eeeeee] hover:bg-white transition-all rounded-none"
           title="Delete Slide"
         >
           <Trash2 size={18} />
