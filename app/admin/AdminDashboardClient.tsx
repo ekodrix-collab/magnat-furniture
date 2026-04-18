@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShoppingBag, Eye, MessageSquare, Users, ArrowUpRight, ArrowDownRight, Image as ImageIcon } from "lucide-react";
+import { ShoppingBag, Eye, MessageSquare, Users, ImageIcon, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 interface AdminDashboardClientProps {
@@ -18,101 +18,123 @@ const IconMap: Record<string, any> = {
 
 export default function AdminDashboardClient({ stats, recentInquiries }: AdminDashboardClientProps) {
   return (
-    <div className="p-12 ">
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-[#EFE7DF]/30 p-8 rounded-2xl border border-[#DCD3C9] group hover:border-[#C6A969] transition-all"
-          >
-            <div className="flex items-center justify-between mb-6">
-              <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-[#8B1E1E] group-hover:bg-[#8B1E1E] group-hover:text-white transition-all shadow-sm">
-                {(() => {
-                  const Icon = IconMap[stat.icon] || ShoppingBag;
-                  return <Icon size={20} />;
-                })()}
+    <div className="font-inter space-y-10">
+
+      {/* ── STATS GRID ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, i) => {
+          const Icon = IconMap[stat.icon] || ShoppingBag;
+          return (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, ease: "easeOut" }}
+              className="bg-white p-7 border border-[#eeeeee] relative overflow-hidden group hover:border-[#111] transition-colors"
+            >
+              {/* Subtle accent line */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-[#111] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
+
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 flex items-center justify-center bg-[#F7F4F0] text-[#111]">
+                    <Icon size={18} strokeWidth={1.5} />
+                  </div>
+                </div>
+                <div className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest ${stat.isPositive ? 'text-green-600' : 'text-red-500'}`}>
+                  {stat.isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                  <span>{stat.change}</span>
+                </div>
               </div>
-              <div className={`flex items-center gap-1 text-[0.6rem] font-bold uppercase tracking-tighter font-number ${stat.isPositive ? 'text-green-600' : 'text-red-500'}`}>
-                {stat.isPositive ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
-                {stat.change}
-              </div>
-            </div>
-            <span className="block text-[0.65rem] font-bold uppercase tracking-widest text-[#1A1A1A]/60 mb-1">{stat.label}</span>
-            <span className="text-4xl font-number font-bold text-[#1A1A1A]">{stat.value}</span>
-          </motion.div>
-        ))}
+              <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-[#666] mb-2">{stat.label}</span>
+              <span className="text-4xl tracking-tight font-black text-[#111]">{stat.value}</span>
+            </motion.div>
+          );
+        })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Recent Inquiries List */}
-        <div className="lg:col-span-2 space-y-8">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] ">Recent Lead Inquiries</h3>
-            <Link href="/admin/inquiries" className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#8B1E1E] hover:underline ">View All Inquiries</Link>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+
+        {/* ── RECENT INQUIRIES ── */}
+        <div className="xl:col-span-2 space-y-6">
+          <div className="flex items-center justify-between border-b border-[#eeeeee] pb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">Recent Lead Inquiries</h3>
+            <Link href="/admin/inquiries" className="text-[10px] font-bold uppercase tracking-widest text-[#C0001A] hover:text-[#111] transition-colors flex items-center gap-1 group">
+              View All <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-          
-          <div className="space-y-4">
+
+          <div className="bg-white border border-[#eeeeee]">
             {recentInquiries.length > 0 ? (
-              recentInquiries.map((inquiry, i) => (
-                <motion.div 
-                  key={inquiry.id} 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + (i * 0.1) }}
-                  className="bg-white p-6 rounded-xl border border-[#E5DED6] flex items-center justify-between hover:border-[#1A1A1A] transition-all cursor-pointer group"
-                >
-                  <div className="flex items-center gap-6">
-                    <div className="h-12 w-12 rounded-full bg-[#EFE7DF] flex items-center justify-center text-[#1A1A1A] font-bold text-sm font-number">
-                      {inquiry.full_name?.charAt(0) || "Q"}
+              <div className="divide-y divide-[#eeeeee]">
+                {recentInquiries.map((inquiry, i) => (
+                  <motion.div
+                    key={inquiry.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 + (i * 0.1) }}
+                    className="p-5 flex items-center justify-between hover:bg-[#F9F9F9] transition-colors group"
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className="h-10 w-10 bg-[#111] text-white flex items-center justify-center text-xs font-bold uppercase">
+                        {inquiry.full_name?.charAt(0) || "U"}
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-[#111] group-hover:text-[#C0001A] transition-colors line-clamp-1">{inquiry.full_name}</h4>
+                        <p className="text-[11px] text-[#666] mt-1">{inquiry.subject || inquiry.email}</p>
+                      </div>
                     </div>
-                    <div className="">
-                      <h4 className="text-sm font-bold text-[#1A1A1A] group-hover:text-[#8B1E1E] transition-colors">{inquiry.full_name}</h4>
-                      <span className="text-xs text-[#1A1A1A]/50 font-light italic">{inquiry.subject || inquiry.email}</span>
+                    <div className="flex flex-col items-end gap-2">
+                      <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest ${inquiry.status === "new" ? "bg-[#C0001A] text-white" :
+                          inquiry.status === "contacted" ? "bg-[#111] text-white" : "bg-[#F7F4F0] text-[#111]"
+                        }`}>
+                        {inquiry.status || "New"}
+                      </span>
+                      <span className="text-[10px] text-[#666] uppercase tracking-widest">
+                        {new Date(inquiry.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                      </span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-8">
-                    <span className="text-[0.6rem] uppercase tracking-widest text-[#1A1A1A]/40 font-number">
-                      {new Date(inquiry.created_at).toLocaleDateString()}
-                    </span>
-                    <span className={`px-4 py-1.5 rounded-full text-[0.6rem] font-bold uppercase tracking-widest font-number ${
-                      inquiry.status === "new" ? "bg-[#8B1E1E] text-white" : 
-                      inquiry.status === "contacted" ? "bg-[#C6A969] text-white" : "bg-green-100 text-green-700"
-                    }`}>
-                      {inquiry.status || "New"}
-                    </span>
-                  </div>
-                </motion.div>
-              ))
+                  </motion.div>
+                ))}
+              </div>
             ) : (
-              <div className="p-12 text-center bg-white border border-dashed border-[#E5DED6] rounded-xl text-[#1A1A1A]/40 text-xs italic ">
+              <div className="p-12 text-center text-[#666] text-xs uppercase tracking-widest">
                 No recent inquiries found.
               </div>
             )}
           </div>
         </div>
 
-        {/* Quick Actions / System Status */}
-        <div className="space-y-8">
-          <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] ">Quick Actions</h3>
-          <div className="grid gap-4">
-            <Link href="/admin/products/new" className="flex items-center gap-4 bg-[#1A1A1A] text-white px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#8B1E1E] transition-all shadow-md ">
-              <ShoppingBag size={18} />
-              Add New Product
+        {/* ── QUICK ACTIONS ── */}
+        <div className="space-y-6">
+          <div className="border-b border-[#eeeeee] pb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">Quick Actions</h3>
+          </div>
+
+          <div className="grid gap-3">
+            <Link href="/admin/products/new" className="flex items-center p-5 bg-[#111] text-white group hover:bg-[#C0001A] transition-colors">
+              <div className="bg-white/10 p-2 mr-4">
+                <ShoppingBag size={18} strokeWidth={1.5} />
+              </div>
+              <span className="text-[11px] font-bold uppercase tracking-widest">New Product</span>
             </Link>
-            <Link href="/admin/media" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all ">
-              <ImageIcon size={18} />
-              Upload Collection Imagery
+
+            <Link href="/admin/media" className="flex items-center p-5 bg-white border border-[#eeeeee] text-[#111] group hover:border-[#111] transition-colors">
+              <div className="bg-[#F7F4F0] p-2 mr-4">
+                <ImageIcon size={18} strokeWidth={1.5} />
+              </div>
+              <span className="text-[11px] font-bold uppercase tracking-widest">Upload Media</span>
             </Link>
-            <Link href="/admin/testimonials" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all ">
-              <Users size={18} />
-              Manage Testimonials
+
+            <Link href="/admin/testimonials" className="flex items-center p-5 bg-white border border-[#eeeeee] text-[#111] group hover:border-[#111] transition-colors">
+              <div className="bg-[#F7F4F0] p-2 mr-4">
+                <Users size={18} strokeWidth={1.5} />
+              </div>
+              <span className="text-[11px] font-bold uppercase tracking-widest">Manage Testimonials</span>
             </Link>
           </div>
         </div>
+
       </div>
     </div>
   );

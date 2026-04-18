@@ -5,10 +5,14 @@ import CategoryCard from "./CategoryCard";
 
 export default async function AdminCategoriesPage() {
   const supabase = await createClient();
-  const { data: categories } = await supabase
+  const { data: categories, error } = await supabase
     .from("categories")
     .select("*")
     .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching categories:", error);
+  }
 
   return (
     <div className="p-10">
