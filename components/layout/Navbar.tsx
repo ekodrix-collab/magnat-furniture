@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, X, ChevronDown } from "lucide-react";
+import { Heart, Menu, X, ChevronDown, ArrowRight, Instagram, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFavorites } from "@/lib/context/FavoritesContext";
 
@@ -25,21 +25,30 @@ const EXPLORE_DATA = {
 function NavbarContent() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExploreOpen, setMobileExploreOpen] = useState(false);
+  const pathname = usePathname();
   const { favoritesCount, setDrawerOpen } = useFavorites();
+
+  // Scroll lock on mobile menu open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [mobileOpen]);
 
   return (
     <div className="max-container h-20 flex items-center justify-between">
       {/* Brand Identity */}
-      <Link href="/" className="flex items-center group">
-        <div className="bg-[#C0001A] px-6 py-2 transition-colors group-hover:bg-[#111]">
+      <Link href="/" className="flex items-center group relative z-[210]">
+        <div className="bg-[#C0001A] px-5 py-2 transition-colors group-hover:bg-[#111]">
           <span className="text-white font-black tracking-[0.25em] text-[15px]">MAGNAT</span>
         </div>
       </Link>
 
-      {/* Primary Navigation */}
+      {/* Primary Navigation (Desktop) */}
       <nav className="hidden md:flex items-center gap-10">
-        
-        {/* Independent Key: Collections */}
         <Link 
           href="/collections" 
           className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors"
@@ -47,7 +56,6 @@ function NavbarContent() {
           Collections
         </Link>
         
-        {/* Dropdown: Explore */}
         <div 
           className="relative h-full flex items-center"
           onMouseEnter={() => setActiveMenu('explore')}
@@ -59,9 +67,8 @@ function NavbarContent() {
 
           <AnimatePresence>
             {activeMenu === 'explore' && (
-              <motion.div initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 10 }} className="absolute top-full left-[-150px] w-[580px] pt-5">
+              <motion.div initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 10 }} className="absolute top-full left-[-150px] w-[600px] pt-5">
                 <div className="bg-white p-8 rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.12)] border border-black/5 grid grid-cols-12 gap-10">
-                  {/* Furniture Types (7 cols) */}
                   <div className="col-span-7">
                     <span className="text-[9px] font-black tracking-[0.2em] uppercase text-black/30 block mb-6 px-1">Furniture Categories</span>
                     <div className="grid grid-cols-2 gap-4">
@@ -75,8 +82,6 @@ function NavbarContent() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Roomscapes (5 cols) */}
                   <div className="col-span-5 border-l border-black/5 pl-10">
                     <span className="text-[9px] font-black tracking-[0.2em] uppercase text-black/30 block mb-6 text-nowrap">Shop by Room</span>
                     <div className="flex flex-col gap-4">
@@ -102,35 +107,99 @@ function NavbarContent() {
         <Link href="/about" className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors">About Us</Link>
       </nav>
 
-      {/* Action Icons */}
-      <div className="flex items-center gap-6">
-        <button onClick={() => setDrawerOpen(true)} className="relative text-black/80 hover:text-[#C0001A] transition-colors" aria-label="Favorites">
+      {/* Desktop Interaction Icons */}
+      <div className="flex items-center gap-4 lg:gap-6 relative z-[210]">
+        <button onClick={() => setDrawerOpen(true)} className="relative text-black/80 hover:text-[#C0001A] transition-colors p-2" aria-label="Favorites">
           <Heart size={20} strokeWidth={1.5} />
           {favoritesCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-[#C0001A] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">{favoritesCount}</span>
+            <span className="absolute -top-1 -right-1 bg-[#C0001A] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">{favoritesCount}</span>
           )}
         </button>
         <Link href="/contact" className="hidden lg:block bg-[#111] text-white px-8 py-3 rounded-md text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-[#C0001A] transition-colors shadow-sm">Enquire</Link>
-        <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle Menu">
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        
+        {/* Mobile Menu Toggle */}
+        <button className="md:hidden p-2 text-black/80 bg-black/5 rounded-full" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle Menu">
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ── Immersive Mobile Menu ── */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="absolute top-20 left-0 w-full bg-white z-[90] p-10 md:hidden border-b border-black/5 shadow-2xl">
-            <nav className="flex flex-col gap-6">
-              <Link href="/collections" className="text-3xl font-bold font-playfair" onClick={() => setMobileOpen(false)}>Collections</Link>
-              <span className="text-[10px] font-black tracking-[0.3em] uppercase text-black/30 mt-4">Explore catalog</span>
-              <div className="grid grid-cols-2 gap-4">
-                 <Link href="/products?category=sofas" className="text-xl font-bold font-playfair" onClick={() => setMobileOpen(false)}>Sofas</Link>
-                 <Link href="/rooms/living-room" className="text-xl font-bold font-playfair" onClick={() => setMobileOpen(false)}>Living</Link>
-              </div>
-              <Link href="/showrooms" className="text-3xl font-bold font-playfair" onClick={() => setMobileOpen(false)}>Showrooms</Link>
-              <Link href="/about" className="text-3xl font-bold font-playfair" onClick={() => setMobileOpen(false)}>About Us</Link>
-              <Link href="/contact" className="text-3xl font-bold font-playfair text-[#C0001A]" onClick={() => setMobileOpen(false)}>Contact</Link>
-            </nav>
+          <motion.div 
+            initial={{ opacity: 0, x: "100%" }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: "100%" }} 
+            transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
+            className="fixed inset-0 z-[200] bg-white flex flex-col pt-20"
+          >
+            <div className="flex-1 overflow-y-auto px-8 py-10 space-y-12">
+               {/* Primary Links */}
+               <nav className="flex flex-col gap-8">
+                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+                    <Link href="/collections" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Collections</Link>
+                  </motion.div>
+                  
+                  {/* Explore Accordion */}
+                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="space-y-6">
+                    <button 
+                      onClick={() => setMobileExploreOpen(!mobileExploreOpen)}
+                      className="w-full flex items-center justify-between text-4xl font-bold font-playfair hover:text-[#C0001A]"
+                    >
+                      Explore <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExploreOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    
+                    <AnimatePresence>
+                      {mobileExploreOpen && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                           <div className="grid grid-cols-2 gap-4 pt-4">
+                              {EXPLORE_DATA.categories.map(c => (
+                                <Link key={c.name} href={c.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{c.name}</Link>
+                              ))}
+                              {EXPLORE_DATA.rooms.map(r => (
+                                <Link key={r.name} href={r.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{r.name}</Link>
+                              ))}
+                           </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+
+                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
+                    <Link href="/showrooms" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>Showrooms</Link>
+                  </motion.div>
+                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
+                    <Link href="/about" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>About Us</Link>
+                  </motion.div>
+               </nav>
+
+               {/* Mobile Contact Footer */}
+               <div className="space-y-6 pt-10 border-t border-black/5">
+                  <span className="text-[10px] font-black tracking-[0.3em] uppercase text-black/30">Get in touch</span>
+                  <div className="flex flex-col gap-4">
+                     <a href="tel:+919446516395" className="text-xl font-bold flex items-center gap-3">
+                        <Phone size={18} className="text-[#C0001A]" />
+                        +91 94465 16395
+                     </a>
+                     <div className="flex gap-4">
+                        <a href="https://instagram.com" target="_blank" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
+                        <Link href="/contact" className="flex-1 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-full flex items-center justify-center" onClick={() => setMobileOpen(false)}>Book Visit</Link>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Sticky Mobile CTA */}
+            <div className="p-6 bg-white border-t border-black/5">
+               <a 
+                 href="https://wa.me/919446516395" 
+                 target="_blank" 
+                 className="w-full bg-[#111] hover:bg-[#C0001A] text-white h-14 rounded-full flex items-center justify-center gap-3 text-[11px] font-black tracking-[0.2em] uppercase transition-colors"
+               >
+                  WhatsApp Consultation
+                  <ArrowRight size={14} />
+               </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
