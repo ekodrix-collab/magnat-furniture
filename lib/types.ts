@@ -74,6 +74,7 @@ export interface FeaturedItem {
   id: string;
   name: string;
   category: string | null;
+  slug?: string;
   subtitle: string | null;
   image_url: string;
   sort_order: number;

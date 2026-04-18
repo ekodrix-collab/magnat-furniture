@@ -52,16 +52,41 @@ const FALLBACK_FEATURED_ITEMS: FeaturedItem[] = [
 export async function getFeaturedItems(): Promise<FeaturedItem[]> {
   try {
     const supabase = createClient();
+    // Fetch products marked as bestsellers instead of isolated featured_items table
     const { data, error } = await supabase
-      .from("featured_items")
-      .select("*")
+      .from("products")
+      .select(`
+        id,
+        name,
+        slug,
+        subtitle:short_description,
+        image_url:images,
+        sort_order:price,
+        is_active,
+        categories (
+          name
+        )
+      `)
+      .eq("is_bestseller", true)
       .eq("is_active", true)
-      .order("sort_order", { ascending: true });
+      .limit(8);
 
     if (error || !data || data.length === 0) {
       return FALLBACK_FEATURED_ITEMS;
     }
-    return data;
+
+    // Map Product data to FeaturedItem shape for the carousel
+    return data.map((item: any) => ({
+      id: item.id.toString(),
+      slug: item.slug,
+      category: item.categories?.name || "Premium Collection",
+      name: item.name,
+      subtitle: item.subtitle || "Exclusive design for modern luxury.",
+      image_url: Array.isArray(item.image_url) ? item.image_url[0] : item.image_url || "/images/placeholder-furniture.jpg",
+      sort_order: 0,
+      is_active: item.is_active,
+    }));
+
   } catch (err) {
     return FALLBACK_FEATURED_ITEMS;
   }
