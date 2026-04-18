@@ -3,61 +3,125 @@
 import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
 
+const trustStats = [
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+         </svg>
+      ),
+      number: "25",
+      suffix: "+ Yrs",
+      label: "Manufacturing Experience",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+         </svg>
+      ),
+      number: "5000",
+      suffix: "+",
+      label: "Homes Transformed",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+         </svg>
+      ),
+      number: "10",
+      suffix: "yr",
+      label: "Product Warranty",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+         </svg>
+      ),
+      number: "100",
+      suffix: "%",
+      label: "Real Wood Guaranteed",
+   },
+];
+
 export default function HeritageSection() {
    return (
-      <section className="py-20 sm:py-30 overflow-hidden bg-white relative border-b border-black/5">
-         {/* Architectural Background Numeral */}
-         <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] mt-20 pointer-events-none select-none">
-            <span className="text-[80vw] md:text-[40vw] font-black leading-none" style={{ fontFamily: "var(--font-playfair)" }}>25</span>
-         </div>
+      <section className="mt-5 py-5 sm:py-10 overflow-hidden bg-[#FAF9F6] relative border-b border-black/5">
+
 
          <div className="max-container flex flex-col items-center text-center relative z-10">
-            <div className="max-w-4xl space-y-12">
+            <div className="max-w-4xl space-y-12 w-full">
 
-               <FadeInView className="">
-                  <span className="heading-label">The Legacy of Craft</span>
-                  <h2 className="heading-title  text-nowrap" style={{ fontFamily: "var(--font-playfair)" }}>
-                     A Quarter Century of <br />
-                     <span className="text-[#C0001A]">Design Excellence.</span>
-                  </h2>
+
+               {/* ── Trust Stats Row ── */}
+               <FadeInView className="w-full">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-[#eee] pt-10">
+                     {trustStats.map((stat, i) => (
+                        <div
+                           key={i}
+                           className={`
+                    flex items-center gap-4 text-left px-7
+                    ${i === 0 ? "pl-0" : ""}
+                    ${i === trustStats.length - 1 ? "pr-0" : ""}
+                    ${i !== 0 ? "border-l border-[#eee]" : ""}
+                  `}
+                        >
+                           {/* Icon */}
+                           <div
+                              className="w-[42px] h-[42px] min-w-[42px] rounded-full flex items-center justify-center"
+                              style={{
+                                 background: "#fff5f5",
+                                 border: "1px solid rgba(192,0,26,0.15)",
+                              }}
+                           >
+                              {stat.icon}
+                           </div>
+
+                           {/* Text */}
+                           <div>
+                              <p
+                                 className="text-[#111] leading-tight"
+                                 style={{
+                                    fontFamily: "var(--font-outfit)",
+                                    fontSize: "22px",
+                                    fontWeight: 900,
+                                    letterSpacing: "-0.02em",
+                                 }}
+                              >
+                                 {stat.number}
+                                 <span
+                                    className="text-[#C0001A]"
+                                    style={{ fontSize: "15px", fontWeight: 700 }}
+                                 >
+                                    {stat.suffix}
+                                 </span>
+                              </p>
+                              <p
+                                 className="text-[#666] mt-0.5"
+                                 style={{
+                                    fontFamily: "var(--font-inter)",
+                                    fontSize: "11px",
+                                    lineHeight: "1.4",
+                                 }}
+                              >
+                                 {stat.label}
+                              </p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
                </FadeInView>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center text-left sm:pt-12">
-                  <FadeInView direction="right" className="space-y-8">
-                     <p 
-                        className="text-md md:text-xl font-light text-[#111]/80 leading-relaxed" 
-                        style={{ fontFamily: "var(--font-inter)" }}
-                     >
-                        Since 2001, Magnat has been at the forefront of the furniture industry in Kerala,
-                        transforming over 5,000 homes with our signature blend of international
-                        design and artisanal production.
-                     </p>
-                     <div className="h-px w-24 bg-[#C0001A]" />
-                  </FadeInView>
-
-                  <FadeInView direction="left" className="space-y-10">
-                     <div className="space-y-4">
-                        <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#111]" style={{ fontFamily: "var(--font-inter)" }}>Our Philosophy</h4>
-                        <p className="text-[#111]/50 text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
-                           We believe that a home is a living gallery. Every piece of furniture
-                           carrying the Magnat name is a testament to 25 years of material
-                           intelligence and structural integrity.
-                        </p>
-                     </div>
-
-                     <div className="flex items-end gap-6 border-l border-[#C0001A]/20 pl-8">
-                        <div className="flex flex-col">
-                           <span className="text-5xl font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>2001</span>
-                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-black/30" style={{ fontFamily: "var(--font-inter)" }}>Founder Era</span>
-                        </div>
-                        <div className="h-px flex-1 bg-black/5 mb-4" />
-                        <div className="flex flex-col items-end">
-                           <span className="text-5xl font-black text-[#C0001A]" style={{ fontFamily: "var(--font-playfair)" }}>2026</span>
-                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-[#C0001A]" style={{ fontFamily: "var(--font-inter)" }}>Global Vision</span>
-                        </div>
-                     </div>
-                  </FadeInView>
-               </div>
             </div>
          </div>
       </section>

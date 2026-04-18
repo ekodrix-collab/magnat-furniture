@@ -51,11 +51,11 @@ export default async function HomePage() {
       {/* ── 1. Cinematic Hero (Premium Standards) ── */}
       <HomeHero slides={heroSlides} />
 
-      {/* ── 2. Signature Showcase (Special Models) ── */}
-      <SpecialModels categories={categories || undefined} />
-
       {/* ── 3. The 25-Year Heritage (Legacy) ── */}
       <HeritageSection />
+
+      {/* ── 2. Signature Showcase (Special Models) ── */}
+      <SpecialModels categories={categories || undefined} />
 
       {/* ── 4. Main Portfolio Grid (Full Color) ── */}
       <HomeCollection items={featuredItems} />
@@ -63,14 +63,11 @@ export default async function HomePage() {
       {/* ── 5. Editorial Curtains & Blinds ── */}
       <HomeCurtains steps={processSteps} />
 
-      {/* ── 6. The Studio Engagement (Physical Showroom) ── */}
-      <HomeShowroom />
-
       {/* ── 7. Visual Journey of Craft (Gallery) ── */}
       <KondottyGallery />
 
       {/* ── 8. Trusted Chronicles (Testimonials) ── */}
-      <HomeTestimonials reviews={testimonials} />
+      {/* <HomeTestimonials reviews={testimonials} /> */}
     </main>
   );
 }

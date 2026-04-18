@@ -192,14 +192,14 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
         <FavoritesProvider>
           <Preloader />
-          
+
           <AdminExclusionWrapper>
             <Navbar />
             <FavoritesDrawer />
           </AdminExclusionWrapper>
 
-          <main className="flex-1">{children}</main>
-          
+          <main className="flex-1  pt-[136px] md:pt-[140px]">{children}</main>
+
           <AdminExclusionWrapper>
             <Footer />
             <WhatsAppFloating />
