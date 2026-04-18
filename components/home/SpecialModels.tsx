@@ -1,215 +1,104 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import FadeInView from "@/components/ui/FadeInView";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Category } from "@/lib/types";
 
-/* ── Data ── */
-const col1 = {
-  name: "Living",
-  href: "/living",
-  image:
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
-};
-
-const col2 = [
-  {
-    name: "Dining",
-    href: "/dining",
-    image:
-      "https://images.unsplash.com/photo-1604578762246-41134e37f9cc?q=80&w=2600&auto=format&fit=crop",
-  },
-  {
-    name: "Bedroom",
-    href: "/bedroom",
-    image:
-      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1600&auto=format&fit=crop",
-  },
+/* ── Fallback Data (Hardcoded) ── */
+const FALLBACK_ITEMS: Category[] = [
+  { id: "fb1", name: "Luxury Velvet Sofa", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "" },
+  { id: "fb2", name: "Minimalist Lounge Chair", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "" },
+  { id: "fb3", name: "Premium Sheer Curtains", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "" },
+  { id: "fb4", name: "Dining Table Set", slug: "dining", image_url: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 3, created_at: "" },
+  { id: "fb5", name: "Modern Bedroom Suite", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "" },
 ];
 
-const col3 = [
-  {
-    name: "Office",
-    href: "/office",
-    image:
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    name: "School Furniture",
-    href: "/school-furniture",
-    image:
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    name: "Storage",
-    href: "/storage",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
-  },
-];
+/* ── Card Component ── */
+function CategoryCard({ cat }: { cat: Category }) {
+  // Simulate price based on ID or just default
+  const price = "₹25,000";
 
-/* ── Main component ── */
-export default function SpecialModels() {
   return (
-    <section className="bg-[#f9f9f9] py-32 overflow-hidden">
-      <div className="max-container">
+    <div className="flex-shrink-0 w-[260px] md:w-[280px] group cursor-pointer">
+      <Link href={`/products/${cat.slug}`} className="block">
+        {/* Image Container */}
+        <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+          <img
+            src={cat.image_url || "/images/placeholder-furniture.jpg"}
+            alt={cat.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
 
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-10">
-          <FadeInView className="max-w-2xl text-left">
-            <span className="heading-label">
-              Curated Masterpieces
-            </span>
-            <h2
-              className="heading-title"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              The Signature <br />
-              <span className="italic font-normal">Models.</span>
+        {/* Text Info (Matches Screenshot Style) */}
+        <div className="mt-4 flex flex-col gap-0.5">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">
+            {cat.slug || "Category"}
+          </span>
+          <h3 className="text-[16px] font-semibold text-[#111] leading-tight">
+            {cat.name}
+          </h3>
+          <p className="text-[14px] text-gray-500 font-medium mt-1">
+            Starts from {price}
+          </p>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+/* ── Main Component ── */
+export default function SpecialModels({ categories }: { categories?: Category[] }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Logic: Use categories if they exist, otherwise use fallback
+  const displayItems = (categories && categories.length > 0) ? categories : FALLBACK_ITEMS;
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const amount = clientWidth * 0.75; // Scroll 75% of container width
+      const scrollTo = direction === 'left' ? scrollLeft - amount : scrollLeft + amount;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="bg-white py-20">
+      <div className="max-container px-6 lg:px-8">
+
+        {/* Header & Controls */}
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <h2 className="text-[clamp(28px,4vw,36px)] font-bold text-[#111] mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
+              Top Sellers
             </h2>
-          </FadeInView>
-          <FadeInView delay={0.2}>
-            <button className="btn-primary">View Full Portfolio</button>
-          </FadeInView>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button onClick={() => scroll('left')} className="p-2.5 rounded-full border border-gray-200 hover:border-black hover:bg-black hover:text-white transition-all" aria-label="Previous">
+              <ChevronLeft size={18} />
+            </button>
+            <button onClick={() => scroll('right')} className="p-2.5 rounded-full border border-gray-200 hover:border-black hover:bg-black hover:text-white transition-all" aria-label="Next">
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
 
-        {/* ════════════════════════════
-            COLUMNS BENTO GRID
-        ════════════════════════════ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-auto lg:h-[800px]">
-
-          {/* ── COLUMN 1 — Hero (1 card) ── */}
-          <div className="flex flex-col h-[450px] md:h-[600px] lg:h-full">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="group relative rounded-[28px] overflow-hidden cursor-pointer flex-1"
-              style={{ background: "#1a1a1a" }}
-            >
-              <Link href={col1.href} className="absolute inset-0 z-20" aria-label={`Go to ${col1.name}`} />
-              {/* Background image */}
-              <img
-                src={col1.image}
-                alt={col1.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-all duration-700 ease-out"
-              />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* Bottom text */}
-              <div className="absolute bottom-8 left-8 right-8 flex flex-col items-start pointer-events-none">
-                <h3
-                  className="text-white font-bold leading-tight tracking-wide"
-                  style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(28px, 4vw, 48px)" }}
-                >
-                  {col1.name}
-                </h3>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* ── COLUMN 2 — 2 mid cards ── */}
-          <div className="flex flex-col gap-4 h-[700px] md:h-[600px] lg:h-full">
-            {col2.map((cat, i) => (
-              <motion.div
-                key={cat.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.65, delay: 0.1 + i * 0.1, ease: "easeOut" }}
-                className="group relative rounded-[28px] overflow-hidden cursor-pointer flex-1"
-                style={{ background: "#1a1a1a" }}
-              >
-                <Link href={cat.href} className="absolute inset-0 z-20" aria-label={`Go to ${cat.name}`} />
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                {/* Bottom text */}
-                <div className="absolute bottom-8 left-8 right-8 pointer-events-none">
-                  <h3
-                    className="text-white font-bold leading-snug tracking-wide"
-                    style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(24px, 3vw, 40px)" }}
-                  >
-                    {cat.name}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* ── COLUMN 3 — 3 bottom cards (Transforms into a 2-col layout on Tablet to match top row) ── */}
-          <div className="flex flex-col md:flex-row lg:flex-col gap-4 h-[800px] md:h-[600px] lg:h-full md:col-span-2 lg:col-span-1">
-            
-            {/* Top/Left Card: Office */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-              className="group relative rounded-[28px] overflow-hidden cursor-pointer flex-1"
-              style={{ background: "#1a1a1a" }}
-            >
-              <Link href={col3[0].href} className="absolute inset-0 z-20" aria-label={`Go to ${col3[0].name}`} />
-              <img
-                src={col3[0].image}
-                alt={col3[0].name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06] transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
-                <h3
-                  className="text-white font-bold leading-snug tracking-wide"
-                  style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                >
-                  {col3[0].name}
-                </h3>
-              </div>
-            </motion.div>
-
-            {/* Bottom/Right Cards Wrapper: School Furniture & Storage */}
-            <div className="flex flex-col gap-4 flex-[2] md:flex-1 lg:flex-[2]">
-              {col3.slice(1).map((cat, i) => (
-                <motion.div
-                  key={cat.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.6, delay: 0.15 + (i + 1) * 0.08, ease: "easeOut" }}
-                  className="group relative rounded-[28px] overflow-hidden cursor-pointer flex-1"
-                  style={{ background: "#1a1a1a" }}
-                >
-                  <Link href={cat.href} className="absolute inset-0 z-20" aria-label={`Go to ${cat.name}`} />
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06] transition-all duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                  <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
-                    <h3
-                      className="text-white font-bold leading-snug tracking-wide"
-                      style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                    >
-                      {cat.name}
-                    </h3>
-                  </div>
-                </motion.div>
-              ))}
+        {/* Carousel Container */}
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {displayItems.map((cat) => (
+            <div key={cat.id} className="snap-start">
+              <CategoryCard cat={cat} />
             </div>
-
-          </div>
-
+          ))}
         </div>
-        {/* ════ End Columns Grid ════ */}
-
       </div>
     </section>
   );

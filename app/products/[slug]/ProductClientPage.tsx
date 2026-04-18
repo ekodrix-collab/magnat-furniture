@@ -12,12 +12,14 @@ import {
   ArrowLeft, MessageCircle, Heart, Star, ChevronLeft, ChevronRight, ShoppingBag, ArrowRight
 } from "lucide-react";
 
+import { Product } from "@/lib/types";
+
 export default function ProductClientPage({ 
   product, 
   relatedProducts 
 }: { 
-  product: any;
-  relatedProducts: any[];
+  product: Product | null;
+  relatedProducts: Product[];
 }) {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -79,7 +81,7 @@ export default function ProductClientPage({
         <div className="hidden md:flex items-center gap-2 text-[11px] font-medium tracking-[0.05em] text-[#666] mb-10">
           <Link href="/" className="hover:text-[#111] transition-colors">Home</Link>
           <span className="text-[#ccc] px-1">{'>'}</span>
-          <Link href={`/products?category=${product.category}`} className="hover:text-[#111] transition-colors">{product.category || 'Collection'}</Link>
+          <Link href={`/products?category=${product.category?.slug || ""}`} className="hover:text-[#111] transition-colors">{product.category?.name || 'Collection'}</Link>
           <span className="text-[#ccc] px-1">{'>'}</span>
           <span className="text-[#111] font-bold">{product.name}</span>
         </div>
@@ -173,7 +175,7 @@ export default function ProductClientPage({
              {/* Category & Like (Desktop) */}
              <div className="hidden md:flex items-center justify-between mb-4">
                 <span className="bg-[#f0f0f0] text-[#666] text-[10px] font-bold tracking-[0.05em] px-4 py-1.5 rounded-full">
-                   {product.category || 'Sofa'}
+                   {product.category?.name || 'Sofa'}
                 </span>
                 <button onClick={() => toggleFavorite(product.slug)} className="text-[#111]">
                    <Heart size={22} fill={liked ? '#111' : 'none'} strokeWidth={1.5} className="transition-all hover:scale-110" />
@@ -281,7 +283,7 @@ export default function ProductClientPage({
                <h2 className="text-[20px] md:text-[24px] font-bold text-[#111] uppercase tracking-[-0.02em]" style={{ fontFamily: "var(--font-inter)" }}>
                   Related Products
                </h2>
-               <Link href={`/products?category=${product.category}`} className="hidden md:flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] transition-colors border border-[#e0e0e0] px-4 py-2 rounded-full">
+               <Link href={`/products?category=${product.category?.slug || ""}`} className="hidden md:flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] transition-colors border border-[#e0e0e0] px-4 py-2 rounded-full">
                   See all products <ArrowRight size={14} />
                </Link>
             </div>
@@ -294,7 +296,7 @@ export default function ProductClientPage({
             </div>
             
             <div className="mt-8 flex justify-center md:hidden">
-               <Link href={`/products?category=${product.category}`} className="flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] border border-[#e0e0e0] px-6 py-2 rounded-full">
+               <Link href={`/products?category=${product.category?.slug || ""}`} className="flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] border border-[#e0e0e0] px-6 py-2 rounded-full">
                   See all products <ArrowRight size={14} />
                </Link>
             </div>

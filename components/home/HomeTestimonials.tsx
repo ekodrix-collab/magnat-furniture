@@ -144,7 +144,19 @@ function InfiniteMarquee({ items }: { items: typeof reviews }) {
   );
 }
 
-export default function HomeTestimonials() {
+import { Testimonial } from "@/lib/types";
+
+export default function HomeTestimonials({ reviews: dbReviews }: { reviews?: Testimonial[] }) {
+  // Map database testimonials to the local internal structure
+  const displayReviews = dbReviews && dbReviews.length > 0 
+    ? dbReviews.map(r => ({
+        name: r.client_name,
+        location: r.client_role || "Kondotty", // Mapping role to location as a fallback
+        text: r.quote,
+        rating: r.rating
+      }))
+    : reviews;
+
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
@@ -153,10 +165,8 @@ export default function HomeTestimonials() {
       ref={sectionRef}
       className="bg-[#FAFAF8] py-36 overflow-hidden border-t border-black/[0.06]"
     >
-      {/* Header */}
       <div className="max-container">
         <div className="text-center mb-20 max-w-3xl mx-auto">
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -191,15 +201,15 @@ export default function HomeTestimonials() {
           />
         </div>
       </div>
-
-      {/* Full-width marquee */}
+      
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.9, delay: 0.6 }}
       >
-        <InfiniteMarquee items={reviews} />
+        <InfiniteMarquee items={displayReviews} />
       </motion.div>
+
 
       {/* Bottom heritage line */}
       <div className="max-container">

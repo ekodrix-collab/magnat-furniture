@@ -4,14 +4,26 @@ import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Instagram, MessageSquare, Clock } from "lucide-react";
 import FadeInView from "@/components/ui/FadeInView";
 import { useState } from "react";
+import { submitInquiry } from "@/app/actions/contact";
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState("submitting");
-    setTimeout(() => setFormState("success"), 1500);
+    setErrorMsg("");
+
+    const formData = new FormData(e.currentTarget);
+    const result = await submitInquiry(formData);
+
+    if (result.error) {
+      setFormState("error");
+      setErrorMsg(result.error);
+    } else {
+      setFormState("success");
+    }
   };
 
   return (
@@ -48,36 +60,47 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/30">Your Name</label>
-                       <input type="text" required className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors" />
+                       <input type="text" name="fullName" required className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors" />
                     </div>
                     <div className="space-y-2">
                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/30">Your Email</label>
-                       <input type="email" required className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors" />
+                       <input type="email" name="email" required className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/30">Inquiry Type</label>
-                    <select className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors appearance-none">
-                       <option>Residential Project</option>
-                       <option>Commercial Unit</option>
-                       <option>Signature Model Inquiry</option>
-                       <option>Curtains & Blinds</option>
+                    <select name="subject" className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors appearance-none">
+                       <option value="Residential Project">Residential Project</option>
+                       <option value="Commercial Unit">Commercial Unit</option>
+                       <option value="Signature Model Inquiry">Signature Model Inquiry</option>
+                       <option value="Curtains & Blinds">Curtains & Blinds</option>
                     </select>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/30">Detailed Message</label>
-                    <textarea rows={5} className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors resize-none"></textarea>
+                    <textarea name="message" rows={5} className="w-full bg-transparent border-b border-black/10 py-4 text-sm focus:outline-none focus:border-[#C0001A] transition-colors resize-none"></textarea>
                   </div>
 
-                  <button disabled={formState === "submitting"} className="btn-primary w-full lg:w-fit py-5 px-16">
-                     {formState === "submitting" ? "Protocol Initiated..." : "Submit Inquiry"}
+                  {formState === "error" && (
+                    <div className="p-4 bg-red-50 text-[#C0001A] border border-[#C0001A]/20 text-xs font-bold text-center">
+                      {errorMsg}
+                    </div>
+                  )}
+
+                  <button disabled={formState === "submitting"} type="submit" className="btn-primary w-full lg:w-fit py-5 px-16 disabled:opacity-50 h-[60px] flex items-center justify-center">
+                     {formState === "submitting" ? (
+                       <span className="flex items-center gap-2">
+                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                         Transmitting...
+                       </span>
+                     ) : "Submit Inquiry"}
                   </button>
                </form>
              ) : (
                <div className="bg-[#f9f9f9] p-16 border border-black/5 text-center space-y-6">
-                  <div className="w-16 h-16 bg-[#C0001A] rounded-full flex items-center justify-center mx-auto text-white">
+                  <div className="w-16 h-16 bg-[#111] rounded-full flex items-center justify-center mx-auto text-white">
                      <MessageSquare size={32} />
                   </div>
                   <h3 className="text-3xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Engagement Received.</h3>

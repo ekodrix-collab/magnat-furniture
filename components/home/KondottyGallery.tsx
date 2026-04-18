@@ -1,68 +1,95 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Instagram, ArrowRight } from "lucide-react";
-import FadeInView from "@/components/ui/FadeInView";
+import { Instagram } from "lucide-react";
+import Image from "next/image";
 
-const items = [
-  { img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2070&auto=format&fit=crop", span: "row-span-2" },
-  { img: "https://images.unsplash.com/photo-1595248447627-58a697194a00?q=80&w=1974&auto=format&fit=crop", span: "row-span-1" },
-  { img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2064&auto=format&fit=crop", span: "row-span-2" },
-  { img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2070&auto=format&fit=crop", span: "row-span-1" },
-  { img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop", span: "row-span-1" },
-  { img: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1974&auto=format&fit=crop", span: "row-span-2" },
-  { img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop", span: "row-span-1" },
-  { img: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2070&auto=format&fit=crop", span: "row-span-1" },
+const galleryItems = [
+   { img: "/images/bedroom-001.jpg", title: "Royal Living" },
+   { img: "/images/dining-001.jpg", title: "Classic Dining" },
+   { img: "/images/insta-post-001.jpg", title: "Studio Vibe" },
+   { img: "/images/living-chairs.jpg", title: "Lounge Area" },
+   { img: "/images/kids-room.jpg", title: "Kids Space" },
+   { img: "/images/outdoor.jpg", title: "Outdoor Decor" },
+   { img: "/images/sofa-002.jpg", title: "Modern Comfort" },
 ];
 
 export default function KondottyGallery() {
-  return (
-    <section className="bg-[#111111] py-32 overflow-hidden border-t border-white/5">
-      <div className="max-container">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-           <FadeInView>
-              <h2 className="text-[20px] md:text-[24px] lg:text-[30px] font-semibold text-white leading-tight mb-4 md:mb-5 lg:mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
-                 From Our <span className="italic text-[#C0001A]">Showroom.</span>
-              </h2>
-              <p className="text-white/30 text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ fontFamily: "var(--font-inter)" }}>Visual Journey of Craft</p>
-           </FadeInView>
-           
-           <FadeInView delay={0.2}>
-              <a 
-                href="https://instagram.com/magnat_furniture_.kondotty" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center gap-3 text-white/50 hover:text-[#C0001A] transition-colors group"
-              >
-                 <Instagram size={20} />
-                 <span className="text-xs font-bold tracking-widest uppercase">Follow Perspective</span>
-                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-           </FadeInView>
-        </div>
+   const [isPaused, setIsPaused] = useState(false);
 
-        {/* Masonry Grid Simulation */}
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[250px] gap-4">
-           {items.map((item, index) => (
-             <FadeInView 
-                key={index} 
-                delay={index * 0.05} 
-                className={`${item.span} group relative overflow-hidden bg-white/5`}
-             >
-                <div className="absolute inset-x-0 bottom-0 h-0 bg-[#C0001A] group-hover:h-2 transition-all duration-500 z-20" />
-                <img 
-                  src={item.img} 
-                  alt="Furniture Showcase" 
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-             </FadeInView>
-           ))}
-        </div>
+   // Duplicate array for infinite seamless loop
+   const displayItems = [...galleryItems, ...galleryItems];
 
-      </div>
-    </section>
-  );
+   return (
+      <section className="bg-[#FAF9F6] py-24 overflow-hidden">
+         <div className="max-container px-6 lg:px-8 mb-16">
+            <h2 className="text-[32px] md:text-[48px] font-bold text-[#111] text-center" style={{ fontFamily: "var(--font-playfair)" }}>
+               We're on Instagram
+            </h2>
+            <p className="text-gray-500 text-center mt-4">@magnat_furniture.kondotty</p>
+         </div>
+
+         {/* Marquee Container */}
+         <div
+            className="relative w-full cursor-grab active:cursor-grabbing"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+         >
+            <motion.div
+               className="flex gap-6 px-6"
+               animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
+               transition={{
+                  duration: 40,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "loop"
+               }}
+            >
+               {displayItems.map((item, index) => (
+                  <div
+                     key={index}
+                     className="w-[280px] md:w-[320px] flex-shrink-0 bg-white rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-black/5"
+                  >
+                     {/* Feed Header */}
+                     <div className="flex items-center gap-3 mb-4">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 to-red-600 p-[2px]">
+                           <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-red-600">M</div>
+                        </div>
+                        <div className="flex flex-col">
+                           <span className="text-[12px] font-bold tracking-tight">magnat_furniture</span>
+                           <span className="text-[10px] text-gray-400">Kondotty, Kerala</span>
+                        </div>
+                     </div>
+
+                     {/* Image */}
+                     <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gray-100">
+                        <Image
+                           src={item.img}
+                           alt={item.title}
+                           fill
+                           className="object-cover"
+                        />
+                     </div>
+
+                     {/* Feed Footer */}
+                     <div className="mt-4 flex items-center justify-between">
+                        <span className="text-[11px] font-medium text-gray-500">
+                           {item.title}
+                        </span>
+                        <a
+                           href="https://instagram.com/magnat_furniture_.kondotty"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="text-gray-400 hover:text-black transition-colors"
+                        >
+                           <Instagram size={18} />
+                        </a>
+                     </div>
+                  </div>
+               ))}
+            </motion.div>
+         </div>
+      </section>
+   );
 }
