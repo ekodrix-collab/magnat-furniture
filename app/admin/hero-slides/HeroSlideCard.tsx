@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Edit2, Trash2, Save, X, Eye, EyeOff } from "lucide-react";
 import { deleteHeroSlide, saveHeroSlide } from "@/app/actions/cms";
 import { HeroSlide } from "@/lib/types";
@@ -70,13 +71,13 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
           {isActive ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
         
-        <a 
+        <Link 
           href={`/admin/hero-slides/${slide.id}`}
           className="p-3 text-body/40 hover:text-[#C0001A] transition-colors bg-[#F9F9F9] rounded-none"
           title="Edit Slide"
         >
           <Edit2 size={18} />
-        </a>
+        </Link>
         
         <button 
           onClick={handleDelete}

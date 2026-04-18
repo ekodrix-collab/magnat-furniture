@@ -5,10 +5,14 @@ import TestimonialCard from "./TestimonialCard";
 
 export default async function AdminTestimonialsPage() {
   const supabase = await createClient();
-  const { data: testimonials } = await supabase
+  const { data: testimonials, error } = await supabase
     .from("testimonials")
     .select("*")
     .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching testimonials:", error);
+  }
 
   return (
     <div className="p-10">

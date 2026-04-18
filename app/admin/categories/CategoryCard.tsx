@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Edit2, Trash2, ListTree } from "lucide-react";
 import { deleteCategory } from "@/app/actions/cms";
 import { Category } from "@/lib/types";
@@ -64,12 +65,12 @@ export default function CategoryCard({ category }: CategoryCardProps) {
             /{category.slug}
           </span>
           <div className="flex items-center gap-2">
-            <a 
+            <Link 
               href={`/admin/categories/${category.id}`}
               className="p-2 text-body/40 hover:text-[#C0001A] transition-colors"
             >
               <Edit2 size={16} />
-            </a>
+            </Link>
             <button 
               onClick={handleDelete}
               className="p-2 text-body/40 hover:text-[#C0001A] transition-colors"

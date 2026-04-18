@@ -5,10 +5,14 @@ import HeroSlideCard from "./HeroSlideCard";
 
 export default async function AdminHeroPage() {
   const supabase = await createClient();
-  const { data: slides } = await supabase
+  const { data: slides, error } = await supabase
     .from("hero_slides")
     .select("*")
     .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching hero slides:", error);
+  }
 
   return (
     <div className="p-10">

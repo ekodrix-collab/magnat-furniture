@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Star, Edit2, Trash2 } from "lucide-react";
 import { deleteTestimonial } from "@/app/actions/cms";
 import { Testimonial } from "@/lib/types";
@@ -39,12 +40,12 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <a 
+          <Link 
             href={`/admin/testimonials/${testimonial.id}`}
             className="p-1.5 text-body/40 hover:text-[#C0001A] transition-colors"
           >
             <Edit2 size={16} />
-          </a>
+          </Link>
           <button 
             onClick={handleDelete}
             className="p-1.5 text-body/40 hover:text-[#C0001A] transition-colors"
