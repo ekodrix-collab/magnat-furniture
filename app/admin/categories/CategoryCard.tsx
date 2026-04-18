@@ -55,7 +55,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
       </div>
       
       <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-playfair text-xl font-bold text-[#1A1A1A] mb-2">{category.name}</h3>
+        <h3 className=" text-xl font-bold text-[#1A1A1A] mb-2">{category.name}</h3>
         <p className="text-xs text-body leading-relaxed font-light mb-6 opacity-60 italic line-clamp-2">
           {category.description || "No description provided for this collection."}
         </p>

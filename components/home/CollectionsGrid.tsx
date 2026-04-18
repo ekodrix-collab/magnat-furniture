@@ -131,7 +131,7 @@ export default function CollectionsGrid() {
             <div className="absolute top-4 left-4 z-10">
               <span
                 className="text-white/90 text-[9px] font-semibold tracking-[0.3em] uppercase bg-[#1a1a1a]/40 backdrop-blur-sm px-3 py-1.5"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {item.title}
               </span>
@@ -141,19 +141,19 @@ export default function CollectionsGrid() {
             <div className="collection-card-info z-10">
               <p
                 className="text-[#c9a96e] text-[9px] tracking-[0.3em] uppercase mb-1 font-semibold"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {item.brand}
               </p>
               <p
                 className="text-white text-xl font-semibold leading-snug mb-3"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 {item.title}
               </p>
               <span
                 className="inline-flex items-center gap-2 text-[#c9a96e] text-[9px] font-bold tracking-[0.25em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 View Collection
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -190,7 +190,7 @@ export default function CollectionsGrid() {
             <div className="absolute top-3 left-3 z-10">
               <span
                 className="text-white/90 text-[8px] font-semibold tracking-[0.25em] uppercase bg-[#1a1a1a]/40 backdrop-blur-sm px-2.5 py-1"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {item.title}
               </span>
@@ -199,13 +199,13 @@ export default function CollectionsGrid() {
             <div className="collection-card-info z-10">
               <p
                 className="text-white text-base font-semibold leading-snug mb-2"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 {item.title}
               </p>
               <span
                 className="inline-flex items-center gap-1.5 text-[#c9a96e] text-[8px] font-bold tracking-[0.2em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 View →
               </span>

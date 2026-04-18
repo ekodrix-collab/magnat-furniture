@@ -63,7 +63,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
         {/* Core Metadata Column */}
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Collection Identification</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Collection Identification</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -106,7 +106,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
           </div>
 
           <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Visual Identity</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Visual Identity</h3>
             
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Category Image URL</label>

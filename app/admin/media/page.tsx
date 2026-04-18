@@ -34,7 +34,7 @@ export default async function MediaAssetsPage() {
     <div className="p-10 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h2 className="text-3xl font-playfair font-bold text-[#1A1A1A]">Media Assets</h2>
+          <h2 className="text-3xl  font-bold text-[#1A1A1A]">Media Assets</h2>
           <p className="text-xs text-body uppercase tracking-[0.2em] mt-2">Manage your premium collection imagery</p>
         </div>
         <div className="flex gap-4">
@@ -85,7 +85,7 @@ export default async function MediaAssetsPage() {
 
       <div className="mt-12 p-8 bg-[#1A1A1A] rounded-3xl text-white relative overflow-hidden">
         <div className="relative z-10 max-w-2xl">
-          <h3 className="font-playfair text-2xl font-bold mb-4 italic">Integrating Direct Uploads</h3>
+          <h3 className=" text-2xl font-bold mb-4 italic">Integrating Direct Uploads</h3>
           <p className="text-sm text-white/60 leading-relaxed font-light mb-6 opacity-80">Currently, your media library automatically tracks unique images used across the platform. For direct file uploads, please enable **Supabase Storage** and configure the bucket policies in your dashboard.</p>
           <a 
             href="https://supabase.com/docs/guides/storage" 

@@ -71,7 +71,6 @@ export default function Preloader() {
                     initial={{ y: "100%", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 1, delay: 0.4, ease: luxuryEase }}
-                    style={{ fontFamily: "var(--font-inter)" }}
                   >
                     MAGNAT
                   </motion.span>

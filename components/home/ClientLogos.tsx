@@ -20,7 +20,7 @@ export default function ClientLogos({ logos }: { logos?: ClientLogo[] }) {
   return (
     <section className="bg-[#f5f2ee] py-24 border-y border-[#1a1a1a]/5 overflow-hidden">
       <div className="container mx-auto px-8 lg:px-16 mb-12">
-        <h4 className="text-center text-[9px] font-bold uppercase tracking-[0.45em] text-[#c9a96e]" style={{ fontFamily: "var(--font-inter)" }}>
+        <h4 className="text-center text-[9px] font-bold uppercase tracking-[0.45em] text-[#c9a96e]" >
           The Portfolio of Trust
         </h4>
       </div>
@@ -37,7 +37,7 @@ export default function ClientLogos({ logos }: { logos?: ClientLogo[] }) {
                 {item.logo_url ? (
                   <img src={item.logo_url} alt={item.name} className="h-8 w-auto object-contain" />
                 ) : (
-                  <span className="text-xl font-playfair font-black tracking-tighter whitespace-nowrap">
+                  <span className="text-xl  font-black tracking-tighter whitespace-nowrap">
                     {item.name}
                   </span>
                 )}

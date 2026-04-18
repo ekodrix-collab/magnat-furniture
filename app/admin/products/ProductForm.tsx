@@ -64,7 +64,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <h2 className="text-xl font-playfair font-bold text-[#1A1A1A]">
+            <h2 className="text-xl  font-bold text-[#1A1A1A]">
               {product?.id ? `Edit: ${product.name}` : "Create New Product"}
             </h2>
           </div>

@@ -21,7 +21,7 @@ export default function ContactPage() {
         <div className="max-container">
            <FadeInView className="max-w-4xl space-y-6">
               <span className="heading-label">Channel Excellence</span>
-              <h1 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h1 className="heading-title" >
                  Get in <span className="italic font-normal">Touch.</span>
               </h1>
               <p className="text-xl text-black/40 font-light max-w-2xl leading-relaxed">
@@ -39,7 +39,7 @@ export default function ContactPage() {
           {/* Left: Global Inquiries Form */}
           <div className="space-y-16">
              <div className="space-y-4">
-                <h2 className="text-4xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Start a Design Dialogue.</h2>
+                <h2 className="text-4xl font-bold" >Start a Design Dialogue.</h2>
                 <div className="h-px w-20 bg-[#C0001A]" />
              </div>
 
@@ -80,7 +80,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 bg-[#C0001A] rounded-full flex items-center justify-center mx-auto text-white">
                      <MessageSquare size={32} />
                   </div>
-                  <h3 className="text-3xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Engagement Received.</h3>
+                  <h3 className="text-3xl font-bold" >Engagement Received.</h3>
                   <p className="text-black/50">Our Kondotty desk will respond to your invitation within 24 business hours.</p>
                </div>
              )}

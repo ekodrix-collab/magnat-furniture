@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="inline-block mb-6"
           >
-            <span className="font-playfair text-4xl font-bold tracking-tighter text-white">
+            <span className=" text-4xl font-bold tracking-tighter text-white">
               MAGNAT<span className="text-[#8B1E1E]">.</span>
             </span>
           </motion.div>

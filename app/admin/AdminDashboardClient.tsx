@@ -18,7 +18,7 @@ const IconMap: Record<string, any> = {
 
 export default function AdminDashboardClient({ stats, recentInquiries }: AdminDashboardClientProps) {
   return (
-    <div className="p-12 font-inter">
+    <div className="p-12 ">
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         {stats.map((stat, i) => (
@@ -51,8 +51,8 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
         {/* Recent Inquiries List */}
         <div className="lg:col-span-2 space-y-8">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] font-inter">Recent Lead Inquiries</h3>
-            <Link href="/admin/inquiries" className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#8B1E1E] hover:underline font-inter">View All Inquiries</Link>
+            <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] ">Recent Lead Inquiries</h3>
+            <Link href="/admin/inquiries" className="text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#8B1E1E] hover:underline ">View All Inquiries</Link>
           </div>
           
           <div className="space-y-4">
@@ -69,7 +69,7 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
                     <div className="h-12 w-12 rounded-full bg-[#EFE7DF] flex items-center justify-center text-[#1A1A1A] font-bold text-sm font-number">
                       {inquiry.full_name?.charAt(0) || "Q"}
                     </div>
-                    <div className="font-inter">
+                    <div className="">
                       <h4 className="text-sm font-bold text-[#1A1A1A] group-hover:text-[#8B1E1E] transition-colors">{inquiry.full_name}</h4>
                       <span className="text-xs text-[#1A1A1A]/50 font-light italic">{inquiry.subject || inquiry.email}</span>
                     </div>
@@ -88,7 +88,7 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
                 </motion.div>
               ))
             ) : (
-              <div className="p-12 text-center bg-white border border-dashed border-[#E5DED6] rounded-xl text-[#1A1A1A]/40 text-xs italic font-inter">
+              <div className="p-12 text-center bg-white border border-dashed border-[#E5DED6] rounded-xl text-[#1A1A1A]/40 text-xs italic ">
                 No recent inquiries found.
               </div>
             )}
@@ -97,17 +97,17 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
 
         {/* Quick Actions / System Status */}
         <div className="space-y-8">
-          <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] font-inter">Quick Actions</h3>
+          <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#1A1A1A] ">Quick Actions</h3>
           <div className="grid gap-4">
-            <Link href="/admin/products/new" className="flex items-center gap-4 bg-[#1A1A1A] text-white px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#8B1E1E] transition-all shadow-md font-inter">
+            <Link href="/admin/products/new" className="flex items-center gap-4 bg-[#1A1A1A] text-white px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#8B1E1E] transition-all shadow-md ">
               <ShoppingBag size={18} />
               Add New Product
             </Link>
-            <Link href="/admin/media" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all font-inter">
+            <Link href="/admin/media" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all ">
               <ImageIcon size={18} />
               Upload Collection Imagery
             </Link>
-            <Link href="/admin/testimonials" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all font-inter">
+            <Link href="/admin/testimonials" className="flex items-center gap-4 bg-white border border-[#E5DED6] text-[#1A1A1A] px-8 py-5 text-[0.7rem] font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-[#EFE7DF] transition-all ">
               <Users size={18} />
               Manage Testimonials
             </Link>

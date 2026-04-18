@@ -73,7 +73,7 @@ export default function FavoritesDrawer() {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-6 border-b border-[#f0f0f0]">
                <div>
-                  <h2 className="text-[20px] font-bold text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="text-[20px] font-bold text-[#111]">
                      Your Collection
                   </h2>
                   <p className="text-[#666] text-xs">
@@ -98,7 +98,7 @@ export default function FavoritesDrawer() {
               ) : favoriteProducts.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center pb-20">
                   <HeartCrack size={40} className="text-[#e0e0e0] mb-6" strokeWidth={1} />
-                  <h3 className="text-lg font-medium text-[#111] mb-2" style={{ fontFamily: "var(--font-playfair)" }}>Your list is empty</h3>
+                  <h3 className="text-lg font-medium text-[#111] mb-2">Your list is empty</h3>
                   <p className="text-[#666] text-sm mb-8 px-4">
                     Explore our catalog and click the heart icon on any product to save it here.
                   </p>
@@ -134,7 +134,6 @@ export default function FavoritesDrawer() {
                            href={`/products/${product.slug}`}
                            onClick={() => setDrawerOpen(false)} 
                            className="text-[14px] font-medium text-[#111] leading-tight hover:text-[#C0001A] transition-colors pr-6"
-                           style={{ fontFamily: "var(--font-inter)" }}
                          >
                            {product.name}
                          </Link>

@@ -63,7 +63,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
         {/* Visual Content Column */}
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Cinematic Content</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Cinematic Content</h3>
             
             <div className="space-y-6">
               <div>
@@ -92,7 +92,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
           </div>
 
           <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Imagery</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Imagery</h3>
             
             <div className="space-y-6">
               <div>

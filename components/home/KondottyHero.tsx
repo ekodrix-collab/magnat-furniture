@@ -38,7 +38,7 @@ export default function KondottyHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-[#F7F4F0] leading-[1.05] font-bold tracking-tight"
-              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(3rem, 12vw, 7.5rem)" }}
+              style={{  fontSize: "clamp(3rem, 12vw, 7.5rem)" }}
              >
                 Crafted for Kerala.<br />
                 <span className="italic font-normal text-white/90">Built to Last.</span>

@@ -88,7 +88,7 @@ export default function ProductListWithFilter({
       >
         <div className="max-container">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] tracking-[0.1em] uppercase text-[#666] m-0" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+            <p className="text-[10px] tracking-[0.1em] uppercase text-[#666] m-0">
               Showing <strong className="text-[#111]">{filteredProducts.length} {category.toLowerCase()}</strong>
               {activeType !== "All" && (
                 <span className="hidden sm:inline"> — Filtered by <strong className="text-[#C0001A]">{activeType}</strong></span>
@@ -99,7 +99,7 @@ export default function ProductListWithFilter({
               onClick={() => setIsFilterOpen(true)}
               className="group flex items-center gap-2 px-4 py-2 hover:text-[#C0001A] transition-all duration-300"
             >
-              <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+              <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
                 Filter
               </span>
               <Filter size={14} className="group-hover:scale-110 transition-transform" />
@@ -181,7 +181,7 @@ export default function ProductListWithFilter({
 
           {filteredProducts.length === 0 && (
             <div className="py-20 text-center">
-              <p className="text-[#666]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
+              <p className="text-[#666]">
                 No products found in this category.
               </p>
             </div>

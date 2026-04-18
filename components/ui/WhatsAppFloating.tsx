@@ -45,7 +45,7 @@ export default function WhatsAppFloating() {
                     <MessageCircle size={24} className="text-white" fill="white" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold font-inter">MAGNAT Furniture</h3>
+                    <h3 className="text-white font-semibold">MAGNAT Furniture</h3>
                     <p className="text-white/70 text-xs">Kondotty Showroom</p>
                   </div>
                 </div>
@@ -53,7 +53,7 @@ export default function WhatsAppFloating() {
 
               {/* Content */}
               <div className="p-5 space-y-4">
-                <p className="text-sm text-[#111111]/80 font-inter leading-relaxed">
+                <p className="text-sm text-[#111111]/80 leading-relaxed">
                   Need expert consultation for your dream interiors? Our team is ready to assist you.
                 </p>
 
@@ -63,14 +63,14 @@ export default function WhatsAppFloating() {
                     href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-inter font-medium text-center transition-all duration-300 hover:shadow-lg"
+                    className="block w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-medium text-center transition-all duration-300 hover:shadow-lg"
                   >
                     Start WhatsApp Chat
                   </a>
                   
                   <a
                     href="tel:+919446516395"
-                    className="block w-full bg-[#111111] hover:bg-[#C0001A] text-white py-3 px-4 rounded-xl font-inter font-medium text-center transition-all duration-300"
+                    className="block w-full bg-[#111111] hover:bg-[#C0001A] text-white py-3 px-4 rounded-xl font-medium text-center transition-all duration-300"
                   >
                     Call Now
                   </a>
@@ -78,7 +78,7 @@ export default function WhatsAppFloating() {
 
                 {/* Info */}
                 <div className="pt-3 border-t border-gray-100">
-                  <p className="text-xs text-[#111111]/60 font-inter text-center">
+                  <p className="text-xs text-[#111111]/60 text-center">
                     <span className="inline-block w-2 h-2 bg-[#25D366] rounded-full mr-2 animate-pulse"></span>
                     Typically replies within minutes
                   </p>
@@ -109,7 +109,7 @@ export default function WhatsAppFloating() {
         {/* Main Button */}
         <div className="relative flex items-center gap-3 bg-gradient-to-r from-[#25D366] to-[#20bd5a] text-white p-4 md:pl-5 md:pr-6 md:py-4 rounded-full shadow-2xl border-2 border-white/30 backdrop-blur-sm">
           <MessageCircle size={24} fill="currentColor" className="animate-pulse" />
-          <span className="font-inter font-semibold text-sm whitespace-nowrap hidden md:block">
+          <span className="font-semibold text-sm whitespace-nowrap hidden md:block">
             Chat with Us
           </span>
         </div>

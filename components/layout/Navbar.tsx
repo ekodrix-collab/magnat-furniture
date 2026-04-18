@@ -72,7 +72,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
           <Link href="/" className="flex items-center gap-8 group" aria-label={`${NAV_CONFIG.brand} Home`}>
              <div className="relative">
                 <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
-                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-inter)" }}>
+                   <span className="text-white font-black tracking-[0.18em] text-[18px]">
                       {NAV_CONFIG.brand}
                    </span>
                 </div>
@@ -82,7 +82,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
              {/* 25 Year Milestone */}
              <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5" aria-hidden="true">
                 <div className="flex items-center gap-2">
-                   <span className="text-[15px] font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
+                   <span className="text-[15px] font-black text-[#111]">25+</span>
                    <span className="text-[10px] font-bold text-[#111]">Years</span>
                 </div>
                 <span className="text-[7px] font-bold tracking-[0.35em] uppercase text-black/25">Manufacturing Heritage</span>
@@ -101,7 +101,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                   className={`relative group text-[11px] font-semibold tracking-[0.2em] uppercase transition-all py-2 ${
                     isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
                   }`}
-                  style={{ fontFamily: "var(--font-inter)" }}
+                  
                 >
                   {item.label}
                   <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${
@@ -207,7 +207,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: {
                             <span className={`text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight leading-[1.1] transition-colors inline-block ${
                               isActive ? "text-white" : "text-[#111] dark:text-white"
                             }`}
-                              style={{ fontFamily: "var(--font-playfair)" }}
+                              
                             >
                                {item.label}
                             </span>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Instagram } from "lucide-react";
 import Image from "next/image";
 
@@ -24,7 +23,7 @@ export default function KondottyGallery() {
    return (
       <section className="bg-[#FAF9F6] py-24 overflow-hidden">
          <div className="max-container px-6 lg:px-8 mb-16">
-            <h2 className="text-[32px] md:text-[48px] font-bold text-[#111] text-center" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="text-[32px] md:text-[48px] font-bold text-[#111] text-center">
                We're on Instagram
             </h2>
             <p className="text-gray-500 text-center mt-4">@magnat_furniture.kondotty</p>
@@ -32,18 +31,32 @@ export default function KondottyGallery() {
 
          {/* Marquee Container */}
          <div
-            className="relative w-full cursor-grab active:cursor-grabbing"
+            className="relative overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
          >
-            <motion.div
-               className="flex gap-6 px-6"
-               animate={{ x: isPaused ? 0 : ["0%", "-50%"] }}
-               transition={{
-                  duration: 40,
-                  ease: "linear",
-                  repeat: Infinity,
-                  repeatType: "loop"
+            {/* Left fade */}
+            <div
+               className="absolute left-0 top-0 bottom-0 w-32 lg:w-40 z-10 pointer-events-none"
+               style={{ background: "linear-gradient(to right, #FAF9F6 0%, transparent 100%)" }}
+               aria-hidden="true"
+            />
+            {/* Right fade */}
+            <div
+               className="absolute right-0 top-0 bottom-0 w-32 lg:w-40 z-10 pointer-events-none"
+               style={{ background: "linear-gradient(to left, #FAF9F6 0%, transparent 100%)" }}
+               aria-hidden="true"
+            />
+
+            {/* Scrolling track */}
+            <div
+               className="flex cursor-grab active:cursor-grabbing"
+               style={{
+                  gap: "24px",
+                  animation: "marqueeGallery 60s linear infinite",
+                  animationPlayState: isPaused ? "paused" : "running",
+                  width: "max-content",
+                  paddingInline: "24px",
                }}
             >
                {displayItems.map((item, index) => (
@@ -54,7 +67,9 @@ export default function KondottyGallery() {
                      {/* Feed Header */}
                      <div className="flex items-center gap-3 mb-4">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 to-red-600 p-[2px]">
-                           <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-red-600">M</div>
+                           <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-red-600">
+                              M
+                           </div>
                         </div>
                         <div className="flex flex-col">
                            <span className="text-[12px] font-bold tracking-tight">magnat_furniture</span>
@@ -82,13 +97,21 @@ export default function KondottyGallery() {
                            target="_blank"
                            rel="noopener noreferrer"
                            className="text-gray-400 hover:text-black transition-colors"
+                           onClick={(e) => e.stopPropagation()}
                         >
                            <Instagram size={18} />
                         </a>
                      </div>
                   </div>
                ))}
-            </motion.div>
+            </div>
+
+            <style>{`
+               @keyframes marqueeGallery {
+                  from { transform: translateX(0); }
+                  to   { transform: translateX(-50%); }
+               }
+            `}</style>
          </div>
       </section>
    );

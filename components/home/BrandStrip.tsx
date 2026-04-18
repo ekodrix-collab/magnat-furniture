@@ -34,7 +34,7 @@ export default function BrandStrip() {
             >
               <span
                 className="text-white/60 text-[10px] font-semibold tracking-[0.35em] uppercase px-10 hover:text-[#c9a96e] transition-colors duration-300 cursor-default"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 {brand}
               </span>

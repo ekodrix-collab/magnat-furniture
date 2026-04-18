@@ -68,7 +68,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
               <Quote size={120} />
             </div>
             
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Client Perspective</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Client Perspective</h3>
             
             <div className="space-y-6">
               <div>
@@ -107,7 +107,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
           </div>
 
           <div className="bg-white p-8 rounded-3xl border border-[#E5DED6] shadow-sm">
-            <h3 className="text-xl font-playfair font-bold text-[#1A1A1A] mb-6">Client Identity</h3>
+            <h3 className="text-xl  font-bold text-[#1A1A1A] mb-6">Client Identity</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>

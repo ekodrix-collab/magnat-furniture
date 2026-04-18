@@ -20,7 +20,7 @@ export default function FilterSection({
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-6 border-b border-[#f0f0f0]">
-        <h2 className="text-[18px] font-normal text-[#111]" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+        <h2 className="text-[18px] font-normal text-[#111]">
           Filter By <em className="text-[#C0001A]" style={{ fontStyle: "italic" }}>Type</em>
         </h2>
         {onClose && (
@@ -43,7 +43,6 @@ export default function FilterSection({
                 ? "bg-[#C0001A] text-white shadow-md shadow-red-900/10"
                 : "bg-[#f9f9f9] text-[#666] border border-[#f0f0f0] hover:border-[#C0001A] hover:text-[#C0001A]"
             }`}
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
           >
             <span>All Products</span>
             {activeType === "All" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -58,7 +57,7 @@ export default function FilterSection({
                   ? "bg-[#C0001A] text-white shadow-md shadow-red-900/10"
                   : "bg-[#f9f9f9] text-[#666] border border-[#f0f0f0] hover:border-[#C0001A] hover:text-[#C0001A]"
               }`}
-              style={{ fontFamily: "var(--font-inter, sans-serif)" }}
+              
             >
               <span>{type}</span>
               {activeType === type && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -72,7 +71,6 @@ export default function FilterSection({
         <button
           onClick={onClose}
           className="w-full bg-[#111] text-white text-[10px] font-bold tracking-[0.2em] uppercase py-4 rounded-[4px] hover:bg-[#C0001A] transition-colors"
-          style={{ fontFamily: "var(--font-inter, sans-serif)" }}
         >
           View Results
         </button>

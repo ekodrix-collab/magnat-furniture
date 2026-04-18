@@ -22,11 +22,11 @@ export default function HomeShowroom() {
           <div className="lg:w-1/2 space-y-10 lg:space-y-12">
              <FadeInView direction="up">
                 <span className="heading-label mb-6">The Studio Experience</span>
-                <h2 className="text-4xl lg:text-7xl font-semibold leading-[1.1] text-black dark:text-white mb-8" style={{ fontFamily: "var(--font-playfair)" }}>
+                <h2 className="text-4xl lg:text-7xl font-semibold leading-[1.1] text-black dark:text-white mb-8" >
                    Experience the <br />
                    <span className="italic font-light text-[#C0001A]">Standard of Luxury.</span>
                 </h2>
-                <p className="text-black/60 dark:text-white/50 text-base lg:text-lg font-normal max-w-lg leading-relaxed mb-10" style={{ fontFamily: "var(--font-inter)" }}>
+                <p className="text-black/60 dark:text-white/50 text-base lg:text-lg font-normal max-w-lg leading-relaxed mb-10" >
                    Step into our flagship Kondotty studio to witness the fusion of heritage craft 
                    and modern architectural design. Meet our designers and find your inspiration in an environment crafted for the discerning.
                 </p>
@@ -66,7 +66,7 @@ export default function HomeShowroom() {
                                 <MapPin size={24} className="text-[#C0001A]" />
                              </div>
                              <div className="space-y-2">
-                                <p className="text-xl lg:text-2xl font-semibold leading-tight text-black dark:text-white" style={{ fontFamily: "var(--font-playfair)" }}>
+                                <p className="text-xl lg:text-2xl font-semibold leading-tight text-black dark:text-white" >
                                    Kondotty — Malappuram Road,<br />Next to City Center, Kondotty
                                 </p>
                                 <a 

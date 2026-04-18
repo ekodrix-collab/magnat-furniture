@@ -29,12 +29,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F0F2F5] font-inter">
+    <div className="flex min-h-screen bg-[#F0F2F5] ">
       {/* Sidebar */}
       <aside className="w-72 bg-[#1A1A1A] text-white flex flex-col fixed inset-y-0 z-50">
         <div className="p-8 pb-12">
           <Link href="/" className="flex items-center gap-2 mb-10 group">
-            <span className="font-playfair text-2xl font-bold tracking-tighter text-white">
+            <span className=" text-2xl font-bold tracking-tighter text-white">
               MAGNAT<span className="text-[#8B1E1E]">.</span>
             </span>
             <span className="bg-[#C6A969] text-[0.6rem] font-bold uppercase tracking-widest px-2 py-0.5 text-[#1A1A1A] rounded-sm">Admin</span>
@@ -88,10 +88,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Content */}
       <main className="flex-1 ml-72 p-12">
-        <header className="flex items-center justify-between mb-12 font-inter">
+        <header className="flex items-center justify-between mb-12 ">
           <div>
             <h1 className="text-[0.7rem] font-bold uppercase tracking-[0.4em] text-[#C6A969] mb-2">Back-office Management</h1>
-            <h2 className="font-playfair text-3xl font-bold text-[#1A1A1A]">Admin Control Panel</h2>
+            <h2 className=" text-3xl font-bold text-[#1A1A1A]">Admin Control Panel</h2>
           </div>
           
           <div className="flex items-center gap-6">

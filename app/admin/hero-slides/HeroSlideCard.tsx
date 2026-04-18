@@ -55,7 +55,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
         <div className="flex items-center gap-3 mb-2">
           <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C6A969]">Slide Order: {slide.sort_order + 1}</span>
         </div>
-        <h3 className="font-playfair text-2xl font-bold text-[#1A1A1A] mb-2">{slide.heading}</h3>
+        <h3 className=" text-2xl font-bold text-[#1A1A1A] mb-2">{slide.heading}</h3>
         <p className="text-xs text-body line-clamp-2 max-w-xl font-light italic opacity-60">
           {slide.description}
         </p>

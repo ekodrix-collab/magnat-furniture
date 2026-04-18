@@ -30,7 +30,7 @@ export default function InquiryCard({ inquiry }: InquiryCardProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="bg-white border border-[#E5DED6] rounded-2xl p-8 hover:border-[#8B1E1E] transition-all group shadow-sm font-inter"
+      className="bg-white border border-[#E5DED6] rounded-2xl p-8 hover:border-[#8B1E1E] transition-all group shadow-sm "
     >
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
         <div className="space-y-4 flex-1">
@@ -39,7 +39,7 @@ export default function InquiryCard({ inquiry }: InquiryCardProps) {
               {inquiry.full_name?.charAt(0) || "Q"}
             </div>
             <div>
-              <h3 className="font-bold text-[#1A1A1A] font-inter">{inquiry.full_name}</h3>
+              <h3 className="font-bold text-[#1A1A1A] ">{inquiry.full_name}</h3>
               <p className="text-[0.65rem] text-[#1A1A1A]/50 uppercase tracking-widest font-bold">{inquiry.subject || "General Inquiry"}</p>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function InquiryCard({ inquiry }: InquiryCardProps) {
             <button 
               onClick={() => handleStatusChange("contacted")}
               disabled={isUpdating}
-              className="w-full py-3 border border-[#E5DED6] text-[#1A1A1A] text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#1A1A1A] hover:text-white transition-all disabled:opacity-50 font-inter"
+              className="w-full py-3 border border-[#E5DED6] text-[#1A1A1A] text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#1A1A1A] hover:text-white transition-all disabled:opacity-50 "
             >
               Mark as Contacted
             </button>
@@ -88,7 +88,7 @@ export default function InquiryCard({ inquiry }: InquiryCardProps) {
             <button 
               onClick={() => handleStatusChange("resolved")}
               disabled={isUpdating}
-              className="w-full py-3 border border-green-100 text-green-700 text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-green-600 hover:text-white transition-all disabled:opacity-50 font-inter"
+              className="w-full py-3 border border-green-100 text-green-700 text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-green-600 hover:text-white transition-all disabled:opacity-50 "
             >
               Mark as Resolved
             </button>
@@ -97,7 +97,7 @@ export default function InquiryCard({ inquiry }: InquiryCardProps) {
           <button 
             onClick={() => handleStatusChange("archived")}
             disabled={isUpdating}
-            className="w-full py-3 border border-[#8B1E1E]/20 text-[#8B1E1E] text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#8B1E1E] hover:text-white transition-all disabled:opacity-50 font-inter"
+            className="w-full py-3 border border-[#8B1E1E]/20 text-[#8B1E1E] text-[0.65rem] font-bold uppercase tracking-widest rounded-lg hover:bg-[#8B1E1E] hover:text-white transition-all disabled:opacity-50 "
           >
             Archive Inquiry
           </button>

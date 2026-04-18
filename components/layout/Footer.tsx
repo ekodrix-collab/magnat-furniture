@@ -38,7 +38,7 @@ export default function Footer() {
           
           {/* Column 1-8: Quick Links Section */}
           <div className="lg:col-span-8">
-             <h4 className="text-[#C0001A] text-[13px] md:text-[15px] font-bold tracking-[0.1em] mb-10 md:mb-12" style={{ fontFamily: "var(--font-playfair)" }}>Quick Links</h4>
+             <h4 className="text-[#C0001A] text-[13px] md:text-[15px] font-bold tracking-[0.1em] mb-10 md:mb-12" >Quick Links</h4>
              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6 md:gap-x-12">
                 {footNav.map((column, idx) => (
                   <div key={idx} className="flex flex-col gap-4">
@@ -58,7 +58,7 @@ export default function Footer() {
 
           {/* Column 9-12: Social Media Section */}
           <div className="lg:col-span-4">
-             <h4 className="text-[#C0001A] text-[13px] md:text-[15px] font-bold tracking-[0.1em] mb-8 md:mb-10" style={{ fontFamily: "var(--font-playfair)" }}>Social media</h4>
+             <h4 className="text-[#C0001A] text-[13px] md:text-[15px] font-bold tracking-[0.1em] mb-8 md:mb-10" >Social media</h4>
              <div className="flex items-center gap-6">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#C0001A] transition-all duration-300 hover:scale-110">
                    <Facebook size={20} strokeWidth={1.5} />

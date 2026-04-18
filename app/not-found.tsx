@@ -8,7 +8,7 @@ export default function NotFound() {
         {/* Large decorative number */}
         <div className="relative inline-block mb-8 select-none">
           <span
-            className="font-playfair font-black text-[180px] md:text-[220px] leading-none"
+            className=" font-black text-[180px] md:text-[220px] leading-none"
             style={{
               background: "linear-gradient(160deg, #B82222 0%, #8B1E1E 55%, #5C1010 100%)",
               WebkitBackgroundClip: "text",
@@ -21,7 +21,7 @@ export default function NotFound() {
           </span>
           <div className="absolute inset-0 flex items-center justify-center">
             <div>
-              <h1 className="font-playfair text-4xl md:text-5xl font-bold text-[#1A1A1A] mb-2">
+              <h1 className=" text-4xl md:text-5xl font-bold text-[#1A1A1A] mb-2">
                 Page Not Found
               </h1>
               <div className="h-[2px] w-16 bg-[#C6A969] mx-auto" />
