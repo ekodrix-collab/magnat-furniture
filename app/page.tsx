@@ -10,6 +10,7 @@ import HomeHero from "@/components/home/HomeHero";
 import HeritageSection from "@/components/home/HeritageSection";
 import SpecialModels from "@/components/home/SpecialModels";
 import HomeCollection from "@/components/home/HomeCollection";
+import CurtainSpotlight from "@/components/home/CurtainSpotlight";
 import HomeCurtains from "@/components/home/HomeCurtains";
 import HomeShowroom from "@/components/home/HomeShowroom";
 import KondottyGallery from "@/components/home/KondottyGallery";
@@ -59,6 +60,9 @@ export default async function HomePage() {
 
       {/* ── 4. Main Portfolio Grid (Full Color) ── */}
       <HomeCollection items={featuredItems} />
+
+      {/* ── 4.5 Curtain Spotlight (Indian Style) ── */}
+      <CurtainSpotlight />
 
       {/* ── 5. Editorial Curtains & Blinds ── */}
       <HomeCurtains steps={processSteps} />

@@ -14,9 +14,9 @@ const FALLBACK_SLIDES: HeroSlideExtended[] = [
   {
     id: "fallback-1",
     image_url:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
+      "/images/hero-section.png",
     mobile_image_url:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+      "/images/hero-section.png",
     alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
     description:
