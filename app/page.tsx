@@ -64,7 +64,7 @@ export default async function HomePage() {
       <HomeCurtains steps={processSteps} />
 
       {/* ── 7. Visual Journey of Craft (Gallery) ── */}
-      <KondottyGallery />
+      <KondottyGallery posts={instagramPosts} />
 
       {/* ── 8. Trusted Chronicles (Testimonials) ── */}
       {/* <HomeTestimonials reviews={testimonials} /> */}

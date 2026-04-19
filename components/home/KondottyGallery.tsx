@@ -2,23 +2,31 @@
 
 import { useState } from "react";
 import { Instagram } from "lucide-react";
-import Image from "next/image";
+import { InstagramPost } from "@/lib/types";
 
-const galleryItems = [
-   { img: "/images/bedroom-001.jpg", title: "Royal Living" },
-   { img: "/images/dining-001.jpg", title: "Classic Dining" },
-   { img: "/images/insta-post-001.jpg", title: "Studio Vibe" },
-   { img: "/images/living-chairs.jpg", title: "Lounge Area" },
-   { img: "/images/kids-room.jpg", title: "Kids Space" },
-   { img: "/images/outdoor.jpg", title: "Outdoor Decor" },
-   { img: "/images/sofa-002.jpg", title: "Modern Comfort" },
-];
+// Local fallback — used until backend instagram_posts table is populated
+const FALLBACK_ITEMS = [
+   { id: "f1", image_url: "/images/bedroom-001.jpg",    caption: "Royal Living",    post_url: null },
+   { id: "f2", image_url: "/images/dining-001.jpg",     caption: "Classic Dining",  post_url: null },
+   { id: "f3", image_url: "/images/insta-post-001.jpg", caption: "Studio Vibe",     post_url: null },
+   { id: "f4", image_url: "/images/living-chairs.jpg",  caption: "Lounge Area",     post_url: null },
+   { id: "f5", image_url: "/images/kids-room.jpg",      caption: "Kids Space",      post_url: null },
+   { id: "f6", image_url: "/images/outdoor.jpg",        caption: "Outdoor Decor",   post_url: null },
+   { id: "f7", image_url: "/images/sofa-002.jpg",       caption: "Modern Comfort",  post_url: null },
+] satisfies Pick<InstagramPost, "id" | "image_url" | "caption" | "post_url">[];
 
-export default function KondottyGallery() {
+interface Props {
+   posts?: InstagramPost[];
+}
+
+export default function KondottyGallery({ posts }: Props) {
    const [isPaused, setIsPaused] = useState(false);
 
-   // Duplicate array for infinite seamless loop
-   const displayItems = [...galleryItems, ...galleryItems];
+   // Use backend data when available, otherwise use local fallback
+   const items = posts && posts.length > 0 ? posts : FALLBACK_ITEMS;
+
+   // Duplicate for seamless infinite loop
+   const displayItems = [...items, ...items];
 
    return (
       <section className="bg-[#FAF9F6] py-24 overflow-hidden">
@@ -34,6 +42,7 @@ export default function KondottyGallery() {
             className="relative overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
+            style={{ contain: "layout style paint" }}
          >
             {/* Left fade */}
             <div
@@ -50,19 +59,22 @@ export default function KondottyGallery() {
 
             {/* Scrolling track */}
             <div
-               className="flex cursor-grab active:cursor-grabbing"
+               className={`marquee-track${isPaused ? " paused" : ""}`}
                style={{
+                  display: "flex",
                   gap: "24px",
-                  animation: "marqueeGallery 60s linear infinite",
-                  animationPlayState: isPaused ? "paused" : "running",
                   width: "max-content",
                   paddingInline: "24px",
+                  willChange: "transform",
                }}
             >
                {displayItems.map((item, index) => (
-                  <div
-                     key={index}
-                     className="w-[280px] md:w-[320px] flex-shrink-0 bg-white rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-black/5"
+                  <a
+                     key={`${item.id}-${index}`}
+                     href={item.post_url ?? "https://www.instagram.com/magnat_furniture_.kondotty"}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="w-[280px] md:w-[320px] flex-shrink-0 bg-white rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-black/5 cursor-pointer block hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 group"
                   >
                      {/* Feed Header */}
                      <div className="flex items-center gap-3 mb-4">
@@ -77,41 +89,33 @@ export default function KondottyGallery() {
                         </div>
                      </div>
 
-                     {/* Image */}
-                     <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-gray-100">
-                        <Image
-                           src={item.img}
-                           alt={item.title}
-                           fill
-                           className="object-cover"
+                     {/* Image — no lazy loading: fetched on page load at low priority
+                         so images are warm in cache before the user scrolls here.
+                         decoding=async keeps decoding off the main thread. */}
+                     <div className="aspect-square w-full rounded-xl overflow-hidden bg-gray-100 mb-4">
+                        <img
+                           src={item.image_url}
+                           alt={item.caption ?? "Magnat Furniture"}
+                           decoding="async"
+                           fetchPriority="low"
+                           width={320}
+                           height={320}
+                           className="w-full h-full object-cover block group-hover:scale-105 transition-transform duration-500"
                         />
                      </div>
 
                      {/* Feed Footer */}
-                     <div className="mt-4 flex items-center justify-between">
+                     <div className="flex items-center justify-between">
                         <span className="text-[11px] font-medium text-gray-500">
-                           {item.title}
+                           {item.caption ?? "Magnat Furniture"}
                         </span>
-                        <a
-                           href="https://instagram.com/magnat_furniture_.kondotty"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           className="text-gray-400 hover:text-black transition-colors"
-                           onClick={(e) => e.stopPropagation()}
-                        >
+                        <div className="text-gray-400 group-hover:text-black transition-colors">
                            <Instagram size={18} />
-                        </a>
+                        </div>
                      </div>
-                  </div>
+                  </a>
                ))}
             </div>
-
-            <style>{`
-               @keyframes marqueeGallery {
-                  from { transform: translateX(0); }
-                  to   { transform: translateX(-50%); }
-               }
-            `}</style>
          </div>
       </section>
    );

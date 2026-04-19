@@ -341,6 +341,28 @@ button {
   background: #111111;
 }
 
+/* ============================================
+   KONDOTTY GALLERY MARQUEE
+   ============================================ */
+
+@keyframes marqueeGallery {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marqueeGallery 60s linear infinite;
+  animation-play-state: running;
+}
+
+.marquee-track.paused {
+  animation-play-state: paused;
+}
+
 /* WhatsApp Pulse Animation */
 @keyframes whatsapp-pulse {
   0% {
