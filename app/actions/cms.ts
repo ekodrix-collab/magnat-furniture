@@ -342,49 +342,59 @@ export async function saveHomepageSection(formData: FormData) {
   const supabase = await createClient();
   const isMulti = formData.get("is_multi") === "true";
   
-  if (isMulti) {
-    // Handle multiple sections at once (e.g. curtains)
-    const keys = Array.from(formData.keys()).filter(k => k.includes("_title")).map(k => k.split("_")[0]);
-    const uniqueKeys = Array.from(new Set(keys));
+  try {
+    if (isMulti) {
+      // Handle multiple sections at once (e.g. curtains)
+      const keys = Array.from(formData.keys()).filter(k => k.includes("_title")).map(k => k.split("_")[0]);
+      const uniqueKeys = Array.from(new Set(keys));
 
-    for (const key of uniqueKeys) {
+      for (const key of uniqueKeys) {
+        const sectionData = {
+          section_key: key,
+          title: formData.get(`${key}_title`) as string,
+          subtitle: formData.get(`${key}_subtitle`) as string,
+          description: formData.get(`${key}_description`) as string,
+          image_url: formData.get(`${key}_image_url`) as string,
+          mobile_image_url: formData.get(`${key}_mobile_image_url`) as string || null,
+          is_active: true,
+          updated_at: new Date().toISOString(),
+        };
+
+        const { error } = await supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
+        if (error) throw error;
+      }
+    } else {
+      // Handle single section
+      const id = formData.get("id") as string;
+      const section_key = formData.get("section_key") as string;
       const sectionData = {
-        section_key: key,
-        title: formData.get(`${key}_title`) as string,
-        subtitle: formData.get(`${key}_subtitle`) as string,
-        description: formData.get(`${key}_description`) as string,
-        image_url: formData.get(`${key}_image_url`) as string,
-        mobile_image_url: formData.get(`${key}_mobile_image_url`) as string || null,
-        is_active: true,
+        section_key,
+        title: formData.get("title") as string,
+        subtitle: formData.get("subtitle") as string,
+        description: formData.get("description") as string,
+        image_url: formData.get("image_url") as string,
+        mobile_image_url: formData.get("mobile_image_url") as string || null,
         updated_at: new Date().toISOString(),
       };
 
-      await supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
-    }
-  } else {
-    // Handle single section
-    const id = formData.get("id") as string;
-    const section_key = formData.get("section_key") as string;
-    const sectionData = {
-      section_key,
-      title: formData.get("title") as string,
-      subtitle: formData.get("subtitle") as string,
-      description: formData.get("description") as string,
-      image_url: formData.get("image_url") as string,
-      mobile_image_url: formData.get("mobile_image_url") as string || null,
-      updated_at: new Date().toISOString(),
-    };
+      let query;
+      if (id && id !== "new") {
+        query = supabase.from("homepage_sections").update(sectionData).eq("id", id);
+      } else {
+        query = supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
+      }
 
-    if (id && id !== "new") {
-      await supabase.from("homepage_sections").update(sectionData).eq("id", id);
-    } else {
-      await supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
+      const { error } = await query;
+      if (error) throw error;
     }
+
+    revalidatePath("/");
+    revalidatePath("/admin/home");
+    return { success: true };
+  } catch (err: any) {
+    console.error("Error saving homepage section:", err);
+    return { error: err.message || "Failed to save section" };
   }
-
-  revalidatePath("/");
-  revalidatePath("/admin/home");
-  return { success: true };
 }
 
 /**
