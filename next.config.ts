@@ -83,15 +83,14 @@ const nextConfig: NextConfig = {
   // ═══════════════════════════════════════════════════════════
   // REDIRECTS (If needed)
   // ═══════════════════════════════════════════════════════════
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/old-path',
-  //       destination: '/new-path',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
+  async rewrites() {
+    return [
+      {
+        source: "/category/:slug",
+        destination: "/products/:slug",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

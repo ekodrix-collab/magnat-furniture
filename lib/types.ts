@@ -79,6 +79,8 @@ export interface FeaturedItem {
   image_url: string;
   sort_order: number;
   is_active: boolean;
+  is_new?: boolean;
+  is_bestseller?: boolean;
 }
 
 export interface HomepageSection {
