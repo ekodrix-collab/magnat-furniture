@@ -33,7 +33,7 @@ export default function KondottyTestimonials() {
         {/* Header */}
         <div className="text-center mb-24">
            <FadeInView>
-              <h2 className="text-5xl md:text-6xl font-black text-white leading-none mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-5xl md:text-6xl font-black text-white leading-none mb-6" >
                 Trusted by <span className="italic text-[#C0001A]">Families.</span>
               </h2>
               <div className="w-16 h-[2px] bg-[#C0001A] mx-auto mb-6" />
@@ -49,7 +49,7 @@ export default function KondottyTestimonials() {
                 {/* Large Red Quote Mark */}
                 <span 
                   className="absolute top-6 right-8 text-[#C0001A] opacity-20 text-8xl font-black select-none pointer-events-none"
-                  style={{ fontFamily: "var(--font-playfair)" }}
+                  
                 >
                    &ldquo;
                 </span>
@@ -60,7 +60,7 @@ export default function KondottyTestimonials() {
                    ))}
                 </div>
 
-                <p className="text-[#F7F4F0]/80 text-lg leading-relaxed italic mb-10 flex-grow" style={{ fontFamily: "var(--font-playfair)" }}>
+                <p className="text-[#F7F4F0]/80 text-lg leading-relaxed italic mb-10 flex-grow" >
                    &ldquo;{rev.text}&rdquo;
                 </p>
 

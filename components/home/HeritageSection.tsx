@@ -1,64 +1,131 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
+
+const trustStats = [
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+         </svg>
+      ),
+      number: "25",
+      suffix: "+ Yrs",
+      label: "Manufacturing Experience",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+         </svg>
+      ),
+      number: "5000",
+      suffix: "+",
+      label: "Homes Transformed",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+         </svg>
+      ),
+      number: "10",
+      suffix: "yr",
+      label: "Product Warranty",
+   },
+   {
+      icon: (
+         <svg viewBox="0 0 24 24" fill="none" stroke="#C0001A" strokeWidth={1.8} width={18} height={18}>
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+         </svg>
+      ),
+      number: "100",
+      suffix: "%",
+      label: "Real Wood Guaranteed",
+   },
+];
 
 export default function HeritageSection() {
    return (
-      <section className="bg-white py-40 overflow-hidden relative border-b border-black/5">
-         {/* Architectural Background Numeral */}
-         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-            <span className="text-[60vw] font-black leading-none" style={{ fontFamily: "var(--font-playfair)" }}>25</span>
-         </div>
+      <section className="bg-[#FCFCFC] py-12 md:py-20 relative overflow-hidden">
+         <div className="max-container flex flex-col items-center relative z-10 px-4">
+            <SectionHeading 
+               label="Our Heritage"
+               titlePart1="A Legacy of"
+               titlePart2="Excellence"
+               subtitle="For over 25 years, Magnat has been the benchmark for premium furniture craftsmanship in Kerala, blending traditional artistry with modern design."
+               className="mb-12 md:mb-16"
+            />
+            
+            <FadeInView className="w-full max-w-5xl">
+               <div className="border-t border-[#eee] pt-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
+                     {trustStats.map((stat, i) => (
+                        <div
+                           key={i}
+                           className={`
+                              flex items-center gap-3 text-left
+                              ${i !== 0 ? "md:border-l md:border-[#eee] md:pl-5" : ""}
+                              ${i === 1 || i === 3 ? "justify-end md:justify-start" : ""}
+                           `}
+                        >
+                           {/* Icon */}
+                           <div
+                              className="w-[40px] h-[40px] min-w-[40px] rounded-full flex items-center justify-center"
+                              style={{
+                                 background: "#fff5f5",
+                                 border: "1px solid rgba(192,0,26,0.15)",
+                              }}
+                           >
+                              {stat.icon}
+                           </div>
 
-         <div className="max-container flex flex-col items-center text-center relative z-10">
-            <div className="max-w-4xl space-y-12">
-
-               <FadeInView className="space-y-6">
-                  <span className="heading-label">The Legacy of Craft</span>
-                  <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
-                     A Quarter Century of <br />
-                     <span className="italic font-normal">Design Excellence.</span>
-                  </h2>
-               </FadeInView>
-
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center text-left pt-12">
-                  <FadeInView direction="right" className="space-y-8">
-                     <p 
-                        className="text-xl md:text-2xl font-light text-[#111]/70 leading-relaxed" 
-                        style={{ fontFamily: "var(--font-inter)" }}
-                     >
-                        Since 2001, Magnat has been at the forefront of the furniture industry in Kerala,
-                        transforming over 5,000 homes with our signature blend of international
-                        design and artisanal production.
-                     </p>
-                     <div className="h-px w-24 bg-[#C0001A]" />
-                  </FadeInView>
-
-                  <FadeInView direction="left" className="space-y-10">
-                     <div className="space-y-4">
-                        <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#111]" style={{ fontFamily: "var(--font-inter)" }}>Our Philosophy</h4>
-                        <p className="text-[#111]/50 text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
-                           We believe that a home is a living gallery. Every piece of furniture
-                           carrying the Magnat name is a testament to 25 years of material
-                           intelligence and structural integrity.
-                        </p>
-                     </div>
-
-                     <div className="flex items-end gap-6 border-l border-[#C0001A]/20 pl-8">
-                        <div className="flex flex-col">
-                           <span className="text-5xl font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>2001</span>
-                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-black/30" style={{ fontFamily: "var(--font-inter)" }}>Founder Era</span>
+                           {/* Text */}
+                           <div>
+                              <p
+                                 className="text-[#111] leading-tight"
+                                 style={{
+                                    fontFamily: "var(--font-outfit)",
+                                    fontSize: "20px",
+                                    fontWeight: 900,
+                                    letterSpacing: "-0.02em",
+                                 }}
+                              >
+                                 {stat.number}
+                                 <span
+                                    className="text-[#C0001A]"
+                                    style={{ fontSize: "14px", fontWeight: 700 }}
+                                 >
+                                    {stat.suffix}
+                                 </span>
+                              </p>
+                              <p
+                                 className="text-[#666] mt-0.5"
+                                 style={{
+                                    
+                                    fontSize: "10px",
+                                    lineHeight: "1.3",
+                                 }}
+                              >
+                                 {stat.label}
+                              </p>
+                           </div>
                         </div>
-                        <div className="h-px flex-1 bg-black/5 mb-4" />
-                        <div className="flex flex-col items-end">
-                           <span className="text-5xl font-black text-[#C0001A]" style={{ fontFamily: "var(--font-playfair)" }}>2026</span>
-                           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-[#C0001A]" style={{ fontFamily: "var(--font-inter)" }}>Global Vision</span>
-                        </div>
-                     </div>
-                  </FadeInView>
+                     ))}
+                  </div>
                </div>
-            </div>
+            </FadeInView>
          </div>
       </section>
    );

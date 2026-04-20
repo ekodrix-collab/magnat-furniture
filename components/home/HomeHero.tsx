@@ -1,245 +1,369 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
-const SLIDES = [
+import { HeroSlide } from "@/lib/types";
+import { getHeroSlides } from "@/lib/api/hero";
+import Button from "@/components/ui/Button";
+import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
+
+interface HeroSlideExtended extends HeroSlide {
+  mobile_image_url?: string;
+}
+
+const FALLBACK_SLIDES: HeroSlideExtended[] = [
   {
-    src: "/images/hero-section.png",
-    alt: "MAGNAT Premium Living Room",
-    heading: "Living Room",
-    description: "A quarter-century legacy of handcrafted excellence. We curate the world's finest designs for the most sophisticated Kerala interiors.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Luxury Interior",
-    heading: "Luxury Spaces",
-    description: "From timeless classics to contemporary masterpieces — every piece tells a story of unmatched craftsmanship and refined taste.",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Sofa Collection",
+    id: "fallback-1",
+    image_url:
+      "/images/hero-section.png",
+    mobile_image_url:
+      "/images/hero-section.png",
+    alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
-    description: "Sink into comfort without sacrificing style. Our exclusive sofa collections redefine relaxation for the discerning homeowner.",
+    description:
+      "Sink into comfort without sacrificing style. Exclusive sofa collections redefined.",
+    sort_order: 0,
+    is_active: true,
   },
   {
-    src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2600&auto=format&fit=crop",
-    alt: "MAGNAT Contemporary Design",
+    id: "fallback-2",
+    image_url:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2600&auto=format&fit=crop",
+    mobile_image_url:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=800&auto=format&fit=crop",
+    alt_text: "MAGNAT Luxury Interior",
+    heading: "Luxury Spaces",
+    description:
+      "From timeless classics to contemporary masterpieces — every piece tells a story.",
+    sort_order: 1,
+    is_active: true,
+  },
+  {
+    id: "fallback-3",
+    image_url:
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2600&auto=format&fit=crop",
+    mobile_image_url:
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop",
+    alt_text: "MAGNAT Contemporary Design",
     heading: "Contemporary Design",
-    description: "Bold lines, rich textures, and thoughtful detail — our contemporary range brings modern elegance to Kerala's finest homes.",
+    description:
+      "Bold lines, rich textures, and thoughtful detail — modern elegance for Kerala homes.",
+    sort_order: 2,
+    is_active: true,
+  },
+  {
+    id: "fallback-4",
+    image_url: "/images/hero-section.png",
+    mobile_image_url: "/images/hero-section-mobile.png",
+    alt_text: "MAGNAT Premium Living Room",
+    heading: "Living Room",
+    description:
+      "A quarter-century legacy of handcrafted excellence. Kerala's finest interiors.",
+    sort_order: 3,
+    is_active: true,
   },
 ];
 
 const INTERVAL = 6500;
 
-export default function HomeHero() {
+const contentSpring = {
+  type: "spring",
+  stiffness: 60,
+  damping: 18,
+  mass: 1,
+} as const;
+
+export default function HomeHero({
+  slides: initialSlides,
+}: {
+  slides?: HeroSlide[];
+}) {
+  const [slides, setSlides] = useState<HeroSlideExtended[]>(
+    (initialSlides as HeroSlideExtended[]) || FALLBACK_SLIDES,
+  );
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const isPausedRef = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const slidesLengthRef = useRef(slides.length);
+  const touchStartX = useRef(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    slidesLengthRef.current = slides.length;
+  }, [slides.length]);
+
+  useEffect(() => {
+    async function loadSlides() {
+      if (!initialSlides) {
+        const fetched = await getHeroSlides();
+        setSlides(fetched as HeroSlideExtended[]);
+      }
+    }
+    loadSlides();
+  }, [initialSlides]);
+
+  const activeSlides = slides;
+
+  const startInterval = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (!isPausedRef.current) {
+        setDirection(1);
+        setCurrent((prev) => (prev + 1) % slidesLengthRef.current);
+      }
     }, INTERVAL);
-    return () => clearInterval(timer);
   }, []);
 
-  const goTo = (index: number) => {
-    setDirection(index > current ? 1 : -1);
-    setCurrent(index);
-  };
+  useEffect(() => {
+    startInterval();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [startInterval]);
 
+  const goTo = useCallback(
+    (index: number) => {
+      setDirection(index > current ? 1 : -1);
+      setCurrent(index);
+      startInterval();
+    },
+    [current, startInterval],
+  );
+
+  const goPrev = useCallback(() => {
+    setDirection(-1);
+    setCurrent(
+      (prev) => (prev - 1 + slidesLengthRef.current) % slidesLengthRef.current,
+    );
+    startInterval();
+  }, [startInterval]);
+
+  const goNext = useCallback(() => {
+    setDirection(1);
+    setCurrent((prev) => (prev + 1) % slidesLengthRef.current);
+    startInterval();
+  }, [startInterval]);
+
+  // ── Zoom-in transition variants ──
   const bgVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%", opacity: 0 }),
+    enter: { scale: 1.04, opacity: 0 },
+    center: { scale: 1, opacity: 1 },
+    exit: { scale: 0.98, opacity: 0 },
   };
-
-  const textVariants = {
-    enter: { x: 60, opacity: 0 },
-    center: { x: 0, opacity: 1 },
-    exit:  { x: -40, opacity: 0 },
-  };
-
-  const buttonVariants = {
-    enter: { x: -60, opacity: 0 },
-    center: { x: 0, opacity: 1 },
-    exit:  { x: 40, opacity: 0 },
-  };
-
-  const smoothEase: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#111]" style={{  minHeight: "850px" }}>
-      {/* ── Cinematic Background with Carousel ── */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={`bg-${current}`}
-            custom={direction}
-            variants={bgVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 1.1, ease: [0.32, 0, 0.67, 0] }}
-            className="absolute inset-0"
+    <section
+      className="relative w-full bg-white select-none pt-4 pb-3 md:pt-5 md:pb-4 md:px-6 lg:px-8"
+      style={{ marginTop: "1px" }}
+    >
+      <div className="max-container">
+        {/*
+          ── Responsive aspect ratio ──
+          mobile  (< md) : 9/16 portrait  → tall, fills phone screen nicely
+          tablet  (md)   : 4/3            → balanced landscape
+          desktop (lg+)  : 16/6           → wide cinematic banner
+        */}
+        <div className="hero-aspect relative w-full overflow-visible rounded-xl aspect-[9/16] md:aspect-[4/3] lg:aspect-[16/6]" style={{ marginBottom: "0" }}>
+
+          {/* ── 25-year logo badge — half outside top-right corner ── */}
+          <div
+            className="absolute z-30"
+            style={{
+              top: "-8px",
+              right: "-10px",
+              width: "80px",
+              height: "80px",
+            }}
           >
-            <motion.div
-              initial={{ scale: 1.06 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 6, ease: "easeOut" }}
-              className="relative w-full h-full"
-            >
-              <img
-                src={SLIDES[current].src}
-                alt={SLIDES[current].alt}
-                className="w-full h-full object-cover grayscale-[0.3] brightness-75"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            <img
+              src="/images/25-year-logo.jpeg"
+              alt="25 Years of Excellence - Quality Craftsmanship"
+              style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                display: "block",
+              }}
+              draggable={false}
+            />
+          </div>
 
-      {/* ── Editorial Content ── */}
-
-      <div className="max-container relative z-20 h-full flex flex-col justify-center items-center">
-        <div className="max-w-4xl w-full space-y-2 flex flex-col items-center">
-
-          <div className="space-y-3 w-full flex flex-col items-center">
-
-            {/* Heading */}
-            <AnimatePresence mode="wait">
+          {/* ── Clipping wrapper for the carousel images ── */}
+          <div
+            className="absolute inset-0 overflow-hidden rounded-xl"
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              const diff = touchStartX.current - e.changedTouches[0].clientX;
+              if (Math.abs(diff) > 40) { diff > 0 ? goNext() : goPrev(); }
+            }}
+          >
+            {/* ── Image Carousel ── */}
+            <AnimatePresence initial={false}>
               <motion.div
-                key={`heading-${current}`}
-                variants={textVariants}
+                key={`bg-${current}`}
+                variants={bgVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 1.6, ease: smoothEase }}
-                className="space-y-2 text-center w-full"
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0"
               >
-                <h1
-                  className="text-white text-center leading-[1.1] font-bold tracking-tight"
-                  style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
+                {/* ── Ken Burns zoom continues on top of entry animation ── */}
+                <motion.div
+                  key={`zoom-${current}`}
+                  initial={{ scale: 1.0 }}
+                  animate={{ scale: 1.06 }}
+                  transition={{
+                    duration: INTERVAL / 1000 + 1,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="relative w-full h-full"
+                  style={{ transformOrigin: "center center" }}
                 >
-                  {SLIDES[current].heading}
-                </h1>
+                  {/* Desktop image — shown on md and above */}
+                  <img
+                    src={activeSlides[current].image_url}
+                    alt={
+                      activeSlides[current].alt_text ||
+                      activeSlides[current].heading
+                    }
+                    className="w-full h-full object-cover hidden md:block"
+                    draggable={false}
+                  />
+
+                  {/*
+                    Mobile image — shown below md.
+                    Uses mobile_image_url (portrait/square crop) when available,
+                    falls back to the desktop image.
+                    object-position: top keeps the focal point visible on tall crops.
+                  */}
+                  <img
+                    src={
+                      activeSlides[current].mobile_image_url ||
+                      activeSlides[current].image_url
+                    }
+                    alt={
+                      activeSlides[current].alt_text ||
+                      activeSlides[current].heading
+                    }
+                    className="w-full h-full object-cover object-top block md:hidden"
+                    draggable={false}
+                  />
+
+                  {/* Gradient overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60 z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent z-10" />
+                </motion.div>
+                
+                {/* ── Left-aligned content (Restored Design) ── */}
+                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24 bg-gradient-to-r from-[#111]/40 via-transparent to-transparent">
+                  <div className="max-w-[85%] md:max-w-xl">
+                    <motion.div
+                      key={`content-${current}`}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ ...contentSpring, delay: 0.2 }}
+                    >
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block text-[#FCFCFC]/90">
+                        Signature Furniture
+                      </span>
+                      
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                        {activeSlides[current].heading}
+                      </h1>
+
+                      <p className="text-sm md:text-base text-[#FCFCFC]/80 max-w-md mb-10 leading-relaxed font-light">
+                        {activeSlides[current].description}
+                      </p>
+
+                      <div className="flex flex-row items-center gap-4">
+                        <Button variant="primary" className="px-10">
+                          Explore
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111]"
+                        >
+                          Contact Us
+                        </Button>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex flex-col lg:flex-col lg:items-center gap-3 lg:gap-10 w-full items-center">
-
-              {/* Description */}
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={`desc-${current}`}
-                  variants={textVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 1.6, ease: smoothEase, delay: 0.12 }}
-                  className="text-white/90 text-sm lg:text-lg text-center font-normal leading-relaxed max-w-xl"
-                  style={{ fontFamily: "var(--font-inter)" }}
-                >
-                  {SLIDES[current].description}
-                </motion.p>
-              </AnimatePresence>
-
-              {/* Button */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`btn-${current}`}
-                  variants={buttonVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 1.6, ease: smoothEase, delay: 0.22 }}
-                  className="flex flex-col sm:flex-row items-center gap-8"
-                >
-                  <Link
-                    href="/products"
-                    className="btn-primary !text-white !bg-[#C0001A] hover:!bg-[#900014] hover:!text-white !border-none py-5 px-12 text-[14px] font-semibold rounded-[4px] uppercase tracking-widest"
-                    style={{ fontFamily: "var(--font-inter)" }}
-                  >
-                    Explore Collection
-                  </Link>
-                </motion.div>
-              </AnimatePresence>
-
+            {/* ── EST. badge ── */}
+            <div className="absolute bottom-2 right-4 z-20 hidden lg:block">
+              <span className="text-[9px] font-bold tracking-[0.5em] uppercase text-white/20 whitespace-nowrap">
+                EST. 2001 · KONDOTTY · KERALA
+              </span>
             </div>
           </div>
 
+          {/* ── Bottom center dot navigation — outside overflow-hidden so arrows are never clipped ── */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex flex-row items-center gap-3">
+            {/* Prev arrow */}
+            <button
+              onClick={goPrev}
+              aria-label="Previous slide"
+              className="hidden md:flex items-center justify-center w-7 h-7 text-white/70 hover:text-white transition-colors duration-150"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M9 2L4 7L9 12"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            {/* Dot indicators */}
+            {activeSlides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className="flex items-center justify-center"
+              >
+                {i === current ? (
+                  <span className="relative block w-7 h-[5px] rounded-full overflow-hidden bg-white/30">
+                    <span
+                      key={`fill-${current}`}
+                      className="dot-fill-bar absolute left-0 top-0 h-full bg-white rounded-full"
+                      style={{ width: "0%" }}
+                    />
+                  </span>
+                ) : (
+                  <span className="block w-[5px] h-[5px] rounded-full bg-white/40 hover:bg-white/70 transition-colors duration-200" />
+                )}
+              </button>
+            ))}
+
+            {/* Next arrow */}
+            <button
+              onClick={goNext}
+              aria-label="Next slide"
+              className="hidden md:flex items-center justify-center w-7 h-7 text-white/70 hover:text-white transition-colors duration-150"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M5 2L10 7L5 12"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* ── Carousel Dot Indicators — right center on lg, bottom center on small ── */}
-      <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-3 hidden lg:flex">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className="group relative flex items-center justify-center"
-            aria-label={`Go to slide ${i + 1}`}
-          >
-            <span
-              className={`block transition-all duration-500 rounded-full ${
-                i === current
-                  ? "w-1.5 h-6 bg-[#C0001A]"
-                  : "w-1.5 h-1.5 bg-white/30 hover:bg-white/60"
-              }`}
-            />
-          </button>
-        ))}
-      </div>
-
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 flex lg:hidden flex-row items-center gap-2">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className="group relative flex items-center justify-center"
-            aria-label={`Go to slide ${i + 1}`}
-          >
-            <span
-              className={`block transition-all duration-500 rounded-full ${
-                i === current
-                  ? "w-6 h-1.5 bg-[#C0001A]"
-                  : "w-1.5 h-1.5 bg-white/10 hover:bg-white/60"
-              }`}
-            />
-          </button>
-        ))}
-      </div>
-
-      {/* ── Progress Bar ── */}
-      <div className="absolute bottom-0 left-0 z-20 h-[2px] bg-white/10 w-full">
-        <motion.div
-          key={current}
-          className="h-full bg-[#C0001A]"
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: INTERVAL / 1000, ease: "linear" }}
-        />
-      </div>
-
-      {/* ── Side Accreditation ── */}
-      <div className="absolute right-12 bottom-5 z-20 hidden lg:flex flex-col items-end gap-3 text-white/20">
-        <span className="text-[10px] font-bold tracking-[0.6em] uppercase whitespace-nowrap origin-right transition-colors hover:text-[#C0001A] cursor-default">
-          EST. 2001 · KONDOTTY · KERALA
-        </span>
-      </div>
-
-      {/* Scroll Milestone */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
-      >
-      </motion.div>
     </section>
   );
 }

@@ -1,383 +1,218 @@
 "use client";
 
-import { useState, useEffect, Suspense, useRef } from "react";
+import { useState, Suspense, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Instagram, Search, User, Heart, Menu, X, Phone, ShoppingBag } from "lucide-react";
-import { motion, AnimatePresence, LayoutGroup, useScroll, useMotionValueEvent } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { Heart, Menu, X, ChevronDown, ArrowRight, Instagram, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useFavorites } from "@/lib/context/FavoritesContext";
 
-/**
- * Navbar Configuration Constants
- */
-const NAV_CONFIG = {
-  brand: "MAGNAT",
-  phone: "+91 94465 16395",
-  phoneRaw: "+919446516395",
-  whatsapp: "https://wa.me/919446516395",
-  colors: {
-    brand: "#C0001A",
-  },
-  socials: {
-    instagram: "https://instagram.com",
-  }
+const EXPLORE_DATA = {
+  categories: [
+    { name: "Sofas", href: "/products?category=sofas", image: "/images/sofa3d.png" },
+    { name: "Chairs", href: "/products?category=chairs", image: "/images/chair.png" },
+    { name: "Dining", href: "/products?category=dining", image: "/images/dining-001.jpg" },
+    { name: "Curtains", href: "/products?category=curtains", image: "/images/curtains_nav.png" },
+  ],
+  rooms: [
+    { name: "Living Room", href: "/rooms/living-room" },
+    { name: "Dining Room", href: "/rooms/dining-room" },
+    { name: "Bedroom", href: "/rooms/bedroom" },
+    { name: "Office", href: "/rooms/office" },
+  ]
 };
 
-const mainNav = [
-  { label: "Collections", href: "/collections" },
-  { label: "Sofas", href: "/products/sofas" },
-  { label: "Chairs", href: "/products/chairs" },
-  { label: "Dining", href: "/products/dining" },
-  { label: "Curtains", href: "/products/curtains" },
-  { label: "Showrooms", href: "/showrooms" },
-  { label: "About Us", href: "/about" },
-];
-
-/**
- * Helper to determine if a nav link is active
- */
-const checkIsActive = (item: typeof mainNav[0], pathname: string, currentCategory: string | null) => {
-  if ("category" in item && item.category) {
-    return currentCategory === item.category;
-  }
-  return pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-};
-
-/**
- * NavbarInner: Contains the logic that depends on searchParams.
- * Must be wrapped in Suspense.
- */
-function NavbarContent({ scrolled, mobileOpen, setMobileOpen, isVisible }: { 
-  scrolled: boolean, 
-  mobileOpen: boolean, 
-  setMobileOpen: (open: boolean) => void,
-  isVisible: boolean
-}) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentCategory = searchParams.get("category");
-  const { favoritesCount, setDrawerOpen } = useFavorites();
-
-  return (
-    <motion.div
-      initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -100 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full"
-    >
-      <div className={`w-full transition-all duration-700 ease-in-out ${scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] h-20" : "bg-white h-24"}`}>
-        <div className="max-container h-full flex items-center justify-between">
-          
-          {/* Left: Brand Identity */}
-          <Link href="/" className="flex items-center gap-8 group" aria-label={`${NAV_CONFIG.brand} Home`}>
-             <div className="relative">
-                <div className="bg-[#C0001A] px-7 py-3 transition-all duration-700 group-hover:bg-[#111]">
-                   <span className="text-white font-black tracking-[0.18em] text-[18px]" style={{ fontFamily: "var(--font-inter)" }}>
-                      {NAV_CONFIG.brand}
-                   </span>
-                </div>
-                <span className="absolute -top-1 -right-2 text-[8px] font-bold text-[#C0001A]">™</span>
-             </div>
-
-             {/* 25 Year Milestone */}
-             <div className="hidden lg:flex flex-col border-l border-black/10 pl-6 space-y-0.5" aria-hidden="true">
-                <div className="flex items-center gap-2">
-                   <span className="text-[15px] font-black text-[#111]" style={{ fontFamily: "var(--font-playfair)" }}>25+</span>
-                   <span className="text-[10px] font-bold text-[#111]">Years</span>
-                </div>
-                <span className="text-[7px] font-bold tracking-[0.35em] uppercase text-black/25">Manufacturing Heritage</span>
-             </div>
-          </Link>
-
-          {/* Center: Curated Navigation */}
-          <nav className="hidden xl:flex items-center gap-8" aria-label="Main Navigation">
-            {mainNav.map((item) => {
-              const isActive = checkIsActive(item, pathname, currentCategory);
-              
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`relative group text-[11px] font-semibold tracking-[0.2em] uppercase transition-all py-2 ${
-                    isActive ? "text-[#C0001A]" : "text-[#111]/80 hover:text-[#C0001A]"
-                  }`}
-                  style={{ fontFamily: "var(--font-inter)" }}
-                >
-                  {item.label}
-                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.5px] bg-[#C0001A] transition-all duration-500 ease-luxury ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right: Interaction Trigger */}
-          <div className="flex items-center gap-4 lg:gap-6">
-             <div className="hidden lg:flex items-center gap-6">
-                <Link href="/contact" className="btn-primary !py-3 !px-8 !text-[9px]">
-                   Enquire Project
-                </Link>
-             </div>
-             <a 
-               href={`tel:${NAV_CONFIG.phoneRaw}`} 
-               className="md:hidden w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-[#C0001A]"
-               aria-label={`Call ${NAV_CONFIG.brand}`}
-             >
-                <Phone size={18} />
-             </a>
-             <button 
-               className="xl:hidden p-2 text-[#111] hover:bg-black/5 rounded-full transition-colors" 
-               onClick={() => setMobileOpen(true)}
-               aria-label="Open Mobile Menu"
-             >
-               <Menu size={24} strokeWidth={1.5} />
-             </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Sophisticated Mobile Experience (Immersive Overlay) ── */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex flex-col pt-24"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile Navigation Menu"
-          >
-            {/* Background Layers */}
-            <div className="absolute inset-0 bg-[#F7F4F0] dark:bg-[#0A0A0A] transition-colors duration-500" />
-            <div className="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none overflow-hidden">
-               <motion.img 
-                 initial={{ scale: 1.1, opacity: 0 }}
-                 animate={{ scale: 1, opacity: 1 }}
-                 transition={{ duration: 2, ease: "easeOut" }}
-                 src="/images/luxury-nav-bg.png" 
-                 className="w-full h-full object-cover blur-sm"
-                 alt=""
-               />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-[#F7F4F0]/80 via-transparent to-[#F7F4F0]/95 dark:from-[#0A0A0A]/80 dark:to-[#0A0A0A]/95" />
-
-            {/* Header Section */}
-            <div className="relative z-[210] max-container flex items-center justify-between px-10 mb-12">
-               <motion.div
-                 initial={{ x: -20, opacity: 0 }}
-                 animate={{ x: 0, opacity: 1 }}
-                 transition={{ delay: 0.2 }}
-               >
-                  <span className="font-black tracking-[0.3em] text-[10px] uppercase text-[#C0001A]">Navigation</span>
-               </motion.div>
-               <motion.button 
-                 whileHover={{ rotate: 90 }}
-                 whileTap={{ scale: 0.9 }}
-                 onClick={() => setMobileOpen(false)} 
-                 className="w-12 h-12 flex items-center justify-center bg-black/5 dark:bg-white/5 rounded-full border border-black/10 dark:border-white/10"
-                 aria-label="Close Mobile Menu"
-               >
-                  <X size={20} className="text-[#111] dark:text-white" />
-               </motion.button>
-            </div>
-
-            {/* Menu Links */}
-            <div className="relative z-[210] flex-1 overflow-y-auto px-10 pb-12 flex flex-col">
-               <nav className="flex flex-col space-y-2">
-                  {mainNav.map((item, i) => {
-                     const isActive = checkIsActive(item, pathname, currentCategory);
-                     
-                     return (
-                      <motion.div
-                        key={item.label}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 + i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                         <Link 
-                           href={item.href} 
-                           onClick={() => setMobileOpen(false)}
-                           className={`group block relative py-3 px-6 rounded-2xl transition-all duration-500 ${
-                             isActive ? "bg-[#C0001A] shadow-xl shadow-red-500/10" : "hover:bg-black/5 dark:hover:bg-white/5"
-                           }`}
-                           aria-current={isActive ? "page" : undefined}
-                         >
-                            <span className={`text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight leading-[1.1] transition-colors inline-block ${
-                              isActive ? "text-white" : "text-[#111] dark:text-white"
-                            }`}
-                              style={{ fontFamily: "var(--font-playfair)" }}
-                            >
-                               {item.label}
-                            </span>
-                         </Link>
-                      </motion.div>
-                     );
-                  })}
-               </nav>
-
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ delay: 0.8 }}
-                 className="mt-16 pt-8 border-t border-black/5 dark:border-white/5"
-               >
-                  <div className="grid grid-cols-2 gap-8">
-                     <div className="space-y-4">
-                        <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Connect</span>
-                        <div className="flex gap-5">
-                           <Link 
-                             href={NAV_CONFIG.socials.instagram} 
-                             className="text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
-                             target="_blank"
-                             rel="noopener noreferrer"
-                             aria-label="Instagram"
-                           >
-                              <Instagram size={20} strokeWidth={1.5} />
-                           </Link>
-                           <button 
-                             onClick={() => setDrawerOpen(true)} 
-                             className="relative text-[#111] dark:text-white hover:text-[#C0001A] transition-colors"
-                             aria-label="My Favorites"
-                           >
-                              <Heart size={20} strokeWidth={1.5} />
-                              {favoritesCount > 0 && (
-                                <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full shadow-md">
-                                  {favoritesCount}
-                                </span>
-                              )}
-                           </button>
-                        </div>
-                     </div>
-                     <div className="space-y-4">
-                        <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-[#111]/40 dark:text-white/40">Enquiries</span>
-                        <a 
-                          href={`tel:${NAV_CONFIG.phoneRaw}`} 
-                          className="text-[14px] font-bold text-[#111] dark:text-white hover:underline transition-all"
-                        >
-                          {NAV_CONFIG.phone}
-                        </a>
-                     </div>
-                  </div>
-               </motion.div>
-            </div>
-
-            {/* Million Dollar Action: WhatsApp Integration */}
-            <motion.div 
-              initial={{ y: 100 }}
-              animate={{ y: 0 }}
-              transition={{ delay: 1, type: "spring", stiffness: 100 }}
-              className="relative z-[210] p-10 bg-[#111] dark:bg-[#C0001A] text-white"
-            >
-               <div className="max-container flex items-center justify-between">
-                  <div className="space-y-1">
-                     <span className="text-[7px] font-bold tracking-[0.4em] uppercase opacity-60">Design Consultation</span>
-                     <p className="text-sm font-medium">Chat with our experts via WhatsApp</p>
-                  </div>
-                  <a 
-                    href={NAV_CONFIG.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-white text-[#111] px-6 py-3 rounded-md text-[9px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0001A] hover:text-white dark:hover:bg-white dark:hover:text-[#C0001A] transition-all flex items-center gap-3 shadow-xl"
-                    aria-label="Book via WhatsApp"
-                  >
-                     Book Now
-                  </a>
-               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-}
-
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+function NavbarContent() {
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  
-  const { scrollY } = useScroll();
+  const [mobileExploreOpen, setMobileExploreOpen] = useState(false);
+  const pathname = usePathname();
   const { favoritesCount, setDrawerOpen } = useFavorites();
-  
-  /**
-   * Scroll Lock implementation for Mobile Menu
-   */
+
+  // Scroll lock on mobile menu open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-    return () => { document.body.style.overflow = "unset"; };
   }, [mobileOpen]);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    
-    // Scrolled state for visual changes (hiding top bar)
-    setScrolled(latest > 20);
-
-    // Hide on scroll down, show on scroll up
-    if (latest > previous && latest > 150) {
-      setIsVisible(false);
-    } else if (latest < previous) {
-      setIsVisible(true);
-    }
-
-    // Always show at the very top
-    if (latest < 50) {
-      setIsVisible(true);
-    }
-  });
-
   return (
-    <header className="fixed top-0 z-[100] w-full">
-      {/* ── Top Accessory Bar (Only shown at top) ── */}
-      <div className={`w-full bg-[#111] text-white transition-all duration-700 ease-in-out border-b border-white/5 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-10 md:h-12 opacity-100"}`}>
-        <div className="max-container h-full flex items-center justify-between px-6 xl:px-0">
-           <div className="flex items-center gap-6">
-              <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/80">Kondotty Flagship</span>
-           </div>
-           
-           <div className="flex items-center gap-6">
-              <Link 
-                href={NAV_CONFIG.socials.instagram} 
-                className="text-white/60 hover:text-white transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                 <Instagram size={14} strokeWidth={1.5} />
-              </Link>
-              
-              <button 
-                onClick={() => setDrawerOpen(true)} 
-                className="relative group text-white/60 hover:text-white transition-colors flex items-center gap-2" 
-                aria-label="Favorites"
-              >
-                <Heart size={14} strokeWidth={1.5} />
-                {favoritesCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-[#C0001A] text-white text-[8px] font-bold h-4 min-w-[16px] px-1 flex items-center justify-center rounded-full">
-                    {favoritesCount}
-                  </span>
-                )}
-              </button>
-           </div>
+    <div className="max-container h-20 flex items-center justify-between">
+      {/* Brand Identity */}
+      <Link href="/" className="flex items-center group relative z-[210]">
+        <div className="bg-[#C0001A] px-5 py-2 transition-colors group-hover:bg-[#111]">
+          <span className="text-white font-black tracking-[0.25em] text-[15px]">MAGNAT</span>
         </div>
+      </Link>
+
+      {/* Primary Navigation (Desktop) */}
+      <nav className="hidden md:flex items-center gap-10">
+        <Link
+          href="/collections"
+          className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors"
+        >
+          Collections
+        </Link>
+
+        <div
+          className="relative h-full flex items-center"
+          onMouseEnter={() => setActiveMenu('explore')}
+          onMouseLeave={() => setActiveMenu(null)}
+        >
+          <button className={`flex items-center gap-1 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors ${activeMenu === 'explore' ? "text-[#C0001A]" : "text-black/80 hover:text-[#C0001A]"}`}>
+            Explore <ChevronDown size={14} className={`transition-transform duration-300 ${activeMenu === 'explore' ? "rotate-180" : ""}`} />
+          </button>
+
+          <AnimatePresence>
+            {activeMenu === 'explore' && (
+              <motion.div initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 10 }} className="absolute top-full left-[-150px] w-[600px] pt-5">
+                <div className="bg-white p-8 rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.12)] border border-black/5 grid grid-cols-12 gap-10">
+                  <div className="col-span-7">
+                    <span className="text-[9px] font-black tracking-[0.2em] uppercase text-black/30 block mb-6 px-1">Furniture Categories</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      {EXPLORE_DATA.categories.map((item) => (
+                        <Link key={item.name} href={item.href} className="group block space-y-2 p-1" onClick={() => setActiveMenu(null)}>
+                          <div className="aspect-[4/3] bg-[#f9f9f9] rounded-lg overflow-hidden border border-black/[0.03]">
+                            <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                          <span className="text-[12px] font-bold text-black group-hover:text-[#C0001A] transition-colors">{item.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="col-span-5 border-l border-black/5 pl-10">
+                    <span className="text-[9px] font-black tracking-[0.2em] uppercase text-black/30 block mb-6 text-nowrap">Shop by Room</span>
+                    <div className="flex flex-col gap-4">
+                      {EXPLORE_DATA.rooms.map((item) => (
+                        <Link key={item.name} href={item.href} className="text-[14px] font-bold text-black hover:text-[#C0001A] transition-colors whitespace-nowrap" onClick={() => setActiveMenu(null)}>
+                          {item.name}
+                        </Link>
+                      ))}
+                      <div className="mt-8 pt-8 border-t border-black/5">
+                        <Link href="/products" className="text-[10px] font-black tracking-[0.2em] uppercase text-[#C0001A] hover:underline" onClick={() => setActiveMenu(null)}>
+                          View All Pieces
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <Link href="/showrooms" className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors">Showrooms</Link>
+        <Link href="/about" className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors">About Us</Link>
+      </nav>
+
+      {/* Desktop Interaction Icons */}
+      <div className="flex items-center gap-4 lg:gap-6 relative z-[210]">
+        <button onClick={() => setDrawerOpen(true)} className="relative text-black/80 hover:text-[#C0001A] transition-colors p-2" aria-label="Favorites">
+          <Heart size={20} strokeWidth={1.5} />
+          {favoritesCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-[#C0001A] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">{favoritesCount}</span>
+          )}
+        </button>
+        <Link href="/contact" className="hidden lg:block bg-[#111] text-white px-8 py-3 rounded-md text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-[#C0001A] transition-colors shadow-sm">Enquire</Link>
+
+        {/* Mobile Menu Toggle */}
+        <button className="md:hidden p-2 text-black/80 bg-black/5 rounded-full" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle Menu">
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
 
-      {/* ── Navbar Content wrapped in Suspense ── */}
-      <Suspense fallback={<div className="bg-white h-24 w-full" />}>
-        <NavbarContent 
-          scrolled={scrolled} 
-          mobileOpen={mobileOpen} 
-          setMobileOpen={setMobileOpen} 
-          isVisible={isVisible}
-        />
+      {/* ── Immersive Mobile Menu ── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
+            className="fixed inset-0 z-[200] bg-white flex flex-col pt-20"
+          >
+            <div className="flex-1 overflow-y-auto px-8 py-10 space-y-12">
+              {/* Primary Links */}
+              <nav className="flex flex-col gap-8">
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+                  <Link href="/collections" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Collections</Link>
+                </motion.div>
+
+                {/* Explore Accordion */}
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="space-y-6">
+                  <button
+                    onClick={() => setMobileExploreOpen(!mobileExploreOpen)}
+                    className="w-full flex items-center justify-between text-4xl font-bold font-playfair hover:text-[#C0001A]"
+                  >
+                    Explore <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExploreOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {mobileExploreOpen && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                        <div className="grid grid-cols-2 gap-4 pt-4">
+                          {EXPLORE_DATA.categories.map(c => (
+                            <Link key={c.name} href={c.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{c.name}</Link>
+                          ))}
+                          {EXPLORE_DATA.rooms.map(r => (
+                            <Link key={r.name} href={r.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{r.name}</Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
+                  <Link href="/showrooms" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>Showrooms</Link>
+                </motion.div>
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
+                  <Link href="/about" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>About Us</Link>
+                </motion.div>
+              </nav>
+
+              {/* Mobile Contact Footer */}
+              <div className="space-y-6 pt-10 border-t border-black/5">
+                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-black/30">Get in touch</span>
+                <div className="flex flex-col gap-4">
+                  <a href="tel:+919446516395" className="text-xl font-bold flex items-center gap-3">
+                    <Phone size={18} className="text-[#C0001A]" />
+                    +91 94465 16395
+                  </a>
+                  <div className="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
+                    <Link href="/contact" className="flex-1 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-full flex items-center justify-center" onClick={() => setMobileOpen(false)}>Book Visit</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sticky Mobile CTA */}
+            <div className="p-6 bg-white border-t border-black/5">
+              <a
+                href="https://wa.me/919446516395"
+                target="_blank"
+                className="w-full bg-[#111] hover:bg-[#C0001A] text-white h-14 rounded-full flex items-center justify-center gap-3 text-[11px] font-black tracking-[0.2em] uppercase transition-colors"
+              >
+                WhatsApp Consultation
+                <ArrowRight size={14} />
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <header className="fixed top-0 z-[100] w-full bg-white border-b border-black/5">
+      <Suspense fallback={<div className="h-20 bg-white" />}>
+        <NavbarContent />
       </Suspense>
     </header>
   );
 }
-

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const categories = [
   {
@@ -44,24 +45,15 @@ const categories = [
 
 export default function FeaturedCategories() {
   return (
-    <section className="bg-[#f5f2ee] py-24 lg:py-32 px-8 lg:px-16 overflow-hidden">
-      <div className="max-w-[1600px] mx-auto">
-        
-        {/* Header */}
-        <FadeInView className="mb-16 lg:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <div className="max-w-2xl">
-            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
-              Curated Collections
-            </span>
-            <h2 className="text-[#1a1a1a] leading-[1.1]" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
-              The World of <br />
-              <span className="italic">Magnat Furniture</span>
-            </h2>
-          </div>
-          <Link href="/collections" className="btn-gold-outline hidden lg:inline-flex">
-            Explore All Categories
-          </Link>
-        </FadeInView>
+    <section className="bg-[#FCFCFC] py-12 md:py-20 px-4 overflow-hidden">
+      <div className="max-container">
+        <SectionHeading 
+          label="Curated Collections"
+          titlePart1="The World of"
+          titlePart2="Magnat Furniture"
+          subtitle="A comprehensive exploration of high-end living spaces, where every category is a testament to our commitment to architectural beauty."
+          className="mb-10 md:mb-16"
+        />
 
         {/* Diagonal / Masonry-inspired Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
@@ -87,10 +79,10 @@ export default function FeaturedCategories() {
                 {/* Overlay Text — Bottom left editorial style */}
                 <div className="absolute inset-0 p-10 flex flex-col justify-end">
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
-                    <span className="block text-[9px] font-bold tracking-[0.3em] uppercase text-[#c9a96e] mb-2" style={{ fontFamily: "var(--font-inter)" }}>
+                    <span className="block text-[9px] font-bold tracking-[0.3em] uppercase text-[#c9a96e] mb-2" >
                       {category.label}
                     </span>
-                    <h3 className="text-white text-3xl font-semibold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                    <h3 className="text-white text-3xl font-semibold leading-tight" >
                       {category.name}
                     </h3>
                   </div>

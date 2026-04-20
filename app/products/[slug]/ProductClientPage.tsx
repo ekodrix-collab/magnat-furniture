@@ -12,12 +12,14 @@ import {
   ArrowLeft, MessageCircle, Heart, Star, ChevronLeft, ChevronRight, ShoppingBag, ArrowRight
 } from "lucide-react";
 
+import { Product } from "@/lib/types";
+
 export default function ProductClientPage({ 
   product, 
   relatedProducts 
 }: { 
-  product: any;
-  relatedProducts: any[];
+  product: Product | null;
+  relatedProducts: Product[];
 }) {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -31,7 +33,7 @@ export default function ProductClientPage({
       <div className="pt-40 pb-32 bg-[#fafaf9] min-h-screen flex flex-col items-center justify-center">
         <FadeInView>
           <div className="text-center max-w-md">
-            <h1 className="text-5xl font-bold text-[#111111] mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h1 className="text-5xl font-bold text-[#111111] mb-6" >
               Product Not Found
             </h1>
             <p className="text-[#666666] font-light mb-10 leading-relaxed">
@@ -79,7 +81,7 @@ export default function ProductClientPage({
         <div className="hidden md:flex items-center gap-2 text-[11px] font-medium tracking-[0.05em] text-[#666] mb-10">
           <Link href="/" className="hover:text-[#111] transition-colors">Home</Link>
           <span className="text-[#ccc] px-1">{'>'}</span>
-          <Link href={`/products?category=${product.category}`} className="hover:text-[#111] transition-colors">{product.category || 'Collection'}</Link>
+          <Link href={`/products?category=${product.category?.slug || ""}`} className="hover:text-[#111] transition-colors">{product.category?.name || 'Collection'}</Link>
           <span className="text-[#ccc] px-1">{'>'}</span>
           <span className="text-[#111] font-bold">{product.name}</span>
         </div>
@@ -173,7 +175,7 @@ export default function ProductClientPage({
              {/* Category & Like (Desktop) */}
              <div className="hidden md:flex items-center justify-between mb-4">
                 <span className="bg-[#f0f0f0] text-[#666] text-[10px] font-bold tracking-[0.05em] px-4 py-1.5 rounded-full">
-                   {product.category || 'Sofa'}
+                   {product.category?.name || 'Sofa'}
                 </span>
                 <button onClick={() => toggleFavorite(product.slug)} className="text-[#111]">
                    <Heart size={22} fill={liked ? '#111' : 'none'} strokeWidth={1.5} className="transition-all hover:scale-110" />
@@ -182,7 +184,7 @@ export default function ProductClientPage({
 
              {/* Title & Like (Mobile) */}
              <div className="flex md:hidden items-start justify-between mb-2">
-                <h1 className="text-[26px] font-semibold text-[#111] leading-tight" style={{ fontFamily: "var(--font-inter)" }}>
+                <h1 className="text-[26px] font-semibold text-[#111] leading-tight" >
                    {product.name}
                 </h1>
                 <button onClick={() => toggleFavorite(product.slug)} className="text-[#111] mt-1 shrink-0 ml-4">
@@ -191,7 +193,7 @@ export default function ProductClientPage({
              </div>
 
              {/* Desktop Title */}
-             <h1 className="hidden md:block text-[32px] lg:text-[40px] font-semibold text-[#111] leading-tight mb-3" style={{ fontFamily: "var(--font-inter)" }}>
+             <h1 className="hidden md:block text-[32px] lg:text-[40px] font-semibold text-[#111] leading-tight mb-3" >
                 {product.name}
              </h1>
 
@@ -205,13 +207,13 @@ export default function ProductClientPage({
 
              {/* Price (Visible matching the screenshot) */}
              <div className="mb-6">
-                <span className="text-[22px] md:text-[28px] font-semibold text-[#111]" style={{ fontFamily: "var(--font-inter)" }}>
+                <span className="text-[22px] md:text-[28px] font-semibold text-[#111]" >
                    {product.price || "$200.00"}
                 </span>
              </div>
 
              {/* Description (Clamped on mobile, full on desktop) */}
-             <div className="text-[#666] text-[13px] md:text-[14px] leading-[1.7] mb-8 font-light max-w-lg" style={{ fontFamily: "var(--font-inter)" }}>
+             <div className="text-[#666] text-[13px] md:text-[14px] leading-[1.7] mb-8 font-light max-w-lg" >
                 <p className={`${!isExpanded ? 'line-clamp-3 md:line-clamp-none' : ''}`}>
                    {product.description || product.short_description}
                 </p>
@@ -278,10 +280,10 @@ export default function ProductClientPage({
       {relatedProducts && relatedProducts.length > 0 && (
          <div className="max-container px-6 md:px-10 lg:px-16 pt-10 border-t border-[#f0f0f0]">
             <div className="flex justify-between items-center mb-8">
-               <h2 className="text-[20px] md:text-[24px] font-bold text-[#111] uppercase tracking-[-0.02em]" style={{ fontFamily: "var(--font-inter)" }}>
+               <h2 className="text-[20px] md:text-[24px] font-bold text-[#111] uppercase tracking-[-0.02em]" >
                   Related Products
                </h2>
-               <Link href={`/products?category=${product.category}`} className="hidden md:flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] transition-colors border border-[#e0e0e0] px-4 py-2 rounded-full">
+               <Link href={`/products?category=${product.category?.slug || ""}`} className="hidden md:flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] transition-colors border border-[#e0e0e0] px-4 py-2 rounded-full">
                   See all products <ArrowRight size={14} />
                </Link>
             </div>
@@ -294,7 +296,7 @@ export default function ProductClientPage({
             </div>
             
             <div className="mt-8 flex justify-center md:hidden">
-               <Link href={`/products?category=${product.category}`} className="flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] border border-[#e0e0e0] px-6 py-2 rounded-full">
+               <Link href={`/products?category=${product.category?.slug || ""}`} className="flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] border border-[#e0e0e0] px-6 py-2 rounded-full">
                   See all products <ArrowRight size={14} />
                </Link>
             </div>

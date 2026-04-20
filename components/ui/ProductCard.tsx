@@ -3,22 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Product } from "@/lib/types";
 
 interface ProductCardProps {
-  product: {
-    slug: string;
-    name: string;
-    description?: string;
-    short_description?: string;
-    image?: string;
-    images?: string[];
-    material?: string;
-    categoryName?: string;
-    badge?: string | null;
-    isNew?: boolean;
-    isBestseller?: boolean;
-    price?: string;
-  };
+  product: Pick<Product, 'name' | 'slug' | 'images'> & Partial<Product>;
   compact?: boolean;
 }
 
@@ -28,23 +16,24 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     name, 
     description, 
     short_description, 
-    image, 
     images, 
     material, 
-    categoryName, 
+    category, 
     badge,
-    isNew,
-    isBestseller,
+    is_new,
+    is_bestseller,
     price 
   } = product;
 
-  const mainImage = image || images?.[0] || "/images/placeholder-furniture.jpg";
-  const displayDescription = description || short_description;
-  const displayLabel = material || categoryName;
-  const displayBadge = badge || (isNew ? "New Arrival" : isBestseller ? "Best Seller" : null);
+  // Handle both possible sources of images and description
+  const mainImage = images?.[0] || "/images/placeholder-furniture.jpg";
+  const displayDescription = short_description || description;
+  const displayLabel = material || category?.name;
+  const displayBadge = badge || (is_new ? "New Arrival" : is_bestseller ? "Best Seller" : null);
 
   return (
-    <article className={`group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb] h-full`}>
+    <article className={`group border border-[#f0f0f0] rounded-[4px] overflow-hidden flex flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(17,17,17,0.10)] hover:border-[#ebebeb] h-full cursor-pointer`}>
+
       {/* ── Image Container ── */}
       <div className="relative w-full overflow-hidden bg-[#f7f7f5] flex-shrink-0" style={{ aspectRatio: "3/2.8" }}>
         <Image
@@ -68,7 +57,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {displayLabel && (
           <span 
             className="block mb-2 text-[10px] font-medium tracking-[0.25em] uppercase text-[#C0001A] max-sm:text-[8px] max-sm:mb-[5px]" 
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
           >
             {displayLabel}
           </span>
@@ -77,7 +65,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {/* Product Name */}
         <h3 
           className="text-base font-medium leading-snug text-[#111] mb-2 transition-colors duration-300 group-hover:text-[#C0001A] max-sm:text-[0.88rem] max-sm:mb-1.5" 
-          style={{ fontFamily: "var(--font-inter, sans-serif)" }}
         >
           {name}
         </h3>
@@ -86,7 +73,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {displayDescription && (
           <p 
             className="text-sm text-[#666] leading-relaxed mb-4 flex-1 line-clamp-2 max-sm:text-[0.72rem] max-sm:mb-3" 
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
           >
             {displayDescription}
           </p>
@@ -105,7 +91,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link
             href={`/products/${slug}`}
             className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#111] text-white text-sm font-semibold tracking-[0.15em] uppercase px-4 py-3 rounded-[4px] no-underline transition-colors duration-300 hover:bg-[#C0001A] max-sm:py-2.5 max-sm:text-[9px] max-sm:tracking-[0.12em]"
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
             aria-label={`View details for ${name}`}
           >
             Details

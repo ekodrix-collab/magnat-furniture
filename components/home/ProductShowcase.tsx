@@ -43,25 +43,23 @@ export default function ProductShowcase() {
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 lg:mb-24 gap-10">
           <FadeInView className="max-w-2xl">
-            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+            <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" >
               Selected Works
             </span>
-            <h2 className="text-[#1a1a1a] leading-[1.1] mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
+            <h2 className="text-[#1a1a1a] leading-[1.1] mb-6" style={{  fontSize: "clamp(2.5rem, 4.5vw, 3.75rem)", fontWeight: 600 }}>
               The Art of <br />
               <span className="italic">Lived Comfort</span>
             </h2>
             <div className="w-16 h-[1px] bg-[#c9a96e] mb-6" />
-            <p className="text-[#1a1a1a]/55 text-sm leading-relaxed max-w-md font-light" style={{ fontFamily: "var(--font-inter)" }}>
+            <p className="text-[#1a1a1a]/55 text-sm leading-relaxed max-w-md font-light" >
               Explore our most iconic pieces, each representing the intersection of artistic form and rigorous engineering.
             </p>
           </FadeInView>
 
           <FadeInView delay={0.3}>
-            <Link href="/products" className="btn-gold-outline">
-              View All Creations
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+            <Link href="/collections" className="flex items-center gap-4 text-[10px] font-black tracking-[0.3em] uppercase text-[#111] hover:text-[#C0001A] transition-all group">
+              Explore All Collections
+              <div className="w-12 h-[1px] bg-black/10 group-hover:bg-[#C0001A] group-hover:w-16 transition-all" />
             </Link>
           </FadeInView>
         </div>

@@ -56,7 +56,7 @@ export default function TermsPage() {
           {sections.map((section, i) => (
             <FadeInView key={i} delay={i * 0.05}>
               <div className="border-l-2 border-[#C6A969] pl-8">
-                <h3 className="font-playfair text-2xl font-semibold text-[#1A1A1A] mb-4">
+                <h3 className=" text-2xl font-semibold text-[#1A1A1A] mb-4">
                   {section.title}
                 </h3>
                 <p className="text-body font-light leading-loose text-sm">

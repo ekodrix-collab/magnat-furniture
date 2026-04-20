@@ -23,7 +23,7 @@ export default function KondottyShowroom() {
         {/* Left: Text & Features */}
         <div className="lg:w-1/2 space-y-12 relative z-10 text-center lg:text-left">
            <FadeInView>
-              <h2 className="text-5xl lg:text-7xl font-bold text-white leading-none mb-8" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-5xl lg:text-7xl font-bold text-white leading-none mb-8" >
                  Come See It.<br />
                  Feel It. <span className="text-[#C0001A] italic">Own It.</span>
               </h2>
@@ -53,7 +53,7 @@ export default function KondottyShowroom() {
                     <h4 className="text-[9px] font-bold text-[#C0001A] tracking-[0.4em] uppercase">The Flagship Studio</h4>
                     <div className="flex items-start gap-4 text-white">
                        <MapPin size={24} className="text-[#C0001A] shrink-0 mt-1" />
-                       <p className="text-2xl font-semibold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                       <p className="text-2xl font-semibold leading-tight" >
                           Kondotty — Malappuram Road,<br />Next to City Center, Kondotty
                        </p>
                     </div>

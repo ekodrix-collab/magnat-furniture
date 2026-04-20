@@ -55,7 +55,7 @@ export default function CurtainsSection() {
               Dress Your Windows
               <span
                 className="block italic text-[#c9a96e]"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 Like Your Sofas Deserve
               </span>
@@ -94,7 +94,7 @@ export default function CurtainsSection() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.2em] uppercase text-[#1a1a1a] border-b border-[#1a1a1a]/20 pb-[2px] hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors"
-              style={{ fontFamily: "var(--font-inter)" }}
+              
             >
               Request a Swatch Pack
             </Link>
@@ -105,7 +105,7 @@ export default function CurtainsSection() {
         <div className="reveal">
           <p
             className="text-[9px] font-bold tracking-[0.35em] uppercase text-[#5a5a5a] mb-8"
-            style={{ fontFamily: "var(--font-inter)" }}
+            
           >
             Select a Fabric
           </p>
@@ -143,7 +143,7 @@ export default function CurtainsSection() {
                   className={`text-center text-[8px] font-semibold tracking-[0.15em] uppercase leading-tight transition-colors ${
                     active === i ? "text-[#c9a96e]" : "text-[#5a5a5a]"
                   }`}
-                  style={{ fontFamily: "var(--font-inter)" }}
+                  
                 >
                   {swatch.name.split(" ").slice(0, 2).join("\n")}
                 </span>
@@ -164,13 +164,13 @@ export default function CurtainsSection() {
                 <div>
                   <p
                     className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#1a1a1a]"
-                    style={{ fontFamily: "var(--font-inter)" }}
+                    
                   >
                     {swatches[active].name}
                   </p>
                   <p
                     className="text-[9px] tracking-wider text-[#5a5a5a] mt-[2px]"
-                    style={{ fontFamily: "var(--font-inter)" }}
+                    
                   >
                     Available in custom widths &amp; lengths
                   </p>

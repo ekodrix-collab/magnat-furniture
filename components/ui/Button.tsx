@@ -24,10 +24,10 @@ export default function Button({
   const baseStyles = "btn flex items-center justify-center gap-2 transition-all duration-300 active:scale-95";
   
   const variantStyles = {
-    primary: "btn-primary",
-    outline: "btn-outline",
-    gold: "btn-gold",
-    text: "p-0 bg-transparent text-[#1A1A1A] font-semibold uppercase tracking-widest text-sm hover:text-[#8B1E1E]",
+    primary: "bg-[#111] text-[#FCFCFC] uppercase font-bold tracking-widest hover:bg-[#C0001A] rounded-full px-8 py-3",
+    outline: "border border-[#111] text-[#111] uppercase font-bold tracking-widest hover:bg-[#111] hover:text-[#FCFCFC] rounded-full px-8 py-3",
+    gold: "bg-[#c9a96e] text-[#FCFCFC] uppercase font-bold tracking-widest hover:bg-[#111] rounded-full px-8 py-3",
+    text: "p-0 bg-transparent text-[#111] font-bold uppercase tracking-widest text-sm hover:text-[#C0001A]",
   };
 
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${className}`;

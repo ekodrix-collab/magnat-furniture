@@ -34,10 +34,10 @@ export default function VideoSection() {
         
         {/* Header */}
         <FadeInView className="mb-20">
-          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+          <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" >
             The Artisan Way
           </span>
-          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
+          <h2 className="text-[#1a1a1a] leading-none mb-6" style={{  fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 600 }}>
             Stories Behind <span className="italic">The Design</span>
           </h2>
           <div className="w-12 h-[1px] bg-[#c9a96e] mb-6" />
@@ -60,10 +60,10 @@ export default function VideoSection() {
               <div className="absolute inset-x-0 bottom-0 p-10 flex flex-col justify-end h-full">
                 {/* Stat */}
                 <div className="mb-8 overflow-hidden">
-                  <span className="text-[#c9a96e] text-5xl font-bold block leading-none translate-y-2 group-hover:translate-y-0 transition-transform duration-700" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <span className="text-[#c9a96e] text-5xl font-bold block leading-none translate-y-2 group-hover:translate-y-0 transition-transform duration-700" >
                     {story.stat}
                   </span>
-                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 mt-2 block" style={{ fontFamily: "var(--font-inter)" }}>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 mt-2 block" >
                     {story.statLabel}
                   </span>
                 </div>
@@ -72,10 +72,10 @@ export default function VideoSection() {
                 <div className="h-[1px] w-12 bg-[#c9a96e]/40 mb-8 transition-all duration-700 group-hover:w-full" />
                 
                 {/* Title & Description */}
-                <h3 className="text-white text-2xl font-semibold mb-4 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                <h3 className="text-white text-2xl font-semibold mb-4 leading-tight" >
                   {story.title}
                 </h3>
-                <p className="text-white/50 text-[13px] leading-relaxed font-light max-w-xs transition-colors group-hover:text-white/70" style={{ fontFamily: "var(--font-inter)" }}>
+                <p className="text-white/50 text-[13px] leading-relaxed font-light max-w-xs transition-colors group-hover:text-white/70" >
                   {story.description}
                 </p>
               </div>

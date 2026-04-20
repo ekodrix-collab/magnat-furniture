@@ -27,10 +27,10 @@ export default function HighlightCards() {
       <div className="max-w-[1600px] mx-auto">
         
         <FadeInView className="mb-16">
-           <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" style={{ fontFamily: "var(--font-inter)" }}>
+           <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase mb-4 block" >
             Curated Spaces
           </span>
-          <h2 className="text-[#1a1a1a] leading-none" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 600 }}>
+          <h2 className="text-[#1a1a1a] leading-none" style={{  fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 600 }}>
              Articulated <span className="italic">Lifestyles</span>
           </h2>
           <div className="mt-6 w-12 h-[1px] bg-[#c9a96e]" />
@@ -54,10 +54,10 @@ export default function HighlightCards() {
                 {/* Content Box — Editorial Vertical Layout */}
                 <div className="absolute inset-0 p-10 lg:p-14 flex flex-col items-start justify-end pointer-events-none">
                    <div className="bg-white/95 backdrop-blur-sm p-8 lg:p-10 max-w-sm border border-black/5 translate-y-6 group-hover:translate-y-0 transition-all duration-700">
-                      <h3 className="text-[#1a1a1a] text-2xl lg:text-3xl font-semibold mb-3 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                      <h3 className="text-[#1a1a1a] text-2xl lg:text-3xl font-semibold mb-3 leading-tight" >
                         {item.title}
                       </h3>
-                      <p className="text-[#1a1a1a]/60 text-sm font-light leading-relaxed mb-8" style={{ fontFamily: "var(--font-inter)" }}>
+                      <p className="text-[#1a1a1a]/60 text-sm font-light leading-relaxed mb-8" >
                         {item.description}
                       </p>
                       <span className="text-[#c9a96e] text-[9px] font-bold tracking-[0.3em] uppercase flex items-center gap-3">

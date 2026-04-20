@@ -41,13 +41,13 @@ export default function FavoritesPage() {
         
         <FadeInView>
           <div className="mb-12">
-            <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] font-bold mb-3" style={{ fontFamily: "var(--font-inter)" }}>
+            <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] font-bold mb-3" >
               Your Collection
             </span>
-             <h1 className="text-[40px] md:text-[50px] text-[#111111] leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+             <h1 className="text-[40px] md:text-[50px] text-[#111111] leading-tight" >
                 Saved Favorites
              </h1>
-             <p className="text-[#666666] text-sm mt-3" style={{ fontFamily: "var(--font-inter)" }}>
+             <p className="text-[#666666] text-sm mt-3" >
                 {favorites.length} {favorites.length === 1 ? 'item' : 'items'} saved to your personal collection.
              </p>
           </div>
@@ -61,14 +61,14 @@ export default function FavoritesPage() {
           <FadeInView delay={0.2}>
             <div className="bg-white rounded-2xl p-16 text-center border border-[#f0f0f0] shadow-sm flex flex-col items-center">
               <HeartCrack size={48} className="text-[#e0e0e0] mb-6" strokeWidth={1} />
-              <h2 className="text-xl font-medium text-[#111111] mb-3" style={{ fontFamily: "var(--font-playfair)" }}>Your favorites list is empty</h2>
-              <p className="text-[#666666] text-sm mb-8 max-w-sm" style={{ fontFamily: "var(--font-inter)" }}>
+              <h2 className="text-xl font-medium text-[#111111] mb-3" >Your favorites list is empty</h2>
+              <p className="text-[#666666] text-sm mb-8 max-w-sm" >
                 Explore our catalog and click the heart icon on any product to save it here for later.
               </p>
               <Link 
                 href="/products/sofas" 
                 className="bg-[#111111] text-white px-8 py-3.5 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors hover:bg-[#C0001A] inline-flex items-center gap-2"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Browse Collection <ArrowRight size={14} />
               </Link>
@@ -98,7 +98,7 @@ export default function FavoritesPage() {
                           {product.category || 'Furniture'}
                         </span>
                         <Link href={`/products/${product.slug}`}>
-                          <h3 className="text-xl text-[#111111] hover:text-[#C0001A] transition-colors mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
+                          <h3 className="text-xl text-[#111111] hover:text-[#C0001A] transition-colors mb-2" >
                             {product.name}
                           </h3>
                         </Link>
@@ -113,7 +113,7 @@ export default function FavoritesPage() {
                       </button>
                     </div>
                     
-                    <p className="text-[#666666] text-sm line-clamp-2 mt-1 mb-4 max-w-lg" style={{ fontFamily: "var(--font-inter)" }}>
+                    <p className="text-[#666666] text-sm line-clamp-2 mt-1 mb-4 max-w-lg" >
                       {product.short_description || product.description}
                     </p>
                     

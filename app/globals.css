@@ -6,23 +6,28 @@
    ============================================ */
 
 @theme {
-  /* Core Brand Colors (Standardized Luxury) */
+  /* Core Brand Colors (Soft & Premium) */
   --color-red: #C0001A;
   --color-gold-classic: #c9a96e;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9f9f9;
+  --color-bg-primary: #FCFCFC;
+  --color-bg-secondary: #FAF8F6;
   --color-bg-dark: #111111;
   --color-text-main: #111111;
   --color-text-muted: #666666;
   --color-border-subtle: #eeeeee;
   
   /* Typography */
-  --font-playfair: "Playfair Display", "Georgia", serif;
+  --font-lato: "Lato", "Helvetica Neue", sans-serif;
   --font-inter: "Inter", "Helvetica Neue", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  /* Premium Elevations */
+  --shadow-luxury: 0 10px 40px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02);
+  --shadow-mega: 0 40px 100px -20px rgba(0, 0, 0, 0.1), 0 20px 50px -10px rgba(0, 0, 0, 0.05);
 
   /* Spacing */
-  --spacing-section: 10rem;
-  --spacing-section-sm: 6rem;
+  --spacing-section: 5rem; /* py-20 */
+  --spacing-section-sm: 3rem; /* py-12 */
 
   /* Transitions */
   --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -33,13 +38,13 @@
    ============================================ */
 
 body {
-  background-color: #ffffff;
+  background-color: #FCFCFC;
   color: #111111;
   font-family: var(--font-inter), sans-serif;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 @media (max-width: 768px) {
@@ -49,8 +54,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair), serif;
-  font-weight: 600;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.25;
 }
@@ -72,7 +77,7 @@ h2 {
 
 @media (min-width: 1024px) {
   h1 { font-size: 44px; margin-bottom: 1.5rem; }
-  h2 { font-size: 30px; margin-bottom: 1.5rem; }
+  h2 { font-size: 48px; margin-bottom: 1.5rem; }
 }
 
 h3 { font-size: clamp(18px, 3vw, 20px); }
@@ -178,6 +183,9 @@ button {
 }
 
 .heading-title {
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-style: italic;
   font-size: 36px;
   line-height: 1.1;
   margin-bottom: 1rem;
@@ -207,8 +215,9 @@ button {
   font-size: 28px;
   line-height: 1.2;
   margin-bottom: 1rem;
-  font-family: var(--font-playfair), serif;
-  font-weight: 600;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
 @media (min-width: 768px) {
@@ -220,16 +229,45 @@ button {
 }
 
 .section-subtitle {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #666;
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.7;
+  color: #111111;
+  opacity: 0.6;
   font-family: var(--font-inter), sans-serif;
-  max-width: 600px;
+  max-width: 650px;
+  font-weight: 400;
+}
+
+/* Premium Image Container */
+.premium-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: #f6f6f6;
+  transition: all 0.7s var(--ease-luxury);
+}
+
+.premium-image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.premium-image-wrapper:hover::after {
+  opacity: 1;
 }
 
 /* ============================================
    UTILITIES
    ============================================ */
+
+.font-number {
+  font-family: var(--font-outfit), sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
 
 .max-container {
   width: 100%;
@@ -302,6 +340,28 @@ button {
   background: #111111;
 }
 
+/* ============================================
+   KONDOTTY GALLERY MARQUEE
+   ============================================ */
+
+@keyframes marqueeGallery {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marqueeGallery 60s linear infinite;
+  animation-play-state: running;
+}
+
+.marquee-track.paused {
+  animation-play-state: paused;
+}
+
 /* WhatsApp Pulse Animation */
 @keyframes whatsapp-pulse {
   0% {
@@ -317,7 +377,9 @@ button {
 
 .whatsapp-pulse {
   animation: whatsapp-pulse 2s infinite;
-}/* ============================================
+}
+
+/* ============================================
    ENHANCED WHATSAPP & FLOATING ELEMENTS
    ============================================ */
 
