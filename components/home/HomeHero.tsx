@@ -93,6 +93,7 @@ export default function HomeHero({
   useEffect(() => {
     async function loadSlides() {
       if (!initialSlides) {
+        const fetched = await getHeroSlides();
         setSlides(fetched as HeroSlide[]);
       }
     }
