@@ -80,13 +80,13 @@ export default function ShowroomSection() {
             <div className="inline-flex flex-col border border-[#c9a96e]/30 px-5 py-4">
               <span
                 className="text-[#c9a96e] text-[8px] tracking-[0.45em] uppercase mb-1"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Experience
               </span>
               <span
                 className="text-white text-xl font-semibold leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 Our Flagship
                 <br />
@@ -101,7 +101,7 @@ export default function ShowroomSection() {
 
           <span
             className="text-[#c9a96e] text-[8px] font-bold tracking-[0.45em] uppercase mb-6 block"
-            style={{ fontFamily: "var(--font-inter)" }}
+            
           >
             Visit Us
           </span>
@@ -109,7 +109,7 @@ export default function ShowroomSection() {
           <h2
             className="text-white font-semibold leading-[1.1] mb-2"
             style={{
-              fontFamily: "var(--font-playfair)",
+              
               fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
             }}
           >
@@ -123,13 +123,13 @@ export default function ShowroomSection() {
             <div>
               <p
                 className="text-[8px] font-bold tracking-[0.35em] uppercase text-white/30 mb-2"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Address
               </p>
               <p
                 className="text-white/65 text-sm leading-relaxed font-light"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 123 Luxury Avenue
                 <br />
@@ -142,13 +142,13 @@ export default function ShowroomSection() {
             <div>
               <p
                 className="text-[8px] font-bold tracking-[0.35em] uppercase text-white/30 mb-2"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Opening Hours
               </p>
               <p
                 className="text-white/65 text-sm leading-relaxed font-light"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Monday – Saturday
                 <br />
@@ -161,14 +161,14 @@ export default function ShowroomSection() {
             <div>
               <p
                 className="text-[8px] font-bold tracking-[0.35em] uppercase text-white/30 mb-2"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Phone
               </p>
               <a
                 href="tel:+919074477358"
                 className="text-white/65 text-sm hover:text-[#c9a96e] transition-colors font-light"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 +91 9074477358
               </a>
@@ -177,14 +177,14 @@ export default function ShowroomSection() {
             <div>
               <p
                 className="text-[8px] font-bold tracking-[0.35em] uppercase text-white/30 mb-2"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 Email
               </p>
               <a
                 href="mailto:info@magnat.in"
                 className="text-white/65 text-sm hover:text-[#c9a96e] transition-colors font-light"
-                style={{ fontFamily: "var(--font-inter)" }}
+                
               >
                 info@magnat.in
               </a>
@@ -201,7 +201,7 @@ export default function ShowroomSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-white/40 hover:text-white text-[9px] font-semibold tracking-[0.25em] uppercase transition-colors border-b border-white/15 hover:border-white/45 pb-[2px]"
-              style={{ fontFamily: "var(--font-inter)" }}
+              
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />

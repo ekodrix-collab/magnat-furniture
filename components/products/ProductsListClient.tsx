@@ -61,7 +61,6 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 border border-[#eeeeee] rounded-lg text-sm focus:outline-none focus:border-[#C0001A] transition-colors"
-                  style={{ fontFamily: "var(--font-inter)" }}
                 />
               </div>
 
@@ -70,7 +69,6 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-4 py-3 border border-[#eeeeee] rounded-lg text-xs font-medium uppercase tracking-wider focus:outline-none focus:border-[#C0001A] transition-colors cursor-pointer"
-                  style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {sortOptions.map(option => (
                     <option key={option} value={option}>{option}</option>
@@ -116,7 +114,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
                      className={`relative text-xs font-bold tracking-[0.2em] uppercase transition-all whitespace-nowrap pb-2 group ${
                        activeCategory === cat ? "text-[#111111]" : "text-[#666666] hover:text-[#111111]"
                      }`}
-                     style={{ fontFamily: "var(--font-inter)" }}
+                     
                    >
                      {cat}
                      <span className={`absolute bottom-0 left-0 h-0.5 bg-[#C0001A] transition-all duration-300 ${
@@ -156,7 +154,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
         <div className="max-container">
            <FadeInView>
              <div className="flex items-center justify-between mb-8">
-               <p className="text-sm text-[#666666]" style={{ fontFamily: "var(--font-inter)" }}>
+               <p className="text-sm text-[#666666]">
                  Showing <span className="font-semibold text-[#111111]">{sortedProducts.length}</span> of {initialProducts.length} pieces
                </p>
              </div>
@@ -189,7 +187,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#f9f9f9] flex items-center justify-center">
                      <Search className="text-[#666666]" size={28} />
                    </div>
-                   <h3 className="text-2xl font-semibold mb-3" style={{ fontFamily: "var(--font-playfair)" }}>
+                   <h3 className="text-2xl font-semibold mb-3">
                      No pieces found
                    </h3>
                    <p className="text-[#666666] mb-8 max-w-md mx-auto">

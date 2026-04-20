@@ -12,12 +12,12 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-[#F7F4F0] flex items-center justify-center p-6 antialiased relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
-         <div 
-            className="w-full h-full"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-         />
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
 
       <motion.div
@@ -52,8 +52,8 @@ export default function AdminLoginPage() {
           <form action={action} className="space-y-6">
             <div className="space-y-5">
               <div className="space-y-2">
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="text-[#111] text-[10px] font-bold uppercase tracking-widest ml-1"
                 >
                   Email Address
@@ -72,18 +72,18 @@ export default function AdminLoginPage() {
               </div>
 
               <div className="space-y-2">
-                <label 
-                  htmlFor="password" 
+                <label
+                  htmlFor="password"
                   className="text-[#111] text-[10px] font-bold uppercase tracking-widest ml-1"
                 >
                   Password
                 </label>
                 <div className="relative">
-                   <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-0.5 opacity-40">
-                      <div className="w-1 h-1 rounded-full bg-[#111]" />
-                      <div className="w-1 h-1 rounded-full bg-[#111]" />
-                      <div className="w-1 h-1 rounded-full bg-[#111]" />
-                   </div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 flex gap-0.5 opacity-40">
+                    <div className="w-1 h-1 rounded-full bg-[#111]" />
+                    <div className="w-1 h-1 rounded-full bg-[#111]" />
+                    <div className="w-1 h-1 rounded-full bg-[#111]" />
+                  </div>
                   <input
                     id="password"
                     name="password"
@@ -118,7 +118,7 @@ export default function AdminLoginPage() {
                 </span>
               ) : (
                 <>
-                  Confirm Credentials 
+                  Confirm Credentials
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -126,10 +126,10 @@ export default function AdminLoginPage() {
           </form>
 
         </div>
-        
+
         <div className="mt-8 text-center">
           <p className="text-[#666] text-[9px] uppercase tracking-widest leading-relaxed font-semibold">
-            Magnat Premium Furniture & Interiors <br /> 
+            Magnat Premium Furniture & Interiors <br />
             © <span className="font-light tracking-wide">{new Date().getFullYear()}</span> Engineered for Production
           </p>
         </div>

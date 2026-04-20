@@ -64,7 +64,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Cinematic Content</h3>
-            
+
             <div className="space-y-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Headline</label>
@@ -93,7 +93,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
 
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Imagery</h3>
-            
+
             <div className="space-y-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Image URL</label>
@@ -105,7 +105,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
                   className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-mono"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Image Alt Text (SEO)</label>
                 <input
@@ -123,7 +123,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
         <div className="space-y-8">
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm sticky top-8">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C0001A] mb-6">Configuration</h3>
-            
+
             <div className="space-y-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Sort Order</label>
@@ -138,9 +138,9 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
               <div>
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div className="relative inline-flex items-center">
-                    <input 
-                      type="checkbox" 
-                      name="is_active_check" 
+                    <input
+                      type="checkbox"
+                      name="is_active_check"
                       defaultChecked={slide?.is_active ?? true}
                       className="sr-only peer"
                       onChange={(e) => {
@@ -159,7 +159,7 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
 
           <div className="p-6 bg-[#F9F9F9] rounded-none border border-dashed border-[#eeeeee] text-center">
             <ImageIcon className="mx-auto text-body/20 mb-3" size={32} />
-            <p className="text-[10px] text-body/60 font-medium">Recommended size:<br/>2600 x 1400px (16:9)</p>
+            <p className="text-[10px] text-body/60 font-medium">Recommended size:<br />2600 x 1400px (16:9)</p>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
   if (isDeleting) return null;
 
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           </div>
         )}
       </div>
-      
+
       <div className="p-6 flex flex-col flex-1">
         <h3 className="font-playfair text-xl font-bold text-[#111111] mb-2">{category.name}</h3>
         <p className="text-xs text-body leading-relaxed font-light mb-6 opacity-60 italic line-clamp-2">
@@ -65,13 +65,13 @@ export default function CategoryCard({ category }: CategoryCardProps) {
             /{category.slug}
           </span>
           <div className="flex items-center gap-2">
-            <Link 
+            <Link
               href={`/admin/categories/${category.id}`}
               className="p-2 text-body/40 hover:text-[#C0001A] transition-colors"
             >
               <Edit2 size={16} />
             </Link>
-            <button 
+            <button
               onClick={handleDelete}
               className="p-2 text-body/40 hover:text-[#C0001A] transition-colors"
             >

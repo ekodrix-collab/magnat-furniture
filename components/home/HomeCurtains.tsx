@@ -1,145 +1,187 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { ProcessStep } from "@/lib/types";
 
 const FALLBACK_STEPS: ProcessStep[] = [
   {
     id: "1",
     step_number: "01",
-    label: "Design & Selection",
-    title: "Crafting Your Vision",
-    description: "Our designers sit with you to understand your space, lifestyle, and aesthetic — translating ideas into detailed blueprints.",
-    tag: "Expert Design",
-    image_url: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    label: "Consultation & Measurement",
+    title: "Consultation & Measurement",
+    description: "We understand your needs and take accurate measurements — online or on-site visit.",
+    tag: "Step 01",
+    image_url: "",
     sort_order: 0,
   },
   {
     id: "2",
     step_number: "02",
-    label: "Material Sourcing",
-    title: "Only the Finest Materials",
-    description: "Premium timber, imported fabrics and precision hardware — handpicked from trusted global suppliers for every project.",
-    tag: "Top Quality",
-    image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop",
+    label: "Design & Quote",
+    title: "Design & Quote",
+    description: "Custom design with clear pricing, materials, and full details shared upfront.",
+    tag: "Step 02",
+    image_url: "",
     sort_order: 1,
   },
   {
     id: "3",
     step_number: "03",
-    label: "Artisan Craftsmanship",
-    title: "Built by Master Hands",
-    description: "Each piece is hand-cut, joined and finished in our Kondotty workshop — with decades of expertise guiding every detail.",
-    tag: "Handcrafted",
-    image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    label: "Production",
+    title: "Production",
+    description: "Crafted with precision using quality wood and raw materials by our artisans.",
+    tag: "Step 03",
+    image_url: "",
     sort_order: 2,
   },
   {
     id: "4",
     step_number: "04",
-    label: "White Glove Delivery",
-    title: "Delivered with Care",
-    description: "We deliver, install, and position every piece personally — your satisfaction is the final signature on every project.",
-    tag: "5-Star Service",
-    image_url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop",
+    label: "Delivery & Setup",
+    title: "Delivery & Setup",
+    description: "Safe delivery and proper installation done at your space.",
+    tag: "Step 04",
+    image_url: "",
     sort_order: 3,
   },
 ];
 
-/* ── Card Component ── */
-function StepCard({
-  step,
-  index,
-  triggered,
-}: {
+const STEP_ICONS = [
+  // Consultation
+  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} width={20} height={20}>
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>,
+  // Design
+  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} width={20} height={20}>
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+  </svg>,
+  // Production
+  <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} width={20} height={20}>
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+  </svg>,
+  // Delivery
+  <svg key="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} width={20} height={20}>
+    <rect x="1" y="3" width="15" height="13" rx="1" />
+    <path d="M16 8h4l3 5v3h-7V8z" />
+    <circle cx="5.5" cy="18.5" r="2.5" />
+    <circle cx="18.5" cy="18.5" r="2.5" />
+  </svg>,
+];
+
+// 🖥️ DESKTOP: Card Component (Grid Layout)
+function StepCard({ step, index, triggered }: {
   step: ProcessStep;
   index: number;
   triggered: boolean;
 }) {
-  const delay = index * 0.18 + 0.4;
+  const delay = index * 0.1;
 
   return (
     <div
-      className="flex flex-col bg-[#f7f7f3] rounded-2xl overflow-hidden group cursor-default"
+      className="group relative bg-white rounded-2xl p-8 border border-gray-100 
+                 hover:shadow-xl transition-all duration-300 cursor-pointer text-center"
       style={{
         opacity: triggered ? 1 : 0,
-        transform: triggered ? "translateY(0px)" : "translateY(48px)",
-        transition: `opacity 1s ease ${delay}s, transform 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-        flex: "1 1 0",
-        minWidth: 0,
+        transform: triggered ? "translateY(0)" : "translateY(40px)",
+        transition: `all 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
       }}
     >
-      {/* Image area */}
-      <div className="relative overflow-hidden" style={{ height: "clamp(140px, 18vw, 200px)" }}>
-        <img
-          src={step.image_url || "/images/placeholder-furniture.jpg"}
-          alt={step.title}
-          loading="lazy"
-          className="w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
-          style={{
-            filter: "saturate(0.85) contrast(0.95)",
-            transform: triggered ? "scale(1)" : "scale(1.1)",
-            transition: `transform 1.6s cubic-bezier(0.22,1,0.36,1) ${delay + 0.1}s, filter 0.4s ease`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+      {/* Step number label */}
+      <span
+        className="block text-[10px] font-bold tracking-[.25em] text-[#C0001A] mb-5 uppercase"
+        style={{ fontFamily: "var(--font-inter)" }}
+      >
+        {step.step_number}
+      </span>
 
-        <div
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{
-            background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.9) 50%, transparent 80%)",
-            transform: triggered ? "translateX(150%) scale(1.5)" : "translateX(-150%) scale(1.5)",
-            transition: triggered ? `transform 1.2s ease-in-out ${delay + 0.3}s` : "none",
-          }}
-        />
-
-        <div className="absolute top-3 left-3">
-          <span
-            className="text-white/90 font-bold"
-            style={{ fontFamily: "var(--font-playfair)", fontSize: "11px", letterSpacing: "0.2em" }}
-          >
-            {step.step_number}
-          </span>
-        </div>
+      {/* Icon box */}
+      <div
+        className="w-14 h-14 rounded-full flex items-center justify-center mb-6 mx-auto
+                   text-[#111] border border-gray-100 group-hover:bg-[#C0001A] group-hover:text-white 
+                   transition-all duration-300 shadow-sm"
+      >
+        {STEP_ICONS[index]}
       </div>
 
-      <div className="p-5 flex flex-col gap-2 flex-1">
-        <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">{step.label}</p>
-        <h3
-          className="font-bold text-[#111] leading-snug"
-          style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(15px, 1.6vw, 19px)", lineHeight: 1.3 }}
+      {/* Title */}
+      <h3
+        className="text-xl font-bold text-[#111] mb-3 group-hover:text-[#C0001A] 
+                   transition-colors leading-snug"
+      >
+        {step.title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-sm leading-relaxed text-gray-500">
+        {step.description}
+      </p>
+
+      {/* Accent line on hover */}
+      <div className="absolute bottom-0 left-0 h-1 bg-[#C0001A] w-0 group-hover:w-full transition-all duration-500 rounded-b-2xl" />
+    </div>
+  );
+}
+
+// 📱 MOBILE: Timeline Component (Vertical Stepper)
+function TimelineStep({ step, index, isLast, triggered }: {
+  step: ProcessStep;
+  index: number;
+  isLast: boolean;
+  triggered: boolean;
+}) {
+  const delay = index * 0.15;
+
+  return (
+    <div
+      className="relative flex gap-4"
+      style={{
+        opacity: triggered ? 1 : 0,
+        transform: triggered ? "translateX(0)" : "translateX(-20px)",
+        transition: `all 0.5s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+      }}
+    >
+      {/* Timeline Line & Dot */}
+      <div className="flex flex-col items-center">
+        {/* Dot/Circle with Icon */}
+        <div className="relative z-10 w-12 h-12 rounded-full bg-white border-2 border-[#C0001A] 
+                        flex items-center justify-center text-[#C0001A] shadow-md flex-shrink-0">
+          {STEP_ICONS[index]}
+        </div>
+
+        {/* Connecting Line (except for last item) */}
+        {!isLast && (
+          <div className="w-0.5 flex-1 bg-gradient-to-b from-[#C0001A] to-gray-300 mt-2"
+            style={{ minHeight: '60px' }} />
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pb-10">
+        {/* Step Number */}
+        <span
+          className="inline-block text-[9px] font-bold tracking-[.2em] text-[#C0001A] mb-2 uppercase"
+          style={{ fontFamily: "var(--font-inter)" }}
         >
+          {step.step_number}
+        </span>
+
+        {/* Title */}
+        <h3 className="text-lg font-bold text-[#111] mb-2 leading-tight">
           {step.title}
         </h3>
-        <p className="text-black/45 text-xs leading-relaxed flex-1 mt-1">{step.description}</p>
 
-        <span className="mt-3 self-start inline-block text-[10px] font-semibold text-black/40 bg-white border border-black/8 px-3 py-1.5 rounded-full tracking-wide">
-          {step.tag}
-        </span>
+        {/* Description */}
+        <p className="text-sm leading-relaxed text-gray-600">
+          {step.description}
+        </p>
       </div>
     </div>
   );
 }
 
-function ProgressDot({ index, triggered }: { index: number; triggered: boolean }) {
-  return (
-    <div
-      className="hidden lg:flex shrink-0 items-center justify-center w-8"
-      style={{
-        opacity: triggered ? 1 : 0,
-        transform: triggered ? "scale(1)" : "scale(0.4)",
-        transition: `opacity 0.6s ease ${index * 0.18 + 0.75}s, transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${index * 0.18 + 0.75}s`,
-      }}
-    >
-      <div className="flex flex-col items-center gap-1">
-        <div className="w-[1px] h-3 bg-black/10 rounded-full" />
-        <div className="w-2.5 h-2.5 rounded-full border-2 border-black/15 bg-white shadow-sm" />
-        <div className="w-[1px] h-3 bg-black/10 rounded-full" />
-      </div>
-    </div>
-  );
-}
-
+// 🎯 MAIN COMPONENT
 export default function HomeCurtains({ steps }: { steps?: ProcessStep[] }) {
   const activeSteps = steps && steps.length > 0 ? steps : FALLBACK_STEPS;
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -148,120 +190,43 @@ export default function HomeCurtains({ steps }: { steps?: ProcessStep[] }) {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
-    const fallback = setTimeout(() => setTriggered(true), 1500);
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true);
-          clearTimeout(fallback);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.05, rootMargin: "0px 0px 0px 0px" }
+      ([entry]) => { if (entry.isIntersecting) setTriggered(true); },
+      { threshold: 0.1 }
     );
     observer.observe(el);
-    return () => {
-      observer.disconnect();
-      clearTimeout(fallback);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="hidden bg-white lg:block border-t border-black/5"
-    >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 py-10 md:py-14">
+    <section ref={sectionRef} className="bg-[#FCFCFC] py-12 md:py-20">
+      <div className="max-container px-4">
+        <SectionHeading
+          label="Our Process"
+          titlePart1="How It"
+          titlePart2="Works"
+          subtitle="A seamless journey from inspiration to installation, ensuring every detail reflects the Magnat standard of luxury."
+          className="mb-10 md:mb-16"
+        />
 
-        <div className="text-center px-6 pt-12 pb-10 md:pt-16 md:pb-12">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/8 bg-[#f5f5f0] mb-7"
-            style={{
-              opacity: triggered ? 1 : 0,
-              transform: triggered ? "scale(1) translateY(0)" : "scale(0.85) translateY(8px)",
-              transition: "opacity 0.7s ease 0.25s, transform 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.25s",
-            }}
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-[#C0001A]" />
-            <span className="text-[10px] font-semibold text-black/45 tracking-[0.22em] uppercase">
-              How It Works
-            </span>
-          </div>
-
-          <div
-            style={{
-              opacity: triggered ? 1 : 0,
-              transform: triggered ? "translateY(0)" : "translateY(24px)",
-              transition: "opacity 0.9s ease 0.38s, transform 0.9s cubic-bezier(0.22,1,0.36,1) 0.38s",
-            }}
-          >
-            <h2
-              className="font-bold text-[#111] leading-tight mb-3"
-              style={{
-                fontFamily: "var(--font-playfair)",
-                fontSize: "clamp(26px, 4vw, 50px)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Your Path to a{" "}
-              <span className="italic font-normal text-black/28">Perfect Home</span>
-            </h2>
-            <p
-              className="text-black/40 font-light max-w-md mx-auto leading-relaxed"
-              style={{ fontSize: "clamp(13px, 1.5vw, 16px)" }}
-            >
-              A seamless journey from inspiration to installation — handled with care at every step.
-            </p>
-          </div>
+        {/* 📱 MOBILE: Vertical Timeline */}
+        <div className="md:hidden px-2">
+          {activeSteps.map((step, i) => (
+            <TimelineStep
+              key={step.id}
+              step={step}
+              index={i}
+              isLast={i === activeSteps.length - 1}
+              triggered={triggered}
+            />
+          ))}
         </div>
 
-        <div className="px-4 sm:px-6 md:px-8 pb-10 md:pb-12">
-          {/* Desktop row */}
-          <div className="hidden lg:flex items-stretch gap-0">
-            {activeSteps.map((step, i) => (
-              <div key={step.id} className="flex items-stretch flex-1 min-w-0">
-                <StepCard step={step} index={i} triggered={triggered} />
-                {i < activeSteps.length - 1 && (
-                  <ProgressDot index={i} triggered={triggered} />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile stack */}
-          <div className="lg:hidden flex flex-col gap-5">
-            {activeSteps.map((step, i) => (
-              <div
-                key={step.id}
-                className="flex flex-col sm:flex-row gap-4 bg-[#f7f7f3] rounded-2xl overflow-hidden"
-                style={{
-                  opacity: triggered ? 1 : 0,
-                  transform: triggered ? "translateY(0)" : "translateY(32px)",
-                  transition: `opacity 0.9s ease ${i * 0.14 + 0.35}s, transform 0.9s cubic-bezier(0.22,1,0.36,1) ${i * 0.14 + 0.35}s`,
-                }}
-              >
-                <div className="relative overflow-hidden rounded-none sm:rounded-2xl sm:w-44 shrink-0" style={{ height: "180px" }}>
-                  <img
-                    src={step.image_url || "/images/placeholder-furniture.jpg"}
-                    alt={step.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent sm:bg-gradient-to-r" />
-                  <span className="absolute top-3 left-4 text-white/80 font-bold" style={{ fontSize: "11px", letterSpacing: "0.2em" }}>
-                    {step.step_number}
-                  </span>
-                </div>
-                <div className="p-5 flex flex-col justify-center gap-2">
-                  <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">{step.label}</p>
-                  <h3 className="font-bold text-[#111] leading-snug" style={{ fontSize: "18px" }}>{step.title}</h3>
-                  <p className="text-black/45 text-xs leading-relaxed">{step.description}</p>
-                  <span className="mt-1 self-start text-[10px] font-semibold text-black/40 bg-white border border-black/8 px-3 py-1.5 rounded-full">{step.tag}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* 🖥️ DESKTOP: 4-Column Grid */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {activeSteps.map((step, i) => (
+            <StepCard key={step.id} step={step} index={i} triggered={triggered} />
+          ))}
         </div>
       </div>
     </section>

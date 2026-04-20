@@ -19,7 +19,7 @@ const IconMap: Record<string, any> = {
 export default function AdminDashboardClient({ stats, recentInquiries }: AdminDashboardClientProps) {
   return (
     <div className="font-inter space-y-10">
-      
+
       {/* ── STATS GRID ── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, i) => {
@@ -34,12 +34,12 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
             >
               {/* Subtle accent line */}
               <div className="absolute top-0 left-0 w-full h-[2px] bg-[#111] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
-              
+
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                   <div className="h-10 w-10 flex items-center justify-center bg-[#F7F4F0] text-[#111]">
-                     <Icon size={18} strokeWidth={1.5} />
-                   </div>
+                  <div className="h-10 w-10 flex items-center justify-center bg-[#F7F4F0] text-[#111]">
+                    <Icon size={18} strokeWidth={1.5} />
+                  </div>
                 </div>
                 <div className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest ${stat.isPositive ? 'text-green-600' : 'text-red-500'}`}>
                   {stat.isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
@@ -54,22 +54,22 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-        
+
         {/* ── RECENT INQUIRIES ── */}
         <div className="xl:col-span-2 space-y-6">
           <div className="flex items-center justify-between border-b border-[#eeeeee] pb-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">Recent Lead Inquiries</h3>
             <Link href="/admin/inquiries" className="text-[10px] font-bold uppercase tracking-widest text-[#C0001A] hover:text-[#111] transition-colors flex items-center gap-1 group">
-               View All <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
+              View All <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-          
+
           <div className="bg-white border border-[#eeeeee]">
             {recentInquiries.length > 0 ? (
               <div className="divide-y divide-[#eeeeee]">
                 {recentInquiries.map((inquiry, i) => (
-                  <motion.div 
-                    key={inquiry.id} 
+                  <motion.div
+                    key={inquiry.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 + (i * 0.1) }}
@@ -85,10 +85,9 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
                       </div>
                     </div>
                     <div className="flex flex-col items-end gap-2">
-                       <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest ${
-                        inquiry.status === "new" ? "bg-[#C0001A] text-white" : 
-                        inquiry.status === "contacted" ? "bg-[#111] text-white" : "bg-[#F7F4F0] text-[#111]"
-                      }`}>
+                      <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest ${inquiry.status === "new" ? "bg-[#C0001A] text-white" :
+                          inquiry.status === "contacted" ? "bg-[#111] text-white" : "bg-[#F7F4F0] text-[#111]"
+                        }`}>
                         {inquiry.status || "New"}
                       </span>
                       <span className="text-[10px] text-[#666] uppercase tracking-widest">
@@ -111,31 +110,31 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
           <div className="border-b border-[#eeeeee] pb-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">Quick Actions</h3>
           </div>
-          
+
           <div className="grid gap-3">
             <Link href="/admin/products/new" className="flex items-center p-5 bg-[#111] text-white group hover:bg-[#C0001A] transition-colors">
               <div className="bg-white/10 p-2 mr-4">
-                 <ShoppingBag size={18} strokeWidth={1.5} />
+                <ShoppingBag size={18} strokeWidth={1.5} />
               </div>
               <span className="text-[11px] font-bold uppercase tracking-widest">New Product</span>
             </Link>
 
             <Link href="/admin/media" className="flex items-center p-5 bg-white border border-[#eeeeee] text-[#111] group hover:border-[#111] transition-colors">
               <div className="bg-[#F7F4F0] p-2 mr-4">
-                 <ImageIcon size={18} strokeWidth={1.5} />
+                <ImageIcon size={18} strokeWidth={1.5} />
               </div>
               <span className="text-[11px] font-bold uppercase tracking-widest">Upload Media</span>
             </Link>
 
             <Link href="/admin/testimonials" className="flex items-center p-5 bg-white border border-[#eeeeee] text-[#111] group hover:border-[#111] transition-colors">
               <div className="bg-[#F7F4F0] p-2 mr-4">
-                 <Users size={18} strokeWidth={1.5} />
+                <Users size={18} strokeWidth={1.5} />
               </div>
               <span className="text-[11px] font-bold uppercase tracking-widest">Manage Testimonials</span>
             </Link>
           </div>
         </div>
-        
+
       </div>
     </div>
   );

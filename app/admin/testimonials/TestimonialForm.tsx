@@ -80,9 +80,9 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
             <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
               <Quote size={120} />
             </div>
-            
+
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C0001A] mb-2">Client Experience</h3>
-            
+
             <div className="space-y-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/60">The Customer Quote</label>
@@ -106,8 +106,8 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                       onClick={() => setRating(star)}
                       className="group transition-transform active:scale-90"
                     >
-                      <Star 
-                        size={24} 
+                      <Star
+                        size={24}
                         className={`${star <= rating ? "fill-[#C0001A] text-[#C0001A]" : "text-[#eeeeee]"} transition-colors`}
                       />
                     </button>
@@ -120,7 +120,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
 
           <section className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm space-y-8">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C0001A] mb-2">Client Identity</h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/60">Full Name</label>
@@ -133,7 +133,7 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
                   className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-light"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/60">Designation / Location</label>
                 <input
@@ -147,32 +147,32 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
             </div>
 
             <div className="space-y-6 pt-6 border-t border-[#f5f5f5]">
-               <label className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/60 block mb-4">Client Portrait</label>
-               
-               <ImageUpload 
-                  isUploading={isUploadingImage}
-                  setIsUploading={setIsUploadingImage}
-                  onUploadSuccess={(url) => setClientImage(url)}
-               />
+              <label className="text-[10px] font-bold uppercase tracking-widest text-[#111111]/60 block mb-4">Client Portrait</label>
 
-               {clientImage && (
-                 <div className="relative group border border-[#eeeeee] bg-[#F9F9F9] p-4 flex items-center gap-6">
-                   <div className="h-16 w-16 overflow-hidden bg-white border border-[#eeeeee] flex-shrink-0">
-                      <img src={clientImage} className="w-full h-full object-cover" alt="Client portrait" />
-                   </div>
-                   <div className="flex-1 overflow-hidden">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#111111] block mb-1">Authenticated Portrait</span>
-                      <span className="text-[9px] font-mono text-[#666666] truncate block">{clientImage}</span>
-                   </div>
-                   <button 
-                     type="button" 
-                     onClick={() => setClientImage("")}
-                     className="p-3 text-[#111111]/20 hover:text-[#C0001A] transition-all"
-                   >
-                     <ImageIcon size={18} />
-                   </button>
-                 </div>
-               )}
+              <ImageUpload
+                isUploading={isUploadingImage}
+                setIsUploading={setIsUploadingImage}
+                onUploadSuccess={(url) => setClientImage(url)}
+              />
+
+              {clientImage && (
+                <div className="relative group border border-[#eeeeee] bg-[#F9F9F9] p-4 flex items-center gap-6">
+                  <div className="h-16 w-16 overflow-hidden bg-white border border-[#eeeeee] flex-shrink-0">
+                    <img src={clientImage} className="w-full h-full object-cover" alt="Client portrait" />
+                  </div>
+                  <div className="flex-1 overflow-hidden">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#111111] block mb-1">Authenticated Portrait</span>
+                    <span className="text-[9px] font-mono text-[#666666] truncate block">{clientImage}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setClientImage("")}
+                    className="p-3 text-[#111111]/20 hover:text-[#C0001A] transition-all"
+                  >
+                    <ImageIcon size={18} />
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         </div>
@@ -181,19 +181,19 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
         <div className="space-y-8">
           <section className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm space-y-6">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Visibility</h3>
-            
+
             <div className="space-y-6">
               <label className="flex items-center gap-4 cursor-pointer group">
-                 <input 
-                    type="checkbox" 
-                    name="is_active_check" 
-                    defaultChecked={testimonial?.is_active ?? true}
-                    className="w-4 h-4 accent-[#C0001A] border-[#eeeeee] rounded-none"
-                    onChange={(e) => {
-                      const hiddenInput = document.getElementById('is_active_hidden') as HTMLInputElement;
-                      hiddenInput.value = e.target.checked ? "true" : "false";
-                    }}
-                  />
+                <input
+                  type="checkbox"
+                  name="is_active_check"
+                  defaultChecked={testimonial?.is_active ?? true}
+                  className="w-4 h-4 accent-[#C0001A] border-[#eeeeee] rounded-none"
+                  onChange={(e) => {
+                    const hiddenInput = document.getElementById('is_active_hidden') as HTMLInputElement;
+                    hiddenInput.value = e.target.checked ? "true" : "false";
+                  }}
+                />
                 <input type="hidden" id="is_active_hidden" name="is_active" value={testimonial ? String(testimonial.is_active) : "true"} />
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#111111] group-hover:text-[#C0001A] transition-colors">Visible on Site</span>
               </label>

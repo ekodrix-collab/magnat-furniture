@@ -32,11 +32,11 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    
+
     // Add dynamic lists as JSON strings
     formData.append("features", JSON.stringify(features.filter(f => f.trim())));
     formData.append("specifications", JSON.stringify(specifications.filter(s => s.label.trim())));
-    
+
     // Handle images (if using simple input fields)
     images.forEach(img => {
       if (img.trim()) formData.append("images", img.trim());
@@ -91,10 +91,10 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
         <div className="lg:col-span-2 space-y-8">
           <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee] space-y-6">
             <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A] mb-4">Core Essentials</h3>
-            
+
             <div className="grid grid-cols-2 gap-6">
               <input type="hidden" name="id" value={product?.id || "new"} />
-              
+
               <div className="space-y-2 col-span-2">
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">Product Title</label>
                 <input
@@ -157,7 +157,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
           <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee]">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Distinctive Features</h3>
-              <button 
+              <button
                 type="button"
                 onClick={() => setFeatures([...features, ""])}
                 className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C0001A] flex items-center gap-1 hover:underline"
@@ -178,7 +178,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                     placeholder="e.g. Hand-carved teak wood base"
                     className="flex-1 bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm"
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setFeatures(features.filter((_, i) => i !== idx))}
                     className="p-3 text-body/30 hover:text-red-500 transition-colors"
@@ -198,13 +198,13 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
             <div className="flex items-center justify-between">
               <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Visual Assets</h3>
             </div>
-            
-            <ImageUpload 
+
+            <ImageUpload
               isUploading={isUploadingImage}
               setIsUploading={setIsUploadingImage}
               onUploadSuccess={(url) => setImages(prev => [...prev.filter(img => img !== ""), url])}
             />
-            
+
             <div className="space-y-4 pt-2">
               {images.filter(img => img).map((img, idx) => (
                 <div key={idx} className="relative group border border-[#eeeeee] bg-[#F9F9F9] p-2 flex items-center justify-between">
@@ -212,7 +212,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                     <img src={img} className="w-full h-full object-cover" alt="Preview" />
                   </div>
                   <span className="text-[9px] font-mono text-[#666] truncate mx-4 flex-1">{img.split('/').pop()}</span>
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setImages(images.filter((_, i) => i !== idx))}
                     className="p-2 text-[#666] hover:text-[#C0001A] hover:bg-white transition-colors border border-transparent hover:border-[#eeeeee]"
@@ -227,7 +227,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
           {/* Pricing & Status */}
           <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee] space-y-6">
             <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Market Positioning</h3>
-            
+
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">Base Price</label>

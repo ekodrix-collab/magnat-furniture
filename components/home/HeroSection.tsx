@@ -113,19 +113,19 @@ export default function HeroSection() {
       >
         <span
           className="text-white/35 text-[10px] italic tracking-widest mb-1"
-          style={{ fontFamily: "var(--font-playfair)" }}
+          
         >
           Est. 2001 — Celebrating
         </span>
         <span
           className="text-[#c9a96e] leading-none font-bold"
-          style={{ fontFamily: "var(--font-playfair)", fontSize: "62px", lineHeight: 0.9 }}
+          style={{  fontSize: "62px", lineHeight: 0.9 }}
         >
           25
         </span>
         <span
           className="text-white/35 text-[9px] uppercase tracking-[0.5em] mt-2 ml-1"
-          style={{ fontFamily: "var(--font-inter)" }}
+          
         >
           YEARS
         </span>
@@ -161,7 +161,7 @@ export default function HeroSection() {
             animate="visible"
             custom={0}
             className="block mb-6 text-[#c9a96e] text-[9px] font-bold tracking-[0.45em] uppercase"
-            style={{ fontFamily: "var(--font-inter)" }}
+            
           >
             Twenty-Five Years of Excellence
           </motion.span>
@@ -174,7 +174,7 @@ export default function HeroSection() {
             custom={1}
             className="text-white leading-[1.12] tracking-tight"
             style={{
-              fontFamily: "var(--font-playfair)",
+              
               fontWeight: 600,
               fontSize: "clamp(46px, 6.5vw, 92px)",
             }}
@@ -192,7 +192,7 @@ export default function HeroSection() {
             custom={2}
             className="mt-8 text-white/60 font-light leading-loose max-w-lg"
             style={{
-              fontFamily: "var(--font-inter)",
+              
               fontSize: "clamp(15px, 1.6vw, 18px)",
             }}
           >
@@ -211,7 +211,7 @@ export default function HeroSection() {
             <Link
               href="/collections"
               className="inline-flex items-center gap-3 bg-[#c9a96e] hover:bg-[#dfc08a] text-[#1a1a1a] text-[10.5px] font-bold tracking-[0.25em] uppercase px-9 py-4 transition-all duration-300 shadow-xl"
-              style={{ fontFamily: "var(--font-inter)" }}
+              
             >
               Discover Collections
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -221,7 +221,7 @@ export default function HeroSection() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-3 border border-white/40 text-white hover:border-white hover:bg-white/5 text-[10.5px] font-bold tracking-[0.25em] uppercase px-9 py-4 transition-all duration-300"
-              style={{ fontFamily: "var(--font-inter)" }}
+              
             >
               Visit Showroom
             </Link>

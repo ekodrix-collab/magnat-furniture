@@ -57,7 +57,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {displayLabel && (
           <span 
             className="block mb-2 text-[10px] font-medium tracking-[0.25em] uppercase text-[#C0001A] max-sm:text-[8px] max-sm:mb-[5px]" 
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
           >
             {displayLabel}
           </span>
@@ -66,7 +65,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {/* Product Name */}
         <h3 
           className="text-base font-medium leading-snug text-[#111] mb-2 transition-colors duration-300 group-hover:text-[#C0001A] max-sm:text-[0.88rem] max-sm:mb-1.5" 
-          style={{ fontFamily: "var(--font-inter, sans-serif)" }}
         >
           {name}
         </h3>
@@ -75,7 +73,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {displayDescription && (
           <p 
             className="text-sm text-[#666] leading-relaxed mb-4 flex-1 line-clamp-2 max-sm:text-[0.72rem] max-sm:mb-3" 
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
           >
             {displayDescription}
           </p>
@@ -94,7 +91,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link
             href={`/products/${slug}`}
             className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#111] text-white text-sm font-semibold tracking-[0.15em] uppercase px-4 py-3 rounded-[4px] no-underline transition-colors duration-300 hover:bg-[#C0001A] max-sm:py-2.5 max-sm:text-[9px] max-sm:tracking-[0.12em]"
-            style={{ fontFamily: "var(--font-inter, sans-serif)" }}
             aria-label={`View details for ${name}`}
           >
             Details

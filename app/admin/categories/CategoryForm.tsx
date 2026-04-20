@@ -64,7 +64,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Collection Identification</h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Collection Name</label>
@@ -77,7 +77,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
                   className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2 flex items-center gap-1.5 shadow-sm-white">
                   <Globe size={10} className="text-[#C0001A]" /> SEO Slug
@@ -107,7 +107,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
 
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Visual Identity</h3>
-            
+
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Category Image URL</label>
               <input
@@ -125,7 +125,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
         <div className="space-y-8">
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm sticky top-8">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C0001A] mb-6">Placement</h3>
-            
+
             <div className="space-y-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Display Order</label>
@@ -140,9 +140,9 @@ export default function CategoryForm({ category }: CategoryFormProps) {
               <div className="pt-6 border-t border-[#F0F2F5] space-y-4">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div className="relative inline-flex items-center">
-                    <input 
-                      type="checkbox" 
-                      name="is_featured_check" 
+                    <input
+                      type="checkbox"
+                      name="is_featured_check"
                       defaultChecked={category?.is_featured ?? true}
                       className="sr-only peer"
                       onChange={(e) => {

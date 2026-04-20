@@ -28,7 +28,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
     formData.append("description", slide.description || "");
     formData.append("image_url", slide.image_url);
     formData.append("is_active", (!isActive).toString());
-    
+
     setIsActive(!isActive);
     await saveHeroSlide(formData);
   };
@@ -36,7 +36,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
   if (isDeleting) return null;
 
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -51,7 +51,7 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
           </div>
         )}
       </div>
-      
+
       <div className="p-8 flex flex-col justify-center flex-1">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#C0001A] bg-[#F7F4F0] px-3 py-1">SEQUENCE {slide.sort_order + 1}</span>
@@ -63,23 +63,23 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
       </div>
 
       <div className="px-8 py-6 md:py-0 flex flex-row md:flex-col justify-center gap-3 border-t md:border-t-0 md:border-l border-[#f5f5f5] bg-[#fafafa]/50 md:bg-transparent">
-        <button 
+        <button
           onClick={toggleStatus}
           className={`p-4 transition-all rounded-none border ${isActive ? "text-[#111111]/30 border-[#eeeeee] hover:text-[#111111] hover:bg-white" : "text-white bg-[#C0001A] border-[#C0001A]"}`}
           title={isActive ? "Hide Slide" : "Show Slide"}
         >
           {isActive ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
-        
-        <Link 
+
+        <Link
           href={`/admin/hero-slides/${slide.id}`}
           className="p-4 text-[#111111]/30 hover:text-[#C0001A] border border-[#eeeeee] hover:bg-white transition-all rounded-none"
           title="Edit Slide"
         >
           <Edit2 size={18} />
         </Link>
-        
-        <button 
+
+        <button
           onClick={handleDelete}
           className="p-4 text-[#111111]/30 hover:text-[#C0001A] border border-[#eeeeee] hover:bg-white transition-all rounded-none"
           title="Delete Slide"

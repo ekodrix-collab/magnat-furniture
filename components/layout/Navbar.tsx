@@ -49,14 +49,14 @@ function NavbarContent() {
 
       {/* Primary Navigation (Desktop) */}
       <nav className="hidden md:flex items-center gap-10">
-        <Link 
-          href="/collections" 
+        <Link
+          href="/collections"
           className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors"
         >
           Collections
         </Link>
-        
-        <div 
+
+        <div
           className="relative h-full flex items-center"
           onMouseEnter={() => setActiveMenu('explore')}
           onMouseLeave={() => setActiveMenu(null)}
@@ -116,7 +116,7 @@ function NavbarContent() {
           )}
         </button>
         <Link href="/contact" className="hidden lg:block bg-[#111] text-white px-8 py-3 rounded-md text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-[#C0001A] transition-colors shadow-sm">Enquire</Link>
-        
+
         {/* Mobile Menu Toggle */}
         <button className="md:hidden p-2 text-black/80 bg-black/5 rounded-full" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle Menu">
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -126,79 +126,79 @@ function NavbarContent() {
       {/* ── Immersive Mobile Menu ── */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div 
-            initial={{ opacity: 0, x: "100%" }} 
-            animate={{ opacity: 1, x: 0 }} 
-            exit={{ opacity: 0, x: "100%" }} 
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
             className="fixed inset-0 z-[200] bg-white flex flex-col pt-20"
           >
             <div className="flex-1 overflow-y-auto px-8 py-10 space-y-12">
-               {/* Primary Links */}
-               <nav className="flex flex-col gap-8">
-                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                    <Link href="/collections" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Collections</Link>
-                  </motion.div>
-                  
-                  {/* Explore Accordion */}
-                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="space-y-6">
-                    <button 
-                      onClick={() => setMobileExploreOpen(!mobileExploreOpen)}
-                      className="w-full flex items-center justify-between text-4xl font-bold font-playfair hover:text-[#C0001A]"
-                    >
-                      Explore <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExploreOpen ? "rotate-180" : ""}`} />
-                    </button>
-                    
-                    <AnimatePresence>
-                      {mobileExploreOpen && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                           <div className="grid grid-cols-2 gap-4 pt-4">
-                              {EXPLORE_DATA.categories.map(c => (
-                                <Link key={c.name} href={c.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{c.name}</Link>
-                              ))}
-                              {EXPLORE_DATA.rooms.map(r => (
-                                <Link key={r.name} href={r.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{r.name}</Link>
-                              ))}
-                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+              {/* Primary Links */}
+              <nav className="flex flex-col gap-8">
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+                  <Link href="/collections" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Collections</Link>
+                </motion.div>
 
-                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
-                    <Link href="/showrooms" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>Showrooms</Link>
-                  </motion.div>
-                  <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
-                    <Link href="/about" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>About Us</Link>
-                  </motion.div>
-               </nav>
+                {/* Explore Accordion */}
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="space-y-6">
+                  <button
+                    onClick={() => setMobileExploreOpen(!mobileExploreOpen)}
+                    className="w-full flex items-center justify-between text-4xl font-bold font-playfair hover:text-[#C0001A]"
+                  >
+                    Explore <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExploreOpen ? "rotate-180" : ""}`} />
+                  </button>
 
-               {/* Mobile Contact Footer */}
-               <div className="space-y-6 pt-10 border-t border-black/5">
-                  <span className="text-[10px] font-black tracking-[0.3em] uppercase text-black/30">Get in touch</span>
-                  <div className="flex flex-col gap-4">
-                     <a href="tel:+919446516395" className="text-xl font-bold flex items-center gap-3">
-                        <Phone size={18} className="text-[#C0001A]" />
-                        +91 94465 16395
-                     </a>
-                     <div className="flex gap-4">
-                        <a href="https://instagram.com" target="_blank" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
-                        <Link href="/contact" className="flex-1 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-full flex items-center justify-center" onClick={() => setMobileOpen(false)}>Book Visit</Link>
-                     </div>
+                  <AnimatePresence>
+                    {mobileExploreOpen && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                        <div className="grid grid-cols-2 gap-4 pt-4">
+                          {EXPLORE_DATA.categories.map(c => (
+                            <Link key={c.name} href={c.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{c.name}</Link>
+                          ))}
+                          {EXPLORE_DATA.rooms.map(r => (
+                            <Link key={r.name} href={r.href} className="text-lg font-bold font-playfair py-2 text-black/60 border-b border-black/5" onClick={() => setMobileOpen(false)}>{r.name}</Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
+                  <Link href="/showrooms" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>Showrooms</Link>
+                </motion.div>
+                <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
+                  <Link href="/about" className="text-4xl font-bold font-playfair hover:text-[#C0001A]" onClick={() => setMobileOpen(false)}>About Us</Link>
+                </motion.div>
+              </nav>
+
+              {/* Mobile Contact Footer */}
+              <div className="space-y-6 pt-10 border-t border-black/5">
+                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-black/30">Get in touch</span>
+                <div className="flex flex-col gap-4">
+                  <a href="tel:+919446516395" className="text-xl font-bold flex items-center gap-3">
+                    <Phone size={18} className="text-[#C0001A]" />
+                    +91 94465 16395
+                  </a>
+                  <div className="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
+                    <Link href="/contact" className="flex-1 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-full flex items-center justify-center" onClick={() => setMobileOpen(false)}>Book Visit</Link>
                   </div>
-               </div>
+                </div>
+              </div>
             </div>
 
             {/* Sticky Mobile CTA */}
             <div className="p-6 bg-white border-t border-black/5">
-               <a 
-                 href="https://wa.me/919446516395" 
-                 target="_blank" 
-                 className="w-full bg-[#111] hover:bg-[#C0001A] text-white h-14 rounded-full flex items-center justify-center gap-3 text-[11px] font-black tracking-[0.2em] uppercase transition-colors"
-               >
-                  WhatsApp Consultation
-                  <ArrowRight size={14} />
-               </a>
+              <a
+                href="https://wa.me/919446516395"
+                target="_blank"
+                className="w-full bg-[#111] hover:bg-[#C0001A] text-white h-14 rounded-full flex items-center justify-center gap-3 text-[11px] font-black tracking-[0.2em] uppercase transition-colors"
+              >
+                WhatsApp Consultation
+                <ArrowRight size={14} />
+              </a>
             </div>
           </motion.div>
         )}

@@ -75,7 +75,7 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
     return (
       <div className="pt-40 pb-32 bg-[#F7F4F0] dark:bg-zinc-950 min-h-screen flex flex-col items-center justify-center transition-colors duration-500">
         <FadeInView align="center">
-          <h1 className="font-playfair text-5xl font-bold text-[#111] dark:text-white mb-6">Collection Not Found</h1>
+          <h1 className=" text-5xl font-bold text-[#111] dark:text-white mb-6">Collection Not Found</h1>
           <p className="text-zinc-500 dark:text-zinc-400 font-light mb-10 max-w-md">The curation you're looking for might have been moved or updated.</p>
           <Link href="/collections" className="btn-red">Back to Collections</Link>
         </FadeInView>
@@ -116,7 +116,7 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
               All Portfolios
             </Link>
             
-            <h1 className="font-playfair text-6xl md:text-8xl font-bold text-white mb-6 leading-[0.9] tracking-tighter">
+            <h1 className=" text-6xl md:text-8xl font-bold text-white mb-6 leading-[0.9] tracking-tighter">
               {collection.name}
             </h1>
             
@@ -175,7 +175,7 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
                 <div className="w-20 h-20 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mx-auto mb-8">
                    <span className="text-zinc-300">Coming</span>
                 </div>
-                <h2 className="font-playfair text-4xl md:text-5xl font-bold dark:text-white mb-6">Artisanally Crafting</h2>
+                <h2 className=" text-4xl md:text-5xl font-bold dark:text-white mb-6">Artisanally Crafting</h2>
                 <p className="text-zinc-500 dark:text-zinc-400 font-light italic leading-loose text-lg">
                   Our master craftsmen in Kondotty are currently hand-curating new additions for this collection. 
                   Every piece undergoes rigorous quality checks before arrival.
@@ -196,7 +196,7 @@ export default function CollectionDetailPage({ params }: { params: Promise<{ slu
         <div className="max-container flex flex-col md:flex-row items-center justify-between gap-12">
           <FadeInView className="max-w-2xl text-center md:text-left">
             <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Tailored Luxury</span>
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold dark:text-white mb-6">
+            <h2 className=" text-4xl md:text-5xl font-bold dark:text-white mb-6">
               Didn't find the perfect match?
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 text-lg leading-relaxed font-light">

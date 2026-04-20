@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -63,32 +65,16 @@ export default function NewsTrendsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-6 lg:px-14 bg-[#ede9e3]"
+      className="py-12 md:py-20 px-4 bg-[#FAF8F6]"
     >
-      {/* Header */}
-      <div className="reveal mb-14">
-        <span className="section-eyebrow">Editorial</span>
-        <div className="flex items-end justify-between flex-wrap gap-4">
-          <h2 className="section-title">News &amp; Trends</h2>
-          <Link
-            href="/news"
-            className="arrow-link hidden md:inline-flex"
-          >
-            All Stories
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-        <div className="mt-5 w-12 h-[1px] bg-[#c9a96e]" />
+      <div className="max-container">
+        <SectionHeading 
+          label="Editorial Highlights"
+          titlePart1="News &"
+          titlePart2="Trends"
+          subtitle="Stay updated with the latest in luxury furniture design, material innovations, and architectural living trends curated by our studio team."
+          className="mb-10 md:mb-16"
+        />
       </div>
 
       {/* 3-column grid */}
@@ -97,73 +83,49 @@ export default function NewsTrendsSection() {
           <Link
             key={article.id}
             href={article.href}
-            className="news-card reveal group block"
+            className="news-card reveal group block bg-[#FCFCFC] border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
             style={{ transitionDelay: `${i * 120}ms` }}
           >
             {/* Image */}
-            <div className="news-card-img-wrap aspect-[4/3] overflow-hidden bg-[#e0dbd3] mb-6">
+            <div className="news-card-img-wrap aspect-[16/10] overflow-hidden bg-gray-100">
               <Image
                 src={article.image}
                 alt={article.title}
                 width={900}
                 height={675}
-                className="news-card-img w-full h-full object-cover"
+                className="news-card-img w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
 
-            {/* Meta */}
-            <div className="flex items-center gap-3 mb-3">
-              <span
-                className="text-[#c9a96e] text-[8px] font-bold tracking-[0.35em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
-              >
-                {article.category}
-              </span>
-              <span className="text-[#5a5a5a]/40 text-[10px]">·</span>
-              <span
-                className="text-[#5a5a5a] text-[8px] tracking-[0.2em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
-              >
-                {article.date}
-              </span>
-            </div>
+            <div className="p-6 text-center">
+              {/* Meta */}
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="text-[#C0001A] text-[9px] font-bold tracking-[0.3em] uppercase">
+                  {article.category}
+                </span>
+                <span className="text-gray-300">|</span>
+                <span className="text-gray-400 text-[9px] font-medium tracking-[0.1em] uppercase">
+                  {article.date}
+                </span>
+              </div>
 
-            {/* Title */}
-            <h3
-              className="text-[#1a1a1a] text-xl font-semibold leading-snug mb-3 transition-colors duration-300 group-hover:text-[#c9a96e]"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              {article.title}
-            </h3>
+              {/* Title */}
+              <h3 className="text-[#111] text-xl font-bold leading-tight mb-4 group-hover:text-[#C0001A] transition-colors duration-300">
+                {article.title}
+              </h3>
 
-            {/* Excerpt */}
-            <p
-              className="text-[#5a5a5a] text-sm leading-relaxed font-light line-clamp-3"
-              style={{ fontFamily: "var(--font-inter)" }}
-            >
-              {article.excerpt}
-            </p>
+              {/* Excerpt */}
+              <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">
+                {article.excerpt}
+              </p>
 
-            {/* Read more */}
-            <div className="mt-5 flex items-center gap-2">
-              <span
-                className="text-[#c9a96e] text-[9px] font-bold tracking-[0.3em] uppercase"
-                style={{ fontFamily: "var(--font-inter)" }}
-              >
-                Read More
-              </span>
-              <svg
-                className="text-[#c9a96e] transition-transform duration-300 group-hover:translate-x-1"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              {/* Read more */}
+              <div className="mt-8 flex items-center justify-center gap-2 text-[#C0001A] font-bold text-[10px] uppercase tracking-[0.2em] group-hover:gap-4 transition-all">
+                <span>Read Story</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
             </div>
           </Link>
         ))}

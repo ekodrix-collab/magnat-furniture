@@ -21,7 +21,7 @@ export default async function AdminTestimonialsPage() {
           <h2 className="text-2xl font-playfair font-black text-[#111111] tracking-tight">Client Testimonials</h2>
           <p className="text-[10px] text-[#C0001A] uppercase tracking-[0.2em] mt-2 font-bold">Manage public reviews and feedback</p>
         </div>
-        <Link 
+        <Link
           href="/admin/testimonials/new"
           className="bg-[#111111] text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest rounded-none hover:bg-[#C0001A] transition-all flex items-center gap-3 shadow-lg group"
         >

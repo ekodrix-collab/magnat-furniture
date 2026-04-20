@@ -35,7 +35,7 @@ export default async function ProductsPage() {
               
               <h1 
                 className="text-[26px] md:text-[34px] lg:text-[44px] font-semibold leading-tight tracking-tight mb-4 md:mb-5 lg:mb-6" 
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 Signature <span className="italic font-normal text-[#C0001A]">Collection</span>
               </h1>
@@ -77,7 +77,7 @@ export default async function ProductsPage() {
                   <span className="inline-block px-4 py-1.5 bg-[#C0001A] text-white text-[9px] font-bold tracking-[0.3em] uppercase mb-6">
                     Bespoke Manufacturing
                   </span>
-                  <h2 className="heading-title" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="heading-title" >
                     Can&apos;t find the exact piece?
                   </h2>
                   <p className="text-white/70 text-lg font-light leading-relaxed mb-8">
@@ -88,17 +88,17 @@ export default async function ProductsPage() {
 
                   <div className="flex flex-wrap gap-8 pt-4">
                     <div>
-                      <div className="text-3xl font-bold text-[#C0001A] mb-1" style={{ fontFamily: "var(--font-playfair)" }}>25+</div>
+                      <div className="text-3xl font-bold text-[#C0001A] mb-1" >25+</div>
                       <div className="text-xs uppercase tracking-widest text-white/60">Years Experience</div>
                     </div>
                     <div className="w-px bg-white/20"></div>
                     <div>
-                      <div className="text-3xl font-bold text-[#C0001A] mb-1" style={{ fontFamily: "var(--font-playfair)" }}>500+</div>
+                      <div className="text-3xl font-bold text-[#C0001A] mb-1" >500+</div>
                       <div className="text-xs uppercase tracking-widest text-white/60">Custom Pieces</div>
                     </div>
                     <div className="w-px bg-white/20"></div>
                     <div>
-                      <div className="text-3xl font-bold text-[#C0001A] mb-1" style={{ fontFamily: "var(--font-playfair)" }}>100%</div>
+                      <div className="text-3xl font-bold text-[#C0001A] mb-1" >100%</div>
                       <div className="text-xs uppercase tracking-widest text-white/60">Satisfaction</div>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export default async function ProductsPage() {
         <div className="max-container">
           <FadeInView className="text-center mb-16">
             <span className="heading-label">The MAGNAT™ Difference</span>
-            <h2 className="heading-title mt-4" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="heading-title mt-4" >
               Why Kondotty Families Trust Us
             </h2>
           </FadeInView>
@@ -152,7 +152,7 @@ export default async function ProductsPage() {
                   <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-500">
                     {item.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h3 className="text-xl font-semibold mb-3" >
                     {item.title}
                   </h3>
                   <p className="text-[#666666] leading-relaxed">

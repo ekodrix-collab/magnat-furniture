@@ -34,7 +34,7 @@ export default function AboutPage() {
               
               <h1 
                 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#111111] tracking-tight leading-[1.05]" 
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 Made in Kondotty,{" "}
                 <span className="italic font-normal text-[#C0001A]">
@@ -58,7 +58,7 @@ export default function AboutPage() {
                     <div className="text-center">
                       <div 
                         className="text-4xl md:text-5xl font-bold text-[#C0001A] mb-2" 
-                        style={{ fontFamily: "var(--font-playfair)" }}
+                        
                       >
                         {stat.value}
                       </div>
@@ -108,7 +108,7 @@ export default function AboutPage() {
               <div className="space-y-4">
                 <h2 
                   className="text-4xl md:text-5xl font-bold text-[#111111] leading-tight" 
-                  style={{ fontFamily: "var(--font-playfair)" }}
+                  
                 >
                   We Started with One Simple Idea
                 </h2>
@@ -165,7 +165,7 @@ export default function AboutPage() {
             <span className="heading-label mx-auto">Our Simple Process</span>
             <h2 
               className="text-4xl md:text-5xl font-bold text-[#111111] mt-4 max-w-3xl mx-auto" 
-              style={{ fontFamily: "var(--font-playfair)" }}
+              
             >
               From Your Living Room to Our Workshop, and Back
             </h2>
@@ -203,7 +203,7 @@ export default function AboutPage() {
                 <div className="group relative bg-white border border-[#eeeeee] hover:border-[#C0001A]/30 p-8 md:p-10 transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
                   
                   {/* Step Number */}
-                  <div className="absolute top-8 right-8 text-7xl font-bold text-[#C0001A]/5 group-hover:text-[#C0001A]/10 transition-all" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <div className="absolute top-8 right-8 text-7xl font-bold text-[#C0001A]/5 group-hover:text-[#C0001A]/10 transition-all" >
                     {process.step}
                   </div>
 
@@ -217,7 +217,7 @@ export default function AboutPage() {
                   {/* Title */}
                   <h3 
                     className="text-2xl md:text-3xl font-bold text-[#111111] mb-4 group-hover:text-[#C0001A] transition-colors relative z-10" 
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    
                   >
                     {process.title}
                   </h3>
@@ -272,7 +272,7 @@ export default function AboutPage() {
             </span>
             <h2 
               className="text-4xl md:text-5xl font-bold" 
-              style={{ fontFamily: "var(--font-playfair)" }}
+              
             >
               25 Years in Kondotty
             </h2>
@@ -324,11 +324,11 @@ export default function AboutPage() {
                 <div className="bg-white/5 p-8 backdrop-blur-sm border border-white/10 hover:border-[#C0001A]/50 transition-all duration-500 group">
                   <div 
                     className="text-5xl font-bold text-[#C0001A] mb-3 group-hover:scale-110 transition-transform inline-block" 
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    
                   >
                     {milestone.year}
                   </div>
-                  <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h3 className="text-xl font-bold mb-2" >
                     {milestone.title}
                   </h3>
                   <p className="text-white/60 leading-relaxed">
@@ -350,7 +350,7 @@ export default function AboutPage() {
             <span className="heading-label mx-auto">Why Families Choose Us</span>
             <h2 
               className="text-4xl md:text-5xl font-bold text-[#111111] mt-4" 
-              style={{ fontFamily: "var(--font-playfair)" }}
+              
             >
               What Makes Us Different
             </h2>
@@ -388,7 +388,7 @@ export default function AboutPage() {
                   <div className="w-2 h-2 rounded-full bg-[#C0001A] mb-6"></div>
                   <h3 
                     className="text-xl font-bold text-[#111111] mb-3" 
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    
                   >
                     {reason.title}
                   </h3>
@@ -415,7 +415,7 @@ export default function AboutPage() {
                   <span className="heading-label">Come See Us</span>
                   <h2 
                     className="text-4xl md:text-5xl font-bold text-[#111111] mt-4" 
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    
                   >
                     Visit Our Workshop in Kondotty
                   </h2>
@@ -503,7 +503,7 @@ export default function AboutPage() {
           <FadeInView className="max-w-3xl mx-auto text-center space-y-10">
             <h2 
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" 
-              style={{ fontFamily: "var(--font-playfair)" }}
+              
             >
               Ready for Furniture That Fits Your Home Perfectly?
             </h2>

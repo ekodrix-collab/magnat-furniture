@@ -32,10 +32,10 @@ export default function KondottyCurtains() {
           {/* Right: Text & Swatches */}
           <div className="lg:w-1/2 space-y-12">
              <FadeInView>
-                <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.45em] uppercase mb-6" style={{ fontFamily: "var(--font-inter)" }}>
+                <h4 className="text-[#C0001A] text-[10px] font-bold tracking-[0.45em] uppercase mb-6" >
                    Custom Window Solutions
                 </h4>
-                <h2 className="text-5xl lg:text-7xl font-bold text-[#111] leading-none mb-8" style={{ fontFamily: "var(--font-playfair)" }}>
+                <h2 className="text-5xl lg:text-7xl font-bold text-[#111] leading-none mb-8" >
                    Dress Every <span className="italic">Window.</span>
                 </h2>
                 <div className="w-20 h-[2px] bg-[#C0001A] mb-10" />

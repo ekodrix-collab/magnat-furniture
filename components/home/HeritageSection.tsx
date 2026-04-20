@@ -1,7 +1,9 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const trustStats = [
    {
@@ -56,29 +58,31 @@ const trustStats = [
 
 export default function HeritageSection() {
    return (
-      <section className="mt-5 py-5 sm:py-10 overflow-hidden bg-[#FAF9F6] relative border-b border-black/5">
-
-
-         <div className="max-container flex flex-col items-center text-center relative z-10">
-            <div className="max-w-4xl space-y-12 w-full">
-
-
-               {/* ── Trust Stats Row ── */}
-               <FadeInView className="w-full">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-[#eee] pt-10">
+      <section className="bg-[#FCFCFC] py-12 md:py-20 relative overflow-hidden">
+         <div className="max-container flex flex-col items-center relative z-10 px-4">
+            <SectionHeading 
+               label="Our Heritage"
+               titlePart1="A Legacy of"
+               titlePart2="Excellence"
+               subtitle="For over 25 years, Magnat has been the benchmark for premium furniture craftsmanship in Kerala, blending traditional artistry with modern design."
+               className="mb-12 md:mb-16"
+            />
+            
+            <FadeInView className="w-full max-w-5xl">
+               <div className="border-t border-[#eee] pt-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
                      {trustStats.map((stat, i) => (
                         <div
                            key={i}
                            className={`
-                    flex items-center gap-4 text-left px-7
-                    ${i === 0 ? "pl-0" : ""}
-                    ${i === trustStats.length - 1 ? "pr-0" : ""}
-                    ${i !== 0 ? "border-l border-[#eee]" : ""}
-                  `}
+                              flex items-center gap-3 text-left
+                              ${i !== 0 ? "md:border-l md:border-[#eee] md:pl-5" : ""}
+                              ${i === 1 || i === 3 ? "justify-end md:justify-start" : ""}
+                           `}
                         >
                            {/* Icon */}
                            <div
-                              className="w-[42px] h-[42px] min-w-[42px] rounded-full flex items-center justify-center"
+                              className="w-[40px] h-[40px] min-w-[40px] rounded-full flex items-center justify-center"
                               style={{
                                  background: "#fff5f5",
                                  border: "1px solid rgba(192,0,26,0.15)",
@@ -93,7 +97,7 @@ export default function HeritageSection() {
                                  className="text-[#111] leading-tight"
                                  style={{
                                     fontFamily: "var(--font-outfit)",
-                                    fontSize: "22px",
+                                    fontSize: "20px",
                                     fontWeight: 900,
                                     letterSpacing: "-0.02em",
                                  }}
@@ -101,7 +105,7 @@ export default function HeritageSection() {
                                  {stat.number}
                                  <span
                                     className="text-[#C0001A]"
-                                    style={{ fontSize: "15px", fontWeight: 700 }}
+                                    style={{ fontSize: "14px", fontWeight: 700 }}
                                  >
                                     {stat.suffix}
                                  </span>
@@ -109,9 +113,9 @@ export default function HeritageSection() {
                               <p
                                  className="text-[#666] mt-0.5"
                                  style={{
-                                    fontFamily: "var(--font-inter)",
-                                    fontSize: "11px",
-                                    lineHeight: "1.4",
+                                    
+                                    fontSize: "10px",
+                                    lineHeight: "1.3",
                                  }}
                               >
                                  {stat.label}
@@ -120,9 +124,8 @@ export default function HeritageSection() {
                         </div>
                      ))}
                   </div>
-               </FadeInView>
-
-            </div>
+               </div>
+            </FadeInView>
          </div>
       </section>
    );

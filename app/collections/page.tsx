@@ -92,7 +92,7 @@ export default function CollectionsPage() {
             <div className="space-y-4">
               <h1
                 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-[0.85] tracking-tighter"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                
               >
                 Luxury <br />
                 <span className="italic font-normal text-white/90">Designer</span> <br />
@@ -197,7 +197,7 @@ export default function CollectionsPage() {
                           <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Collection {String(index + 1).padStart(2, '0')}</span>
                           <h3
                             className="text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white leading-tight group-hover/text:text-[#C0001A] transition-colors duration-300"
-                            style={{ fontFamily: "var(--font-playfair)" }}
+                            
                           >
                             {col.title}
                           </h3>
@@ -251,7 +251,7 @@ export default function CollectionsPage() {
         <div className="max-container relative z-10 text-center space-y-12">
           <FadeInView align="center" className="max-w-3xl">
             <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase">Bespoke Manufacturing</span>
-            <h2 className="text-5xl md:text-7xl font-bold text-white mt-6 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h2 className="text-5xl md:text-7xl font-bold text-white mt-6 leading-tight" >
               Your Vision, <br />
               <span className="italic font-normal text-white/60">Our Craft</span><span className="text-[#C0001A]">.</span>
             </h2>
