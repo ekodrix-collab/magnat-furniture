@@ -3,21 +3,21 @@
 
 import FadeInView from "@/components/ui/FadeInView";
 import { motion } from "framer-motion";
-import { 
-  Ruler, Hammer, Truck, Home, Heart, Users, MapPin, Phone, Clock 
+import {
+  Ruler, Hammer, Truck, Home, Heart, Users, MapPin, Phone, Clock
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="pt-24 min-h-screen bg-white">
-      
+    <main className="pt-0 min-h-screen bg-white">
+
       {/* ============================================
           HERO — SIMPLE & HONEST INTRODUCTION
           ============================================ */}
-      <section className="relative py-32 md:py-40 overflow-hidden">
-        <div 
+      <section className="relative py-6 md:py-8 overflow-hidden">
+        <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -25,51 +25,51 @@ export default function AboutPage() {
         />
 
         <div className="max-container relative z-10">
-           <FadeInView className="max-w-4xl mx-auto text-center space-y-10">
-              <div className="flex items-center justify-center gap-4">
-                <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#C0001A]"></div>
-                <span className="heading-label">Our Story</span>
-                <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#C0001A]"></div>
-              </div>
-              
-              <h1 
-                className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#111111] tracking-tight leading-[1.05]" 
-                
-              >
-                Made in Kondotty,{" "}
-                <span className="italic font-normal text-[#C0001A]">
-                  Crafted for Your Home
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-[#666666] font-light leading-relaxed max-w-3xl mx-auto">
-                For over 25 years, we've been manufacturing premium furniture right here in Kondotty. 
-                No middlemen. No showroom markups. Just honest craftsmanship, direct from our workshop to your home.
-              </p>
+          <FadeInView className="max-w-4xl mx-auto text-center space-y-10">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#C0001A]"></div>
+              <span className="heading-label">Our Story</span>
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#C0001A]"></div>
+            </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto">
-                {[
-                  { value: "25+", label: "Years in Business" },
-                  { value: "1000s", label: "Happy Families" },
-                  { value: "100%", label: "Custom Made" },
-                  { value: "Kerala", label: "Proudly Local" }
-                ].map((stat, i) => (
-                  <FadeInView key={stat.label} delay={i * 0.1}>
-                    <div className="text-center">
-                      <div 
-                        className="text-4xl md:text-5xl font-bold text-[#C0001A] mb-2" 
-                        
-                      >
-                        {stat.value}
-                      </div>
-                      <div className="text-xs uppercase tracking-wider text-[#666666]">
-                        {stat.label}
-                      </div>
+            <h1
+              className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#111111] tracking-tight leading-[1.05]"
+
+            >
+              Made in Kondotty,{" "}
+              <span className="italic font-normal text-[#C0001A]">
+                Crafted for Your Home
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-[#666666] font-light leading-relaxed max-w-3xl mx-auto">
+              For over 25 years, we've been manufacturing premium furniture right here in Kondotty.
+              No middlemen. No showroom markups. Just honest craftsmanship, direct from our workshop to your home.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto">
+              {[
+                { value: "25+", label: "Years in Business" },
+                { value: "1000s", label: "Happy Families" },
+                { value: "100%", label: "Custom Made" },
+                { value: "Kerala", label: "Proudly Local" }
+              ].map((stat, i) => (
+                <FadeInView key={stat.label} delay={i * 0.1}>
+                  <div className="text-center">
+                    <div
+                      className="text-4xl md:text-5xl font-bold text-[#C0001A] mb-2"
+
+                    >
+                      {stat.value}
                     </div>
-                  </FadeInView>
-                ))}
-              </div>
-           </FadeInView>
+                    <div className="text-xs uppercase tracking-wider text-[#666666]">
+                      {stat.label}
+                    </div>
+                  </div>
+                </FadeInView>
+              ))}
+            </div>
+          </FadeInView>
         </div>
       </section>
 
@@ -79,17 +79,17 @@ export default function AboutPage() {
       <section className="py-24 md:py-32 bg-[#f9f9f9]">
         <div className="max-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             <FadeInView direction="right">
               <div className="relative aspect-[4/5] overflow-hidden shadow-2xl">
-                <Image 
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" 
+                <Image
+                  src="/images/aboutmagnat.png"
                   alt="MAGNAT Workshop in Kondotty"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
-                
+
                 <div className="absolute bottom-8 left-8 bg-white p-6 shadow-xl max-w-xs">
                   <div className="flex items-center gap-3 mb-2">
                     <Home className="text-[#C0001A]" size={24} />
@@ -106,30 +106,30 @@ export default function AboutPage() {
 
             <FadeInView direction="left" className="space-y-8">
               <div className="space-y-4">
-                <h2 
-                  className="text-4xl md:text-5xl font-bold text-[#111111] leading-tight" 
-                  
+                <h2
+                  className="text-4xl md:text-5xl font-bold text-[#111111] leading-tight"
+
                 >
                   We Started with One Simple Idea
                 </h2>
               </div>
-              
+
               <div className="space-y-6 text-[#666666] text-lg leading-relaxed">
                 <p>
-                  Back in 2001, we opened a small furniture workshop in Kondotty with a simple belief: 
-                  <strong className="text-[#111111]"> families deserve furniture that's made exactly for their homes</strong>, 
+                  Back in 2001, we opened a small furniture workshop in Kondotty with a simple belief:
+                  <strong className="text-[#111111]"> families deserve furniture that's made exactly for their homes</strong>,
                   not generic pieces that almost fit.
                 </p>
-                
+
                 <p>
-                  So we started doing something different. We'd visit homes, measure the exact space, 
-                  understand how the family lives, and then manufacture each piece custom in our workshop. 
+                  So we started doing something different. We'd visit homes, measure the exact space,
+                  understand how the family lives, and then manufacture each piece custom in our workshop.
                   No catalogs. No "one-size-fits-all." Just furniture that <strong className="text-[#111111]">fits perfectly</strong>.
                 </p>
 
                 <p>
-                  Today, we still do it the same way. When you choose MAGNAT, you're not buying from a showroom. 
-                  You're working directly with the people who will craft your furniture, stitch your curtains, 
+                  Today, we still do it the same way. When you choose MAGNAT, you're not buying from a showroom.
+                  You're working directly with the people who will craft your furniture, stitch your curtains,
                   and deliver it to your doorstep.
                 </p>
               </div>
@@ -163,9 +163,9 @@ export default function AboutPage() {
         <div className="max-container">
           <FadeInView className="text-center mb-20">
             <span className="heading-label mx-auto">Our Simple Process</span>
-            <h2 
-              className="text-4xl md:text-5xl font-bold text-[#111111] mt-4 max-w-3xl mx-auto" 
-              
+            <h2
+              className="text-4xl md:text-5xl font-bold text-[#111111] mt-4 max-w-3xl mx-auto"
+
             >
               From Your Living Room to Our Workshop, and Back
             </h2>
@@ -201,7 +201,7 @@ export default function AboutPage() {
             ].map((process, i) => (
               <FadeInView key={process.step} delay={i * 0.15}>
                 <div className="group relative bg-white border border-[#eeeeee] hover:border-[#C0001A]/30 p-8 md:p-10 transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
-                  
+
                   {/* Step Number */}
                   <div className="absolute top-8 right-8 text-7xl font-bold text-[#C0001A]/5 group-hover:text-[#C0001A]/10 transition-all" >
                     {process.step}
@@ -215,9 +215,9 @@ export default function AboutPage() {
                   </div>
 
                   {/* Title */}
-                  <h3 
-                    className="text-2xl md:text-3xl font-bold text-[#111111] mb-4 group-hover:text-[#C0001A] transition-colors relative z-10" 
-                    
+                  <h3
+                    className="text-2xl md:text-3xl font-bold text-[#111111] mb-4 group-hover:text-[#C0001A] transition-colors relative z-10"
+
                   >
                     {process.title}
                   </h3>
@@ -241,7 +241,7 @@ export default function AboutPage() {
                   {i < 2 && (
                     <div className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 text-[#C0001A]/20">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                     </div>
                   )}
@@ -270,9 +270,9 @@ export default function AboutPage() {
             <span className="inline-block px-4 py-1.5 bg-[#C0001A] text-white text-[9px] font-bold tracking-[0.3em] uppercase mb-6">
               Our Journey
             </span>
-            <h2 
-              className="text-4xl md:text-5xl font-bold" 
-              
+            <h2
+              className="text-4xl md:text-5xl font-bold"
+
             >
               25 Years in Kondotty
             </h2>
@@ -286,45 +286,44 @@ export default function AboutPage() {
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 hidden md:block"></div>
 
             {[
-              { 
-                year: "2001", 
-                title: "The Beginning", 
-                desc: "Started with a small workshop and 3 skilled craftsmen in Kondotty" 
+              {
+                year: "2001",
+                title: "The Beginning",
+                desc: "Started with a small workshop and 3 skilled craftsmen in Kondotty"
               },
-              { 
-                year: "2008", 
-                title: "Growing Trust", 
-                desc: "Word spread. Families started coming from across Malappuram district" 
+              {
+                year: "2008",
+                title: "Growing Trust",
+                desc: "Word spread. Families started coming from across Malappuram district"
               },
-              { 
-                year: "2015", 
-                title: "Bigger Workshop", 
-                desc: "Expanded to a larger facility to handle growing demand" 
+              {
+                year: "2015",
+                title: "Bigger Workshop",
+                desc: "Expanded to a larger facility to handle growing demand"
               },
-              { 
-                year: "2020", 
-                title: "Going Digital", 
-                desc: "Launched online consultations for families who couldn't visit in person" 
+              {
+                year: "2020",
+                title: "Going Digital",
+                desc: "Launched online consultations for families who couldn't visit in person"
               },
-              { 
-                year: "2026", 
-                title: "25 Years Strong", 
-                desc: "Celebrating a quarter-century of serving Kerala families" 
+              {
+                year: "2026",
+                title: "25 Years Strong",
+                desc: "Celebrating a quarter-century of serving Kerala families"
               },
             ].map((milestone, i) => (
-              <FadeInView 
-                key={milestone.year} 
+              <FadeInView
+                key={milestone.year}
                 delay={i * 0.1}
-                className={`relative mb-16 last:mb-0 ${
-                  i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12 md:ml-auto md:text-left"
-                } md:w-1/2`}
+                className={`relative mb-16 last:mb-0 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12 md:ml-auto md:text-left"
+                  } md:w-1/2`}
               >
                 <div className="absolute left-1/2 top-0 w-4 h-4 bg-[#C0001A] rounded-full -translate-x-1/2 hidden md:block border-4 border-[#111111]"></div>
 
                 <div className="bg-white/5 p-8 backdrop-blur-sm border border-white/10 hover:border-[#C0001A]/50 transition-all duration-500 group">
-                  <div 
-                    className="text-5xl font-bold text-[#C0001A] mb-3 group-hover:scale-110 transition-transform inline-block" 
-                    
+                  <div
+                    className="text-5xl font-bold text-[#C0001A] mb-3 group-hover:scale-110 transition-transform inline-block"
+
                   >
                     {milestone.year}
                   </div>
@@ -348,9 +347,9 @@ export default function AboutPage() {
         <div className="max-container">
           <FadeInView className="text-center mb-16">
             <span className="heading-label mx-auto">Why Families Choose Us</span>
-            <h2 
-              className="text-4xl md:text-5xl font-bold text-[#111111] mt-4" 
-              
+            <h2
+              className="text-4xl md:text-5xl font-bold text-[#111111] mt-4"
+
             >
               What Makes Us Different
             </h2>
@@ -386,9 +385,9 @@ export default function AboutPage() {
               <FadeInView key={reason.title} delay={i * 0.1}>
                 <div className="bg-white p-8 hover:shadow-xl transition-all duration-500 h-full border border-transparent hover:border-[#C0001A]/20">
                   <div className="w-2 h-2 rounded-full bg-[#C0001A] mb-6"></div>
-                  <h3 
-                    className="text-xl font-bold text-[#111111] mb-3" 
-                    
+                  <h3
+                    className="text-xl font-bold text-[#111111] mb-3"
+
                   >
                     {reason.title}
                   </h3>
@@ -408,21 +407,21 @@ export default function AboutPage() {
       <section className="py-24 md:py-32">
         <div className="max-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             <FadeInView direction="right">
               <div className="space-y-8">
                 <div>
                   <span className="heading-label">Come See Us</span>
-                  <h2 
-                    className="text-4xl md:text-5xl font-bold text-[#111111] mt-4" 
-                    
+                  <h2
+                    className="text-4xl md:text-5xl font-bold text-[#111111] mt-4"
+
                   >
                     Visit Our Workshop in Kondotty
                   </h2>
                 </div>
 
                 <p className="text-lg text-[#666666] leading-relaxed">
-                  The best way to understand what we do is to see it yourself. Drop by our workshop, 
+                  The best way to understand what we do is to see it yourself. Drop by our workshop,
                   meet the craftsmen, touch the materials, and see furniture being made.
                 </p>
 
@@ -464,8 +463,8 @@ export default function AboutPage() {
                   <Link href="/contact" className="btn-primary">
                     Schedule a Visit
                   </Link>
-                  <a 
-                    href="https://wa.me/919446516395?text=Hi%20MAGNAT,%20I'd%20like%20to%20schedule%20a%20visit" 
+                  <a
+                    href="https://wa.me/919446516395?text=Hi%20MAGNAT,%20I'd%20like%20to%20schedule%20a%20visit"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ghost-dark"
@@ -478,12 +477,12 @@ export default function AboutPage() {
 
             <FadeInView direction="left" className="h-full w-full">
               <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[400px] overflow-hidden shadow-2xl border border-black/5 bg-[#f9f9f9]">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.577732999317!2d75.9678667!3d11.1447936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba64ee03d3e05f3%3A0x895ea8e05f23c7d8!2sMagnat%20Furniture%20and%20Interiors!5e0!3m2!1sen!2sin!4v1775902098710!5m2!1sen!2sin" 
-                  className="absolute inset-0 w-full h-full" 
-                  style={{ border: 0 }} 
-                  allowFullScreen={true} 
-                  loading="lazy" 
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.577732999317!2d75.9678667!3d11.1447936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba64ee03d3e05f3%3A0x895ea8e05f23c7d8!2sMagnat%20Furniture%20and%20Interiors!5e0!3m2!1sen!2sin!4v1775902098710!5m2!1sen!2sin"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
@@ -501,29 +500,29 @@ export default function AboutPage() {
 
         <div className="max-container relative z-10">
           <FadeInView className="max-w-3xl mx-auto text-center space-y-10">
-            <h2 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" 
-              
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+
             >
               Ready for Furniture That Fits Your Home Perfectly?
             </h2>
-            
+
             <p className="text-xl text-white/90 leading-relaxed">
               Let's start with a simple conversation. Tell us what you need, and we'll take it from there.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <a 
-                href="https://wa.me/919446516395?text=Hi%20MAGNAT,%20I'd%20like%20to%20discuss%20custom%20furniture%20for%20my%20home" 
+              <a
+                href="https://wa.me/919446516395?text=Hi%20MAGNAT,%20I'd%20like%20to%20discuss%20custom%20furniture%20for%20my%20home"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-10 py-5 bg-white text-[#C0001A] font-bold text-sm uppercase tracking-[0.2em] hover:bg-[#111111] hover:text-white transition-all duration-300"
               >
                 Chat on WhatsApp
               </a>
-              
-              <Link 
-                href="/contact" 
+
+              <Link
+                href="/contact"
                 className="inline-flex items-center justify-center px-10 py-5 bg-transparent border-2 border-white text-white font-bold text-sm uppercase tracking-[0.2em] hover:bg-white hover:text-[#C0001A] transition-all duration-300"
               >
                 Request Home Visit
