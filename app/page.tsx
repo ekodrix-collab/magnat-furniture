@@ -10,8 +10,8 @@ import HomeHero from "@/components/home/HomeHero";
 import HeritageSection from "@/components/home/HeritageSection";
 import SpecialModels from "@/components/home/SpecialModels";
 import HomeCollection from "@/components/home/HomeCollection";
+import CurtainSpotlight from "@/components/home/CurtainSpotlight";
 import HomeCurtains from "@/components/home/HomeCurtains";
-import HomeShowroom from "@/components/home/HomeShowroom";
 import KondottyGallery from "@/components/home/KondottyGallery";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
 import FAQSchema, { HOMEPAGE_FAQS } from "@/components/schemas/FAQSchema";
@@ -44,7 +44,7 @@ export default async function HomePage() {
     .limit(6);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#FCFCFC]">
       {/* ── SEO Schema Injections (Invisible to users) ── */}
       <FAQSchema faqs={HOMEPAGE_FAQS} />
 
@@ -60,11 +60,14 @@ export default async function HomePage() {
       {/* ── 4. Main Portfolio Grid (Full Color) ── */}
       <HomeCollection items={featuredItems} />
 
+      {/* ── 4.5 Curtain Spotlight (Indian Style) ── */}
+      <CurtainSpotlight />
+
       {/* ── 5. Editorial Curtains & Blinds ── */}
       <HomeCurtains steps={processSteps} />
 
       {/* ── 7. Visual Journey of Craft (Gallery) ── */}
-      <KondottyGallery />
+      <KondottyGallery posts={instagramPosts} />
 
       {/* ── 8. Trusted Chronicles (Testimonials) ── */}
       {/* <HomeTestimonials reviews={testimonials} /> */}

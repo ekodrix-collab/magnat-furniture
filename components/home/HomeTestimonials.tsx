@@ -1,8 +1,8 @@
 // HomeTestimonials.tsx
 "use client";
-
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const reviews = [
   {
@@ -52,8 +52,8 @@ const QuoteIcon = () => (
 function TestimonialCard({ review }: { review: (typeof reviews)[0] }) {
   return (
     <div
-      className="flex-shrink-0 w-[340px] lg:w-[380px] bg-white border border-black/[0.07] p-8 flex flex-col relative group overflow-hidden select-none rounded-lg cursor-pointer"
-      style={{ minHeight: "200px" }}
+      className="flex-shrink-0 w-[340px] lg:w-[380px] bg-[#FAF8F6] border border-gray-100 p-8 flex flex-col relative group overflow-hidden select-none rounded-2xl cursor-pointer hover:shadow-xl transition-all duration-300"
+      style={{ minHeight: "220px" }}
     >
       {/* Top red line on hover */}
       <div
@@ -61,14 +61,14 @@ function TestimonialCard({ review }: { review: (typeof reviews)[0] }) {
         aria-hidden="true"
       />
 
-      <div className="text-[#1A1A1A] opacity-10 mb-5">
+      <div className="text-[#C0001A]/20 mb-5">
         <QuoteIcon />
       </div>
 
       {/* Stars */}
       <div className="flex gap-[4px] mb-4" aria-label={`${review.rating} out of 5 stars`}>
         {Array.from({ length: review.rating }).map((_, i) => (
-          <svg key={i} width="8" height="8" viewBox="0 0 10 10" fill="#1A1A1A" aria-hidden="true">
+          <svg key={i} width="10" height="10" viewBox="0 0 10 10" fill="#C0001A" aria-hidden="true">
             <polygon points="5,0 6.1,3.5 9.8,3.5 6.8,5.7 7.9,9.1 5,7 2.1,9.1 3.2,5.7 0.2,3.5 3.9,3.5" />
           </svg>
         ))}
@@ -76,18 +76,17 @@ function TestimonialCard({ review }: { review: (typeof reviews)[0] }) {
 
       {/* Review text */}
       <p
-        className="text-[#2A2A2A] text-[15px] font-normal leading-[1.8] mb-4 flex-grow italic"
-        
+        className="text-gray-500 text-[15px] leading-[1.8] mb-6 flex-grow italic"
       >
         &ldquo;{review.text}&rdquo;
       </p>
 
       {/* Author */}
-      <div className="pt-5 border-t border-black/[0.06]">
-        <p className="text-[#1A1A1A] text-[9px] font-semibold tracking-[0.25em] uppercase mb-1">
+      <div className="pt-5 border-t border-gray-100">
+        <p className="text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase mb-1">
           {review.name}
         </p>
-        <p className="text-black/30 text-[9px] font-medium tracking-[0.2em] uppercase">
+        <p className="text-gray-400 text-[10px] font-medium tracking-[0.1em]">
           {review.location}
         </p>
       </div>
@@ -108,13 +107,13 @@ function InfiniteMarquee({ items }: { items: typeof reviews }) {
       {/* Left fade */}
       <div
         className="absolute left-0 top-0 bottom-0 w-32 lg:w-52 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to right, #FAFAF8 0%, transparent 100%)" }}
+        style={{ background: "linear-gradient(to right, #FAF8F6 0%, transparent 100%)" }}
         aria-hidden="true"
       />
       {/* Right fade */}
       <div
         className="absolute right-0 top-0 bottom-0 w-32 lg:w-52 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to left, #FAFAF8 0%, transparent 100%)" }}
+        style={{ background: "linear-gradient(to left, #FAF8F6 0%, transparent 100%)" }}
         aria-hidden="true"
       />
 
@@ -163,43 +162,16 @@ export default function HomeTestimonials({ reviews: dbReviews }: { reviews?: Tes
   return (
     <section
       ref={sectionRef}
-      className="bg-[#FAFAF8] py-36 overflow-hidden border-t border-black/[0.06]"
+      className="bg-[#FAF8F6] py-12 md:py-20 overflow-hidden"
     >
-      <div className="max-container">
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-            className="flex items-center justify-center gap-3 mb-7"
-          >
-            <span className="block w-8 h-px bg-[#C0001A] opacity-50" aria-hidden="true" />
-            <span className="text-[10px] font-semibold tracking-[0.3em] text-[#C0001A] uppercase">
-              Client Perspectives
-            </span>
-            <span className="block w-8 h-px bg-[#C0001A] opacity-50" aria-hidden="true" />
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.25 }}
-            className="heading-title text-[#1A1A1A]"
-            
-          >
-            Trusted by{" "}
-            <br />
-            <em className="font-light italic">Discerning Families.</em>
-          </motion.h2>
-
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-            className="w-12 h-px bg-[#C0001A] mx-auto mt-8 origin-center"
-            aria-hidden="true"
-          />
-        </div>
+      <div className="max-container px-4">
+        <SectionHeading 
+          label="Client Perspectives"
+          titlePart1="Trusted by"
+          titlePart2="Discerning Families"
+          subtitle="Discover why Magnat is the preferred choice for those who value heritage craftsmanship and sophisticated design."
+          className="mb-10 md:mb-16"
+        />
       </div>
       
       <motion.div

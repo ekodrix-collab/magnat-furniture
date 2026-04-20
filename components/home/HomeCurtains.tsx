@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { ProcessStep } from "@/lib/types";
 
 const FALLBACK_STEPS: ProcessStep[] = [
@@ -69,6 +70,7 @@ const STEP_ICONS = [
   </svg>,
 ];
 
+// 🖥️ DESKTOP: Card Component (Grid Layout)
 function StepCard({ step, index, triggered }: {
   step: ProcessStep;
   index: number;
@@ -78,8 +80,8 @@ function StepCard({ step, index, triggered }: {
 
   return (
     <div
-      className="group relative bg-white rounded-2xl p-8 border border-gray-200 
-                 hover:border-[#C0001A] hover:shadow-xl transition-all duration-300 cursor-pointer"
+      className="group relative bg-white rounded-2xl p-8 border border-gray-100 
+                 hover:shadow-xl transition-all duration-300 cursor-pointer text-center"
       style={{
         opacity: triggered ? 1 : 0,
         transform: triggered ? "translateY(0)" : "translateY(40px)",
@@ -88,7 +90,7 @@ function StepCard({ step, index, triggered }: {
     >
       {/* Step number label */}
       <span
-        className="block text-[11px] font-medium tracking-[.2em] text-[#C0001A] mb-5"
+        className="block text-[10px] font-bold tracking-[.25em] text-[#C0001A] mb-5 uppercase"
         style={{ fontFamily: "var(--font-inter)" }}
       >
         {step.step_number}
@@ -96,28 +98,23 @@ function StepCard({ step, index, triggered }: {
 
       {/* Icon box */}
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 
-                   text-[#C0001A] group-hover:bg-[#C0001A] group-hover:text-white 
-                   transition-all duration-300"
-        style={{ background: "#f9f9f9", border: "1px solid #eee" }}
+        className="w-14 h-14 rounded-full flex items-center justify-center mb-6 mx-auto
+                   text-[#111] border border-gray-100 group-hover:bg-[#C0001A] group-hover:text-white 
+                   transition-all duration-300 shadow-sm"
       >
         {STEP_ICONS[index]}
       </div>
 
       {/* Title */}
       <h3
-        className="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#C0001A] 
+        className="text-xl font-bold text-[#111] mb-3 group-hover:text-[#C0001A] 
                    transition-colors leading-snug"
-        style={{ fontFamily: "var(--font-lato)" }}
       >
         {step.title}
       </h3>
 
       {/* Description */}
-      <p
-        className="text-sm leading-relaxed text-gray-600"
-        style={{ fontFamily: "var(--font-inter)" }}
-      >
+      <p className="text-sm leading-relaxed text-gray-500">
         {step.description}
       </p>
 
@@ -127,6 +124,64 @@ function StepCard({ step, index, triggered }: {
   );
 }
 
+// 📱 MOBILE: Timeline Component (Vertical Stepper)
+function TimelineStep({ step, index, isLast, triggered }: {
+  step: ProcessStep;
+  index: number;
+  isLast: boolean;
+  triggered: boolean;
+}) {
+  const delay = index * 0.15;
+
+  return (
+    <div
+      className="relative flex gap-4"
+      style={{
+        opacity: triggered ? 1 : 0,
+        transform: triggered ? "translateX(0)" : "translateX(-20px)",
+        transition: `all 0.5s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+      }}
+    >
+      {/* Timeline Line & Dot */}
+      <div className="flex flex-col items-center">
+        {/* Dot/Circle with Icon */}
+        <div className="relative z-10 w-12 h-12 rounded-full bg-white border-2 border-[#C0001A] 
+                        flex items-center justify-center text-[#C0001A] shadow-md flex-shrink-0">
+          {STEP_ICONS[index]}
+        </div>
+
+        {/* Connecting Line (except for last item) */}
+        {!isLast && (
+          <div className="w-0.5 flex-1 bg-gradient-to-b from-[#C0001A] to-gray-300 mt-2"
+            style={{ minHeight: '60px' }} />
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pb-10">
+        {/* Step Number */}
+        <span
+          className="inline-block text-[9px] font-bold tracking-[.2em] text-[#C0001A] mb-2 uppercase"
+          style={{ fontFamily: "var(--font-inter)" }}
+        >
+          {step.step_number}
+        </span>
+
+        {/* Title */}
+        <h3 className="text-lg font-bold text-[#111] mb-2 leading-tight">
+          {step.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm leading-relaxed text-gray-600">
+          {step.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// 🎯 MAIN COMPONENT
 export default function HomeCurtains({ steps }: { steps?: ProcessStep[] }) {
   const activeSteps = steps && steps.length > 0 ? steps : FALLBACK_STEPS;
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -144,14 +199,31 @@ export default function HomeCurtains({ steps }: { steps?: ProcessStep[] }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-gradient-to-b from-gray-50 to-white py-20 sm:py-28">
-      <div className="max-container">
-        <div className="text-center mb-16">
-          <span className="section-label">Our Process</span>
-          <h2 className="section-title">How It Works</h2>
+    <section ref={sectionRef} className="bg-[#FCFCFC] py-12 md:py-20">
+      <div className="max-container px-4">
+        <SectionHeading
+          label="Our Process"
+          titlePart1="How It"
+          titlePart2="Works"
+          subtitle="A seamless journey from inspiration to installation, ensuring every detail reflects the Magnat standard of luxury."
+          className="mb-10 md:mb-16"
+        />
+
+        {/* 📱 MOBILE: Vertical Timeline */}
+        <div className="md:hidden px-2">
+          {activeSteps.map((step, i) => (
+            <TimelineStep
+              key={step.id}
+              step={step}
+              index={i}
+              isLast={i === activeSteps.length - 1}
+              triggered={triggered}
+            />
+          ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 🖥️ DESKTOP: 4-Column Grid */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {activeSteps.map((step, i) => (
             <StepCard key={step.id} step={step} index={i} triggered={triggered} />
           ))}

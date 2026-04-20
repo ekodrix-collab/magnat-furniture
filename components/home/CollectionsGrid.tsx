@@ -1,5 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
+import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
@@ -88,16 +91,15 @@ export default function CollectionsGrid() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-[#f5f2ee]">
-      {/* Section Header */}
-      <div className="reveal px-6 lg:px-14 mb-10">
-        <span className="section-eyebrow">Our Collections</span>
-        <h2
-          className="section-title tracking-[0.1em] uppercase"
-        >
-          Collections
-        </h2>
-        <div className="mt-5 w-12 h-[1px] bg-[#c9a96e]" />
+    <section ref={sectionRef} className="bg-[#FCFCFC] py-12 md:py-20 overflow-hidden">
+      <div className="max-container px-4">
+        <SectionHeading 
+          label="Our Collections"
+          titlePart1="Curated"
+          titlePart2="Collections"
+          subtitle="Explore our diverse range of furniture collections, each designed with structural integrity and timeless aesthetic appeal."
+          className="mb-10 md:mb-16"
+        />
       </div>
 
       {/* ── Desktop Masonry Grid (≥lg) ── */}

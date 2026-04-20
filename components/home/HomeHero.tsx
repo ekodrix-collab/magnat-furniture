@@ -5,6 +5,9 @@ import { useEffect, useState, useCallback, useRef } from "react";
 
 import { HeroSlide } from "@/lib/types";
 import { getHeroSlides } from "@/lib/api/hero";
+import Button from "@/components/ui/Button";
+import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 interface HeroSlideExtended extends HeroSlide {
   mobile_image_url?: string;
@@ -14,9 +17,9 @@ const FALLBACK_SLIDES: HeroSlideExtended[] = [
   {
     id: "fallback-1",
     image_url:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2600&auto=format&fit=crop",
+      "/images/hero-section.png",
     mobile_image_url:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+      "/images/hero-section.png",
     alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
     description:
@@ -254,51 +257,39 @@ export default function HomeHero({
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60 z-10" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent z-10" />
                 </motion.div>
-
-                {/* ── Left-aligned content ── */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-white p-5 md:p-12 lg:p-24">
-                  <div className="max-w-[85%] md:max-w-md lg:max-w-xl">
-                    <div
-                      style={{
-                        overflow: "hidden",
-                        display: "inline-block",
-                        width: "100%",
-                      }}
-                    >
-                      <motion.h2
-                        key={`h-${current}`}
-                        initial={{ x: -1500, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ ...contentSpring, delay: 0.25 }}
-                        className="text-3xl md:text-6xl lg:text-7xl font-extrabold leading-tight"
-                      >
-                        {activeSlides[current].heading}
-                      </motion.h2>
-                    </div>
-
-                    <motion.p
-                      key={`p-${current}`}
-                      initial={{ y: -25, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ ...contentSpring, delay: 1.25 }}
-                      className="text-sm md:text-sm text-white/90 mt-[-10px] md:w-[80%]"
-                    >
-                      {activeSlides[current].description}
-                    </motion.p>
-
+                
+                {/* ── Left-aligned content (Restored Design) ── */}
+                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24 bg-gradient-to-r from-[#111]/40 via-transparent to-transparent">
+                  <div className="max-w-[85%] md:max-w-xl">
                     <motion.div
-                      key={`btns-${current}`}
-                      initial={{ scale: 0.3, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ ...contentSpring, delay: 1.55 }}
-                      className="flex flex-row items-center gap-2 md:gap-3 mb-10 md:mb-0 md:mt-5 mt-4"
+                      key={`content-${current}`}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ ...contentSpring, delay: 0.2 }}
                     >
-                      <button className="px-5 py-2.5 md:px-6 md:py-3 text-xs md:text-sm font-semibold bg-[#C0001A] rounded-full hover:bg-white hover:text-black transition-colors duration-200 whitespace-nowrap">
-                        Explore Collection
-                      </button>
-                      <button className="px-5 py-2.5 md:px-6 md:py-3 text-xs md:text-sm font-semibold bg-black text-white rounded-full hover:bg-white hover:text-black transition-colors duration-200 whitespace-nowrap">
-                        Contact Us
-                      </button>
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block text-[#FCFCFC]/90">
+                        Signature Furniture
+                      </span>
+                      
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                        {activeSlides[current].heading}
+                      </h1>
+
+                      <p className="text-sm md:text-base text-[#FCFCFC]/80 max-w-md mb-10 leading-relaxed font-light">
+                        {activeSlides[current].description}
+                      </p>
+
+                      <div className="flex flex-row items-center gap-4">
+                        <Button variant="primary" className="px-10">
+                          Explore
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111]"
+                        >
+                          Contact Us
+                        </Button>
+                      </div>
                     </motion.div>
                   </div>
                 </div>
