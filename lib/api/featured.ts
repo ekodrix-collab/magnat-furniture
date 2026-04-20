@@ -63,6 +63,8 @@ export async function getFeaturedItems(): Promise<FeaturedItem[]> {
         image_url:images,
         sort_order:price,
         is_active,
+        is_new,
+        is_bestseller,
         categories (
           name
         )
@@ -85,6 +87,8 @@ export async function getFeaturedItems(): Promise<FeaturedItem[]> {
       image_url: Array.isArray(item.image_url) ? item.image_url[0] : item.image_url || "/images/placeholder-furniture.jpg",
       sort_order: 0,
       is_active: item.is_active,
+      is_new: item.is_new,
+      is_bestseller: item.is_bestseller,
     }));
 
   } catch (err) {

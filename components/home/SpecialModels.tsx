@@ -6,33 +6,56 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Category } from "@/lib/types";
 
-/* ── Fallback Data ── */
+/* ── Fallback Data (Functional & Premium) ── */
 const FALLBACK_ITEMS: Category[] = [
-  { id: "fb1", name: "Luxury Velvet Sofa", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "" },
-  { id: "fb2", name: "Minimalist Lounge Chair", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "" },
-  { id: "fb3", name: "Premium Sheer Curtains", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "" },
-  { id: "fb4", name: "Dining Table Set", slug: "dining", image_url: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 3, created_at: "" },
-  { id: "fb5", name: "Modern Bedroom Suite", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "" },
+  { id: "fb1", name: "Luxury Seating", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "" },
+  { id: "fb2", name: "Designer Armchairs", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "" },
+  { id: "fb3", name: "Signature Window Drapery", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "" },
+  { id: "fb4", name: "Elegant Dining Sets", slug: "dining", image_url: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 3, created_at: "" },
+  { id: "fb5", name: "Modern Bedroom Suites", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "" },
 ];
 
 function CategoryCard({ cat }: { cat: Category }) {
+  // Map specific slugs to high-quality Unsplash placeholders if image_url is missing
+  const getPlaceholder = (slug: string) => {
+    const placeholders: Record<string, string> = {
+      sofas: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+      chairs: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop",
+      curtains: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop",
+      dining: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop",
+      bedroom: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop",
+    };
+    return placeholders[slug.toLowerCase()] || "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop";
+  };
+
+  const displayImage = cat.image_url || getPlaceholder(cat.slug);
+
   return (
-    <div className="flex-shrink-0 w-[260px] md:w-[280px] group cursor-pointer">
-      <Link href={`/products/${cat.slug}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100">
+    <div className="flex-shrink-0 w-[280px] md:w-[320px] group cursor-pointer">
+      <Link href={`/category/${cat.slug}`} className="block">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl">
           <img
-            src={cat.image_url || "/images/placeholder-furniture.jpg"}
+            src={displayImage}
             alt={cat.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
+          {/* Overlay Button */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-end justify-center pb-8 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">
+            <span className="bg-white text-[#111] px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-xl">
+              View Collection
+            </span>
+          </div>
         </div>
-        <div className="mt-4 flex flex-col gap-1 text-center">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[#C0001A] font-bold">
-            {cat.slug || "Category"}
+        <div className="mt-5 flex flex-col gap-1 text-center px-2">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-[#C0001A] font-extrabold">
+            {cat.slug || "Collection"}
           </span>
-          <h3 className="text-[18px] font-bold text-[#111] leading-tight group-hover:text-[#C0001A] transition-colors">
+          <h3 className="text-[19px] md:text-[21px] font-bold text-[#111] leading-[1.2] group-hover:text-[#C0001A] transition-colors mt-1 mx-auto max-w-full truncate-none">
             {cat.name}
           </h3>
+          <button className="mt-3 text-[12px] font-bold text-gray-400 border-b border-gray-200 pb-1 uppercase tracking-widest group-hover:text-[#111] group-hover:border-[#C0001A] transition-all md:hidden">
+            View Collection
+          </button>
         </div>
       </Link>
     </div>
@@ -55,15 +78,15 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
   };
 
   return (
-    <section className="bg-[#FAF8F6] py-12 md:py-20">
+    <section className="bg-[#FAF8F6] py-12 md:py-24">
       <div className="max-container px-4">
 
         {/* 1. Header Area */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-6">
           <SectionHeading
-            label="Top Products"
-            titlePart1="Signature"
-            titlePart2="Masterpieces"
+            label="Shop by Category"
+            titlePart1="Elite Home"
+            titlePart2="Collections"
           />
         </div>
 
@@ -72,31 +95,31 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
 
           {/* LEFT: Subtle Element for Balance (Hidden on Mobile) */}
           <div className="hidden md:flex justify-start items-center">
-            <span className="text-[11px] tracking-[0.3em] text-gray-400 uppercase font-medium rotate-0">
-              Swipe to Explore
+            <span className="text-[11px] tracking-[0.3em] text-gray-400 uppercase font-medium">
+              Explore All
             </span>
           </div>
 
-          {/* CENTER: Description (Spans 3 columns to stay centered) */}
+          {/* CENTER: Description */}
           <div className="md:col-span-3 flex justify-center">
-            <p className="text-[15px] md:text-[16px] text-gray-500 max-w-xl text-center leading-relaxed">
-              Explore our most celebrated designs, curated for those who seek the perfect blend of architectural form and enduring comfort.
+            <p className="text-[15px] md:text-[17px] text-gray-500 max-w-2xl text-center leading-relaxed font-light">
+              Explore our signature collections tailored for every corner of your home, from architectural sofas to serene bedroom suites.
             </p>
           </div>
 
-          {/* RIGHT: Controls (Hidden on Mobile) */}
+          {/* RIGHT: Controls */}
           <div className="hidden md:flex justify-end items-center gap-3">
             <button
               onClick={() => scroll('left')}
-              className="p-3 rounded-full border border-gray-300 hover:bg-[#111] hover:text-white transition-all active:scale-90"
+              className="p-3.5 rounded-full border border-gray-200 bg-white hover:bg-[#111] hover:text-white transition-all active:scale-95 shadow-sm"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="p-3 rounded-full border border-gray-300 hover:bg-[#111] hover:text-white transition-all active:scale-90"
+              className="p-3.5 rounded-full border border-gray-200 bg-white hover:bg-[#111] hover:text-white transition-all active:scale-95 shadow-sm"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
@@ -104,11 +127,11 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
         {/* 3. Carousel */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x"
+          className="flex gap-8 overflow-x-auto pb-12 scrollbar-hide snap-x pt-2"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {displayItems.map((cat) => (
-            <div key={cat.id} className="snap-start">
+            <div key={cat.id} className="snap-start flex-shrink-0">
               <CategoryCard cat={cat} />
             </div>
           ))}
