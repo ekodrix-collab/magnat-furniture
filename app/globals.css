@@ -6,11 +6,11 @@
    ============================================ */
 
 @theme {
-  /* Core Brand Colors (Standardized Luxury) */
+  /* Core Brand Colors (Soft & Premium) */
   --color-red: #C0001A;
   --color-gold-classic: #c9a96e;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9f9f9;
+  --color-bg-primary: #FCFCFC;
+  --color-bg-secondary: #FAF8F6;
   --color-bg-dark: #111111;
   --color-text-main: #111111;
   --color-text-muted: #666666;
@@ -26,8 +26,8 @@
   --shadow-mega: 0 40px 100px -20px rgba(0, 0, 0, 0.1), 0 20px 50px -10px rgba(0, 0, 0, 0.05);
 
   /* Spacing */
-  --spacing-section: 10rem;
-  --spacing-section-sm: 6rem;
+  --spacing-section: 5rem; /* py-20 */
+  --spacing-section-sm: 3rem; /* py-12 */
 
   /* Transitions */
   --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -38,7 +38,7 @@
    ============================================ */
 
 body {
-  background-color: #ffffff;
+  background-color: #FCFCFC;
   color: #111111;
   font-family: var(--font-inter), sans-serif;
   font-size: 16px;
@@ -56,7 +56,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-lato), sans-serif;
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.01em;
   line-height: 1.25;
 }
@@ -78,7 +77,7 @@ h2 {
 
 @media (min-width: 1024px) {
   h1 { font-size: 44px; margin-bottom: 1.5rem; }
-  h2 { font-size: 30px; margin-bottom: 1.5rem; }
+  h2 { font-size: 48px; margin-bottom: 1.5rem; }
 }
 
 h3 { font-size: clamp(18px, 3vw, 20px); }

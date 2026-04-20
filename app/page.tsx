@@ -12,7 +12,6 @@ import SpecialModels from "@/components/home/SpecialModels";
 import HomeCollection from "@/components/home/HomeCollection";
 import CurtainSpotlight from "@/components/home/CurtainSpotlight";
 import HomeCurtains from "@/components/home/HomeCurtains";
-import HomeShowroom from "@/components/home/HomeShowroom";
 import KondottyGallery from "@/components/home/KondottyGallery";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
 import FAQSchema, { HOMEPAGE_FAQS } from "@/components/schemas/FAQSchema";
@@ -45,7 +44,7 @@ export default async function HomePage() {
     .limit(6);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#FCFCFC]">
       {/* ── SEO Schema Injections (Invisible to users) ── */}
       <FAQSchema faqs={HOMEPAGE_FAQS} />
 

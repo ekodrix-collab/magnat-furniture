@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { ArrowRight } from "lucide-react";
 
 const CurtainSpotlight = () => {
@@ -25,18 +26,15 @@ const CurtainSpotlight = () => {
   ];
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
+    <section ref={ref} className="py-12 md:py-20 px-4 bg-[#FAF8F6]">
       <div className="max-w-7xl mx-auto">
-
-        {/* Simple Header */}
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Curtain & Window Works
-          </h2>
-          <p className="text-gray-500 text-lg max-w-2xl">
-            Custom-made window treatments designed to enhance your home's interior.
-          </p>
-        </div>
+        <SectionHeading 
+          label="Custom Window Works"
+          titlePart1="Curtains &"
+          titlePart2="Roman Blinds"
+          subtitle="Elevate your windows with our custom-made treatments, tailored to your space with premium fabrics."
+          className="mb-10 md:mb-16"
+        />
 
         {/* Clean 2-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -46,7 +44,7 @@ const CurtainSpotlight = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group flex flex-col bg-[#fcfcfc] border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+              className="group flex flex-col bg-[#FCFCFC] border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
             >
               {/* Image Section */}
               <div className="relative aspect-[16/9] overflow-hidden">
@@ -58,17 +56,17 @@ const CurtainSpotlight = () => {
               </div>
 
               {/* Content Section */}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              <div className="p-8 text-center">
+                <h3 className="text-2xl font-bold text-[#111] mb-3">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-gray-500 mb-6 leading-relaxed">
                   {item.description}
                 </p>
 
                 <Link
                   href={item.link}
-                  className="inline-flex items-center gap-2 text-[#C0001A] font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
+                  className="inline-flex items-center gap-2 text-[#C0001A] font-bold text-[10px] uppercase tracking-[0.2em] group-hover:gap-4 transition-all"
                 >
                   Explore Collection
                   <ArrowRight className="w-4 h-4" />
@@ -79,14 +77,14 @@ const CurtainSpotlight = () => {
         </div>
 
         {/* Call to action bar */}
-        <div className="mt-12 p-8 bg-gray-50 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-gray-100">
-          <div>
-            <h4 className="font-bold text-lg text-gray-900">Need a custom measurement?</h4>
+        <div className="mt-12 p-8 bg-[#FCFCFC] rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-gray-100 shadow-sm">
+          <div className="text-center md:text-left">
+            <h4 className="font-bold text-lg text-[#111]">Need a custom measurement?</h4>
             <p className="text-gray-500">Our experts can visit your site for precise curtain fittings.</p>
           </div>
           <Link
             href="/contact"
-            className="bg-black text-white px-8 py-3 rounded-md font-bold text-sm uppercase tracking-widest hover:bg-[#C0001A] transition-colors"
+            className="bg-[#111] text-[#FCFCFC] px-8 py-3 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#C0001A] transition-colors"
           >
             Book an Appointment
           </Link>

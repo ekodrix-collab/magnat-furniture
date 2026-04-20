@@ -1,7 +1,9 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const trustStats = [
    {
@@ -56,8 +58,16 @@ const trustStats = [
 
 export default function HeritageSection() {
    return (
-      <section className="mt-5 py-5 sm:py-10 overflow-hidden bg-[#FAF9F6] relative border-b border-black/5">
-         <div className="max-container flex flex-col items-center relative z-10">
+      <section className="bg-[#FCFCFC] py-12 md:py-20 relative overflow-hidden">
+         <div className="max-container flex flex-col items-center relative z-10 px-4">
+            <SectionHeading 
+               label="Our Heritage"
+               titlePart1="A Legacy of"
+               titlePart2="Excellence"
+               subtitle="For over 25 years, Magnat has been the benchmark for premium furniture craftsmanship in Kerala, blending traditional artistry with modern design."
+               className="mb-12 md:mb-16"
+            />
+            
             <FadeInView className="w-full max-w-5xl">
                <div className="border-t border-[#eee] pt-10">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">

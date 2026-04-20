@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
+import FadeInView from "@/components/ui/FadeInView";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { Instagram } from "lucide-react";
 import { InstagramPost } from "@/lib/types";
 
@@ -29,12 +32,14 @@ export default function KondottyGallery({ posts }: Props) {
    const displayItems = [...items, ...items];
 
    return (
-      <section className="bg-[#FAF9F6] py-24 overflow-hidden">
-         <div className="max-container px-6 lg:px-8 mb-16">
-            <h2 className="text-[32px] md:text-[48px] font-bold text-[#111] text-center">
-               We're on Instagram
-            </h2>
-            <p className="text-gray-500 text-center mt-4">@magnat_furniture.kondotty</p>
+      <section className="bg-[#FCFCFC] py-12 md:py-20 overflow-hidden">
+         <div className="max-container px-4 mb-10 md:mb-16">
+            <SectionHeading 
+               label="Visual Journey"
+               titlePart1="We're on"
+               titlePart2="Instagram"
+               subtitle="@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces."
+            />
          </div>
 
          {/* Marquee Container */}

@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FeaturedItem } from "@/lib/types";
+import SectionHeading from "@/components/ui/SectionHeading";
+import FadeInView from "@/components/ui/FadeInView";
 
 const FALLBACK_PRODUCTS: FeaturedItem[] = [
   {
@@ -140,19 +142,15 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
   };
 
   return (
-    <section className="min-h-screen bg-[#faf8f6] flex flex-col items-center justify-center py-10 lg:py-20 px-4 overflow-hidden">
-      {/* Header */}
-      <div className="text-center lg:mb-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 md:text-nowrap">
-          Top Selling Furniture{" "}
-          <span className="text-[#C0001A] block sm:inline text-[22px] sm:text-4xl md:text-5xl ">
-            At Unbeatable Prices
-          </span>
-        </h1>
-        <p className="text-gray-500 hidden md:block text-sm">
-          Explore our best-selling furniture at great prices. Stylish,
-          comfortable, <br /> and perfect for every home
-        </p>
+    <section className="bg-[#FCFCFC] py-12 md:py-20 px-4 overflow-hidden">
+      <div className="max-container">
+        <SectionHeading 
+          label="Featured Collection"
+          titlePart1="Top Selling"
+          titlePart2="Furniture"
+          subtitle="Explore our best-selling furniture at great prices. Stylish, comfortable, and perfect for every home."
+          className="mb-10 md:mb-16"
+        />
       </div>
 
       {/* Carousel Container */}
@@ -238,19 +236,19 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
 
                   {/* Card Box */}
                   <div
-                    className="bg-white w-full h-[75%] rounded-[5px] shadow-sm flex flex-col justify-center transition-shadow duration-300 hover:shadow-xl"
+                    className="bg-[#FCFCFC] w-full h-[75%] rounded-2xl border border-gray-100 flex flex-col justify-center transition-all duration-300 hover:shadow-xl text-center"
                     style={{ paddingTop: "50px" }}
                   >
                     <div className="flex flex-col pt-20 ">
                       <div className="px-4 ">
-                        <span className="block text-[10px] uppercase tracking-widest text-[#C0001A] font-[900] text-left">
+                        <span className="block text-[10px] uppercase tracking-widest text-[#C0001A] font-bold">
                           {product.category}
                         </span>
-                        <h3 className="text-md font-bold text-gray-800 mt-1 text-left">
+                        <h3 className="text-lg font-bold text-[#111] mt-1">
                           {product.name}
                         </h3>
                         <p
-                          className="text-xs text-gray-500 text-left pt-2 line-clamp-2  overflow-hidden"
+                          className="text-xs text-gray-500 pt-2 line-clamp-2 overflow-hidden mx-auto max-w-[200px]"
                           style={{ marginTop: isCenter ? "5px" : "" }}
                         >
                           {product.subtitle}
@@ -260,7 +258,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
                         className="px-10"
                         style={{ marginTop: isCenter ? "15px" : "" }}
                       >
-                        <button className="mt-4 px-4 py-3 bg-black text-white text-sm rounded-[50px] w-full transition-transform duration-200 ease-out hover:scale-[1.04] active:scale-[0.98]">
+                        <button className="mt-4 px-6 py-3 bg-[#111] text-[#FCFCFC] text-[10px] uppercase font-bold tracking-widest rounded-full w-full transition-all duration-300 hover:bg-[#C0001A] active:scale-[0.98]">
                           View Details
                         </button>
                       </div>
