@@ -52,6 +52,7 @@ export interface Testimonial {
 export interface HeroSlide {
   id: string;
   image_url: string;
+  mobile_image_url: string | null;
   alt_text: string | null;
   heading: string;
   description: string | null;
@@ -90,6 +91,7 @@ export interface HomepageSection {
   subtitle: string | null;
   description: string | null;
   image_url: string | null;
+  mobile_image_url: string | null;
   cta_text: string | null;
   cta_url: string | null;
   is_active: boolean;

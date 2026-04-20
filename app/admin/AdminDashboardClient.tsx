@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Eye, MessageSquare, Users, ImageIcon, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +18,11 @@ const IconMap: Record<string, any> = {
 };
 
 export default function AdminDashboardClient({ stats, recentInquiries }: AdminDashboardClientProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className="font-inter space-y-10">
 
@@ -91,7 +97,7 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
                         {inquiry.status || "New"}
                       </span>
                       <span className="text-[10px] text-[#666] uppercase tracking-widest">
-                        {new Date(inquiry.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                        {mounted ? new Date(inquiry.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ""}
                       </span>
                     </div>
                   </motion.div>

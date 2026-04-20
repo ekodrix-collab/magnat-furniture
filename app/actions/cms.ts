@@ -136,6 +136,7 @@ export async function saveHeroSlide(formData: FormData) {
   const heading = formData.get("heading") as string;
   const description = formData.get("description") as string;
   const image_url = formData.get("image_url") as string;
+  const mobile_image_url = formData.get("mobile_image_url") as string || null;
   const alt_text = formData.get("alt_text") as string;
   const sort_order = parseInt(formData.get("sort_order") as string || "0");
   const is_active = formData.get("is_active") === "true";
@@ -144,6 +145,7 @@ export async function saveHeroSlide(formData: FormData) {
     heading,
     description,
     image_url,
+    mobile_image_url,
     alt_text,
     sort_order,
     is_active,
@@ -332,3 +334,152 @@ export async function deleteMediaAsset(formData: FormData) {
   // We can revalidate the media page to reflect changes
   revalidatePath("/admin/media");
 }
+
+/**
+ * Save or update a homepage section
+ */
+export async function saveHomepageSection(formData: FormData) {
+  const supabase = await createClient();
+  const isMulti = formData.get("is_multi") === "true";
+  
+  try {
+    if (isMulti) {
+      // Handle multiple sections at once (e.g. curtains)
+      const keys = Array.from(formData.keys()).filter(k => k.includes("_title")).map(k => k.split("_")[0]);
+      const uniqueKeys = Array.from(new Set(keys));
+
+      for (const key of uniqueKeys) {
+        const sectionData = {
+          section_key: key,
+          title: formData.get(`${key}_title`) as string,
+          subtitle: formData.get(`${key}_subtitle`) as string,
+          description: formData.get(`${key}_description`) as string,
+          image_url: formData.get(`${key}_image_url`) as string,
+          mobile_image_url: formData.get(`${key}_mobile_image_url`) as string || null,
+          is_active: true,
+          updated_at: new Date().toISOString(),
+        };
+
+        const { error } = await supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
+        if (error) throw error;
+      }
+    } else {
+      // Handle single section
+      const id = formData.get("id") as string;
+      const section_key = formData.get("section_key") as string;
+      const sectionData = {
+        section_key,
+        title: formData.get("title") as string,
+        subtitle: formData.get("subtitle") as string,
+        description: formData.get("description") as string,
+        image_url: formData.get("image_url") as string,
+        mobile_image_url: formData.get("mobile_image_url") as string || null,
+        updated_at: new Date().toISOString(),
+      };
+
+      let query;
+      if (id && id !== "new") {
+        query = supabase.from("homepage_sections").update(sectionData).eq("id", id);
+      } else {
+        query = supabase.from("homepage_sections").upsert(sectionData, { onConflict: "section_key" });
+      }
+
+      const { error } = await query;
+      if (error) throw error;
+    }
+
+    revalidatePath("/");
+    revalidatePath("/admin/home");
+    return { success: true };
+  } catch (err: any) {
+    console.error("Error saving homepage section:", err);
+    return { error: err.message || "Failed to save section" };
+  }
+}
+
+/**
+ * Update which categories are featured on the homepage
+ */
+export async function updateFeaturedCategories(categoryIds: string[]) {
+  const supabase = await createClient();
+
+  // First, set all to NOT featured
+  await supabase.from("categories").update({ is_featured: false }).neq("id", "00000000-0000-0000-0000-000000000000");
+
+  // Then, set selected ones to featured
+  if (categoryIds.length > 0) {
+    await supabase.from("categories").update({ is_featured: true }).in("id", categoryIds);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/home");
+  revalidatePath("/admin/categories");
+  return { success: true };
+}
+
+/**
+ * Save or update an Instagram post
+ */
+export async function saveInstagramPost(formData: FormData) {
+  const supabase = await createClient();
+  const id = formData.get("id") as string;
+  const postData = {
+    image_url: formData.get("image_url") as string,
+    post_url: formData.get("post_url") as string,
+    caption: formData.get("caption") as string,
+    is_active: true,
+  };
+
+  if (id && id !== "new") {
+    await supabase.from("instagram_posts").update(postData).eq("id", id);
+  } else {
+    await supabase.from("instagram_posts").insert([postData]);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/home");
+  return { success: true };
+}
+
+/**
+ * Delete an Instagram post
+ */
+export async function deleteInstagramPost(id: string) {
+  const supabase = await createClient();
+  await supabase.from("instagram_posts").delete().eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/admin/home");
+  return { success: true };
+}
+
+/**
+ * Upload an image to Supabase Storage
+ */
+export async function uploadImage(formData: FormData) {
+  const supabase = await createClient();
+  const file = formData.get("file") as File;
+
+  if (!file) {
+    return { error: "No file provided" };
+  }
+
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+  const filePath = `uploads/${fileName}`;
+
+  const { data, error } = await supabase.storage
+    .from("magnat-media")
+    .upload(filePath, file);
+
+  if (error) {
+    console.error("Error uploading image:", error);
+    return { error: error.message };
+  }
+
+  const { data: { publicUrl } } = supabase.storage
+    .from("magnat-media")
+    .getPublicUrl(filePath);
+
+  return { url: publicUrl };
+}
+
