@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Image as ImageIcon } from "lucide-react";
 import { saveHeroSlide } from "@/app/actions/cms";
 import { HeroSlide } from "@/lib/types";
+import ImageUploadField from "@/components/ui/ImageUploadField";
 
 interface HeroSlideFormProps {
   slide?: HeroSlide;
@@ -95,16 +96,19 @@ export default function HeroSlideForm({ slide }: HeroSlideFormProps) {
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Imagery</h3>
 
             <div className="space-y-6">
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Image URL</label>
-                <input
-                  type="text"
-                  name="image_url"
-                  defaultValue={slide?.image_url}
-                  required
-                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-mono"
-                />
-              </div>
+              <ImageUploadField 
+                name="image_url" 
+                defaultValue={slide?.image_url} 
+                label="Desktop Image"
+                dimensions="2560 x 1440px (16:9)"
+              />
+
+              <ImageUploadField 
+                name="mobile_image_url" 
+                defaultValue={slide?.mobile_image_url || ""} 
+                label="Mobile Image (Optional)"
+                dimensions="1080 x 1920px (9:16)"
+              />
 
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Image Alt Text (SEO)</label>

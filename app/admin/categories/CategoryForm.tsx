@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Layers, Globe } from "lucide-react";
 import { saveCategory } from "@/app/actions/cms";
 import { Category } from "@/lib/types";
+import ImageUploadField from "@/components/ui/ImageUploadField";
 
 interface CategoryFormProps {
   category?: Category;
@@ -108,16 +109,12 @@ export default function CategoryForm({ category }: CategoryFormProps) {
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Visual Identity</h3>
 
-            <div>
-              <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Category Image URL</label>
-              <input
-                type="text"
-                name="image_url"
-                defaultValue={category?.image_url || ""}
-                required
-                className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-mono"
-              />
-            </div>
+            <ImageUploadField
+              name="image_url"
+              defaultValue={category?.image_url || ""}
+              label="Category Image"
+              dimensions="800 x 1000px (4:5 Portrait)"
+            />
           </div>
         </div>
 
