@@ -516,11 +516,11 @@ function InstagramManagement({ posts, section, onSaveSuccess }: { posts: Instagr
               />
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Post URL (Link)</label>
-                <input name="post_url" defaultValue={editingPost?.post_url} className="w-full p-4 border border-[#eeeeee] text-[13px]" placeholder="https://instagram.com/p/..." />
+                <input name="post_url" defaultValue={editingPost?.post_url || ""} className="w-full p-4 border border-[#eeeeee] text-[13px]" placeholder="https://instagram.com/p/..." />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Caption</label>
-                <input name="caption" defaultValue={editingPost?.caption} className="w-full p-4 border border-[#eeeeee] text-[13px]" placeholder="Modern Comfort" />
+                <input name="caption" defaultValue={editingPost?.caption || ""} className="w-full p-4 border border-[#eeeeee] text-[13px]" placeholder="Modern Comfort" />
               </div>
               <div className="flex gap-4 pt-4">
                 <button type="submit" className="flex-1 bg-[#111] text-white py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-[#C0001A]">Save Post</button>
