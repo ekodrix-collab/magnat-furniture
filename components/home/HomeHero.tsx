@@ -228,7 +228,7 @@ export default function HomeHero({
                   />
 
                 </motion.div>
-                
+
                 {/* ── Left-aligned content (Restored Design) ── */}
                 <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24">
                   <div className="max-w-[85%] md:max-w-xl">
@@ -238,25 +238,25 @@ export default function HomeHero({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ ...contentSpring, delay: 0.2 }}
                     >
-                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block text-[#FCFCFC]/90">
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-2 block text-[#FCFCFC]/90">
                         Signature Furniture
                       </span>
-                      
-                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight ">
                         {activeSlides[current].heading}
                       </h1>
 
-                      <p className="text-sm md:text-base text-[#FCFCFC]/80 max-w-md mb-10 leading-relaxed font-light">
+                      <p className="text-[10px] md:text-base text-[#FCFCFC]/80 max-w-md mb-3 leading-relaxed font-light">
                         {activeSlides[current].description}
                       </p>
 
-                      <div className="flex flex-row items-center gap-4">
-                        <Button variant="primary" className="px-10">
-                          Explore
+                      <div className="flex flex-row items-center md:gap-4 gap-2">
+                        <Button className="text-[10px]">
+                          Explores
                         </Button>
-                        <Button 
-                          variant="outline" 
-                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111]"
+                        <Button
+                          variant="outline"
+                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111] md:px-10 text-nowrap text-[10px] md:text-md"
                         >
                           Contact Us
                         </Button>
