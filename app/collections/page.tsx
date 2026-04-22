@@ -56,7 +56,7 @@ const collections = [
 
 export default function CollectionsPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4F0] dark:bg-zinc-950 transition-colors duration-500">
+    <main className="min-h-screen bg-[#F7F4F0] dark:bg-zinc-950 transition-colors duration-500 mt-[-58px]">
 
       {/* ============================================
           EDITORIAL HERO — ASYMMETRIC COMPOSITION
@@ -80,7 +80,7 @@ export default function CollectionsPage() {
         <div className="max-container relative z-20 w-full">
           <FadeInView className="max-w-4xl space-y-6">
             <div className="flex items-center gap-6">
-              <div className="h-px w-16 bg-[#C0001A]"></div>
+              <div className="h-px w-16 hidden md:block bg-[#C0001A]"></div>
               <span className="text-white/90 text-[10px] md:text-[11px] font-bold tracking-[0.6em] uppercase">
                 Curated Portfolios 2026
               </span>
@@ -88,13 +88,13 @@ export default function CollectionsPage() {
 
             <div className="space-y-2">
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-[0.85] tracking-tighter">
-                Luxury <br />
-                <span className="italic font-normal text-white/90">Designer</span> <br />
-                <span className="text-[#C0001A]">Collections.</span>
+                Luxury 
+                <span className=" text-white/90"> Designer</span> 
+                <span className="text-white/90"> Collections.</span>
               </h1>
             </div>
 
-            <p className="text-lg md:text-xl text-white/70 font-light max-w-xl leading-relaxed border-l-2 border-white/10 pl-8">
+            <p className="text-md md:text-md text-white/70 font-light max-w-xl leading-relaxed ">
               Discover India's most exclusive artisanal gallery. We combine heritage woodworking
               with contemporary aesthetics to create high-end furniture that defines your story.
             </p>
@@ -106,8 +106,6 @@ export default function CollectionsPage() {
               </button>
               <div className="hidden md:block">
                 <div className="flex flex-col">
-                  <span className="text-white/40 text-[9px] uppercase tracking-widest mb-1">Scroll to view</span>
-                  <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent mx-auto"></div>
                 </div>
               </div>
             </div>
@@ -124,8 +122,7 @@ export default function CollectionsPage() {
             <FadeInView className="max-w-2xl">
               <span className="heading-label">The Portfolios</span>
               <h2 className="text-4xl md:text-6xl font-bold dark:text-white leading-tight">
-                Selection <br />
-                <span className="italic font-normal text-zinc-400">by Magnat</span>
+                Selection by Magnat
               </h2>
             </FadeInView>
           </div>
@@ -236,12 +233,12 @@ export default function CollectionsPage() {
           <FadeInView align="center" className="max-w-3xl">
             <span className="text-[#C0001A] text-[10px] font-bold tracking-[0.4em] uppercase">Bespoke Manufacturing</span>
             <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 leading-tight">
-              Your Vision, <br />
-              <span className="italic font-normal text-white/60">Our Craft</span><span className="text-[#C0001A]">.</span>
+              Your Vision, 
+              <span className="italic font-normal text-white/60"> Our Craft</span><span className="text-[#C0001A]">.</span>
             </h2>
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-6">
               <Link href="/contact" className="px-10 py-5 bg-[#C0001A] text-white text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-500 rounded-lg">Start a Project</Link>
-              <Link href="/showroom" className="px-10 py-5 border border-white/20 text-white text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-500 rounded-lg">View Showroom</Link>
+              <Link href="/showrooms" className="px-10 py-5 border border-white/20 text-white text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-500 rounded-lg">View Showroom</Link>
             </div>
           </FadeInView>
         </div>
