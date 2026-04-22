@@ -7,11 +7,7 @@ import { Sofa, Star, MapPin, Truck, BedDouble } from "lucide-react";
 import { HeroSlide } from "@/lib/types";
 import { getHeroSlides } from "@/lib/api/hero";
 
-interface HeroSlideExtended extends HeroSlide {
-  mobile_image_url?: string;
-}
-
-const FALLBACK_SLIDES: HeroSlideExtended[] = [
+const FALLBACK_SLIDES: HeroSlide[] = [
   {
     id: "fallback-1",
     image_url:
@@ -86,8 +82,8 @@ export default function HomeHero({
 }: {
   slides?: HeroSlide[];
 }) {
-  const [slides, setSlides] = useState<HeroSlideExtended[]>(
-    (initialSlides as HeroSlideExtended[]) || FALLBACK_SLIDES,
+  const [slides, setSlides] = useState<HeroSlide[]>(
+    (initialSlides as HeroSlide[]) || FALLBACK_SLIDES,
   );
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -97,7 +93,7 @@ export default function HomeHero({
     async function loadSlides() {
       if (!initialSlides) {
         const fetched = await getHeroSlides();
-        setSlides(fetched as HeroSlideExtended[]);
+        setSlides(fetched as HeroSlide[]);
       }
     }
     loadSlides();

@@ -5,23 +5,30 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ArrowRight } from "lucide-react";
+import { HomepageSection } from "@/lib/types";
 
-const CurtainSpotlight = () => {
+interface Props {
+  header?: HomepageSection;
+  card1?: HomepageSection;
+  card2?: HomepageSection;
+}
+
+const CurtainSpotlight = ({ header, card1, card2 }: Props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const collections = [
     {
-      title: "Premium Drapes",
-      description: "Custom floor-to-ceiling drapes tailored to your window size and style preferences.",
-      image: "/images/curtain-1.jpg", // Replace with your image
-      link: "/products/curtains",
+      title: card1?.title || "Premium Drapes",
+      description: card1?.description || "Custom floor-to-ceiling drapes tailored to your window size and style preferences.",
+      image: card1?.image_url || "/images/curtain-1.jpg",
+      link: card1?.cta_url || "/products/curtains",
     },
     {
-      title: "Roman Blinds",
-      description: "Modern and space-saving window solutions available in a wide variety of fabrics.",
-      image: "/images/curtain-2.jpg", // Replace with your image
-      link: "/products/blinds",
+      title: card2?.title || "Roman Blinds",
+      description: card2?.description || "Modern and space-saving window solutions available in a wide variety of fabrics.",
+      image: card2?.image_url || "/images/curtain-2.jpg",
+      link: card2?.cta_url || "/products/blinds",
     },
   ];
 
@@ -30,9 +37,9 @@ const CurtainSpotlight = () => {
       <div className="max-w-7xl mx-auto">
         <SectionHeading 
           label="Custom Window Works"
-          titlePart1="Curtains &"
-          titlePart2="Roman Blinds"
-          subtitle="Elevate your windows with our custom-made treatments, tailored to your space with premium fabrics."
+          titlePart1={header?.title?.split(" & ")[0] || "Curtains"}
+          titlePart2={header?.title?.split(" & ")[1] || "Roman Blinds"}
+          subtitle={header?.subtitle || "Elevate your windows with our custom-made treatments, tailored to your space with premium fabrics."}
           className="mb-10 md:mb-16"
         />
 

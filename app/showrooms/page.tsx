@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function ShowroomsPage() {
   return (
-    <main className="pt-32 pb-24 min-h-[80vh] bg-white">
-      <div className="max-container mt-10">
+    <main className="pt-6 pb-24 min-h-[80vh] bg-white">
+      <div className="max-container">
         
         <FadeInView className="text-center mb-16 md:mb-24">
           <h1 

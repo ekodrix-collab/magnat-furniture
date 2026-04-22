@@ -9,11 +9,7 @@ import Button from "@/components/ui/Button";
 import FadeInView from "@/components/ui/FadeInView";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-interface HeroSlideExtended extends HeroSlide {
-  mobile_image_url?: string;
-}
-
-const FALLBACK_SLIDES: HeroSlideExtended[] = [
+const FALLBACK_SLIDES: HeroSlide[] = [
   {
     id: "fallback-1",
     image_url:
@@ -80,8 +76,8 @@ export default function HomeHero({
 }: {
   slides?: HeroSlide[];
 }) {
-  const [slides, setSlides] = useState<HeroSlideExtended[]>(
-    (initialSlides as HeroSlideExtended[]) || FALLBACK_SLIDES,
+  const [slides, setSlides] = useState<HeroSlide[]>(
+    (initialSlides as HeroSlide[]) || FALLBACK_SLIDES,
   );
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -98,7 +94,7 @@ export default function HomeHero({
     async function loadSlides() {
       if (!initialSlides) {
         const fetched = await getHeroSlides();
-        setSlides(fetched as HeroSlideExtended[]);
+        setSlides(fetched as HeroSlide[]);
       }
     }
     loadSlides();
