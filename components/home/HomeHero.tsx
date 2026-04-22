@@ -9,11 +9,7 @@ import Button from "@/components/ui/Button";
 import FadeInView from "@/components/ui/FadeInView";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-interface HeroSlideExtended extends HeroSlide {
-  mobile_image_url?: string;
-}
-
-const FALLBACK_SLIDES: HeroSlideExtended[] = [
+const FALLBACK_SLIDES: HeroSlide[] = [
   {
     id: "fallback-1",
     image_url:
@@ -80,8 +76,8 @@ export default function HomeHero({
 }: {
   slides?: HeroSlide[];
 }) {
-  const [slides, setSlides] = useState<HeroSlideExtended[]>(
-    (initialSlides as HeroSlideExtended[]) || FALLBACK_SLIDES,
+  const [slides, setSlides] = useState<HeroSlide[]>(
+    (initialSlides as HeroSlide[]) || FALLBACK_SLIDES,
   );
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -98,7 +94,7 @@ export default function HomeHero({
     async function loadSlides() {
       if (!initialSlides) {
         const fetched = await getHeroSlides();
-        setSlides(fetched as HeroSlideExtended[]);
+        setSlides(fetched as HeroSlide[]);
       }
     }
     loadSlides();
@@ -165,35 +161,13 @@ export default function HomeHero({
           tablet  (md)   : 4/3            → balanced landscape
           desktop (lg+)  : 16/6           → wide cinematic banner
         */}
-        <div className="hero-aspect relative w-full overflow-visible rounded-xl aspect-[9/16] md:aspect-[4/3] lg:aspect-[16/6]" style={{ marginBottom: "0" }}>
+        <div className="hero-aspect relative w-full overflow-hidden rounded-[20px] aspect-[9/16] md:aspect-[4/3] lg:aspect-[16/6]" style={{ marginBottom: "0", borderRadius: "20px" }}>
 
-          {/* ── 25-year logo badge — half outside top-right corner ── */}
-          <div
-            className="absolute z-30"
-            style={{
-              top: "-8px",
-              right: "-10px",
-              width: "80px",
-              height: "80px",
-            }}
-          >
-            <img
-              src="/images/25-year-logo.jpeg"
-              alt="25 Years of Excellence - Quality Craftsmanship"
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                display: "block",
-              }}
-              draggable={false}
-            />
-          </div>
 
           {/* ── Clipping wrapper for the carousel images ── */}
           <div
-            className="absolute inset-0 overflow-hidden rounded-xl"
+            className="absolute inset-0 overflow-hidden rounded-[20px]"
+            style={{ borderRadius: "20px" }}
             onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
               const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -253,13 +227,10 @@ export default function HomeHero({
                     draggable={false}
                   />
 
-                  {/* Gradient overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60 z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent z-10" />
                 </motion.div>
                 
                 {/* ── Left-aligned content (Restored Design) ── */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24 bg-gradient-to-r from-[#111]/40 via-transparent to-transparent">
+                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24">
                   <div className="max-w-[85%] md:max-w-xl">
                     <motion.div
                       key={`content-${current}`}

@@ -34,14 +34,22 @@ export default async function HomePage() {
     getInstagramPosts()
   ]);
 
-  // For categories in SpecialModels, we'll fetch from categories table
+  // For categories and sections, we'll fetch from Supabase
   const supabase = await createClient();
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("*")
-    .eq("is_featured", true)
-    .order("sort_order", { ascending: true })
-    .limit(6);
+  const [{ data: categories }, { data: sections }] = await Promise.all([
+    supabase
+      .from("categories")
+      .select("*")
+      .eq("is_featured", true)
+      .order("sort_order", { ascending: true })
+      .limit(6),
+    supabase
+      .from("homepage_sections")
+      .select("*")
+      .eq("is_active", true)
+  ]);
+
+  const getSection = (key: string) => sections?.find(s => s.section_key === key);
 
   return (
     <main className="min-h-screen bg-[#FCFCFC]">
@@ -55,19 +63,29 @@ export default async function HomePage() {
       <HeritageSection />
 
       {/* ── 2. Signature Showcase (Special Models) ── */}
-      <SpecialModels categories={categories || undefined} />
-
+      <SpecialModels 
+        categories={categories || undefined} 
+        section={getSection("elite-home-collections")}
+      />
+      
       {/* ── 4. Main Portfolio Grid (Full Color) ── */}
       <HomeCollection items={featuredItems} />
 
       {/* ── 4.5 Curtain Spotlight (Indian Style) ── */}
-      <CurtainSpotlight />
+      <CurtainSpotlight 
+        header={getSection("curtain-spotlight-header")}
+        card1={getSection("curtain-spotlight-1")}
+        card2={getSection("curtain-spotlight-2")}
+      />
 
       {/* ── 5. Editorial Curtains & Blinds ── */}
       <HomeCurtains steps={processSteps} />
 
       {/* ── 7. Visual Journey of Craft (Gallery) ── */}
-      <KondottyGallery posts={instagramPosts} />
+      <KondottyGallery 
+        posts={instagramPosts} 
+        section={getSection("instagram-header")}
+      />
 
       {/* ── 8. Trusted Chronicles (Testimonials) ── */}
       {/* <HomeTestimonials reviews={testimonials} /> */}

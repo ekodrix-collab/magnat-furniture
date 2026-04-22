@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Category } from "@/lib/types";
+import { Category, HomepageSection } from "@/lib/types";
 
 /* ── Fallback Data (Functional & Premium) ── */
 const FALLBACK_ITEMS: Category[] = [
@@ -62,7 +62,13 @@ function CategoryCard({ cat }: { cat: Category }) {
   );
 }
 
-export default function SpecialModels({ categories }: { categories?: Category[] }) {
+export default function SpecialModels({ 
+  categories, 
+  section 
+}: { 
+  categories?: Category[], 
+  section?: HomepageSection 
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const displayItems = (categories && categories.length > 0) ? categories : FALLBACK_ITEMS;
 
@@ -85,8 +91,8 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
         <div className="text-center mb-6">
           <SectionHeading
             label="Shop by Category"
-            titlePart1="Elite Home"
-            titlePart2="Collections"
+            titlePart1={section?.title || "Elite Home"}
+            titlePart2={section?.subtitle || "Collections"}
           />
         </div>
 
@@ -103,7 +109,7 @@ export default function SpecialModels({ categories }: { categories?: Category[] 
           {/* CENTER: Description */}
           <div className="md:col-span-3 flex justify-center">
             <p className="text-[15px] md:text-[17px] text-gray-500 max-w-2xl text-center leading-relaxed font-light">
-              Explore our signature collections tailored for every corner of your home, from architectural sofas to serene bedroom suites.
+              {section?.description || "Explore our signature collections tailored for every corner of your home, from architectural sofas to serene bedroom suites."}
             </p>
           </div>
 

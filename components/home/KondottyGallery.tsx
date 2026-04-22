@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Instagram } from "lucide-react";
-import { InstagramPost } from "@/lib/types";
+import { InstagramPost, HomepageSection } from "@/lib/types";
 
 // Local fallback — used until backend instagram_posts table is populated
 const FALLBACK_ITEMS = [
@@ -20,9 +20,10 @@ const FALLBACK_ITEMS = [
 
 interface Props {
    posts?: InstagramPost[];
+   section?: HomepageSection;
 }
 
-export default function KondottyGallery({ posts }: Props) {
+export default function KondottyGallery({ posts, section }: Props) {
    const [isPaused, setIsPaused] = useState(false);
 
    // Use backend data when available, otherwise use local fallback
@@ -36,13 +37,14 @@ export default function KondottyGallery({ posts }: Props) {
          <div className="max-container px-4 mb-10 md:mb-16">
             <SectionHeading 
                label="Visual Journey"
-               titlePart1="We're on"
-               titlePart2="Instagram"
-               subtitle="@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces."
+               titlePart1={section?.title?.split(" ").slice(0, 2).join(" ") || "We're on"}
+               titlePart2={section?.title?.split(" ").slice(2).join(" ") || "Instagram"}
+               subtitle={section?.subtitle || "@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces."}
             />
          </div>
 
          {/* Marquee Container */}
+         {/* ... (rest of the component) */}
          <div
             className="relative overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
@@ -94,9 +96,7 @@ export default function KondottyGallery({ posts }: Props) {
                         </div>
                      </div>
 
-                     {/* Image — no lazy loading: fetched on page load at low priority
-                         so images are warm in cache before the user scrolls here.
-                         decoding=async keeps decoding off the main thread. */}
+                     {/* Image */}
                      <div className="aspect-square w-full rounded-xl overflow-hidden bg-gray-100 mb-4">
                         <img
                            src={item.image_url}

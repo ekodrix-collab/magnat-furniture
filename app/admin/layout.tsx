@@ -9,6 +9,7 @@ import { handleLogout } from "@/app/actions/auth";
 
 const adminNavItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Home Page", href: "/admin/home", icon: ImageIcon },
   { label: "Products", href: "/admin/products", icon: Package },
   { label: "Categories", href: "/admin/categories", icon: ListTree },
   { label: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },

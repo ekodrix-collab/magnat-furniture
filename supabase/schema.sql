@@ -58,6 +58,7 @@ create table if not exists testimonials (
 create table if not exists hero_slides (
   id uuid primary key default gen_random_uuid(),
   image_url text not null,
+  mobile_image_url text,
   alt_text text,
   heading text not null,
   description text,
@@ -99,6 +100,7 @@ create table if not exists homepage_sections (
   subtitle text,
   description text,
   image_url text,
+  mobile_image_url text,
   cta_text text,
   cta_url text,
   is_active boolean default true,
