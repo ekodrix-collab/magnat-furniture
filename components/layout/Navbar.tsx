@@ -210,7 +210,7 @@ function NavbarContent() {
 export default function Navbar() {
   return (
     <header className="fixed top-0 z-[100] w-full bg-white border-b border-black/5">
-      <Suspense fallback={<div className="h-20 bg-white" />}>
+      <Suspense fallback={<div className=" bg-white" />}>
         <NavbarContent />
       </Suspense>
     </header>
