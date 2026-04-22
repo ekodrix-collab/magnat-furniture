@@ -6,16 +6,12 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { HeroSlide } from "@/lib/types";
 import { getHeroSlides } from "@/lib/api/hero";
 import Button from "@/components/ui/Button";
-import FadeInView from "@/components/ui/FadeInView";
-import SectionHeading from "@/components/ui/SectionHeading";
 
 const FALLBACK_SLIDES: HeroSlide[] = [
   {
     id: "fallback-1",
-    image_url:
-      "/images/hero-section.png",
-    mobile_image_url:
-      "/images/hero-section.png",
+    image_url: "/images/hero-section.png",
+    mobile_image_url: "/images/hero-section.png",
     alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
     description:
@@ -150,28 +146,29 @@ export default function HomeHero({
   };
 
   return (
-    <section
-      className="relative w-full bg-white select-none pt-4 pb-3 md:pt-5 md:pb-4 md:px-6 lg:px-8"
-      style={{ marginTop: "1px" }}
-    >
-      <div className="max-container">
+    <section className="relative w-full bg-white select-none pb-3 md:pb-4 md:px-6 lg:px-8 mt-[-58px] sm:mt-[-10px]">
+      <div className="md:px-10 ">
         {/*
           ── Responsive aspect ratio ──
           mobile  (< md) : 9/16 portrait  → tall, fills phone screen nicely
           tablet  (md)   : 4/3            → balanced landscape
           desktop (lg+)  : 16/6           → wide cinematic banner
         */}
-        <div className="hero-aspect relative w-full overflow-hidden rounded-[20px] aspect-[9/16] md:aspect-[4/3] lg:aspect-[16/6]" style={{ marginBottom: "0", borderRadius: "20px" }}>
-
-
+        <div
+          className="hero-aspect relative w-full overflow-hidden lg:rounded-[20px] aspect-[9/9.5] md:aspect-[4/3] lg:aspect-[16/6]"
+          style={{ marginBottom: "0" }}
+        >
           {/* ── Clipping wrapper for the carousel images ── */}
           <div
-            className="absolute inset-0 overflow-hidden rounded-[20px]"
-            style={{ borderRadius: "20px" }}
-            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            className="absolute inset-0 overflow-hidden "
+            onTouchStart={(e) => {
+              touchStartX.current = e.touches[0].clientX;
+            }}
             onTouchEnd={(e) => {
               const diff = touchStartX.current - e.changedTouches[0].clientX;
-              if (Math.abs(diff) > 40) { diff > 0 ? goNext() : goPrev(); }
+              if (Math.abs(diff) > 40) {
+                diff > 0 ? goNext() : goPrev();
+              }
             }}
           >
             {/* ── Image Carousel ── */}
@@ -226,12 +223,11 @@ export default function HomeHero({
                     className="w-full h-full object-cover object-top block md:hidden"
                     draggable={false}
                   />
-
                 </motion.div>
 
                 {/* ── Left-aligned content (Restored Design) ── */}
                 <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24">
-                  <div className="max-w-[85%] md:max-w-xl">
+                  <div className="max-w-[95%] md:max-w-xl">
                     <motion.div
                       key={`content-${current}`}
                       initial={{ opacity: 0, x: -30 }}
@@ -242,21 +238,21 @@ export default function HomeHero({
                         Signature Furniture
                       </span>
 
-                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight ">
+                      <h1 className="!md:text-6xl !font-extrabold ">
                         {activeSlides[current].heading}
                       </h1>
 
-                      <p className="text-[10px] md:text-base text-[#FCFCFC]/80 max-w-md mb-3 leading-relaxed font-light">
+                      <p className="text-[15px] text-[#FCFCFC]/80  mb-3 mt-[-15px]">
                         {activeSlides[current].description}
                       </p>
 
                       <div className="flex flex-row items-center md:gap-4 gap-2">
-                        <Button className="text-[10px]">
+                        <Button className="text-[10px] md:text-[15px]">
                           Explores
                         </Button>
                         <Button
                           variant="outline"
-                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111] md:px-10 text-nowrap text-[10px] md:text-md"
+                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111] md:px-10 text-nowrap text-[10px] md:text-[15px]"
                         >
                           Contact Us
                         </Button>
