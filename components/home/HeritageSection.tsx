@@ -16,7 +16,7 @@ const trustStats = [
          </svg>
       ),
       number: "25",
-      suffix: "+ Yrs",
+      suffix: " + Yrs",
       label: "Manufacturing Experience",
    },
    {
@@ -29,7 +29,7 @@ const trustStats = [
          </svg>
       ),
       number: "5000",
-      suffix: "+",
+      suffix: " +",
       label: "Homes Transformed",
    },
    {
@@ -40,7 +40,7 @@ const trustStats = [
          </svg>
       ),
       number: "10",
-      suffix: "yr",
+      suffix: " yr",
       label: "Product Warranty",
    },
    {
@@ -51,8 +51,8 @@ const trustStats = [
          </svg>
       ),
       number: "100",
-      suffix: "%",
-      label: "Real Wood Guaranteed",
+      suffix: " %",
+      label: "Wood Guaranteed",
    },
 ];
 
@@ -69,20 +69,20 @@ export default function HeritageSection() {
             />
             
             <FadeInView className="w-full max-w-5xl">
-               <div className="border-t border-[#eee] pt-10">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
+               <div className="border-t border-[#eee] pt-10 text-nowrap">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6  md:gap-0 items-start">
                      {trustStats.map((stat, i) => (
                         <div
                            key={i}
                            className={`
-                              flex items-center gap-3 text-left
+                              flex items-start gap-3 text-left justify-start
                               ${i !== 0 ? "md:border-l md:border-[#eee] md:pl-5" : ""}
-                              ${i === 1 || i === 3 ? "justify-end md:justify-start" : ""}
+                              ${i === 1 || i === 3 ? "justify-start sm:justify-start" : ""}
                            `}
                         >
                            {/* Icon */}
                            <div
-                              className="w-[40px] h-[40px] min-w-[40px] rounded-full flex items-center justify-center"
+                              className="w-[40px]  h-[40px] min-w-[40px] rounded-full flex items-center justify-center"
                               style={{
                                  background: "#fff5f5",
                                  border: "1px solid rgba(192,0,26,0.15)",
@@ -113,7 +113,6 @@ export default function HeritageSection() {
                               <p
                                  className="text-[#666] mt-0.5"
                                  style={{
-                                    
                                     fontSize: "10px",
                                     lineHeight: "1.3",
                                  }}
