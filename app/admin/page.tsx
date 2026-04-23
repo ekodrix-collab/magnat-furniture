@@ -1,3 +1,4 @@
+// Force route refresh
 import { createClient } from "@/lib/supabase-server";
 import { ShoppingBag, Eye, MessageSquare, Users, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import AdminDashboardClient from "./AdminDashboardClient";

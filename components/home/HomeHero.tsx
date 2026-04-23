@@ -228,7 +228,7 @@ export default function HomeHero({
                   />
 
                 </motion.div>
-                
+
                 {/* ── Left-aligned content (Restored Design) ── */}
                 <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24">
                   <div className="max-w-[85%] md:max-w-xl">
@@ -241,7 +241,7 @@ export default function HomeHero({
                       <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block text-[#FCFCFC]/90">
                         Signature Furniture
                       </span>
-                      
+
                       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
                         {activeSlides[current].heading}
                       </h1>
@@ -254,8 +254,8 @@ export default function HomeHero({
                         <Button variant="primary" className="px-10">
                           Explore
                         </Button>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111]"
                         >
                           Contact Us

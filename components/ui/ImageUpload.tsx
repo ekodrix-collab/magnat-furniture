@@ -20,11 +20,13 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
 
     if (!file.type.startsWith("image/")) {
       setError("Please select an image file");
+      setTimeout(() => setError(null), 5000);
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB Limit
-      setError("Image size must be less than 5MB");
+    if (file.size > 3 * 1024 * 1024) { // 3MB Limit
+      setError("Oversized image (Max 3MB)");
+      setTimeout(() => setError(null), 5000);
       return;
     }
 
@@ -57,6 +59,7 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
     } catch (err: any) {
       console.error("Upload error:", err);
       setError(err.message || "Failed to upload image");
+      setTimeout(() => setError(null), 5000);
     } finally {
       setIsUploading(false);
     }
@@ -89,15 +92,15 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
              </div>
              <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#111] block mb-1">Click to Upload Image</span>
-                <span className="text-[9px] text-[#666] uppercase tracking-widest">JPEG, PNG, WEBP (Max 5MB)</span>
+                <span className="text-[9px] text-[#666] uppercase tracking-widest">JPEG, PNG, WEBP (Max 3MB)</span>
              </div>
           </div>
         )}
       </div>
 
       {error && (
-        <div className="text-[10px] font-bold uppercase tracking-widest text-[#C0001A] flex items-center gap-2">
-           <X size={12} /> {error}
+        <div className="fixed top-10 right-10 z-[100] bg-[#C0001A] text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest shadow-2xl animate-in fade-in slide-in-from-top-5 flex items-center gap-3">
+           <X size={14} /> {error}
         </div>
       )}
     </div>

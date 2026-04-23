@@ -24,6 +24,7 @@ export default function ImageUploadField({ label, name, defaultValue, className,
 
     if (file.size > 3 * 1024 * 1024) {
       setError("Oversized image (Max 3MB)");
+      setTimeout(() => setError(null), 5000);
       return;
     }
 
@@ -33,14 +34,22 @@ export default function ImageUploadField({ label, name, defaultValue, className,
     const formData = new FormData();
     formData.append("file", file);
 
-    const result = await uploadImage(formData);
+    try {
+      const result = await uploadImage(formData);
 
-    if (result.error) {
-      setError(result.error);
-    } else if (result.url) {
-      setUrl(result.url);
+      if (result.error) {
+        setError(result.error);
+        setTimeout(() => setError(null), 5000);
+      } else if (result.url) {
+        setUrl(result.url);
+      }
+    } catch (err: any) {
+      console.error("Upload field error:", err);
+      setError("An unexpected error occurred during upload.");
+      setTimeout(() => setError(null), 5000);
+    } finally {
+      setIsUploading(false);
     }
-    setIsUploading(false);
   };
 
   return (
@@ -86,9 +95,8 @@ export default function ImageUploadField({ label, name, defaultValue, className,
                   className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#111] hover:text-[#C0001A] transition-colors disabled:opacity-50"
                 >
                   {isUploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
-                  {isUploading ? "Uploading..." : "Upload from Device"}
+                {isUploading ? "Uploading..." : "Upload from Device"}
                 </button>
-                {error && <span className="text-[9px] text-[#C0001A] font-bold uppercase tracking-widest truncate">{error}</span>}
               </div>
               
               <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
@@ -106,6 +114,12 @@ export default function ImageUploadField({ label, name, defaultValue, className,
           className="hidden" 
         />
       </div>
+
+      {error && (
+        <div className="fixed top-10 right-10 z-[100] bg-[#C0001A] text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest shadow-2xl animate-in fade-in slide-in-from-top-5 flex items-center gap-3">
+           <X size={14} /> {error}
+        </div>
+      )}
     </div>
   );
 }
