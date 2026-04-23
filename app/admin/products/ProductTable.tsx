@@ -37,6 +37,7 @@ export default function ProductTable({ products }: ProductTableProps) {
             <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666] pl-4">Product</th>
             <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666]">Category</th>
             <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666]">Price</th>
+            <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666]">Status</th>
             <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666]">Source</th>
             <th className="pb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#666] text-right pr-4">Actions</th>
           </tr>
@@ -69,6 +70,28 @@ export default function ProductTable({ products }: ProductTableProps) {
                 </td>
                 <td className="py-6 text-sm font-bold text-[#111] whitespace-nowrap">
                   {product.price || "N/A"}
+                </td>
+                <td className="py-6">
+                  <div className="flex flex-wrap gap-1.5">
+                    {product.is_featured && (
+                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2 py-1 bg-[#930011] text-white">
+                        ★ Signature
+                      </span>
+                    )}
+                    {product.is_bestseller && (
+                      <span className="inline-flex items-center text-[9px] font-bold uppercase tracking-widest px-2 py-1 bg-[#111] text-white">
+                        Best Seller
+                      </span>
+                    )}
+                    {product.is_new && (
+                      <span className="inline-flex items-center text-[9px] font-bold uppercase tracking-widest px-2 py-1 border border-[#930011] text-[#930011]">
+                        New
+                      </span>
+                    )}
+                    {!product.is_featured && !product.is_bestseller && !product.is_new && (
+                      <span className="text-[9px] text-[#bbb] uppercase tracking-widest">—</span>
+                    )}
+                  </div>
                 </td>
                 <td className="py-6">
                   <div className={`inline-flex items-center gap-2 px-3 py-1.5 border ${isLocal ? 'bg-[#F7F4F0] border-[#eeeeee] text-[#111]' : 'border-[#111] bg-[#111] text-white'}`}>

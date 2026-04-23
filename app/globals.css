@@ -17,6 +17,7 @@
   --color-border-subtle: #eeeeee;
   
   /* Typography */
+  --font-playfair: "Playfair Display", Georgia, serif;
   --font-lato: "Lato", "Helvetica Neue", sans-serif;
   --font-inter: "Inter", "Helvetica Neue", sans-serif;
   --font-outfit: "Outfit", sans-serif;

@@ -82,6 +82,7 @@ export interface FeaturedItem {
   is_active: boolean;
   is_new?: boolean;
   is_bestseller?: boolean;
+  is_featured?: boolean;
 }
 
 export interface HomepageSection {

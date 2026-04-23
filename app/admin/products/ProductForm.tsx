@@ -26,6 +26,12 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
     product?.specifications || [{ label: "", value: "" }]
   );
 
+  // Featured & badge state
+  const [isFeatured, setIsFeatured] = useState(product?.is_featured ?? false);
+  const [badgeType, setBadgeType] = useState<"bestseller" | "new" | "none">(
+    product?.is_bestseller ? "bestseller" : product?.is_new ? "new" : "none"
+  );
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
@@ -249,17 +255,69 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 />
               </div>
 
-              <div className="flex items-center gap-3 pt-4">
-                <input type="checkbox" name="is_new" defaultChecked={product?.is_new} value="true" className="w-4 h-4 accent-[#C0001A]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
+              {/* ── Signature Collection Toggle ── */}
+              <div className="pt-4 pb-2 border-t border-[#eeeeee]">
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" name="is_featured" checked={isFeatured} onChange={(e) => setIsFeatured(e.target.checked)} value="true" className="w-4 h-4 accent-[#C0001A]" />
+                  <div>
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Signature Collection</label>
+                    <p className="text-[9px] text-[#999] mt-0.5">Show this product in the homepage &quot;Signature Selection&quot; carousel</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <input type="checkbox" name="is_bestseller" defaultChecked={product?.is_bestseller} value="true" className="w-4 h-4 accent-[#C0001A]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Bestseller</label>
-              </div>
+              {/* ── Badge Type (mutually exclusive) — only visible when featured ── */}
+              {isFeatured && (
+                <div className="ml-7 space-y-2 pb-2">
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-[#999]">Badge type (optional — pick one)</p>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="badge_type"
+                      value="bestseller"
+                      checked={badgeType === "bestseller"}
+                      onChange={() => setBadgeType("bestseller")}
+                      className="w-3.5 h-3.5 accent-[#C0001A]"
+                    />
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Best Seller</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="badge_type"
+                      value="new"
+                      checked={badgeType === "new"}
+                      onChange={() => setBadgeType("new")}
+                      className="w-3.5 h-3.5 accent-[#C0001A]"
+                    />
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="badge_type"
+                      value="none"
+                      checked={badgeType === "none"}
+                      onChange={() => setBadgeType("none")}
+                      className="w-3.5 h-3.5 accent-[#C0001A]"
+                    />
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#999]">No Badge</label>
+                  </div>
+                  {/* Hidden inputs so FormData picks up the right booleans */}
+                  <input type="hidden" name="is_bestseller" value={badgeType === "bestseller" ? "true" : "false"} />
+                  <input type="hidden" name="is_new" value={badgeType === "new" ? "true" : "false"} />
+                </div>
+              )}
 
-              <div className="flex items-center gap-3">
+              {/* When not featured, still pass is_bestseller/is_new as false */}
+              {!isFeatured && (
+                <>
+                  <input type="hidden" name="is_bestseller" value="false" />
+                  <input type="hidden" name="is_new" value="false" />
+                </>
+              )}
+
+              <div className="flex items-center gap-3 pt-2 border-t border-[#eeeeee]">
                 <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#C0001A]" />
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Published / Live</label>
               </div>
