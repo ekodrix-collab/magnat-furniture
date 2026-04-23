@@ -6,16 +6,12 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { HeroSlide } from "@/lib/types";
 import { getHeroSlides } from "@/lib/api/hero";
 import Button from "@/components/ui/Button";
-import FadeInView from "@/components/ui/FadeInView";
-import SectionHeading from "@/components/ui/SectionHeading";
 
 const FALLBACK_SLIDES: HeroSlide[] = [
   {
     id: "fallback-1",
-    image_url:
-      "/images/hero-section.png",
-    mobile_image_url:
-      "/images/hero-section.png",
+    image_url: "/images/hero-section.png",
+    mobile_image_url: "/images/hero-section.png",
     alt_text: "MAGNAT Sofa Collection",
     heading: "Sofa Collection",
     description:
@@ -81,10 +77,20 @@ export default function HomeHero({
   );
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   const isPausedRef = useRef(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const slidesLengthRef = useRef(slides.length);
   const touchStartX = useRef(0);
+
+  // ── Detect mobile viewport ──
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   useEffect(() => {
     slidesLengthRef.current = slides.length;
@@ -143,35 +149,52 @@ export default function HomeHero({
   }, [startInterval]);
 
   // ── Zoom-in transition variants ──
+  // Mobile : subtle 1.06 enter scale + faster 1.0s transition → no jarring zoom
+  // Desktop: full  1.30 enter scale + slower 1.4s transition → cinematic effect
   const bgVariants = {
-    enter: { scale: 1.04, opacity: 0 },
+    enter: { scale: isMobile ? 1.06 : 1.30, opacity: 0 },
     center: { scale: 1, opacity: 1 },
     exit: { scale: 0.98, opacity: 0 },
   };
 
+  // Ken Burns end scale — also toned down on mobile
+  const kenBurnsEndScale = isMobile ? 1.04 : 1.09;
+
   return (
-    <section
-      className="relative w-full bg-white select-none pt-4 pb-3 md:pt-5 md:pb-4 md:px-6 lg:px-8"
-      style={{ marginTop: "1px" }}
-    >
-      <div className="max-container">
+    <section className="relative w-full bg-white select-none pb-3 md:pb-4 md:px-6 lg:px-8 mt-[-58px] sm:mt-[-10px]">
+      {/* ── Dot fill bar animation ── */}
+      <style>{`
+        @keyframes dotFill {
+          from { width: 0%; }
+          to   { width: 100%; }
+        }
+        .dot-fill-bar {
+          animation: dotFill ${INTERVAL}ms linear forwards;
+        }
+      `}</style>
+
+      <div className="md:px-10 ">
         {/*
           ── Responsive aspect ratio ──
-          mobile  (< md) : 9/16 portrait  → tall, fills phone screen nicely
+          mobile  (< md) : 9/9.5 portrait → tall, fills phone screen nicely
           tablet  (md)   : 4/3            → balanced landscape
           desktop (lg+)  : 16/6           → wide cinematic banner
         */}
-        <div className="hero-aspect relative w-full overflow-hidden rounded-[20px] aspect-[9/16] md:aspect-[4/3] lg:aspect-[16/6]" style={{ marginBottom: "0", borderRadius: "20px" }}>
-
-
+        <div
+          className="hero-aspect relative w-full overflow-hidden lg:rounded-[20px] aspect-[9/9.5] md:aspect-[4/3] lg:aspect-[16/6]"
+          style={{ marginBottom: "0" }}
+        >
           {/* ── Clipping wrapper for the carousel images ── */}
           <div
-            className="absolute inset-0 overflow-hidden rounded-[20px]"
-            style={{ borderRadius: "20px" }}
-            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            className="absolute inset-0 overflow-hidden"
+            onTouchStart={(e) => {
+              touchStartX.current = e.touches[0].clientX;
+            }}
             onTouchEnd={(e) => {
               const diff = touchStartX.current - e.changedTouches[0].clientX;
-              if (Math.abs(diff) > 40) { diff > 0 ? goNext() : goPrev(); }
+              if (Math.abs(diff) > 40) {
+                diff > 0 ? goNext() : goPrev();
+              }
             }}
           >
             {/* ── Image Carousel ── */}
@@ -182,14 +205,17 @@ export default function HomeHero({
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  duration: isMobile ? 1.0 : 1.4,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="absolute inset-0"
               >
                 {/* ── Ken Burns zoom continues on top of entry animation ── */}
                 <motion.div
                   key={`zoom-${current}`}
                   initial={{ scale: 1.0 }}
-                  animate={{ scale: 1.06 }}
+                  animate={{ scale: kenBurnsEndScale }}
                   transition={{
                     duration: INTERVAL / 1000 + 1,
                     ease: [0.25, 0.46, 0.45, 0.94],
@@ -226,37 +252,36 @@ export default function HomeHero({
                     className="w-full h-full object-cover object-top block md:hidden"
                     draggable={false}
                   />
-
                 </motion.div>
 
                 {/* ── Left-aligned content (Restored Design) ── */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24">
-                  <div className="max-w-[85%] md:max-w-xl">
+                <div className="absolute inset-0 z-20 flex flex-col justify-end items-start text-[#FCFCFC] p-8 md:p-12 lg:p-24 mb-3 sm:mb-0">
+                  <div className="max-w-[95%] md:max-w-xl">
                     <motion.div
                       key={`content-${current}`}
                       initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ ...contentSpring, delay: 0.2 }}
                     >
-                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block text-[#FCFCFC]/90">
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-2 block text-[#FCFCFC]/90">
                         Signature Furniture
                       </span>
 
-                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                      <h1 className="!md:text-6xl !font-extrabold ">
                         {activeSlides[current].heading}
                       </h1>
 
-                      <p className="text-sm md:text-base text-[#FCFCFC]/80 max-w-md mb-10 leading-relaxed font-light">
+                      <p className="text-[15px] text-[#FCFCFC]/80  mb-3 mt-[-15px]">
                         {activeSlides[current].description}
                       </p>
 
-                      <div className="flex flex-row items-center gap-4">
-                        <Button variant="primary" className="px-10">
-                          Explore
+                      <div className="flex flex-row items-center md:gap-4 gap-2">
+                        <Button className="text-[10px] md:text-[15px]">
+                          Explores
                         </Button>
                         <Button
                           variant="outline"
-                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111]"
+                          className="!border-[#FCFCFC] !text-[#FCFCFC] hover:!bg-[#FCFCFC] hover:!text-[#111] md:px-10 text-nowrap text-[10px] md:text-[15px]"
                         >
                           Contact Us
                         </Button>
