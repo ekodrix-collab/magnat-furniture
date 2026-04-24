@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveProduct } from "@/app/actions/cms";
 import { Product, Category } from "@/lib/types";
-import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2 } from "lucide-react";
+import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2, Copy, Check, ExternalLink, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/ui/ImageUpload";
 
@@ -31,6 +31,9 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [badgeType, setBadgeType] = useState<"bestseller" | "new" | "none">(
     product?.is_bestseller ? "bestseller" : product?.is_new ? "new" : "none"
   );
+  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? false);
+  const [localToken, setLocalToken] = useState(product?.access_token || "");
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -321,6 +324,93 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#C0001A]" />
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Published / Live</label>
               </div>
+            </div>
+          </section>
+
+          {/* Exclusive Private Access */}
+          <section className="bg-[#111111] p-8 rounded-none shadow-sm border border-[#333] space-y-6">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={16} className="text-[#C0001A]" />
+              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-white">Private Viewing</h3>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <input 
+                  type="checkbox" 
+                  name="is_private" 
+                  checked={isPrivate} 
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setIsPrivate(checked);
+                    if (checked && !localToken) {
+                      const newToken = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
+                      setLocalToken(newToken);
+                    }
+                  }} 
+                  value="true" 
+                  className="w-4 h-4 accent-[#C0001A]" 
+                />
+                <div>
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/90">Exclusive Only</label>
+                  <p className="text-[9px] text-white/40 mt-0.5">Hide this product from all public listings. Accessible only via secret link.</p>
+                </div>
+              </div>
+
+              {isPrivate && localToken && (
+                <div className="pt-4 space-y-4 border-t border-white/10">
+                  <div className="space-y-2">
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 pl-1">Secret Access Link</label>
+                    <div className="flex gap-2">
+                      <div className="flex-1 bg-white/5 border border-white/10 px-3 py-2 text-[0.7rem] text-white/60 font-mono truncate">
+                        {`${window.location.origin}/exclusive/${localToken}`}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${window.location.origin}/exclusive/${localToken}`);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        }}
+                        className="p-2 bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/10"
+                        title="Copy Link"
+                      >
+                        {copied ? <Check size={14} /> : <Copy size={14} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${window.location.origin}/exclusive/${localToken}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-2.5 text-[0.65rem] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity"
+                    >
+                      WhatsApp
+                    </a>
+                    <a
+                      href={`/exclusive/${localToken}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-white/10 text-white py-2.5 text-[0.65rem] font-bold uppercase tracking-wider hover:bg-white/20 transition-all border border-white/10"
+                    >
+                      <ExternalLink size={14} /> Preview
+                    </a>
+                  </div>
+                  
+                  {/* Keep the token in form */}
+                  <input type="hidden" name="access_token" value={localToken} />
+                </div>
+              )}
+              
+              {isPrivate && !localToken && (
+                <div className="pt-4 border-t border-white/10">
+                  <p className="text-[9px] text-[#C0001A] italic font-medium uppercase tracking-wider">
+                    Save product first to generate secret link
+                  </p>
+                </div>
+              )}
             </div>
           </section>
         </div>
