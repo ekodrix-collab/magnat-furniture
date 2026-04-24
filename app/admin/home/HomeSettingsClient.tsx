@@ -465,7 +465,7 @@ function InstagramManagement({ posts, section, onSaveSuccess }: { posts: Instagr
         <div className="max-w-xs">
           <ImageUploadField 
             name="image_url" 
-            defaultValue={section?.image_url} 
+            defaultValue={section?.image_url || undefined} 
             label="Profile Picture"
             dimensions="500 x 500px (1:1)"
           />
