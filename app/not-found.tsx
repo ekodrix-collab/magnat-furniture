@@ -42,10 +42,10 @@ export default function NotFound() {
             <ArrowRight size={16} className="ml-3" />
           </Link>
           <Link
-            href="/collections"
+            href="/products"
             className="btn-ghost-dark"
           >
-            Explore Collections
+            Browse Shop
           </Link>
         </div>
 

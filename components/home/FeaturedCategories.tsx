@@ -10,35 +10,35 @@ const categories = [
     name: "Living Room",
     label: "Sofas & Sectionals",
     image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
-    href: "/collections/sofas",
+    href: "/products?category=sofas",
     colSpan: "lg:col-span-2",
   },
   {
     name: "Dining Room",
     label: "Refined Sets",
     image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2000&auto=format&fit=crop",
-    href: "/collections/dining",
+    href: "/products?category=dining",
     colSpan: "lg:col-span-1",
   },
   {
     name: "Master Suite",
     label: "Bedroom Oasis",
     image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2000&auto=format&fit=crop",
-    href: "/collections/bedroom",
+    href: "/products?category=bedroom",
     colSpan: "lg:col-span-1",
   },
   {
     name: "Armchairs",
     label: "Sculptural Seating",
     image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1964&auto=format&fit=crop",
-    href: "/collections/chairs",
+    href: "/products?category=chairs",
     colSpan: "lg:col-span-1",
   },
   {
     name: "Workplace",
     label: "Executive Offices",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
-    href: "/collections/office",
+    href: "/products?category=office",
     colSpan: "lg:col-span-1",
   },
 ];
@@ -107,7 +107,7 @@ export default function FeaturedCategories() {
         
         {/* Mobile Mobile CTA */}
         <div className="mt-12 text-center lg:hidden">
-          <Link href="/collections" className="btn-gold-outline w-full justify-center">
+          <Link href="/products" className="btn-gold-outline w-full justify-center">
             Explore All Categories
           </Link>
         </div>

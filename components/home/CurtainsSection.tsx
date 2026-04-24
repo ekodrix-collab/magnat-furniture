@@ -77,7 +77,7 @@ export default function CurtainsSection() {
           </div>
 
           <div className="reveal mt-10 flex flex-wrap gap-4">
-            <Link href="/collections/curtains" className="btn-gold-outline">
+            <Link href="/products?category=curtains" className="btn-gold-outline">
               Explore Fabrics
               <svg
                 width="14"

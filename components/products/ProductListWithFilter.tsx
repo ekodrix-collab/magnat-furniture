@@ -1,12 +1,8 @@
+// components/products/ProductListWithFilter.tsx
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import ProductCard from "@/components/ui/ProductCard";
 import { Product } from "@/lib/types";
@@ -14,12 +10,12 @@ import FilterSection from "./FilterSection";
 
 interface ProductListWithFilterProps {
   initialProducts: Product[];
-  categories: string;
+  category: string;
 }
 
 export default function ProductListWithFilter({
   initialProducts,
-  categories,
+  category,
 }: ProductListWithFilterProps) {
   const [activeType, setActiveType] = useState("All");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -78,7 +74,9 @@ export default function ProductListWithFilter({
   // Dynamic Sticky Offset
   // Navbar Scrolled Height = 80px (top-20)
   // Navbar Initial Height = 136px (top-[136px])
-  const stickyTop = isNavbarVisible ? (scrolled ? "80px" : "136px") : "0px";
+  const stickyTop = isNavbarVisible
+    ? (scrolled ? "80px" : "136px")
+    : "0px";
 
   return (
     <>
@@ -86,21 +84,14 @@ export default function ProductListWithFilter({
       <motion.div
         animate={{ top: stickyTop }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky z-40 bg-white border-b border-[#f0f0f0] py-5 shadow-sm hidden md:block"
+        className="sticky z-40 bg-white border-b border-[#f0f0f0] py-5 max-sm:py-4 shadow-sm"
       >
-        <div className="max-container ">
+        <div className="max-container">
           <div className="flex items-center justify-between">
             <p className="text-[10px] tracking-[0.1em] uppercase text-[#666] m-0">
-              Showing{" "}
-              <strong className="text-[#111]">
-                {filteredProducts.length} {categories}
-              </strong>
+              Showing <strong className="text-[#111]">{filteredProducts.length} {category.toLowerCase()}</strong>
               {activeType !== "All" && (
-                <span className="hidden sm:inline">
-                  {" "}
-                  — Filtered by{" "}
-                  <strong className="text-[#C0001A]">{activeType}</strong>
-                </span>
+                <span className="hidden sm:inline"> — Filtered by <strong className="text-[#C0001A]">{activeType}</strong></span>
               )}
             </p>
 
@@ -111,26 +102,16 @@ export default function ProductListWithFilter({
               <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
                 Filter
               </span>
-              <Filter
-                size={14}
-                className="group-hover:scale-110 transition-transform"
-              />
+              <Filter size={14} className="group-hover:scale-110 transition-transform" />
             </button>
           </div>
 
           {activeType !== "All" && (
             <div className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
-              <span className="text-[9px] uppercase tracking-widest text-[#999] whitespace-nowrap">
-                Active Filter:
-              </span>
+              <span className="text-[9px] uppercase tracking-widest text-[#999] whitespace-nowrap">Active Filter:</span>
               <div className="flex items-center gap-1.5 bg-[#f9f9f9] border border-[#f0f0f0] px-3 py-1 rounded-full">
-                <span className="text-[9px] font-bold uppercase text-[#C0001A]">
-                  {activeType}
-                </span>
-                <button
-                  onClick={() => setActiveType("All")}
-                  className="text-[#999] hover:text-[#C0001A]"
-                >
+                <span className="text-[9px] font-bold uppercase text-[#C0001A]">{activeType}</span>
+                <button onClick={() => setActiveType("All")} className="text-[#999] hover:text-[#C0001A]">
                   <X size={10} />
                 </button>
               </div>
@@ -176,6 +157,7 @@ export default function ProductListWithFilter({
 
       {/* Product Grid */}
       <section className="pt-20 pb-12 max-sm:pt-16 max-sm:pb-7 min-h-[400px]">
+
         <div className="max-container">
           <motion.div
             layout
@@ -199,7 +181,9 @@ export default function ProductListWithFilter({
 
           {filteredProducts.length === 0 && (
             <div className="py-20 text-center">
-              <p className="text-[#666]">No products found in this category.</p>
+              <p className="text-[#666]">
+                No products found in this category.
+              </p>
             </div>
           )}
         </div>

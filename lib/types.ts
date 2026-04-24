@@ -20,13 +20,15 @@ export interface Product {
   is_bestseller: boolean;
   is_active: boolean;
   is_featured: boolean;
+  is_private: boolean;
+  access_token: string | null | undefined;
   type: string | null | undefined;
   sort_order: number;
   created_at: string;
-  categories?: Categories;
+  category?: Category;
 }
 
-export interface Categories {
+export interface Category {
   id: string;
   name: string;
   slug: string;

@@ -9,14 +9,14 @@ const highlights = [
     title: "The Lounge Suite",
     description: "Sculptural forms designed for the modern architectural home.",
     image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop",
-    href: "/collections/living-room",
+    href: "/products?category=sofas",
     size: "lg:col-span-3",
   },
   {
     title: "Executive Objects",
     description: "Functionality meet the aesthetic of leadership.",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop",
-    href: "/collections/office",
+    href: "/products?category=chairs",
     size: "lg:col-span-2",
   },
 ];

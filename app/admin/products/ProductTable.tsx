@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Edit2, Trash2, ExternalLink, Database, Terminal } from "lucide-react";
+import { Edit2, Trash2, ExternalLink, Database, Terminal, Globe, Lock, Layers, MessageCircle, Copy, Check } from "lucide-react";
 import { deleteProduct } from "@/app/actions/cms";
 import { Product } from "@/lib/types";
 
@@ -12,6 +12,16 @@ interface ProductTableProps {
 
 export default function ProductTable({ products }: ProductTableProps) {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"all" | "public" | "exclusive">("all");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const filteredProducts = products.filter(product => {
+    if (activeTab === "public") return !product.is_private;
+    if (activeTab === "exclusive") return product.is_private;
+    return true;
+  });
+
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
   const handleDelete = async (id: string, name: string) => {
     if (!id || id.length < 10) { // Safety check to prevent deleting fallback items which use slugs as IDs
@@ -30,7 +40,39 @@ export default function ProductTable({ products }: ProductTableProps) {
   };
 
   return (
-    <div className="overflow-x-auto ">
+    <div className="space-y-6">
+      {/* Enhanced UX Tabs */}
+      <div className="flex items-center gap-2 border-b border-[#eeeeee] pb-px">
+        <button
+          onClick={() => setActiveTab("all")}
+          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
+            activeTab === "all" ? "border-[#111] text-[#111]" : "border-transparent text-[#999] hover:text-[#666]"
+          }`}
+        >
+          <Layers size={14} />
+          All <span className="opacity-40 ml-1">({products.length})</span>
+        </button>
+        <button
+          onClick={() => setActiveTab("public")}
+          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
+            activeTab === "public" ? "border-[#111] text-[#111]" : "border-transparent text-[#999] hover:text-[#666]"
+          }`}
+        >
+          <Globe size={14} />
+          Public <span className="opacity-40 ml-1">({products.filter(p => !p.is_private).length})</span>
+        </button>
+        <button
+          onClick={() => setActiveTab("exclusive")}
+          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
+            activeTab === "exclusive" ? "border-[#930011] text-[#930011]" : "border-transparent text-[#999] hover:text-[#666]"
+          }`}
+        >
+          <Lock size={14} />
+          Exclusive <span className="opacity-40 ml-1">({products.filter(p => p.is_private).length})</span>
+        </button>
+      </div>
+
+      <div className="overflow-x-auto ">
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b border-[#eeeeee] text-left">
@@ -43,11 +85,16 @@ export default function ProductTable({ products }: ProductTableProps) {
           </tr>
         </thead>
         <tbody className="divide-y divide-[#eeeeee]">
-          {products.map((product, i) => {
+          {filteredProducts.map((product, i) => {
             const isLocal = !product.id || product.id === product.slug;
             
             return (
-              <tr key={product.id || i} className={`group hover:bg-[#F9F9F9] transition-colors ${isDeleting === product.id ? "opacity-30" : ""}`}>
+              <tr 
+                key={product.id || i} 
+                className={`group transition-colors ${
+                  product.is_private ? "bg-[#111111]/[0.02] hover:bg-[#111111]/[0.04]" : "hover:bg-[#F9F9F9]"
+                } ${isDeleting === product.id ? "opacity-30" : ""}`}
+              >
                 <td className="py-6 pl-4">
                   <div className="flex items-center gap-5">
                     <div className="h-14 w-14 bg-[#F7F4F0] overflow-hidden border border-[#eeeeee] flex-shrink-0">
@@ -88,7 +135,12 @@ export default function ProductTable({ products }: ProductTableProps) {
                         New
                       </span>
                     )}
-                    {!product.is_featured && !product.is_bestseller && !product.is_new && (
+                    {product.is_private && (
+                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2 py-1 bg-black text-[#C0001A] border border-[#C0001A]">
+                        Private
+                      </span>
+                    )}
+                    {!product.is_featured && !product.is_bestseller && !product.is_new && !product.is_private && (
                       <span className="text-[9px] text-[#bbb] uppercase tracking-widest">—</span>
                     )}
                   </div>
@@ -104,13 +156,38 @@ export default function ProductTable({ products }: ProductTableProps) {
                 <td className="py-6 pr-4 text-right">
                   <div className="flex items-center justify-end gap-3">
                     <Link 
-                      href={`/products/${product.slug}`}
+                      href={product.is_private ? `/exclusive/${product.access_token}` : `/products/${product.slug}`}
                       target="_blank"
-                      className="p-2 text-[#b0b0b0] hover:text-[#111] transition-colors"
-                      title="View on Site"
+                      className={`p-2 transition-colors ${product.is_private ? "text-[#C0001A] hover:text-[#930011]" : "text-[#b0b0b0] hover:text-[#111]"}`}
+                      title={product.is_private ? "View Secret Link" : "View on Site"}
                     >
                       <ExternalLink size={16} strokeWidth={1.5} />
                     </Link>
+                    {product.is_private && (
+                      <a
+                        href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${baseUrl}/exclusive/${product.access_token}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 text-[#25D366] hover:bg-[#25D366]/10 transition-all rounded-full"
+                        title="Share via WhatsApp"
+                      >
+                        <MessageCircle size={16} strokeWidth={1.5} />
+                      </a>
+                    )}
+                    {product.is_private && (
+                      <button
+                        onClick={() => {
+                          const link = `${baseUrl}/exclusive/${product.access_token}`;
+                          navigator.clipboard.writeText(link);
+                          setCopiedId(product.id);
+                          setTimeout(() => setCopiedId(null), 2000);
+                        }}
+                        className={`p-2 transition-all rounded-full ${copiedId === product.id ? "text-green-600" : "text-[#b0b0b0] hover:text-[#111] hover:bg-gray-100"}`}
+                        title="Copy Secret Link"
+                      >
+                        {copiedId === product.id ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
+                      </button>
+                    )}
                     {!isLocal && (
                       <Link 
                         href={`/admin/products/${product.id}`}
@@ -137,6 +214,13 @@ export default function ProductTable({ products }: ProductTableProps) {
           })}
         </tbody>
       </table>
+      </div>
+      
+      {filteredProducts.length === 0 && (
+        <div className="py-20 text-center border-t border-[#eeeeee]">
+          <p className="text-xs text-[#999] uppercase tracking-[0.2em]">No {activeTab} products found</p>
+        </div>
+      )}
     </div>
   );
 }

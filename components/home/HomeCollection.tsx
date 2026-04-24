@@ -272,7 +272,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
                         </p>
                       </div>
                       
-                      <div className="px-10 mt-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="px-10 mt-6 transition-all duration-300">
                         <Link 
                           href={product.slug ? `/products/${product.slug}` : "#"}
                           className="block w-full py-3.5 bg-[#111] text-white text-[11px] uppercase font-bold tracking-widest rounded-full transition-all hover:bg-[#C0001A] shadow-xl hover:shadow-[#C0001A]/20"

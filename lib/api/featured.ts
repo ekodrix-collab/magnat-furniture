@@ -72,6 +72,7 @@ export async function getFeaturedItems(): Promise<FeaturedItem[]> {
       `)
       .eq("is_featured", true)
       .eq("is_active", true)
+      .eq("is_private", false)
       .limit(8);
 
     if (error || !data || data.length === 0) {

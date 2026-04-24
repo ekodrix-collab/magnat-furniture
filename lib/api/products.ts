@@ -32,10 +32,12 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     is_bestseller: p.isBestseller,
     is_active: true,
     is_featured: false,
+    is_private: false,
+    access_token: null,
     type: p.type || null,
     sort_order: 0,
     created_at: new Date().toISOString(),
-    categories: {
+    category: {
       id: p.category,
       name: p.category,
       slug: p.category.toLowerCase(),
@@ -48,14 +50,19 @@ function mapFallbackProduct(p: FallbackProduct): Product {
   };
 }
 
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts(includePrivate: boolean = false): Promise<Product[]> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+    let query = supabase
       .from("products")
       .select("*, categories(*)")
-      .eq("is_active", true)
-      .order("sort_order", { ascending: true });
+      .eq("is_active", true);
+    
+    if (!includePrivate) {
+      query = query.eq("is_private", false);
+    }
+
+    const { data, error } = await query.order("sort_order", { ascending: true });
 
     if (error || !data || data.length === 0) {
       console.warn("Using fallback products data", error);
@@ -76,6 +83,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       .from("products")
       .select("*, categories(*)")
       .eq("slug", slug)
+      .eq("is_private", false)
       .single();
 
     if (error || !data) {
@@ -101,6 +109,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         is_bestseller: false,
         is_active: true,
         is_featured: false,
+        is_private: false,
+        access_token: null,
         type: null,
         features: ["Custom Built in Kondotty", "Premium Upholstery Options", "Solid Wood Internal Framework", "5-Year Manufacturer Warranty"],
         specifications: [{ label: "Dimensions", value: "Customizable" }, { label: "Weight Capacity", value: "Standard" }, { label: "Warranty", value: "5 Years" }],
@@ -135,6 +145,7 @@ export async function getRelatedProducts(categorySlug: string, excludeSlug: stri
           .from("products")
           .select("*, categories(*)")
           .eq("category_id", categoryData.id)
+          .eq("is_private", false)
           .neq("slug", excludeSlug)
           .limit(3);
         
@@ -152,5 +163,23 @@ export async function getRelatedProducts(categorySlug: string, excludeSlug: stri
       .filter(p => p.category === categorySlug && p.slug !== excludeSlug)
       .slice(0, 3)
       .map(mapFallbackProduct);
+  }
+}
+
+export async function getProductByToken(token: string): Promise<Product | null> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select("*, categories(*)")
+      .eq("access_token", token)
+      .single();
+
+    if (error || !data) return null;
+
+    return mapProduct(data);
+  } catch (err) {
+    console.error("Error fetching product by token:", err);
+    return null;
   }
 }
