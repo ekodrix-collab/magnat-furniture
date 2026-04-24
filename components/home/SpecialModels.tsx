@@ -8,11 +8,11 @@ import { Category, HomepageSection } from "@/lib/types";
 
 /* ── Fallback Data (Functional & Premium) ── */
 const FALLBACK_ITEMS: Category[] = [
-  { id: "fb1", name: "Luxury Seating", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "" },
-  { id: "fb2", name: "Designer Armchairs", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "" },
-  { id: "fb3", name: "Signature Window Drapery", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "" },
-  { id: "fb4", name: "Elegant Dining Sets", slug: "dining", image_url: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 3, created_at: "" },
-  { id: "fb5", name: "Modern Bedroom Suites", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "" },
+  { id: "fb1", name: "Luxury Seating", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "", base_category: null },
+  { id: "fb2", name: "Designer Armchairs", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "", base_category: null },
+  { id: "fb3", name: "Signature Window Drapery", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "", base_category: null },
+  { id: "fb4", name: "Elegant Dining Sets", slug: "dining", image_url: "https://images.unsplash.com/photo-1617806118233-1ec365ba409e?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 3, created_at: "", base_category: null },
+  { id: "fb5", name: "Modern Bedroom Suites", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "", base_category: null },
 ];
 
 function CategoryCard({ cat }: { cat: Category }) {
