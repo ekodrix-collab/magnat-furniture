@@ -1,4 +1,3 @@
-// components/ui/WhatsAppFloating.tsx
 "use client";
 
 import { MessageCircle, X } from "lucide-react";
