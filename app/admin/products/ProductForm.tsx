@@ -7,6 +7,7 @@ import { Product, Category } from "@/lib/types";
 import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/ui/ImageUpload";
+import { toast } from "sonner";
 
 interface ProductFormProps {
   product?: Partial<Product>;
@@ -52,12 +53,15 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
       const result = await saveProduct(formData);
       if (result.error) {
         setError(result.error);
+        toast.error("Failed to save", { description: result.error });
       } else {
+        toast.success(product?.id ? "Updated" : "Created");
         router.push("/admin/products");
         router.refresh();
       }
     } catch (err) {
       setError("An unexpected error occurred while saving.");
+      toast.error("An unexpected error occurred");
     } finally {
       setIsPending(false);
     }

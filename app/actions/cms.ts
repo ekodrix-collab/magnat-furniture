@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase-server";
 import { revalidatePath } from "next/cache";
+import { slugify, ensureUniqueSlug } from "@/lib/utils/slug";
+
 
 /**
  * Update the status of a customer inquiry
@@ -199,14 +201,23 @@ export async function saveCategory(formData: FormData) {
   
   const id = formData.get("id") as string;
   const name = formData.get("name") as string;
-  const slug = formData.get("slug") as string;
+  const base_category = formData.get("base_category") as string;
   const image_url = formData.get("image_url") as string;
   const description = formData.get("description") as string;
   const sort_order = parseInt(formData.get("sort_order") as string || "0");
   const is_featured = formData.get("is_featured") === "true";
 
+  if (!name || !base_category) {
+    return { error: "Name and Base Category are required." };
+  }
+
+  // Auto-generate slug from name
+  const baseSlug = slugify(name);
+  const slug = await ensureUniqueSlug(baseSlug, "categories", supabase, id);
+
   const categoryData = {
     name,
+    base_category,
     slug,
     image_url,
     description,

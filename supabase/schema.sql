@@ -9,6 +9,7 @@ create extension if not exists pgcrypto;
 create table if not exists categories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  base_category text,
   slug text unique not null,
   description text,
   image_url text,

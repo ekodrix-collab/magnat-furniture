@@ -13,6 +13,7 @@ import AdminExclusionWrapper from "@/components/layout/AdminExclusionWrapper";
 import OrganizationSchema from "@/components/schemas/OrganizationSchema";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema";
 import MainContentWrapper from "@/components/layout/MainContentWrapper";
+import { Toaster } from "sonner";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -235,6 +236,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

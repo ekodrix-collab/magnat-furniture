@@ -6,6 +6,7 @@ import { Edit2, Trash2, Eye, EyeOff } from "lucide-react";
 import { deleteHeroSlide, saveHeroSlide } from "@/app/actions/cms";
 import { HeroSlide } from "@/lib/types";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 interface HeroSlideCardProps {
   slide: HeroSlide;
@@ -16,21 +17,45 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
   const [isActive, setIsActive] = useState(slide.is_active);
 
   const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete the "${slide.heading}" slide?`)) return;
-    setIsDeleting(true);
-    await deleteHeroSlide(slide.id);
+    toast.warning(`Delete slide?`, {
+      description: slide.heading,
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          setIsDeleting(true);
+          const result = await deleteHeroSlide(slide.id);
+          if (result?.error) {
+            toast.error("Error", { description: result.error });
+            setIsDeleting(false);
+          } else {
+            toast.success("Deleted");
+          }
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => {},
+      }
+    });
   };
 
   const toggleStatus = async () => {
+    const newStatus = !isActive;
     const formData = new FormData();
     formData.append("id", slide.id);
     formData.append("heading", slide.heading);
     formData.append("description", slide.description || "");
     formData.append("image_url", slide.image_url);
-    formData.append("is_active", (!isActive).toString());
+    formData.append("is_active", newStatus.toString());
 
-    setIsActive(!isActive);
-    await saveHeroSlide(formData);
+    setIsActive(newStatus);
+    const result = await saveHeroSlide(formData);
+    if (result?.error) {
+      toast.error("Failed to update status", { description: result.error });
+      setIsActive(isActive); // Revert
+    } else {
+      toast.success(newStatus ? "Slide is now active" : "Slide is now hidden");
+    }
   };
 
   if (isDeleting) return null;

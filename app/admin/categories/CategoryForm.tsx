@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Save, ArrowLeft, Layers, Globe } from "lucide-react";
+import { Save, ArrowLeft, Layers } from "lucide-react";
 import { saveCategory } from "@/app/actions/cms";
 import { Category } from "@/lib/types";
 import ImageUploadField from "@/components/ui/ImageUploadField";
+
+import { toast } from "sonner";
 
 interface CategoryFormProps {
   category?: Category;
@@ -26,8 +28,10 @@ export default function CategoryForm({ category }: CategoryFormProps) {
 
     if (result?.error) {
       setError(result.error);
+      toast.error("Error saving category", { description: result.error });
       setLoading(false);
     } else {
+      toast.success(category ? "Updated" : "Created");
       router.push("/admin/categories");
       router.refresh();
     }
@@ -65,7 +69,6 @@ export default function CategoryForm({ category }: CategoryFormProps) {
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-8 rounded-none border border-[#eeeeee] shadow-sm">
             <h3 className="text-xl font-playfair font-bold text-[#111111] mb-6">Collection Identification</h3>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Collection Name</label>
@@ -75,22 +78,36 @@ export default function CategoryForm({ category }: CategoryFormProps) {
                   defaultValue={category?.name}
                   required
                   placeholder="e.g., Signature Sofas"
+                  onChange={(e) => {
+                    const name = e.target.value.toLowerCase();
+                    const baseSelect = document.getElementsByName('base_category')[0] as HTMLSelectElement;
+                    if (baseSelect) {
+                      if (name.includes('chair')) baseSelect.value = 'chairs';
+                      else if (name.includes('sofa')) baseSelect.value = 'sofas';
+                      else if (name.includes('table')) baseSelect.value = 'tables';
+                      else if (name.includes('curtain') || name.includes('drapery')) baseSelect.value = 'curtains';
+                      else if (name.includes('bed')) baseSelect.value = 'beds';
+                    }
+                  }}
                   className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2 flex items-center gap-1.5 shadow-sm-white">
-                  <Globe size={10} className="text-[#C0001A]" /> SEO Slug
-                </label>
-                <input
-                  type="text"
-                  name="slug"
-                  defaultValue={category?.slug}
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-body mb-2">Base Category</label>
+                <select
+                  name="base_category"
+                  defaultValue={category?.base_category || ""}
                   required
-                  placeholder="e.g., sofas"
-                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm font-mono"
-                />
+                  className="w-full px-4 py-3 bg-[#F9F9F9] border border-[#eeeeee] rounded-none focus:outline-none focus:border-[#C0001A] transition-all text-sm appearance-none"
+                >
+                  <option value="" disabled>Select Base Category</option>
+                  <option value="chairs">Chairs</option>
+                  <option value="sofas">Sofas</option>
+                  <option value="curtains">Curtains</option>
+                  <option value="dining">Dining</option>
+                  <option value="bedroom">Bedroom</option>
+                </select>
               </div>
             </div>
 
