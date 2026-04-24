@@ -12,7 +12,7 @@ const collections = [
     id: 1,
     title: "Sofas",
     brand: "Natuzzi · Flexform · Minotti",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop",
     colSpan: 2,
@@ -22,7 +22,7 @@ const collections = [
     id: 2,
     title: "Sectionals",
     brand: "Poliform · Cassina",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=900&auto=format&fit=crop",
     colSpan: 1,
@@ -32,7 +32,7 @@ const collections = [
     id: 3,
     title: "Armchairs",
     brand: "Walter Knoll · Flexform",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=900&auto=format&fit=crop",
     colSpan: 1,
@@ -42,7 +42,7 @@ const collections = [
     id: 4,
     title: "Curtains & Drapes",
     brand: "Soft Furnishings",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=900&auto=format&fit=crop",
     colSpan: 1,
@@ -52,7 +52,7 @@ const collections = [
     id: 5,
     title: "Showroom Picks",
     brand: "Curated Exclusives",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1618220048045-10a6dbdf83e0?q=80&w=1400&auto=format&fit=crop",
     colSpan: 2,
@@ -62,7 +62,7 @@ const collections = [
     id: 6,
     title: "Dining & Office",
     brand: "Contemporary Living",
-    href: "/collections",
+    href: "/products",
     image:
       "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1400&auto=format&fit=crop",
     colSpan: 2,
@@ -218,7 +218,7 @@ export default function CollectionsGrid() {
 
       {/* CTA */}
       <div className="text-center mt-10 px-6">
-        <Link href="/collections" className="btn-gold-outline">
+        <Link href="/products" className="btn-gold-outline">
           Explore All Collections
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M5 12h14M12 5l7 7-7 7" />

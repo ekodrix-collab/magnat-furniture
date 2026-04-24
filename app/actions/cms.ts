@@ -47,7 +47,14 @@ export async function saveProduct(formData: FormData) {
   const is_bestseller = formData.get("is_bestseller") === "true";
   const is_featured = formData.get("is_featured") === "true";
   const is_active = formData.get("is_active") === "true";
-  
+  const is_private = formData.get("is_private") === "true";
+  let access_token = formData.get("access_token") as string;
+
+  // Generate token if private and no token exists
+  if (is_private && (!access_token || access_token === "null" || access_token === "undefined")) {
+    access_token = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
+  }
+
   const images = formData.getAll("images") as string[];
   let features = [];
   try {
@@ -82,6 +89,8 @@ export async function saveProduct(formData: FormData) {
     is_bestseller,
     is_featured,
     is_active,
+    is_private,
+    access_token: is_private ? access_token : null,
     images: images.filter(img => img), // Remove empty strings
     features,
     specifications,
