@@ -52,7 +52,7 @@ const FALLBACK_FEATURED_ITEMS: FeaturedItem[] = [
 export async function getFeaturedItems(): Promise<FeaturedItem[]> {
   try {
     const supabase = createClient();
-    // Fetch products marked as bestsellers instead of isolated featured_items table
+    // Fetch products marked as Signature Collection (is_featured=true)
     const { data, error } = await supabase
       .from("products")
       .select(`
@@ -65,12 +65,14 @@ export async function getFeaturedItems(): Promise<FeaturedItem[]> {
         is_active,
         is_new,
         is_bestseller,
+        is_featured,
         categories (
           name
         )
       `)
-      .eq("is_bestseller", true)
+      .eq("is_featured", true)
       .eq("is_active", true)
+      .eq("is_private", false)
       .limit(8);
 
     if (error || !data || data.length === 0) {
@@ -89,6 +91,7 @@ export async function getFeaturedItems(): Promise<FeaturedItem[]> {
       is_active: item.is_active,
       is_new: item.is_new,
       is_bestseller: item.is_bestseller,
+      is_featured: item.is_featured,
     }));
 
   } catch (err) {

@@ -209,11 +209,11 @@ export default function HeroSection() {
             className="mt-14 flex flex-wrap gap-8 pointer-events-auto"
           >
             <Link
-              href="/collections"
+              href="/products"
               className="inline-flex items-center gap-3 bg-[#c9a96e] hover:bg-[#dfc08a] text-[#1a1a1a] text-[10.5px] font-bold tracking-[0.25em] uppercase px-9 py-4 transition-all duration-300 shadow-xl"
               
             >
-              Discover Collections
+              Shop Now
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>

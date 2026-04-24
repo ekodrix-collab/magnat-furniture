@@ -9,6 +9,7 @@ create extension if not exists pgcrypto;
 create table if not exists categories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  base_category text,
   slug text unique not null,
   description text,
   image_url text,
@@ -32,6 +33,7 @@ create table if not exists products (
   delivery_time text,
   material text,
   badge text,
+  room text,                               -- Room type: Living Room, Dining Room, Bedroom, Office
   is_new boolean default false,
   is_bestseller boolean default false,
   type text,

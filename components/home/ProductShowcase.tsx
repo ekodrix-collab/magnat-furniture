@@ -57,8 +57,8 @@ export default function ProductShowcase() {
           </FadeInView>
 
           <FadeInView delay={0.3}>
-            <Link href="/collections" className="flex items-center gap-4 text-[10px] font-black tracking-[0.3em] uppercase text-[#111] hover:text-[#C0001A] transition-all group">
-              Explore All Collections
+            <Link href="/products" className="flex items-center gap-4 text-[10px] font-black tracking-[0.3em] uppercase text-[#111] hover:text-[#C0001A] transition-all group">
+              Shop All Pieces
               <div className="w-12 h-[1px] bg-black/10 group-hover:bg-[#C0001A] group-hover:w-16 transition-all" />
             </Link>
           </FadeInView>

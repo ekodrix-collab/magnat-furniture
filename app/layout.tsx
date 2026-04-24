@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit, Lato } from "next/font/google";
+import { Inter, Outfit, Lato, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -12,6 +12,16 @@ import { FavoritesProvider } from "@/lib/context/FavoritesContext";
 import AdminExclusionWrapper from "@/components/layout/AdminExclusionWrapper";
 import OrganizationSchema from "@/components/schemas/OrganizationSchema";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema";
+import MainContentWrapper from "@/components/layout/MainContentWrapper";
+import { Toaster } from "sonner";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
 
 const lato = Lato({
   subsets: ["latin"],
@@ -170,7 +180,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lato.variable} ${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${lato.variable} ${inter.variable} ${outfit.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -199,7 +209,7 @@ export default function RootLayout({
             <FavoritesDrawer />
           </AdminExclusionWrapper>
 
-          <main className="flex-1  pt-[136px] md:pt-[140px]">{children}</main>
+          <MainContentWrapper>{children}</MainContentWrapper>
 
           <AdminExclusionWrapper>
             <Footer />
@@ -226,6 +236,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

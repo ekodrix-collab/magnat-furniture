@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import ProductTable from "./ProductTable";
 
 export default async function AdminProductsPage() {
-  const products = await getProducts();
+  const products = await getProducts(true);
 
   return (
     <div className="p-10 ">

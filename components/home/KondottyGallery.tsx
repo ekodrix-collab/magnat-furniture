@@ -32,6 +32,12 @@ export default function KondottyGallery({ posts, section }: Props) {
    // Duplicate for seamless infinite loop
    const displayItems = [...items, ...items];
 
+   // Extract handle from subtitle for the cards
+   const fullSubtitle = section?.subtitle || "@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces.";
+   const handleWithAt = fullSubtitle.split(" ")[0];
+   const handle = handleWithAt.startsWith("@") ? handleWithAt.slice(1) : handleWithAt;
+   const location = section?.description || "Kondotty, Kerala";
+
    return (
       <section className="bg-[#FCFCFC] py-12 md:py-20 overflow-hidden">
          <div className="max-container px-4 mb-10 md:mb-16">
@@ -39,7 +45,7 @@ export default function KondottyGallery({ posts, section }: Props) {
                label="Visual Journey"
                titlePart1={section?.title?.split(" ").slice(0, 2).join(" ") || "We're on"}
                titlePart2={section?.title?.split(" ").slice(2).join(" ") || "Instagram"}
-               subtitle={section?.subtitle || "@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces."}
+               subtitle={fullSubtitle}
             />
          </div>
 
@@ -78,7 +84,7 @@ export default function KondottyGallery({ posts, section }: Props) {
                {displayItems.map((item, index) => (
                   <a
                      key={`${item.id}-${index}`}
-                     href={item.post_url ?? "https://www.instagram.com/magnat_furniture_.kondotty"}
+                     href={item.post_url ?? `https://www.instagram.com/${handle}`}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="w-[280px] md:w-[320px] flex-shrink-0 bg-white rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-black/5 cursor-pointer block hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 group"
@@ -86,13 +92,23 @@ export default function KondottyGallery({ posts, section }: Props) {
                      {/* Feed Header */}
                      <div className="flex items-center gap-3 mb-4">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 to-red-600 p-[2px]">
-                           <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-red-600">
-                              M
+                           <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+                              {section?.image_url ? (
+                                 <img 
+                                    src={section.image_url} 
+                                    alt={handle} 
+                                    className="w-full h-full object-cover"
+                                 />
+                              ) : (
+                                 <span className="text-[10px] font-bold text-red-600">
+                                    {handle.charAt(0).toUpperCase()}
+                                 </span>
+                              )}
                            </div>
                         </div>
                         <div className="flex flex-col">
-                           <span className="text-[12px] font-bold tracking-tight">magnat_furniture</span>
-                           <span className="text-[10px] text-gray-400">Kondotty, Kerala</span>
+                           <span className="text-[12px] font-bold tracking-tight">{handle}</span>
+                           <span className="text-[10px] text-gray-400">{location}</span>
                         </div>
                      </div>
 

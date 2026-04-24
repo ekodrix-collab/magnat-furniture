@@ -19,6 +19,7 @@ import { HomepageSection, HeroSlide, Category, InstagramPost } from "@/lib/types
 import { saveHomepageSection, updateFeaturedCategories, deleteInstagramPost, saveInstagramPost, saveHeroSlide, deleteHeroSlide } from "@/app/actions/cms";
 import Link from "next/link";
 import ImageUploadField from "@/components/ui/ImageUploadField";
+import { toast } from "sonner";
 
 interface Props {
   initialSections: HomepageSection[];
@@ -35,14 +36,7 @@ export default function HomeSettingsClient({
 }: Props) {
   const [activeTab, setActiveTab] = useState<"hero" | "elite" | "curtains" | "instagram">("hero");
   const [isSaving, setIsSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error", text: string } | null>(null);
-
   const getSection = (key: string) => initialSections.find(s => s.section_key === key);
-
-  const showMessage = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage(null), 5000);
-  };
 
   // ─── TABS DEFINITION ───
   const tabs = [
@@ -104,7 +98,7 @@ export default function HomeSettingsClient({
             >
               <HeroManagement 
                 slides={heroSlides} 
-                onSaveSuccess={() => showMessage("success", "Hero slides updated successfully.")} 
+                onSaveSuccess={() => toast.success("Hero slides updated successfully.")} 
               />
             </motion.div>
           )}
@@ -119,7 +113,7 @@ export default function HomeSettingsClient({
               <EliteSectionForm 
                 section={getSection("elite-home-collections")} 
                 categories={categories}
-                onSaveSuccess={() => showMessage("success", "Elite section updated successfully")}
+                onSaveSuccess={() => toast.success("Elite section updated successfully")}
               />
             </motion.div>
           )}
@@ -133,7 +127,7 @@ export default function HomeSettingsClient({
             >
               <CurtainsSectionForm 
                 sections={initialSections}
-                onSaveSuccess={() => showMessage("success", "Curtain spotlight updated successfully")}
+                onSaveSuccess={() => toast.success("Curtain spotlight updated successfully")}
               />
             </motion.div>
           )}
@@ -148,18 +142,13 @@ export default function HomeSettingsClient({
               <InstagramManagement 
                 posts={instagramPosts}
                 section={getSection("instagram-header")}
-                onSaveSuccess={() => showMessage("success", "Instagram section updated")}
+                onSaveSuccess={() => toast.success("Instagram section updated")}
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Feedback Message */}
-        {message && (
-          <div className={`fixed bottom-10 right-10 z-50 px-8 py-4 ${message.type === "success" ? "bg-[#111] text-white" : "bg-[#C0001A] text-white"} text-[10px] font-bold uppercase tracking-widest shadow-2xl animate-in fade-in slide-in-from-bottom-5`}>
-            {message.text}
-          </div>
-        )}
+        {/* Feedback Message (Removed in favor of sonner) */}
       </div>
     </div>
   );
@@ -414,10 +403,16 @@ function InstagramManagement({ posts, section, onSaveSuccess }: { posts: Instagr
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to remove this Instagram post?")) {
-      await deleteInstagramPost(id);
-      onSaveSuccess();
-    }
+    toast.warning("Remove post?", {
+      action: {
+        label: "Remove",
+        onClick: async () => {
+          await deleteInstagramPost(id);
+          onSaveSuccess();
+          toast.success("Removed");
+        },
+      },
+    });
   };
 
   return (
@@ -450,6 +445,25 @@ function InstagramManagement({ posts, section, onSaveSuccess }: { posts: Instagr
               className="w-full p-4 border border-[#eeeeee] focus:outline-none focus:border-[#C0001A] text-[13px]"
             />
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Location (Displayed on cards)</label>
+          <input 
+            name="description" 
+            defaultValue={section?.description || "Kondotty, Kerala"} 
+            className="w-full p-4 border border-[#eeeeee] focus:outline-none focus:border-[#C0001A] text-[13px]"
+            placeholder="Kondotty, Kerala"
+          />
+        </div>
+
+        <div className="max-w-xs">
+          <ImageUploadField 
+            name="image_url" 
+            defaultValue={section?.image_url || undefined} 
+            label="Profile Picture"
+            dimensions="500 x 500px (1:1)"
+          />
         </div>
 
         <button
@@ -540,10 +554,16 @@ function HeroManagement({ slides, onSaveSuccess }: { slides: HeroSlide[], onSave
   const [editingSlide, setEditingSlide] = useState<HeroSlide | null>(null);
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to remove this slide?")) {
-      await deleteHeroSlide(id);
-      onSaveSuccess();
-    }
+    toast.warning("Remove slide?", {
+      action: {
+        label: "Remove",
+        onClick: async () => {
+          await deleteHeroSlide(id);
+          onSaveSuccess();
+          toast.success("Removed");
+        },
+      },
+    });
   };
 
   return (

@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase-server";
 import { revalidatePath } from "next/cache";
+import { slugify, ensureUniqueSlug } from "@/lib/utils/slug";
+
 
 /**
  * Update the status of a customer inquiry
@@ -40,12 +42,20 @@ export async function saveProduct(formData: FormData) {
   const badge = formData.get("badge") as string;
   const category_id = formData.get("category_id") as string;
   const type = formData.get("type") as string;
+  const room = formData.get("room") as string;
   
   const is_new = formData.get("is_new") === "true";
   const is_bestseller = formData.get("is_bestseller") === "true";
   const is_featured = formData.get("is_featured") === "true";
   const is_active = formData.get("is_active") === "true";
-  
+  const is_private = formData.get("is_private") === "true";
+  let access_token = formData.get("access_token") as string;
+
+  // Generate token if private and no token exists
+  if (is_private && (!access_token || access_token === "null" || access_token === "undefined")) {
+    access_token = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
+  }
+
   const images = formData.getAll("images") as string[];
   let features = [];
   try {
@@ -74,12 +84,15 @@ export async function saveProduct(formData: FormData) {
     delivery_time,
     material,
     badge,
+    room: room || null,
     category_id: category_id || null,
     type,
     is_new,
     is_bestseller,
     is_featured,
     is_active,
+    is_private,
+    access_token: is_private ? access_token : null,
     images: images.filter(img => img), // Remove empty strings
     features,
     specifications,
@@ -199,14 +212,23 @@ export async function saveCategory(formData: FormData) {
   
   const id = formData.get("id") as string;
   const name = formData.get("name") as string;
-  const slug = formData.get("slug") as string;
+  const base_category = formData.get("base_category") as string;
   const image_url = formData.get("image_url") as string;
   const description = formData.get("description") as string;
   const sort_order = parseInt(formData.get("sort_order") as string || "0");
   const is_featured = formData.get("is_featured") === "true";
 
+  if (!name || !base_category) {
+    return { error: "Name and Base Category are required." };
+  }
+
+  // Auto-generate slug from name
+  const baseSlug = slugify(name);
+  const slug = await ensureUniqueSlug(baseSlug, "categories", supabase, id);
+
   const categoryData = {
     name,
+    base_category,
     slug,
     image_url,
     description,

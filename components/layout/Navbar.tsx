@@ -50,10 +50,10 @@ function NavbarContent() {
       {/* Primary Navigation (Desktop) */}
       <nav className="hidden md:flex items-center gap-10">
         <Link
-          href="/collections"
+          href="/products"
           className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/80 hover:text-[#C0001A] transition-colors"
         >
-          Collections
+          Shop
         </Link>
 
         <div
@@ -137,7 +137,7 @@ function NavbarContent() {
               {/* Primary Links */}
               <nav className="flex flex-col gap-8">
                 <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                  <Link href="/collections" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Collections</Link>
+                  <Link href="/products" className="text-4xl font-bold font-playfair hover:text-[#C0001A] transition-colors" onClick={() => setMobileOpen(false)}>Shop</Link>
                 </motion.div>
 
                 {/* Explore Accordion */}

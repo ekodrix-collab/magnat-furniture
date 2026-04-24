@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveProduct } from "@/app/actions/cms";
 import { Product, Category } from "@/lib/types";
-import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2 } from "lucide-react";
+import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2, Copy, Check, ExternalLink, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/ui/ImageUpload";
+import { toast } from "sonner";
 
 interface ProductFormProps {
   product?: Partial<Product>;
@@ -25,6 +26,17 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [specifications, setSpecifications] = useState<{ label: string; value: string }[]>(
     product?.specifications || [{ label: "", value: "" }]
   );
+
+  // Featured & badge state
+  const [isFeatured, setIsFeatured] = useState(product?.is_featured ?? false);
+  const [badgeType, setBadgeType] = useState<"bestseller" | "new" | "none">(
+    product?.is_bestseller ? "bestseller" : product?.is_new ? "new" : "none"
+  );
+  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? false);
+  const [localToken, setLocalToken] = useState(product?.access_token || "");
+  const [copied, setCopied] = useState(false);
+
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,12 +58,15 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
       const result = await saveProduct(formData);
       if (result.error) {
         setError(result.error);
+        toast.error("Failed to save", { description: result.error });
       } else {
+        toast.success(product?.id ? "Updated" : "Created");
         router.push("/admin/products");
         router.refresh();
       }
     } catch (err) {
       setError("An unexpected error occurred while saving.");
+      toast.error("An unexpected error occurred");
     } finally {
       setIsPending(false);
     }
@@ -128,6 +143,21 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   {categories.map(cat => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">Room</label>
+                <select
+                  name="room"
+                  defaultValue={product?.room || ""}
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all appearance-none"
+                >
+                  <option value="">Select Room</option>
+                  <option value="livingRoom">Living Room</option>
+                  <option value="diningRoom">Dining Room</option>
+                  <option value="bedroom">Bedroom</option>
+                  <option value="office">Office</option>
                 </select>
               </div>
             </div>
@@ -249,20 +279,148 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 />
               </div>
 
-              <div className="flex items-center gap-3 pt-4">
-                <input type="checkbox" name="is_new" defaultChecked={product?.is_new} value="true" className="w-4 h-4 accent-[#C0001A]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
+              {/* ── Signature Collection Toggle ── */}
+              <div className="pt-4 pb-2 border-t border-[#eeeeee]">
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" name="is_featured" checked={isFeatured} onChange={(e) => setIsFeatured(e.target.checked)} value="true" className="w-4 h-4 accent-[#C0001A]" />
+                  <div>
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Signature Collection</label>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <input type="checkbox" name="is_bestseller" defaultChecked={product?.is_bestseller} value="true" className="w-4 h-4 accent-[#C0001A]" />
-                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Bestseller</label>
+              {/* ── Badges (Best Seller & New Arrival) — Mutually Exclusive ── */}
+              <div className="pt-4 pb-2 border-t border-[#eeeeee] space-y-3">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-[#999]">Badge type (pick one)</p>
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "bestseller"} 
+                    onChange={() => setBadgeType("bestseller")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Best Seller</label>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "new"} 
+                    onChange={() => setBadgeType("new")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "none"} 
+                    onChange={() => setBadgeType("none")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#999]">No Badge</label>
+                </div>
+
+                {/* Hidden inputs to pass booleans to the server action */}
+                <input type="hidden" name="is_bestseller" value={badgeType === "bestseller" ? "true" : "false"} />
+                <input type="hidden" name="is_new" value={badgeType === "new" ? "true" : "false"} />
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 pt-2 border-t border-[#eeeeee]">
                 <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#C0001A]" />
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Published / Live</label>
               </div>
+            </div>
+          </section>
+
+          {/* Exclusive Private Access */}
+          <section className="bg-[#111111] p-8 rounded-none shadow-sm border border-[#333] space-y-6">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={16} className="text-[#C0001A]" />
+              <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-white">Private Viewing</h3>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <input 
+                  type="checkbox" 
+                  name="is_private" 
+                  checked={isPrivate} 
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setIsPrivate(checked);
+                    if (checked && !localToken) {
+                      const newToken = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
+                      setLocalToken(newToken);
+                    }
+                  }} 
+                  value="true" 
+                  className="w-4 h-4 accent-[#C0001A]" 
+                />
+                <div>
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/90">Exclusive Only</label>
+                  <p className="text-[9px] text-white/40 mt-0.5">Hide this product from all public listings. Accessible only via secret link.</p>
+                </div>
+              </div>
+
+              {isPrivate && localToken && (
+                <div className="pt-4 space-y-4 border-t border-white/10">
+                  <div className="space-y-2">
+                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 pl-1">Secret Access Link</label>
+                    <div className="flex gap-2">
+                      <div className="flex-1 bg-white/5 border border-white/10 px-3 py-2 text-[0.7rem] text-white/60 font-mono truncate">
+                        {`${baseUrl}/exclusive/${localToken}`}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${baseUrl}/exclusive/${localToken}`);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        }}
+                        className="p-2 bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/10"
+                        title="Copy Link"
+                      >
+                        {copied ? <Check size={14} /> : <Copy size={14} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${baseUrl}/exclusive/${localToken}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-2.5 text-[0.65rem] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity"
+                    >
+                      WhatsApp
+                    </a>
+                    <a
+                      href={`/exclusive/${localToken}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-white/10 text-white py-2.5 text-[0.65rem] font-bold uppercase tracking-wider hover:bg-white/20 transition-all border border-white/10"
+                    >
+                      <ExternalLink size={14} /> Preview
+                    </a>
+                  </div>
+                  
+                  {/* Keep the token in form */}
+                  <input type="hidden" name="access_token" value={localToken} />
+                </div>
+              )}
+              
+              {isPrivate && !localToken && (
+                <div className="pt-4 border-t border-white/10">
+                  <p className="text-[9px] text-[#C0001A] italic font-medium uppercase tracking-wider">
+                    Save product first to generate secret link
+                  </p>
+                </div>
+              )}
             </div>
           </section>
         </div>

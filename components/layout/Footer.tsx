@@ -73,20 +73,20 @@ export default function Footer() {
             </h4>
             <div className="flex items-center gap-5">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
+                className="w-10 h-10 rounded-full sm:border sm:border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
                 <Facebook size={18} strokeWidth={1.5} />
               </a>
               <a href="https://instagram.com/magnat_furniture_.kondotty" target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
+                className="w-10 h-10 rounded-full sm:border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
                 <Instagram size={18} strokeWidth={1.5} />
               </a>
               <a href="https://youtube.com/@magnat_furniture" target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
+                className="w-10 h-10 rounded-full sm:border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
                 <Youtube size={18} strokeWidth={1.5} />
               </a>
               {/* WhatsApp Icon remains untouched but fits in the grid circle style */}
               <a href="https://wa.me/919446516395" target="_blank" rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-[#25D366] hover:border-[#25D366]/40 transition-all">
+                className="w-10 h-10 rounded-full sm:border border-white/10 flex items-center justify-center text-white/40 hover:text-[#25D366] hover:border-[#25D366]/40 transition-all">
                 <MessageSquare size={18} strokeWidth={1.5} />
               </a>
             </div>

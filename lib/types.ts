@@ -16,10 +16,13 @@ export interface Product {
   delivery_time: string | null | undefined;
   material: string | null | undefined;
   badge: string | null | undefined;
+  room: string | null | undefined;
   is_new: boolean;
   is_bestseller: boolean;
   is_active: boolean;
   is_featured: boolean;
+  is_private: boolean;
+  access_token: string | null | undefined;
   type: string | null | undefined;
   sort_order: number;
   created_at: string;
@@ -29,6 +32,7 @@ export interface Product {
 export interface Category {
   id: string;
   name: string;
+  base_category: string | null;
   slug: string;
   description: string | null | undefined;
   image_url: string | null | undefined;
@@ -82,6 +86,7 @@ export interface FeaturedItem {
   is_active: boolean;
   is_new?: boolean;
   is_bestseller?: boolean;
+  is_featured?: boolean;
 }
 
 export interface HomepageSection {

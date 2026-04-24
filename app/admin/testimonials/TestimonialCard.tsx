@@ -6,6 +6,7 @@ import { Star, Edit2, Trash2, Quote } from "lucide-react";
 import { deleteTestimonial } from "@/app/actions/cms";
 import { Testimonial } from "@/lib/types";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
@@ -15,13 +16,26 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete the testimonial from ${testimonial.client_name}?`)) return;
-    setIsDeleting(true);
-    const result = await deleteTestimonial(testimonial.id);
-    if (result?.error) {
-      alert("Error: " + result.error);
-      setIsDeleting(false);
-    }
+    toast.warning(`Delete testimonial?`, {
+      description: `From ${testimonial.client_name}`,
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          setIsDeleting(true);
+          const result = await deleteTestimonial(testimonial.id);
+          if (result?.error) {
+            toast.error("Error", { description: result.error });
+            setIsDeleting(false);
+          } else {
+            toast.success("Deleted");
+          }
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => {},
+      }
+    });
   };
 
   if (isDeleting) return null;
