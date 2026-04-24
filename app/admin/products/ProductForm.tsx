@@ -35,6 +35,8 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [localToken, setLocalToken] = useState(product?.access_token || "");
   const [copied, setCopied] = useState(false);
 
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
@@ -363,12 +365,12 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                     <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 pl-1">Secret Access Link</label>
                     <div className="flex gap-2">
                       <div className="flex-1 bg-white/5 border border-white/10 px-3 py-2 text-[0.7rem] text-white/60 font-mono truncate">
-                        {`${window.location.origin}/exclusive/${localToken}`}
+                        {`${baseUrl}/exclusive/${localToken}`}
                       </div>
                       <button
                         type="button"
                         onClick={() => {
-                          navigator.clipboard.writeText(`${window.location.origin}/exclusive/${localToken}`);
+                          navigator.clipboard.writeText(`${baseUrl}/exclusive/${localToken}`);
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }}
@@ -382,7 +384,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
 
                   <div className="grid grid-cols-2 gap-3">
                     <a
-                      href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${window.location.origin}/exclusive/${localToken}`)}`}
+                      href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${baseUrl}/exclusive/${localToken}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-2.5 text-[0.65rem] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity"

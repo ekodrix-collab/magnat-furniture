@@ -21,6 +21,8 @@ export default function ProductTable({ products }: ProductTableProps) {
     return true;
   });
 
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
   const handleDelete = async (id: string, name: string) => {
     if (!id || id.length < 10) { // Safety check to prevent deleting fallback items which use slugs as IDs
       alert("Local fallback items cannot be deleted from the dashboard. These must be managed in the source code.");
@@ -163,7 +165,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                     </Link>
                     {product.is_private && (
                       <a
-                        href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${window.location.origin}/exclusive/${product.access_token}`)}`}
+                        href={`https://wa.me/?text=${encodeURIComponent(`Hello! I've prepared a private viewing of our latest piece for you. You can view it here: ${baseUrl}/exclusive/${product.access_token}`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 text-[#25D366] hover:bg-[#25D366]/10 transition-all rounded-full"
@@ -175,7 +177,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                     {product.is_private && (
                       <button
                         onClick={() => {
-                          const link = `${window.location.origin}/exclusive/${product.access_token}`;
+                          const link = `${baseUrl}/exclusive/${product.access_token}`;
                           navigator.clipboard.writeText(link);
                           setCopiedId(product.id);
                           setTimeout(() => setCopiedId(null), 2000);
