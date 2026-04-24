@@ -109,6 +109,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         is_bestseller: false,
         is_active: true,
         is_featured: false,
+        is_private: false,
+        access_token: null,
         type: null,
         features: ["Custom Built in Kondotty", "Premium Upholstery Options", "Solid Wood Internal Framework", "5-Year Manufacturer Warranty"],
         specifications: [{ label: "Dimensions", value: "Customizable" }, { label: "Weight Capacity", value: "Standard" }, { label: "Warranty", value: "5 Years" }],
