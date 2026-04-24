@@ -36,9 +36,7 @@ const seoStats = [
 export default async function CurtainsPage() {
   const allProducts = await getProducts();
   const curtainProducts = allProducts.filter(p => 
-    p.category_id === "Curtains" || 
-    p.category?.name === "Curtains" || 
-    p.category?.slug === "curtains"
+    p.categories?.slug === "Curtains"
   );
 
   return (
@@ -82,7 +80,7 @@ export default async function CurtainsPage() {
       </section>
 
       {/* ── Product List with Filter ── */}
-      <ProductListWithFilter initialProducts={curtainProducts} category="Curtains" />
+      <ProductListWithFilter initialProducts={curtainProducts} categories="Curtains" />
     </main>
   );
 }

@@ -23,10 +23,10 @@ export interface Product {
   type: string | null | undefined;
   sort_order: number;
   created_at: string;
-  category?: Category;
+  categories?: Categories;
 }
 
-export interface Category {
+export interface Categories {
   id: string;
   name: string;
   slug: string;

@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
 import FadeInView from "@/components/ui/FadeInView";
 import SectionHeading from "@/components/ui/SectionHeading";
 

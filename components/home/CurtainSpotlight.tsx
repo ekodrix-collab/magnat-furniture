@@ -32,6 +32,9 @@ const CurtainSpotlight = ({ header, card1, card2 }: Props) => {
     },
   ];
 
+  const whatsappNumber = "919446516395";
+  const measurementMessage = "Hi, I’d like to book a home visit for curtain/blind measurement. Available slots.";
+
   return (
     <section ref={ref} className="py-12 md:py-20 px-4 bg-[#FAF8F6]">
       <div className="max-w-7xl mx-auto">
@@ -89,12 +92,15 @@ const CurtainSpotlight = ({ header, card1, card2 }: Props) => {
             <h4 className="font-bold text-lg text-[#111]">Need a custom measurement?</h4>
             <p className="text-gray-500">Our experts can visit your site for precise curtain fittings.</p>
           </div>
-          <Link
-            href="/contact"
+          {/* Changed: WhatsApp redirect with pre-filled measurement message */}
+          <a
+            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(measurementMessage)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#111] text-[#FCFCFC] px-8 py-3 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#C0001A] transition-colors"
           >
             Book an Appointment
-          </Link>
+          </a>
         </div>
       </div>
     </section>

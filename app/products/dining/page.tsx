@@ -63,9 +63,7 @@ const faqItems = [
 export default async function DiningPage() {
   const allProducts = await getProducts();
   const diningProducts = allProducts.filter(p => 
-    p.category_id === "Dining" || 
-    p.category?.name === "Dining" || 
-    p.category?.slug === "dining"
+    p.categories?.slug === "Dining"
   );
 
   return (
@@ -109,7 +107,7 @@ export default async function DiningPage() {
       </section>
 
       {/* ── Product List with Filter ── */}
-      <ProductListWithFilter initialProducts={diningProducts} category="Dining" />
+      <ProductListWithFilter initialProducts={diningProducts} categories="Dining" />
 
       {/* ── FAQ ── */}
       <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">

@@ -35,7 +35,7 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     type: p.type || null,
     sort_order: 0,
     created_at: new Date().toISOString(),
-    category: {
+    categories: {
       id: p.category,
       name: p.category,
       slug: p.category.toLowerCase(),
