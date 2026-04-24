@@ -452,6 +452,25 @@ function InstagramManagement({ posts, section, onSaveSuccess }: { posts: Instagr
           </div>
         </div>
 
+        <div className="space-y-2">
+          <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Location (Displayed on cards)</label>
+          <input 
+            name="description" 
+            defaultValue={section?.description || "Kondotty, Kerala"} 
+            className="w-full p-4 border border-[#eeeeee] focus:outline-none focus:border-[#C0001A] text-[13px]"
+            placeholder="Kondotty, Kerala"
+          />
+        </div>
+
+        <div className="max-w-xs">
+          <ImageUploadField 
+            name="image_url" 
+            defaultValue={section?.image_url || undefined} 
+            label="Profile Picture"
+            dimensions="500 x 500px (1:1)"
+          />
+        </div>
+
         <button
           type="submit"
           className="bg-[#111] text-white px-8 py-3.5 text-[10px] font-bold uppercase tracking-widest w-fit hover:bg-[#C0001A] transition-all"
