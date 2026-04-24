@@ -145,6 +145,21 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   ))}
                 </select>
               </div>
+
+              <div className="space-y-2">
+                <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">Room</label>
+                <select
+                  name="room"
+                  defaultValue={product?.room || ""}
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all appearance-none"
+                >
+                  <option value="">Select Room</option>
+                  <option value="livingRoom">Living Room</option>
+                  <option value="diningRoom">Dining Room</option>
+                  <option value="bedroom">Bedroom</option>
+                  <option value="office">Office</option>
+                </select>
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -270,61 +285,50 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                   <input type="checkbox" name="is_featured" checked={isFeatured} onChange={(e) => setIsFeatured(e.target.checked)} value="true" className="w-4 h-4 accent-[#C0001A]" />
                   <div>
                     <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Signature Collection</label>
-                    <p className="text-[9px] text-[#999] mt-0.5">Show this product in the homepage &quot;Signature Selection&quot; carousel</p>
                   </div>
                 </div>
               </div>
 
-              {/* ── Badge Type (mutually exclusive) — only visible when featured ── */}
-              {isFeatured && (
-                <div className="ml-7 space-y-2 pb-2">
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-[#999]">Badge type (optional — pick one)</p>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="badge_type"
-                      value="bestseller"
-                      checked={badgeType === "bestseller"}
-                      onChange={() => setBadgeType("bestseller")}
-                      className="w-3.5 h-3.5 accent-[#C0001A]"
-                    />
-                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Best Seller</label>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="badge_type"
-                      value="new"
-                      checked={badgeType === "new"}
-                      onChange={() => setBadgeType("new")}
-                      className="w-3.5 h-3.5 accent-[#C0001A]"
-                    />
-                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="badge_type"
-                      value="none"
-                      checked={badgeType === "none"}
-                      onChange={() => setBadgeType("none")}
-                      className="w-3.5 h-3.5 accent-[#C0001A]"
-                    />
-                    <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#999]">No Badge</label>
-                  </div>
-                  {/* Hidden inputs so FormData picks up the right booleans */}
-                  <input type="hidden" name="is_bestseller" value={badgeType === "bestseller" ? "true" : "false"} />
-                  <input type="hidden" name="is_new" value={badgeType === "new" ? "true" : "false"} />
+              {/* ── Badges (Best Seller & New Arrival) — Mutually Exclusive ── */}
+              <div className="pt-4 pb-2 border-t border-[#eeeeee] space-y-3">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-[#999]">Badge type (pick one)</p>
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "bestseller"} 
+                    onChange={() => setBadgeType("bestseller")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Best Seller</label>
                 </div>
-              )}
+                
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "new"} 
+                    onChange={() => setBadgeType("new")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
+                </div>
 
-              {/* When not featured, still pass is_bestseller/is_new as false */}
-              {!isFeatured && (
-                <>
-                  <input type="hidden" name="is_bestseller" value="false" />
-                  <input type="hidden" name="is_new" value="false" />
-                </>
-              )}
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="radio" 
+                    name="badge_selection"
+                    checked={badgeType === "none"} 
+                    onChange={() => setBadgeType("none")} 
+                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                  />
+                  <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#999]">No Badge</label>
+                </div>
+
+                {/* Hidden inputs to pass booleans to the server action */}
+                <input type="hidden" name="is_bestseller" value={badgeType === "bestseller" ? "true" : "false"} />
+                <input type="hidden" name="is_new" value={badgeType === "new" ? "true" : "false"} />
+              </div>
 
               <div className="flex items-center gap-3 pt-2 border-t border-[#eeeeee]">
                 <input type="checkbox" name="is_active" defaultChecked={product?.is_active ?? true} value="true" className="w-4 h-4 accent-[#C0001A]" />

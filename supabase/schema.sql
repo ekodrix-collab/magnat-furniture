@@ -33,6 +33,7 @@ create table if not exists products (
   delivery_time text,
   material text,
   badge text,
+  room text,                               -- Room type: Living Room, Dining Room, Bedroom, Office
   is_new boolean default false,
   is_bestseller boolean default false,
   type text,
