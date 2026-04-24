@@ -154,7 +154,7 @@ export default function HomeHero({
   const bgVariants = {
     enter: { scale: isMobile ? 1.06 : 1.30, opacity: 0 },
     center: { scale: 1, opacity: 1 },
-    exit:  { scale: 0.98, opacity: 0 },
+    exit: { scale: 0.98, opacity: 0 },
   };
 
   // Ken Burns end scale — also toned down on mobile

@@ -41,6 +41,7 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     category: {
       id: p.category,
       name: p.category,
+      base_category: null,
       slug: p.category.toLowerCase(),
       description: null,
       image_url: null,

@@ -6,6 +6,7 @@ import { Edit2, Trash2, ListTree } from "lucide-react";
 import { deleteCategory } from "@/app/actions/cms";
 import { Category } from "@/lib/types";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 interface CategoryCardProps {
   category: Category;
@@ -15,13 +16,26 @@ export default function CategoryCard({ category }: CategoryCardProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete the "${category.name}" collection? This will orphaned any products assigned to it.`)) return;
-    setIsDeleting(true);
-    const result = await deleteCategory(category.id);
-    if (result?.error) {
-      alert("Error: " + result.error);
-      setIsDeleting(false);
-    }
+    toast.warning(`Delete "${category.name}"?`, {
+      description: "This will affect linked products.",
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          setIsDeleting(true);
+          const result = await deleteCategory(category.id);
+          if (result?.error) {
+            toast.error("Error", { description: result.error });
+            setIsDeleting(false);
+          } else {
+            toast.success("Deleted");
+          }
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => {},
+      }
+    });
   };
 
   if (isDeleting) return null;

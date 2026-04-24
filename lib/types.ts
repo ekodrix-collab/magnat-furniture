@@ -32,6 +32,7 @@ export interface Product {
 export interface Category {
   id: string;
   name: string;
+  base_category: string | null;
   slug: string;
   description: string | null | undefined;
   image_url: string | null | undefined;

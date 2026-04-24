@@ -2,6 +2,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+
   // ═══════════════════════════════════════════════════════════
   // IMAGE OPTIMIZATION — FASTEST LOADING + BEST SEO
   // ═══════════════════════════════════════════════════════════
@@ -48,6 +49,9 @@ const nextConfig: NextConfig = {
 
   // Optimize CSS
   experimental: {
+    serverActions: {
+      bodySizeLimit: '5mb',
+    },
     // optimizeCss requires the 'critters' package — omit until installed
   },
 

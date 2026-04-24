@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Edit2, Trash2, ExternalLink, Database, Terminal, Globe, Lock, Layers, MessageCircle, Copy, Check } from "lucide-react";
 import { deleteProduct } from "@/app/actions/cms";
 import { Product } from "@/lib/types";
+import { toast } from "sonner";
 
 interface ProductTableProps {
   products: Product[];
@@ -25,18 +26,31 @@ export default function ProductTable({ products }: ProductTableProps) {
 
   const handleDelete = async (id: string, name: string) => {
     if (!id || id.length < 10) { // Safety check to prevent deleting fallback items which use slugs as IDs
-      alert("Local fallback items cannot be deleted from the dashboard. These must be managed in the source code.");
+      toast.info("Local fallback item", {
+        description: "These must be managed in the source code."
+      });
       return;
     }
 
-    if (!confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`)) return;
-
-    setIsDeleting(id);
-    const result = await deleteProduct(id);
-    if (result.error) {
-      alert("Error deleting product: " + result.error);
-    }
-    setIsDeleting(null);
+    toast.warning(`Delete "${name}"?`, {
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          setIsDeleting(id);
+          const result = await deleteProduct(id);
+          if (result.error) {
+            toast.error("Error", { description: result.error });
+          } else {
+            toast.success("Deleted");
+          }
+          setIsDeleting(null);
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => {},
+      }
+    });
   };
 
   return (

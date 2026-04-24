@@ -88,8 +88,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex flex-col relative px-4 py-3.5 transition-all group ${isActive
-                      ? "text-[#111111]"
-                      : "text-[#666666] hover:text-[#111111] hover:bg-[#F9F9F9]"
+                    ? "text-[#111111]"
+                    : "text-[#666666] hover:text-[#111111] hover:bg-[#F9F9F9]"
                     }`}
                 >
                   <div className="flex items-center gap-4 z-10 w-full">
