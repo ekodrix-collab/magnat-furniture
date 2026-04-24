@@ -10,13 +10,13 @@ export default async function EditCategoryPage({
   const { id } = await params;
   const supabase = await createClient();
   
-  const { data: category, error } = await supabase
+  const { data: categories, error } = await supabase
     .from("categories")
     .select("*")
     .eq("id", id)
     .single();
 
-  if (error || !category) {
+  if (error || !categories) {
     notFound();
   }
 
@@ -27,7 +27,7 @@ export default async function EditCategoryPage({
         <p className="text-xs text-body uppercase tracking-[0.2em] mt-2">Update collection metadata, imagery, or homepage visibility</p>
       </div>
       
-      <CategoryForm category={category} />
+      <CategoryForm category={categories} />
     </div>
   );
 }

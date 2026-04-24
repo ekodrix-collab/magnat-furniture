@@ -68,13 +68,11 @@ const faqItems = [
 export default async function ChairsPage() {
   const allProducts = await getProducts();
   const chairProducts = allProducts.filter(p => 
-    p.category_id === "Chairs" || 
-    p.category?.name === "Chairs" || 
-    p.category?.slug === "chairs"
+    p.categories?.slug === "Chairs" 
   );
 
   return (
-    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+    <main className="md:mt-[-58px] bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}
       <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
         <div className="max-container">
@@ -115,7 +113,7 @@ export default async function ChairsPage() {
       </section>
 
       {/* ── Product List with Filter ── */}
-      <ProductListWithFilter initialProducts={chairProducts} category="Chairs" />
+      <ProductListWithFilter initialProducts={chairProducts} categories="Chairs" />
 
       {/* ── FAQ ── */}
       <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">

@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveProduct } from "@/app/actions/cms";
-import { Product, Category } from "@/lib/types";
+import { Categories, Product } from "@/lib/types";
 import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/ui/ImageUpload";
 
 interface ProductFormProps {
   product?: Partial<Product>;
-  categories: Category[];
+  categories: Categories[];
 }
 
 export default function ProductForm({ product, categories }: ProductFormProps) {

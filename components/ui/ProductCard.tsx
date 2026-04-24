@@ -18,7 +18,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     short_description, 
     images, 
     material, 
-    category, 
+    categories, 
     badge,
     is_new,
     is_bestseller,
@@ -28,7 +28,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   // Handle both possible sources of images and description
   const mainImage = images?.[0] || "/images/placeholder-furniture.jpg";
   const displayDescription = short_description || description;
-  const displayLabel = material || category?.name;
+  const displayLabel = material || categories?.name;
   const displayBadge = badge || (is_new ? "New Arrival" : is_bestseller ? "Best Seller" : null);
 
   return (

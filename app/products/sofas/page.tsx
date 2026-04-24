@@ -93,13 +93,11 @@ const faqItems = [
 export default async function SofasPage() {
   const allProducts = await getProducts();
   const sofaProducts = allProducts.filter(p => 
-    p.category_id === "Sofas" || 
-    p.category?.name === "Sofas" || 
-    p.category?.slug === "sofas"
+    p.categories?.slug === "Sofas" 
   );
 
   return (
-    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+    <main className="md:mt-[-58px] bg-[#fafaf9] min-h-screen">
 
       {/* ── SEO Intro — desktop only ── */}
       <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
@@ -201,7 +199,7 @@ export default async function SofasPage() {
       </section>
 
       {/* ── Product List with Filter ── */}
-      <ProductListWithFilter initialProducts={sofaProducts} category="Sofas" />
+      <ProductListWithFilter initialProducts={sofaProducts} categories="Sofas" />
 
       {/* ── FAQ — desktop only ── */}
       <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">

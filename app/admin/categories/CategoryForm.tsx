@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Layers, Globe } from "lucide-react";
 import { saveCategory } from "@/app/actions/cms";
-import { Category } from "@/lib/types";
 import ImageUploadField from "@/components/ui/ImageUploadField";
+import { Categories } from "@/lib/types";
 
 interface CategoryFormProps {
-  category?: Category;
+  category?: Categories;
 }
 
 export default function CategoryForm({ category }: CategoryFormProps) {
