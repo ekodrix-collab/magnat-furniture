@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Edit2, Trash2, ExternalLink, Database, Terminal, Globe, Lock, Layers, MessageCircle, Copy, Check } from "lucide-react";
+import { Edit2, Trash2, ExternalLink, Database, Terminal, MessageCircle, Copy, Check } from "lucide-react";
 import { deleteProduct } from "@/app/actions/cms";
 import { Product } from "@/lib/types";
 import { toast } from "sonner";
@@ -203,7 +203,7 @@ export default function ProductTable({ products }: ProductTableProps) {
       
       {filteredProducts.length === 0 && (
         <div className="py-20 text-center border-t border-[#eeeeee]">
-          <p className="text-xs text-[#999] uppercase tracking-[0.2em]">No {activeTab} products found</p>
+          <p className="text-xs text-[#999] uppercase tracking-[0.2em]">No products found</p>
         </div>
       )}
     </div>
