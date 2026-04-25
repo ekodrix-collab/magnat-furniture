@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { saveProduct } from "@/app/actions/cms";
 import { Product, Category } from "@/lib/types";
 import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2, Copy, Check, ExternalLink, ShieldCheck } from "lucide-react";
@@ -16,6 +16,8 @@ interface ProductFormProps {
 
 export default function ProductForm({ product, categories }: ProductFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isPrivateParam = searchParams.get("private") === "true";
   const [isPending, setIsPending] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +34,17 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [badgeType, setBadgeType] = useState<"bestseller" | "new" | "none">(
     product?.is_bestseller ? "bestseller" : product?.is_new ? "new" : "none"
   );
-  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? false);
+  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? isPrivateParam);
   const [localToken, setLocalToken] = useState(product?.access_token || "");
   const [copied, setCopied] = useState(false);
+
+  // Auto-generate token if pre-checked via query param
+  useEffect(() => {
+    if (isPrivate && !localToken && !product?.id) {
+      const newToken = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
+      setLocalToken(newToken);
+    }
+  }, [isPrivate, localToken, product?.id]);
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 

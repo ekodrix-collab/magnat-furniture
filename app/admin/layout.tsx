@@ -11,6 +11,7 @@ const adminNavItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Home Page", href: "/admin/home", icon: ImageIcon },
   { label: "Products", href: "/admin/products", icon: Package },
+  { label: "Exclusive", href: "/admin/exclusive", icon: ShieldCheck },
   { label: "Categories", href: "/admin/categories", icon: ListTree },
   { label: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
   { label: "Testimonials", href: "/admin/testimonials", icon: Users },

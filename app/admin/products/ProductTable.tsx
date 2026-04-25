@@ -13,14 +13,9 @@ interface ProductTableProps {
 
 export default function ProductTable({ products }: ProductTableProps) {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"all" | "public" | "exclusive">("all");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const filteredProducts = products.filter(product => {
-    if (activeTab === "public") return !product.is_private;
-    if (activeTab === "exclusive") return product.is_private;
-    return true;
-  });
+  const filteredProducts = products.filter(product => !product.is_private);
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
@@ -56,34 +51,10 @@ export default function ProductTable({ products }: ProductTableProps) {
   return (
     <div className="space-y-6">
       {/* Enhanced UX Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#eeeeee] pb-px">
-        <button
-          onClick={() => setActiveTab("all")}
-          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
-            activeTab === "all" ? "border-[#111] text-[#111]" : "border-transparent text-[#999] hover:text-[#666]"
-          }`}
-        >
-          <Layers size={14} />
-          All <span className="opacity-40 ml-1">({products.length})</span>
-        </button>
-        <button
-          onClick={() => setActiveTab("public")}
-          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
-            activeTab === "public" ? "border-[#111] text-[#111]" : "border-transparent text-[#999] hover:text-[#666]"
-          }`}
-        >
-          <Globe size={14} />
-          Public <span className="opacity-40 ml-1">({products.filter(p => !p.is_private).length})</span>
-        </button>
-        <button
-          onClick={() => setActiveTab("exclusive")}
-          className={`flex items-center gap-2 px-6 py-4 text-[0.65rem] font-bold uppercase tracking-widest transition-all border-b-2 ${
-            activeTab === "exclusive" ? "border-[#930011] text-[#930011]" : "border-transparent text-[#999] hover:text-[#666]"
-          }`}
-        >
-          <Lock size={14} />
-          Exclusive <span className="opacity-40 ml-1">({products.filter(p => p.is_private).length})</span>
-        </button>
+      <div className="flex items-center justify-between border-b border-[#eeeeee] pb-4">
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">
+          Public Collection <span className="opacity-40 ml-2">({filteredProducts.length})</span>
+        </h3>
       </div>
 
       <div className="overflow-x-auto ">

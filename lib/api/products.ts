@@ -52,6 +52,25 @@ function mapFallbackProduct(p: FallbackProduct): Product {
   };
 }
 
+export async function getPrivateProducts(): Promise<Product[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select("*, categories(*)")
+      .eq("is_private", true)
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+
+    if (error || !data) return [];
+
+    return data.map(mapProduct);
+  } catch (err) {
+    console.error("Error fetching private products:", err);
+    return [];
+  }
+}
+
 export async function getProducts(includePrivate: boolean = false): Promise<Product[]> {
   try {
     const supabase = createClient();
