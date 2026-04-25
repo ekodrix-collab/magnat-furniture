@@ -105,6 +105,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
                   <option value="chairs">Chairs</option>
                   <option value="sofas">Sofas</option>
                   <option value="curtains">Curtains</option>
+
                   <option value="dining">Dining</option>
                   <option value="bedroom">Bedroom</option>
                 </select>
