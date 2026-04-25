@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import ProductForm from "../ProductForm";
+import { Suspense } from "react";
 
 export default async function NewProductPage() {
   const supabase = await createClient();
@@ -12,7 +13,9 @@ export default async function NewProductPage() {
 
   return (
     <div className="p-10 max-w-7xl mx-auto">
-      <ProductForm categories={categories || []} />
+      <Suspense fallback={<div>Loading form...</div>}>
+        <ProductForm categories={categories || []} />
+      </Suspense>
     </div>
   );
 }
