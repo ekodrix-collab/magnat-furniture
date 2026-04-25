@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { Edit2, Trash2, ListTree } from "lucide-react";
 import { deleteCategory } from "@/app/actions/cms";
-import { Category } from "@/lib/types";
+
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { Categories } from "@/lib/types";
 
 interface CategoryCardProps {
-  category: Category;
+  category: Categories;
 }
 
 export default function CategoryCard({ category }: CategoryCardProps) {

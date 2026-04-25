@@ -9,10 +9,10 @@ import { useFavorites } from "@/lib/context/FavoritesContext";
 
 const EXPLORE_DATA = {
   categories: [
-    { name: "Sofas", href: "/products?category=sofas", image: "/images/sofa3d.png" },
-    { name: "Chairs", href: "/products?category=chairs", image: "/images/chair.png" },
-    { name: "Dining", href: "/products?category=dining", image: "/images/dining-001.jpg" },
-    { name: "Curtains", href: "/products?category=curtains", image: "/images/curtains_nav.png" },
+    { name: "Sofas", href: "/products/sofas", image: "/images/sofa3d.png" },
+    { name: "Chairs", href: "/products/chairs", image: "/images/chair.png" },
+    { name: "Dining", href: "/products/dining", image: "/images/dining-001.jpg" },
+    { name: "Curtains", href: "/products/curtains", image: "/images/curtains_nav.png" },
   ],
   rooms: [
     { name: "Living Room", href: "/rooms/living-room" },
