@@ -14,6 +14,7 @@ import OrganizationSchema from "@/components/schemas/OrganizationSchema";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema";
 import MainContentWrapper from "@/components/layout/MainContentWrapper";
 import { Toaster } from "sonner";
+import VisitTracker from "@/components/analytics/VisitTracker";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -201,6 +202,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
+        <VisitTracker />
         <FavoritesProvider>
           <Preloader />
 
