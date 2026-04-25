@@ -144,6 +144,14 @@ create table if not exists inquiries (
   created_at timestamptz default now()
 );
 
+-- 11. SITE VISITS (Analytics)
+create table if not exists site_visits (
+  id uuid primary key default gen_random_uuid(),
+  path text,
+  user_agent text,
+  created_at timestamptz default now()
+);
+
 -- ============================================
 -- STORAGE BUCKETS (Manual Setup via UI)
 -- ============================================
@@ -204,3 +212,8 @@ create policy "Allow auth admin full access to instagram_posts" on instagram_pos
 alter table inquiries enable row level security;
 create policy "Allow anyone to insert inquiries" on inquiries for insert with check (true);
 create policy "Allow auth admin full access to inquiries" on inquiries for all using (auth.role() = 'authenticated');
+
+-- Site Visits: Public Insert, Auth Read
+alter table site_visits enable row level security;
+create policy "Allow public to log visits" on site_visits for insert with check (true);
+create policy "Allow auth admin full access to site_visits" on site_visits for all using (auth.role() = 'authenticated');
