@@ -4,10 +4,10 @@ import { useRef } from "react";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Category, HomepageSection } from "@/lib/types";
+import { Categories, HomepageSection } from "@/lib/types";
 
 /* ── Fallback Data (Functional & Premium) ── */
-const FALLBACK_ITEMS: Category[] = [
+const FALLBACK_ITEMS: Categories[] = [
   { id: "fb1", name: "Luxury Seating", slug: "sofas", image_url: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 0, created_at: "", base_category: null },
   { id: "fb2", name: "Designer Armchairs", slug: "chairs", image_url: "https://images.unsplash.com/photo-1567538096621-38d2284b23ff?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 1, created_at: "", base_category: null },
   { id: "fb3", name: "Signature Window Drapery", slug: "curtains", image_url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 2, created_at: "", base_category: null },
@@ -15,7 +15,7 @@ const FALLBACK_ITEMS: Category[] = [
   { id: "fb5", name: "Modern Bedroom Suites", slug: "bedroom", image_url: "https://images.unsplash.com/photo-1505693419148-de1967a93fb4?q=80&w=800&auto=format&fit=crop", description: null, is_featured: true, sort_order: 4, created_at: "", base_category: null },
 ];
 
-function CategoryCard({ cat }: { cat: Category }) {
+function CategoryCard({ cat }: { cat: Categories }) {
   // Map specific slugs to high-quality Unsplash placeholders if image_url is missing
   const getPlaceholder = (slug: string) => {
     const placeholders: Record<string, string> = {
@@ -66,7 +66,7 @@ export default function SpecialModels({
   categories, 
   section 
 }: { 
-  categories?: Category[], 
+  categories?: Categories[], 
   section?: HomepageSection 
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);

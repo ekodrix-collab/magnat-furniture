@@ -68,15 +68,13 @@ const faqItems = [
 export default async function ChairsPage() {
   const allProducts = await getProducts();
   const chairProducts = allProducts.filter(p => 
-    p.category_id === "Chairs" || 
-    p.category?.name === "Chairs" || 
-    p.category?.slug === "chairs"
+    p.categories?.base_category === "chairs"
   );
 
   return (
-    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+    <main className="bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}
-      <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] pb-10">
         <div className="max-container">
           <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" >
             Premium Seating · Crafted in Kerala
