@@ -32,18 +32,19 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const displayBadge = badge || (is_new ? "New Arrival" : is_bestseller ? "Best Seller" : null);
 
   return (
-    <article
-      className="
-        group relative bg-white flex flex-col overflow-hidden cursor-pointer
-        border border-[#e8e4e0]
-        rounded-[2px]
-        transition-all duration-500 ease-out
-        hover:-translate-y-[3px]
-        hover:shadow-[0_24px_64px_rgba(17,17,17,0.12)]
-        hover:border-[#d4cfc9]
-        h-full
-      "
-    >
+    <Link href={`/products/${slug}`} className="block h-full no-underline">
+      <article
+        className="
+          group relative bg-white flex flex-col overflow-hidden cursor-pointer
+          border border-[#e8e4e0]
+          rounded-[2px]
+          transition-all duration-500 ease-out
+          hover:-translate-y-[3px]
+          hover:shadow-[0_24px_64px_rgba(17,17,17,0.12)]
+          hover:border-[#d4cfc9]
+          h-full
+        "
+      >
 
       {/* ── Image Container ── */}
       <div
@@ -140,8 +141,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
         {/* CTA Button */}
         <div className="mt-auto pt-4 sm:pt-3">
-          <Link
-            href={`/products/${slug}`}
+          <div
             className="
               w-full inline-flex items-center justify-center gap-2
               bg-[#111] text-white
@@ -156,7 +156,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
               xs:py-2 xs:px-3
               group/btn
             "
-            aria-label={`View details for ${name}`}
           >
             <span>Details</span>
             <ArrowRight
@@ -164,9 +163,10 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
               strokeWidth={2.5}
               className="transition-transform duration-300 group-hover/btn:translate-x-0.5"
             />
-          </Link>
+          </div>
         </div>
       </div>
-    </article>
+      </article>
+    </Link>
   );
 }
