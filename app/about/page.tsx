@@ -24,7 +24,7 @@ export default function AboutPage() {
           }}
         />
 
-        <div className="max-container relative z-10">
+        <div className=" relative z-10">
           <FadeInView className="max-w-4xl mx-auto text-center space-y-10">
             <div className="flex items-center justify-center gap-4">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#C0001A]"></div>
@@ -42,7 +42,7 @@ export default function AboutPage() {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-[#666666] font-light leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl md:text-lg text-[#666666] font-light leading-relaxed px-5 md:px-0  text-start md:text-center">
               For over 25 years, we've been manufacturing premium furniture right here in Kondotty.
               No middlemen. No showroom markups. Just honest craftsmanship, direct from our workshop to your home.
             </p>
@@ -476,7 +476,7 @@ export default function AboutPage() {
             </FadeInView>
 
             <FadeInView direction="left" className="h-full w-full">
-              <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[400px] overflow-hidden shadow-2xl border border-black/5 bg-[#f9f9f9]">
+              <div className="relative aspect-[5/6] lg:aspect-auto lg:h-full min-h-[400px] overflow-hidden shadow-2xl border border-black/5 bg-[#f9f9f9]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.577732999317!2d75.9678667!3d11.1447936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba64ee03d3e05f3%3A0x895ea8e05f23c7d8!2sMagnat%20Furniture%20and%20Interiors!5e0!3m2!1sen!2sin!4v1775902098710!5m2!1sen!2sin"
                   className="absolute inset-0 w-full h-full"

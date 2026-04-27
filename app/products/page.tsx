@@ -19,7 +19,7 @@ export default async function ProductsPage() {
     <main className=" min-h-screen bg-white">
 
       {/* Hero Header */}
-      <section className="relative py-16 md:py-20 overflow-hidden border-b border-[#eeeeee]">
+      <section className="relative md:py-20 overflow-hidden border-b border-[#eeeeee]">
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -27,20 +27,20 @@ export default async function ProductsPage() {
         </div>
 
         <div className="max-container relative z-10">
-          <FadeInView className="max-w-4xl space-y-8">
+          <FadeInView className="max-w-4xl ">
             <div className="flex items-center gap-4">
               <span className="heading-label">Kondotty Craftsmanship</span>
               <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-[#C0001A]/30 to-transparent"></div>
             </div>
 
             <h1
-              className="text-[26px] md:text-[34px] lg:text-[44px] font-semibold leading-tight tracking-tight mb-4 md:mb-5 lg:mb-6"
+              className="text-[26px] md:text-[34px] lg:text-[44px] font-semibold leading-tight tracking-tight mb-4 md:mb-3 lg:mb-6"
 
             >
               Signature <span className="italic font-normal text-[#C0001A]">Collection</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-[#666666] font-light max-w-3xl leading-relaxed">
+            <p className="text-md md:text-md text-[#666666] font-light max-w-3xl leading-relaxed">
               Each piece tells a story of 25 years of manufacturing excellence. Handcrafted in Kondotty,
               designed to become part of your family's legacy.
             </p>
@@ -98,7 +98,7 @@ export default async function ProductsPage() {
                   <div className="text-3xl font-bold text-[#C0001A] mb-1" >500+</div>
                   <div className="text-xs uppercase tracking-widest text-white/60">Custom Pieces</div>
                 </div>
-                <div className="w-px bg-white/20"></div>
+                <div className="hidden sm:block w-px bg-white/20"></div>
                 <div>
                   <div className="text-3xl font-bold text-[#C0001A] mb-1" >100%</div>
                   <div className="text-xs uppercase tracking-widest text-white/60">Satisfaction</div>
