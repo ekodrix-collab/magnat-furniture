@@ -33,9 +33,34 @@ export default function Preloader() {
   if (!isLoading) return null;
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading && (
+    <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              if (sessionStorage.getItem("magnat-preloaded") === "true") {
+                document.documentElement.classList.add('hide-preloader');
+              }
+            } catch (e) {}
+          `,
+        }}
+      />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            html.hide-preloader #global-preloader {
+              display: none !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
+              visibility: hidden !important;
+            }
+          `,
+        }}
+      />
+      <AnimatePresence mode="wait">
+        {isLoading && (
         <motion.div
+          id="global-preloader"
           key="preloader-overlay"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a] overflow-hidden"
           initial={{ opacity: 1 }}
@@ -112,5 +137,6 @@ export default function Preloader() {
         </motion.div>
       )}
     </AnimatePresence>
+    </>
   );
 }
