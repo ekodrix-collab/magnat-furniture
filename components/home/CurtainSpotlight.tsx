@@ -89,12 +89,14 @@ const CurtainSpotlight = ({ header, card1, card2 }: Props) => {
             <h4 className="font-bold text-lg text-[#111]">Need a custom measurement?</h4>
             <p className="text-gray-500">Our experts can visit your site for precise curtain fittings.</p>
           </div>
-          <Link
-            href="/contact"
+          <a
+            href={`https://wa.me/919446516395?text=${encodeURIComponent("Hi MAGNAT Furniture, I'd like to book an appointment for curtain measurements.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#111] text-[#FCFCFC] px-8 py-3 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#C0001A] transition-colors"
           >
             Book an Appointment
-          </Link>
+          </a>
         </div>
       </div>
     </section>
