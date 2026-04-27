@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "@/components/ui/ProductCard";
 import FadeInView from "@/components/ui/FadeInView";
 import { Search, SlidersHorizontal, Grid3x3, LayoutGrid } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Categories, Product } from "@/lib/types";
 
 interface ProductsListClientProps {
@@ -14,11 +15,22 @@ interface ProductsListClientProps {
 }
 
 export default function ProductsListClient({ initialProducts, categories }: ProductsListClientProps) {
-  const [activeCategory, setActiveCategory] = useState("All Products");
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All Products";
+  
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [viewMode, setViewMode] = useState<"grid" | "compact">("grid");
   const [sortBy, setSortBy] = useState("Featured");
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+
+  // Sync state with URL parameter changes
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   const categoryNames = ["All Products", ...Array.from(new Set(categories.map(c => c.base_category).filter((c): c is string => !!c)))];
   const sortOptions = ["Featured", "Newest First", "Price: Low to High", "Price: High to Low", "Best Sellers"];
@@ -164,7 +176,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
               className={`grid gap-x-8 gap-y-16 ${viewMode === "grid"
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                 : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                 }`}
             >

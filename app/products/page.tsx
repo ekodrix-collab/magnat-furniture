@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase-server";
 import ProductsListClient from "@/components/products/ProductsListClient";
 import FadeInView from "@/components/ui/FadeInView";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function ProductsPage() {
   const products = await getProducts();
@@ -63,7 +64,9 @@ export default async function ProductsPage() {
       </section>
 
       {/* Dynamic Products List */}
-      <ProductsListClient initialProducts={products} categories={categories || []} />
+      <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading collection...</div>}>
+        <ProductsListClient initialProducts={products} categories={categories || []} />
+      </Suspense>
 
       {/* Custom Design CTA */}
       <section className="relative py-32 md:py-40 bg-[#111111] text-white overflow-hidden">

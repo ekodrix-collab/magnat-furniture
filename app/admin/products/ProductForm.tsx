@@ -36,7 +36,9 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [images, setImages] = useState<string[]>(product?.images || [""]);
   const [features, setFeatures] = useState<string[]>(product?.features || [""]);
   const [specifications, setSpecifications] = useState<{ label: string; value: string }[]>(
-    product?.specifications || [{ label: "", value: "" }]
+    product?.specifications?.length 
+      ? product.specifications 
+      : [{ label: "Dimensions", value: "" }, { label: "Weight", value: "" }]
   );
 
   // Featured & badge state
@@ -77,7 +79,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
 
     // Add dynamic lists as JSON strings
     formData.append("features", JSON.stringify(features.filter(f => f.trim())));
-    formData.append("specifications", JSON.stringify(specifications.filter(s => s.label.trim())));
+    formData.append("specifications", JSON.stringify(specifications.filter(s => s.label.trim() && s.value.trim())));
 
     // Handle images (if using simple input fields)
     images.forEach(img => {
@@ -215,6 +217,127 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
             </div>
           </section>
 
+          {/* Specifications Section */}
+          <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee]">
+            <div className="flex items-center justify-between mb-8">
+              <div className="space-y-1">
+                <h3 className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#C0001A]">Technical Specifications</h3>
+                <p className="text-[9px] text-[#999] uppercase tracking-widest pl-1 font-medium">Define dimensions and weight for catalog display</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 pb-10 border-b border-[#f5f5f5]">
+              {/* Specialized Dimensions Field */}
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#111] flex items-center gap-2">
+                   Dimensions <span className="text-[#999] font-normal">(W × D × H)</span>
+                </label>
+                <input
+                  value={specifications.find(s => s.label === "Dimensions")?.value || ""}
+                  onChange={(e) => {
+                    const newSpecs = [...specifications];
+                    const idx = newSpecs.findIndex(s => s.label === "Dimensions");
+                    if (idx > -1) {
+                      newSpecs[idx].value = e.target.value;
+                    } else {
+                      newSpecs.push({ label: "Dimensions", value: e.target.value });
+                    }
+                    setSpecifications(newSpecs);
+                  }}
+                  placeholder="e.g. 210 × 95 × 85 cm"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3.5 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
+                />
+              </div>
+
+              {/* Specialized Weight Field */}
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#111] flex items-center gap-2">
+                   Product Weight <span className="text-[#999] font-normal">(Approx)</span>
+                </label>
+                <input
+                  value={specifications.find(s => s.label === "Weight")?.value || ""}
+                  onChange={(e) => {
+                    const newSpecs = [...specifications];
+                    const idx = newSpecs.findIndex(s => s.label === "Weight");
+                    if (idx > -1) {
+                      newSpecs[idx].value = e.target.value;
+                    } else {
+                      newSpecs.push({ label: "Weight", value: e.target.value });
+                    }
+                    setSpecifications(newSpecs);
+                  }}
+                  placeholder="e.g. 45.0 kg"
+                  className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3.5 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Other Specs */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#999]">Additional Details</h4>
+                 <button
+                    type="button"
+                    onClick={() => setSpecifications([...specifications, { label: "", value: "" }])}
+                    className="text-[0.6rem] font-bold uppercase tracking-widest text-[#C0001A] flex items-center gap-1.5"
+                  >
+                    <Plus size={12} /> Add More
+                  </button>
+              </div>
+
+              {specifications.filter(s => s.label !== "Dimensions" && s.label !== "Weight").map((spec, idx) => (
+                <div key={idx} className="flex gap-4 items-start group">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+                    <div className="space-y-1.5">
+                      <label className="text-[9px] uppercase tracking-[0.15em] text-[#999] pl-1 font-bold">Attribute</label>
+                      <input
+                        value={spec.label}
+                        onChange={(e) => {
+                          const realIdx = specifications.indexOf(spec);
+                          const newSpecs = [...specifications];
+                          newSpecs[realIdx].label = e.target.value;
+                          setSpecifications(newSpecs);
+                        }}
+                        placeholder="e.g. Material Grade"
+                        className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-[9px] uppercase tracking-[0.15em] text-[#999] pl-1 font-bold">Value</label>
+                      <div className="flex gap-3">
+                        <input
+                          value={spec.value}
+                          onChange={(e) => {
+                             const realIdx = specifications.indexOf(spec);
+                             const newSpecs = [...specifications];
+                             newSpecs[realIdx].value = e.target.value;
+                             setSpecifications(newSpecs);
+                          }}
+                          placeholder="Enter detail..."
+                          className="flex-1 bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setSpecifications(specifications.filter(s => s !== spec))}
+                          className="p-3 text-[#ccc] hover:text-[#C0001A] transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-10 pt-6 border-t border-[#f5f5f5] bg-[#fcfcfc] -mx-8 px-8 -mb-8 pb-8">
+               <p className="text-[9px] text-[#999] uppercase tracking-[0.2em] font-medium leading-relaxed">
+                  These metrics generate the premium technical grid on the product page. <br/>
+                  <span className="text-[#C0001A]">Dimensions and Weight are prioritized.</span>
+               </p>
+            </div>
+          </section>
+
           {/* Features Section */}
           <section className="bg-white p-8 rounded-none shadow-sm border border-[#eeeeee]">
             <div className="flex items-center justify-between mb-6">
@@ -238,7 +361,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                       setFeatures(newFeatures);
                     }}
                     placeholder="e.g. Hand-carved teak wood base"
-                    className="flex-1 bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm"
+                    className="flex-1 bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A]"
                   />
                   <button
                     type="button"

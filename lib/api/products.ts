@@ -42,7 +42,7 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     categories: {
       id: p.category,
       name: p.category,
-      base_category: null,
+      base_category: p.category,
       slug: p.category.toLowerCase(),
       description: null,
       image_url: null,
@@ -87,7 +87,6 @@ export async function getProducts(includePrivate: boolean = false): Promise<Prod
     const { data, error } = await query.order("sort_order", { ascending: true });
 
     if (error || !data || data.length === 0) {
-      console.warn("Using fallback products data", error);
       return fallbackProducts.map(mapFallbackProduct);
     }
 
