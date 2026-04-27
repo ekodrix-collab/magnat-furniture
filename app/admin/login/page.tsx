@@ -19,8 +19,8 @@ export default function AdminLoginPage() {
       >
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
-          <div className="w-11 h-11 bg-[#1A1208] flex items-center justify-center mb-4">
-            <Sofa size={20} className="text-[#C8873A]" strokeWidth={1.5} />
+          <div className="w-11 h-11 bg-[#C0001A] flex items-center justify-center mb-4">
+            <img src="/images/magnat-icon-white.png" alt="Magnat Logo" className="h-8 w-auto object-contain" />
           </div>
           <h1 className="text-[#1A1208] text-xl font-semibold tracking-[0.18em] uppercase">
             Magnat

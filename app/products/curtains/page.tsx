@@ -42,7 +42,7 @@ export default async function CurtainsPage() {
   return (
     <main className="bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}
-      <section className="hidden md:block bg-white border-b border-[#f0f0f0] pb-10">
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-20">
         <div className="max-container">
           <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" >
             Elevate Your View · Textile Excellence
