@@ -99,7 +99,7 @@ function NavbarContent() {
                         </Link>
                       ))}
                       <div className="mt-8 pt-8 border-t border-black/5">
-                        <Link href="/products" className="text-[10px] font-black tracking-[0.2em] uppercase text-[#C0001A] hover:underline" onClick={() => setActiveMenu(null)}>
+                        <Link href="/rooms/all-pieces" className="text-[10px] font-black tracking-[0.2em] uppercase text-[#C0001A] hover:underline" onClick={() => setActiveMenu(null)}>
                           View All Pieces
                         </Link>
                       </div>
