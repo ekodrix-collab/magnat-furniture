@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     return <ProductClientPage product={null} relatedProducts={[]} />;
   }
 
-  const relatedProducts = await getRelatedProducts(product.category_id || "", slug);
+  const relatedProducts = await getRelatedProducts(product.categories?.slug || "", slug);
 
   return <ProductClientPage product={product} relatedProducts={relatedProducts} />;
 }

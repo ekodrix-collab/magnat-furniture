@@ -8,302 +8,286 @@ import ProductCard from "@/components/ui/ProductCard";
 import FadeInView from "@/components/ui/FadeInView";
 import { useFavorites } from "@/lib/context/FavoritesContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  ArrowLeft, MessageCircle, Heart, Star, ChevronLeft, ChevronRight, ShoppingBag, ArrowRight
+import {
+   ArrowLeft, MessageCircle, Heart, Star, ChevronLeft, ChevronRight, ShoppingBag, ArrowRight
 } from "lucide-react";
 
 import { Product } from "@/lib/types";
 
-export default function ProductClientPage({ 
-  product, 
-  relatedProducts 
-}: { 
-  product: Product | null;
-  relatedProducts: Product[];
+export default function ProductClientPage({
+   product,
+   relatedProducts
+}: {
+   product: Product | null;
+   relatedProducts: Product[];
 }) {
-  const router = useRouter();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  const { isFavorite, toggleFavorite, favoritesCount } = useFavorites();
-  const liked = product ? isFavorite(product.slug) : false;
+   const router = useRouter();
+   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  if (!product) {
-    return (
-      <div className="pt-40 pb-32 bg-[#fafaf9] min-h-screen flex flex-col items-center justify-center">
-        <FadeInView>
-          <div className="text-center max-w-md">
-            <h1 className="text-5xl font-bold text-[#111111] mb-6" >
-              Product Not Found
-            </h1>
-            <p className="text-[#666666] font-light mb-10 leading-relaxed">
-              The product you're looking for is currently unavailable. Browse our curated catalog for other exquisite pieces.
-            </p>
-            <Link href="/products" className="bg-[#111] text-white px-8 py-3.5 text-[11px] font-bold tracking-[0.2em] uppercase rounded-sm">
-              Browse All Products
-            </Link>
-          </div>
-        </FadeInView>
-      </div>
-    );
-  }
+   const { isFavorite, toggleFavorite } = useFavorites();
+   const liked = product ? isFavorite(product.slug) : false;
 
-  const whatsappMessage = encodeURIComponent(`Hi MAGNAT Furniture, I'm enquiring about the ${product.name}.`);
-  const whatsappLink = `https://wa.me/919446516395?text=${whatsappMessage}`;
-  const images = product.images && product.images.length > 0 ? product.images : ["/images/placeholder-furniture.jpg"];
-
-  // Split images for desktop layout: 1 main image, up to 2 sub-images 
-  const mainImage = images[0];
-  const subImages = images.slice(1, 3);
-  // Ensure we always have two sub-images for the grid layout visually, padding with main image if needed
-  const displaySubImages = [
-    subImages[0] || mainImage,
-    subImages[1] || mainImage
-  ];
-
-  return (
-    <div className="bg-white min-h-screen pb-32">
-      
-      {/* ── Mobile Standalone Header (Placed naturally below global navbar) ── */}
-      <div className="md:hidden pt-[140px] pb-4 px-6 flex items-center bg-white">
-         <button 
-           onClick={() => router.back()} 
-           className="w-10 h-10 rounded-full bg-[#f6f6f6] flex items-center justify-center text-[#111]"
-           aria-label="Go Back"
-         >
-            <ChevronLeft size={20} strokeWidth={2} />
-         </button>
-      </div>
-
-      <div className="max-container pt-4 md:pt-32 px-0 md:px-10 lg:px-16">
-        
-        {/* ── Desktop Breadcrumbs ── */}
-        <div className="hidden md:flex items-center gap-2 text-[11px] font-medium tracking-[0.05em] text-[#666] mb-10">
-          <Link href="/" className="hover:text-[#111] transition-colors">Home</Link>
-          <span className="text-[#ccc] px-1">{'>'}</span>
-          <Link href={`/products?category=${product.categories?.slug || ""}`} className="hover:text-[#111] transition-colors">{product.categories?.name || 'Collection'}</Link>
-          <span className="text-[#ccc] px-1">{'>'}</span>
-          <span className="text-[#111] font-bold">{product.name}</span>
-        </div>
-
-        {/* ── Main Layout ── */}
-        <div className="flex flex-col md:flex-row gap-0 md:gap-16 lg:gap-24 mb-24">
-          
-          {/* ══════ LEFT: Images ══════ */}
-          <div className="w-full md:w-[55%] flex flex-col pt-20 md:pt-0">
-             
-             {/* Mobile: Pill Gallery underneath single image */}
-             <div className="relative w-full aspect-[4/3] md:hidden bg-[#f4f3f0]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentImageIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative w-full h-full"
-                  >
-                    <Image
-                      src={images[currentImageIndex]}
-                      alt={product.name}
-                      fill
-                      priority
-                      sizes="100vw"
-                      className="object-contain p-8 mix-blend-multiply" 
-                    />
-                  </motion.div>
-                </AnimatePresence>
-             </div>
-
-             {/* Mobile Pill Selector */}
-             {images.length > 1 && (
-               <div className="md:hidden flex justify-center mt-6 mb-8 px-6">
-                  <div className="flex items-center gap-4 bg-[#f4f3f0] py-2 px-6 rounded-full border border-[#ebebeb]">
-                    {images.map((img: string, i: number) => (
-                      <button 
-                        key={i}
-                        className={`relative w-8 h-8 rounded-full overflow-hidden transition-all ${
-                          currentImageIndex === i ? 'ring-2 ring-[#111] ring-offset-1 bg-white' : 'opacity-60'
-                        }`}
-                        onClick={() => setCurrentImageIndex(i)}
-                      >
-                         <Image src={img} alt={`Thumb ${i}`} fill className="object-cover mix-blend-multiply" />
-                      </button>
-                    ))}
-                  </div>
+   if (!product) {
+      return (
+         <div className="pt-40 pb-32 bg-[#fafaf9] min-h-screen flex flex-col items-center justify-center">
+            <FadeInView>
+               <div className="text-center max-w-md">
+                  <h1 className="text-5xl font-bold text-[#111111] mb-6" >
+                     Product Not Found
+                  </h1>
+                  <p className="text-[#666666] font-light mb-10 leading-relaxed">
+                     The product you're looking for is currently unavailable. Browse our curated catalog for other exquisite pieces.
+                  </p>
+                  <Link href="/products" className="bg-[#111] text-white px-8 py-3.5 text-[11px] font-bold tracking-[0.2em] uppercase rounded-sm">
+                     Browse All Products
+                  </Link>
                </div>
-             )}
+            </FadeInView>
+         </div>
+      );
+   }
 
-             {/* Desktop: Grid Layout (1 Big, 2 Small) */}
-             <div className="hidden md:flex flex-col gap-5">
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#f4f3f0]">
-                   <Image
-                      src={mainImage}
-                      alt={product.name}
-                      fill
-                      priority
-                      sizes="(min-width: 768px) 50vw"
-                      className="object-cover mix-blend-multiply hover:scale-105 transition-transform duration-1000"
-                   />
-                </div>
-                <div className="grid grid-cols-2 gap-5">
-                   <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#f4f3f0]">
-                     <Image
-                        src={displaySubImages[0]}
-                        alt={`${product.name} Detail 1`}
-                        fill
-                        sizes="(min-width: 768px) 25vw"
-                        className="object-cover mix-blend-multiply hover:scale-105 transition-transform duration-1000"
-                     />
-                   </div>
-                   <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#f4f3f0]">
-                     <Image
-                        src={displaySubImages[1]}
-                        alt={`${product.name} Detail 2`}
-                        fill
-                        sizes="(min-width: 768px) 25vw"
-                        className="object-cover mix-blend-multiply hover:scale-105 transition-transform duration-1000"
-                     />
-                   </div>
-                </div>
-             </div>
-          </div>
+   const whatsappMessage = encodeURIComponent(`Hi MAGNAT Furniture, I'm enquiring about the ${product.name}.`);
+   const whatsappLink = `https://wa.me/919446516395?text=${whatsappMessage}`;
+   const images = product.images && product.images.length > 0 ? product.images : ["/images/placeholder-furniture.jpg"];
 
-          {/* ══════ RIGHT: Product Information ══════ */}
-          <div className="w-full md:w-[45%] px-6 md:px-0 flex flex-col pt-0 md:pt-4">
-             
-             {/* Category & Like (Desktop) */}
-             <div className="hidden md:flex items-center justify-between mb-4">
-                <span className="bg-[#f0f0f0] text-[#666] text-[10px] font-bold tracking-[0.05em] px-4 py-1.5 rounded-full">
-                   {product.categories?.name || 'Sofa'}
-                </span>
-                <button onClick={() => toggleFavorite(product.slug)} className="text-[#111]">
-                   <Heart size={22} fill={liked ? '#111' : 'none'} strokeWidth={1.5} className="transition-all hover:scale-110" />
-                </button>
-             </div>
+   return (
+      <div className="bg-white min-h-screen pb-32">
 
-             {/* Title & Like (Mobile) */}
-             <div className="flex md:hidden items-start justify-between mb-2">
-                <h1 className="text-[26px] font-semibold text-[#111] leading-tight" >
-                   {product.name}
-                </h1>
-                <button onClick={() => toggleFavorite(product.slug)} className="text-[#111] mt-1 shrink-0 ml-4">
-                   <Heart size={20} fill={liked ? '#111' : 'none'} strokeWidth={1.5} className="transition-all hover:scale-110" />
-                </button>
-             </div>
+         {/* ── Mobile Standalone Header ── */}
 
-             {/* Desktop Title */}
-             <h1 className="hidden md:block text-[32px] lg:text-[40px] font-semibold text-[#111] leading-tight mb-3" >
-                {product.name}
-             </h1>
 
-             {/* Mock Stars */}
-             <div className="flex items-center gap-2 mb-5">
-                <div className="flex text-[#FFD700]">
-                   {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="currentColor" strokeWidth={0} />)}
-                </div>
-                <span className="text-[11px] text-[#666] underline decoration-[#ccc] underline-offset-2">(145 Reviews)</span>
-             </div>
+         <div className="max-container pt-8 md:pt-32 px-6 md:px-10 lg:px-16">
 
-             {/* Price (Visible matching the screenshot) */}
-             <div className="mb-6">
-                <span className="text-[22px] md:text-[28px] font-semibold text-[#111]" >
-                   {product.price || "$200.00"}
-                </span>
-             </div>
-
-             {/* Description (Clamped on mobile, full on desktop) */}
-             <div className="text-[#666] text-[13px] md:text-[14px] leading-[1.7] mb-8 font-light max-w-lg" >
-                <p className={`${!isExpanded ? 'line-clamp-3 md:line-clamp-none' : ''}`}>
-                   {product.description || product.short_description}
-                </p>
-                <button 
-                  className="md:hidden mt-2 text-[#111] font-semibold text-[13px]"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                >
-                  {isExpanded ? 'View less' : 'View more'}
-                </button>
-             </div>
-
-             {/* Dimensions Table */}
-             <div className="mb-10 w-full lg:w-11/12">
-                <h3 className="text-[15px] font-semibold text-[#111] mb-5">Product Dimensions</h3>
-                
-                <div className="flex flex-col border-t border-[#f0f0f0]">
-                   {product.specifications && product.specifications.length > 0 ? (
-                      product.specifications.map((spec: any, i: number) => (
-                        <div key={i} className="flex justify-between items-center py-4 border-b border-[#f0f0f0] text-[13px]">
-                           <span className="text-[#666] font-light">{spec.label}</span>
-                           <span className="text-[#111] font-medium">{spec.value}</span>
-                        </div>
-                      ))
-                   ) : (
-                      // Mock Dimensions if specs not available
-                      <>
-                        <div className="flex justify-between flex-wrap gap-2 items-center py-4 border-b border-[#f0f0f0] text-[13px] sm:text-[14px]">
-                           <span className="text-[#666] font-light">Width</span>
-                           <span className="text-[#111] font-medium text-right sm:text-left">H84.5 x W64 x D75 cm</span>
-                        </div>
-                        <div className="flex justify-between flex-wrap gap-2 items-center py-4 border-b border-[#f0f0f0] text-[13px] sm:text-[14px]">
-                           <span className="text-[#666] font-light">Weight</span>
-                           <span className="text-[#111] font-medium text-right sm:text-left">15.6 kg / 34.4 lbs</span>
-                        </div>
-                      </>
-                   )}
-                </div>
-             </div>
-
-             {/* Get 30% OFF banner & WhatsApp Button matching "Add to Cart" Layout */}
-             <div className="mt-auto pb-4">
-                <div className="bg-[#e9fdf5] border border-[#a8edd5] rounded-[6px] p-4 flex items-center gap-3 mb-6">
-                   <MessageCircle size={16} className="text-[#111]" />
-                   <span className="text-[13px] font-medium text-[#111]">Customizing for Kerala homes? Let's talk.</span>
-                </div>
-
-                <div className="flex items-center gap-3 w-full">
-                   <a 
-                     href={whatsappLink} 
-                     target="_blank" 
-                     rel="noopener noreferrer"
-                     className="w-full bg-[#2a2a2a] hover:bg-[#111] text-white py-4 rounded-[6px] text-[11px] font-bold tracking-[0.1em] uppercase flex items-center justify-center gap-2 transition-colors shadow-sm"
-                   >
-                     Enquire On WhatsApp <MessageCircle size={14} />
-                   </a>
-                </div>
-             </div>
-
-          </div>
-        </div>
-      </div>
-
-      {/* ── Related Products ── */}
-      {relatedProducts && relatedProducts.length > 0 && (
-         <div className="max-container px-6 md:px-10 lg:px-16 pt-10 border-t border-[#f0f0f0]">
-            <div className="flex justify-between items-center mb-8">
-               <h2 className="text-[20px] md:text-[24px] font-bold text-[#111] uppercase tracking-[-0.02em]" >
-                  Related Products
-               </h2>
-               <Link href={`/products?category=${product.categories?.slug || ""}`} className="hidden md:flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] transition-colors border border-[#e0e0e0] px-4 py-2 rounded-full">
-                  See all products <ArrowRight size={14} />
-               </Link>
+            {/* ── Desktop Breadcrumbs ── */}
+            <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.05em] text-[#999] mb-12">
+               <Link href="/" className="hover:text-[#111] transition-colors">Home</Link>
+               <span className="text-[#ccc] px-1">/</span>
+               <Link href={`/products?category=${product.categories?.base_category || ""}`} className="hover:text-[#111] transition-colors uppercase tracking-widest">{product.categories?.base_category || 'Collection'}</Link>
+               <span className="text-[#ccc] px-1">/</span>
+               <span className="text-[#111] font-bold uppercase tracking-widest">{product.name}</span>
             </div>
-            
-            {/* Grid matches requested layout: 1300px+ (xl) = 4, md = 3, mobile = 2 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-               {relatedProducts.map((p, i) => (
-                  <ProductCard key={p.slug} product={p} />
-               ))}
-            </div>
-            
-            <div className="mt-8 flex justify-center md:hidden">
-               <Link href={`/products?category=${product.categories?.slug || ""}`} className="flex items-center gap-1 text-[13px] text-[#666] hover:text-[#111] border border-[#e0e0e0] px-6 py-2 rounded-full">
-                  See all products <ArrowRight size={14} />
-               </Link>
+
+            {/* ── Main Layout ── */}
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-32">
+
+               {/* ══════ LEFT: Premium Gallery ══════ */}
+               <div className="w-full lg:w-[55%] flex flex-col gap-6">
+
+                  {/* Main Image Viewport */}
+                  <div className="relative w-full aspect-[4/5] md:aspect-[1.1/1] bg-[#f9f9f8] rounded-2xl overflow-hidden group">
+                     <AnimatePresence mode="wait">
+                        <motion.div
+                           key={currentImageIndex}
+                           initial={{ opacity: 0, scale: 1.05 }}
+                           animate={{ opacity: 1, scale: 1 }}
+                           exit={{ opacity: 0, scale: 0.98 }}
+                           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                           className="relative w-full h-full"
+                        >
+                           <Image
+                              src={images[currentImageIndex]}
+                              alt={product.name}
+                              fill
+                              priority
+                              sizes="(min-width: 1024px) 50vw, 100vw"
+                              className="object-cover"
+                           />
+                        </motion.div>
+                     </AnimatePresence>
+
+                     {/* Image Counter Overlay */}
+                     <div className="absolute bottom-6 right-6 bg-black/80 text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest backdrop-blur-sm">
+                        {currentImageIndex + 1} / {images.length}
+                     </div>
+                  </div>
+
+                  {/* Thumbnails Row */}
+                  {images.length > 1 && (
+                     <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
+                        {images.map((img: string, i: number) => (
+                           <button
+                              key={i}
+                              className={`relative flex-shrink-0 w-24 md:w-32 aspect-square rounded-xl overflow-hidden transition-all duration-500 snap-start ${currentImageIndex === i
+                                 ? 'ring-2 ring-[#C0001A] ring-offset-2 scale-95 shadow-lg'
+                                 : 'opacity-50 hover:opacity-100 hover:scale-[1.02]'
+                                 }`}
+                              onClick={() => setCurrentImageIndex(i)}
+                           >
+                              <Image src={img} alt={`${product.name} thumbnail ${i}`} fill className="object-cover" />
+                           </button>
+                        ))}
+                     </div>
+                  )}
+               </div>
+
+               {/* ══════ RIGHT: Premium Product Information ══════ */}
+               <div className="w-full lg:w-[45%] flex flex-col pt-2">
+
+                  {/* Header */}
+                  <div className="mb-8">
+                     <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#C0001A]">
+                           {product.categories?.name || 'Curated Model'}
+                        </span>
+                        <button
+                           onClick={() => toggleFavorite(product.slug)}
+                           className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#111] hover:text-[#C0001A] transition-colors"
+                        >
+                           <Heart size={18} fill={liked ? '#C0001A' : 'none'} className={liked ? 'text-[#C0001A]' : ''} />
+                        </button>
+                     </div>
+                     <h1 className="text-4xl md:text-5xl font-bold text-[#111] leading-[1.1] tracking-tight mb-6">
+                        {product.name}
+                     </h1>
+
+                     <div className="text-[#666] text-sm md:text-base leading-relaxed font-light max-w-xl">
+                        {product.short_description || product.description}
+                     </div>
+                  </div>
+
+                  {/* Features Highlights */}
+                  <div className="mb-10">
+                     <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#111] mb-5">Key Highlights</h3>
+                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                        {product.features && product.features.length > 0 ? (
+                           product.features.map((feature: string, i: number) => (
+                              <li key={i} className="flex items-start gap-3 text-[13px] text-[#444]">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-1.5 shrink-0" />
+                                 {feature}
+                              </li>
+                           ))
+                        ) : (
+                           <>
+                              <li className="flex items-start gap-3 text-[13px] text-[#444]">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-1.5 shrink-0" />
+                                 Handcrafted Solid Wood Frame
+                              </li>
+                              <li className="flex items-start gap-3 text-[13px] text-[#444]">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-1.5 shrink-0" />
+                                 Premium Fabric/Leatherette Options
+                              </li>
+                              <li className="flex items-start gap-3 text-[13px] text-[#444]">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-1.5 shrink-0" />
+                                 Ergonomic Design for Comfort
+                              </li>
+                              <li className="flex items-start gap-3 text-[13px] text-[#444]">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-[#C0001A] mt-1.5 shrink-0" />
+                                 Durable & High-Density Cushioning
+                              </li>
+                           </>
+                        )}
+                     </ul>
+                  </div>
+
+                  {/* Customization Note */}
+                  <div className="bg-[#f9f9f8] border border-[#f0eee8] p-5 rounded-2xl mb-10 flex items-center gap-5">
+                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
+                        <ShoppingBag size={20} className="text-[#111]" />
+                     </div>
+                     <div>
+                        <h4 className="text-xs font-bold text-[#111] mb-1">Bespoke Customization</h4>
+                        <p className="text-[11px] text-[#666] leading-relaxed">Available in 100+ premium fabrics and different wood polish finishes to match your interior.</p>
+                     </div>
+                  </div>
+
+                  {/* Dimensions Grid */}
+                  <div className="grid grid-cols-2 gap-px bg-[#f0f0f0] border-y border-[#f0f0f0] mb-10 overflow-hidden">
+                     <div className="bg-white py-6">
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#999] block mb-2">Dimensions (W×D×H)</span>
+                        <span className="text-sm font-medium text-[#111]">
+                           {product.specifications?.find((s: any) => s.label.toLowerCase().includes('size'))?.value || "210 × 95 × 85 cm"}
+                        </span>
+                     </div>
+                     <div className="bg-white py-6 pl-8">
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#999] block mb-2">Weight Approx.</span>
+                        <span className="text-sm font-medium text-[#111]">
+                           {product.specifications?.find((s: any) => s.label.toLowerCase().includes('weight'))?.value || "45.0 kg"}
+                        </span>
+                     </div>
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="flex flex-col gap-4 mb-12">
+                     <a
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-[#111] hover:bg-[#C0001A] text-white py-5 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-500 shadow-xl shadow-black/5 active:scale-[0.98]"
+                     >
+                        <MessageCircle size={18} />
+                        Enquire via WhatsApp
+                     </a>
+
+                     <div className="flex items-center justify-center gap-10 py-4">
+                        <div className="flex flex-col items-center gap-1.5 group cursor-default">
+                           <div className="w-10 h-10 rounded-full bg-[#f9f9f8] flex items-center justify-center text-[#111] group-hover:bg-[#111] group-hover:text-white transition-colors duration-300">
+                              <Star size={16} />
+                           </div>
+                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#666]">Premium Build</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1.5 group cursor-default">
+                           <div className="w-10 h-10 rounded-full bg-[#f9f9f8] flex items-center justify-center text-[#111] group-hover:bg-[#111] group-hover:text-white transition-colors duration-300">
+                              <Heart size={16} />
+                           </div>
+                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#666]">Loved by 500+</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1.5 group cursor-default">
+                           <div className="w-10 h-10 rounded-full bg-[#f9f9f8] flex items-center justify-center text-[#111] group-hover:bg-[#111] group-hover:text-white transition-colors duration-300">
+                              <ShoppingBag size={16} />
+                           </div>
+                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#666]">Direct Pricing</span>
+                        </div>
+                     </div>
+                  </div>
+
+                  {/* How it works */}
+                  <div className="bg-[#111] text-white p-8 rounded-3xl relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#C0001A]/10 rounded-full -mr-16 -mt-16 blur-3xl opacity-50" />
+                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 relative z-10">How it works</h3>
+                     <div className="space-y-6 relative z-10">
+                        {[
+                           { step: "01", title: "Send Enquiry", desc: "Share your requirement via WhatsApp" },
+                           { step: "02", title: "Customize", desc: "Select fabrics, wood finishes and size" },
+                           { step: "03", title: "Confirm Order", desc: "Get final quote and delivery timeline" }
+                        ].map((item, idx) => (
+                           <div key={idx} className="flex gap-5">
+                              <span className="text-[#C0001A] font-black text-sm">{item.step}</span>
+                              <div>
+                                 <h4 className="text-[11px] font-bold uppercase tracking-widest mb-1">{item.title}</h4>
+                                 <p className="text-[10px] text-gray-400 font-light leading-relaxed">{item.desc}</p>
+                              </div>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+
+               </div>
             </div>
          </div>
-      )}
 
-      {/* Global CSS to style the scrollbar lightly on mobile if needed, though we didn't use horizontal scrolling here */}
-    </div>
-  );
+         {/* ── Related Products ── */}
+         {relatedProducts && relatedProducts.length > 0 && (
+            <div className="max-container px-6 md:px-10 lg:px-16 pt-20 border-t border-[#f0f0f0]">
+               <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
+                  <div className="text-center md:text-left">
+                     <h2 className="text-[28px] md:text-[32px] font-bold text-[#111] tracking-tight mb-2" >
+                        Related Products
+                     </h2>
+                     <p className="text-xs text-[#666] tracking-widest uppercase">Explore other premium models from our catalog</p>
+                  </div>
+                  <Link href={`/products?category=${product.categories?.base_category || ""}`} className="group flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#111] border-b-2 border-transparent hover:border-[#C0001A] transition-all pb-1 translate-y-2">
+                     View All Collection <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+               </div>
+
+               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                  {relatedProducts.slice(0, 4).map((p, i) => (
+                     <ProductCard key={p.slug} product={p} />
+                  ))}
+               </div>
+            </div>
+         )}
+      </div>
+   );
 }

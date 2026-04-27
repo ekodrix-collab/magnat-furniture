@@ -15,50 +15,54 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      setError("Please select an image file");
-      setTimeout(() => setError(null), 5000);
-      return;
-    }
-
-    if (file.size > 3 * 1024 * 1024) { // 3MB Limit
-      setError("Oversized image (Max 3MB)");
-      setTimeout(() => setError(null), 5000);
-      return;
-    }
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
     setIsUploading(true);
     setError(null);
 
-    // Create unique filename
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
-    const filePath = `products/${fileName}`;
-
+    const fileList = Array.from(files);
+    
     try {
-      const { data, error: uploadError } = await supabase.storage
-        .from("magnat-media")
-        .upload(filePath, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+      for (const file of fileList) {
+        if (!file.type.startsWith("image/")) {
+          setError(`File "${file.name}" is not an image`);
+          continue;
+        }
 
-      if (uploadError) throw uploadError;
+        if (file.size > 3 * 1024 * 1024) { // 3MB Limit
+          setError(`"${file.name}" exceeds 3MB limit`);
+          continue;
+        }
 
-      const { data: publicUrlData } = supabase.storage
-        .from("magnat-media")
-        .getPublicUrl(filePath);
+        // Create unique filename
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+        const filePath = `products/${fileName}`;
 
-      if (publicUrlData?.publicUrl) {
-        onUploadSuccess(publicUrlData.publicUrl);
-        if (fileInputRef.current) fileInputRef.current.value = "";
+        const { data, error: uploadError } = await supabase.storage
+          .from("magnat-media")
+          .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: publicUrlData } = supabase.storage
+          .from("magnat-media")
+          .getPublicUrl(filePath);
+
+        if (publicUrlData?.publicUrl) {
+          onUploadSuccess(publicUrlData.publicUrl);
+        }
       }
+      
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      
     } catch (err: any) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload image");
+      setError(err.message || "Failed to upload one or more images");
       setTimeout(() => setError(null), 5000);
     } finally {
       setIsUploading(false);
@@ -78,6 +82,7 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
           accept="image/jpeg,image/png,image/webp" 
           onChange={handleUpload}
           disabled={isUploading}
+          multiple
         />
         
         {isUploading ? (
