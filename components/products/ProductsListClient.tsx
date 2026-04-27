@@ -164,7 +164,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
               className={`grid gap-x-8 gap-y-16 ${viewMode === "grid"
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                 : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                 }`}
             >
