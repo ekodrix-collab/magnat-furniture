@@ -9,8 +9,7 @@ function mapProduct(dbProduct: any): Product {
     category: dbProduct.categories || dbProduct.category,
     images: dbProduct.images || [],
     features: dbProduct.features || [],
-    specifications: dbProduct.specifications || [],
-    category: dbProduct.categories
+    specifications: dbProduct.specifications || []
   };
 }
 
