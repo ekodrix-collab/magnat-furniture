@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Edit2, Trash2, ExternalLink, Database, Terminal, MessageCircle, Copy, Check } from "lucide-react";
+import { Edit2, Trash2, ExternalLink, Database, Terminal, MessageCircle, Copy, Check, Layers, Globe, Lock } from "lucide-react";
 import { deleteProduct } from "@/app/actions/cms";
 import { Product } from "@/lib/types";
 import { toast } from "sonner";
@@ -14,13 +14,14 @@ interface ProductTableProps {
 export default function ProductTable({ products }: ProductTableProps) {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"all" | "public" | "exclusive">("all");
 
-  console.log("products -- ", products);
-
-
-  console.log("products is", products[0]?.category?.base_category);
-
-  const filteredProducts = products.filter(product => !product.is_private);
+  const filteredProducts = products.filter(product => {
+    if (activeTab === "all") return true;
+    if (activeTab === "public") return !product.is_private;
+    if (activeTab === "exclusive") return product.is_private;
+    return true;
+  });
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
@@ -81,11 +82,14 @@ export default function ProductTable({ products }: ProductTableProps) {
           <Lock size={14} />
           Exclusive <span className="opacity-40 ml-1">({products.filter(p => p.is_private).length})</span>
         </button>
-        <div className="flex items-center justify-between border-b border-[#eeeeee] pb-4">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">
-            Public Collection <span className="opacity-40 ml-2">({filteredProducts.length})</span>
-          </h3>
-        </div>
+      </div>
+
+      <div className="flex items-center justify-between border-b border-[#eeeeee] pb-4">
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">
+          {activeTab === "all" ? "Full Collection" : activeTab === "public" ? "Public Collection" : "Exclusive Collection"}{" "}
+          <span className="opacity-40 ml-2">({filteredProducts.length})</span>
+        </h3>
+      </div>
 
         <div className="overflow-x-auto ">
           <table className="w-full border-collapse">
@@ -126,7 +130,7 @@ export default function ProductTable({ products }: ProductTableProps) {
                     </td>
                     <td className="py-6">
                       <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#111] border border-[#eeeeee] px-3 py-1.5 rounded-none whitespace-nowrap">
-                        {typeof product.category?.base_category === 'string' ? product.category?.base_category : "Uncategorized"}
+                        {typeof product.categories?.base_category === 'string' ? product.categories?.base_category : "Uncategorized"}
                       </span>
                     </td>
                     <td className="py-6 text-sm font-bold text-[#111] whitespace-nowrap">
