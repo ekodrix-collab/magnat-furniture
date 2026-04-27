@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
 import ProductForm from "../ProductForm";
 
+import { Suspense } from "react";
+
 export default async function EditProductPage({ 
   params 
 }: { 
@@ -29,10 +31,12 @@ export default async function EditProductPage({
 
   return (
     <div className="p-10 max-w-7xl mx-auto">
-      <ProductForm 
-        product={product} 
-        categories={categories || []} 
-      />
+      <Suspense fallback={<div>Loading form...</div>}>
+        <ProductForm 
+          product={product} 
+          categories={categories || []} 
+        />
+      </Suspense>
     </div>
   );
 }

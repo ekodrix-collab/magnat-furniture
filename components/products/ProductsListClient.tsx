@@ -6,11 +6,11 @@ import FadeInView from "@/components/ui/FadeInView";
 import { Search, SlidersHorizontal, Grid3x3, LayoutGrid } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Product, Category } from "@/lib/types";
+import { Categories, Product } from "@/lib/types";
 
 interface ProductsListClientProps {
   initialProducts: Product[];
-  categories: Category[];
+  categories: Categories[];
 }
 
 export default function ProductsListClient({ initialProducts, categories }: ProductsListClientProps) {
@@ -24,7 +24,7 @@ export default function ProductsListClient({ initialProducts, categories }: Prod
   const sortOptions = ["Featured", "Newest First", "Price: Low to High", "Price: High to Low", "Best Sellers"];
 
   const filteredProducts = initialProducts.filter(p => {
-    const matchesCategory = activeCategory === "All Products" || p.category?.name === activeCategory;
+    const matchesCategory = activeCategory === "All Products" || p.categories?.name === activeCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          (p.short_description?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
     return matchesCategory && matchesSearch;

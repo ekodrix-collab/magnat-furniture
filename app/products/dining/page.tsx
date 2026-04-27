@@ -63,15 +63,13 @@ const faqItems = [
 export default async function DiningPage() {
   const allProducts = await getProducts();
   const diningProducts = allProducts.filter(p => 
-    p.category_id === "Dining" || 
-    p.category?.name === "Dining" || 
-    p.category?.slug === "dining"
+    p.categories?.base_category === "dining"
   );
 
   return (
-    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+    <main className="bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}
-      <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] pb-10">
         <div className="max-container">
           <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" >
             The Heart of the Home · Kondotty Craftsmanship

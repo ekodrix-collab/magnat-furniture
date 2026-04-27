@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ShoppingBag, Eye, MessageSquare, Users, ImageIcon, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
+import { ShoppingBag, Eye, MessageSquare, Users, ImageIcon, ArrowUpRight, ArrowDownRight, ChevronRight, ShieldCheck, Copy } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface AdminDashboardClientProps {
   stats: any[];
@@ -138,6 +139,44 @@ export default function AdminDashboardClient({ stats, recentInquiries }: AdminDa
               </div>
               <span className="text-[11px] font-bold uppercase tracking-widest">Manage Testimonials</span>
             </Link>
+          </div>
+
+          {/* ── EXCLUSIVE SHOWROOM QUICK SHARE ── */}
+          <div className="pt-6">
+            <div className="border-b border-[#eeeeee] pb-4 mb-6">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]">Exclusive Showroom</h3>
+            </div>
+            
+            <div className="bg-[#111] p-6 border border-[#eeeeee] relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <ShieldCheck size={40} className="text-white" />
+              </div>
+              <p className="text-[9px] uppercase tracking-widest text-[#C0001A] mb-2 font-bold">
+                Private Gallery Access
+              </p>
+              <p className="text-[11px] text-[#999] leading-relaxed mb-6">
+                Share the entire private collection with VIP clients via a single secure link.
+              </p>
+              
+              <div className="flex flex-col gap-3">
+                <button 
+                  onClick={() => {
+                    const link = `${window.location.origin}/exclusive`;
+                    navigator.clipboard.writeText(link);
+                    toast.success("Showroom link copied!");
+                  }}
+                  className="w-full flex items-center justify-center gap-2 bg-white text-[#111] py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-[#C0001A] hover:text-white transition-all"
+                >
+                  <Copy size={12} /> Copy Showroom Link
+                </button>
+                <Link 
+                  href="/admin/exclusive"
+                  className="w-full flex items-center justify-center gap-2 border border-white/20 text-white py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5 transition-all"
+                >
+                  Go to Exclusive Section
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 

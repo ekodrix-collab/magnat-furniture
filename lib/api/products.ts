@@ -9,6 +9,7 @@ function mapProduct(dbProduct: any): Product {
     images: dbProduct.images || [],
     features: dbProduct.features || [],
     specifications: dbProduct.specifications || [],
+    category: dbProduct.categories
   };
 }
 
@@ -38,7 +39,7 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     type: p.type || null,
     sort_order: 0,
     created_at: new Date().toISOString(),
-    category: {
+    categories: {
       id: p.category,
       name: p.category,
       base_category: null,
@@ -50,6 +51,25 @@ function mapFallbackProduct(p: FallbackProduct): Product {
       created_at: new Date().toISOString()
     }
   };
+}
+
+export async function getPrivateProducts(): Promise<Product[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select("*, categories(*)")
+      .eq("is_private", true)
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+
+    if (error || !data) return [];
+
+    return data.map(mapProduct);
+  } catch (err) {
+    console.error("Error fetching private products:", err);
+    return [];
+  }
 }
 
 export async function getProducts(includePrivate: boolean = false): Promise<Product[]> {

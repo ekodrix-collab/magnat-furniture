@@ -15,7 +15,7 @@ import {
   LayoutGrid
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HomepageSection, HeroSlide, Category, InstagramPost } from "@/lib/types";
+import { HomepageSection, HeroSlide, InstagramPost, Categories } from "@/lib/types";
 import { saveHomepageSection, updateFeaturedCategories, deleteInstagramPost, saveInstagramPost, saveHeroSlide, deleteHeroSlide } from "@/app/actions/cms";
 import Link from "next/link";
 import ImageUploadField from "@/components/ui/ImageUploadField";
@@ -24,7 +24,7 @@ import { toast } from "sonner";
 interface Props {
   initialSections: HomepageSection[];
   heroSlides: HeroSlide[];
-  categories: Category[];
+  categories: Categories[];
   instagramPosts: InstagramPost[];
 }
 
@@ -155,7 +155,7 @@ export default function HomeSettingsClient({
 }
 
 // ─── ELITE SECTION FORM ───
-function EliteSectionForm({ section, categories, onSaveSuccess }: { section?: HomepageSection, categories: Category[], onSaveSuccess: () => void }) {
+function EliteSectionForm({ section, categories, onSaveSuccess }: { section?: HomepageSection, categories: Categories[], onSaveSuccess: () => void }) {
   const [isSaving, setIsSaving] = useState(false);
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
