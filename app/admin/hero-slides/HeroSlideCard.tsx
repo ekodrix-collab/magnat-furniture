@@ -115,3 +115,4 @@ export default function HeroSlideCard({ slide }: HeroSlideCardProps) {
     </motion.div>
   );
 }
+  
