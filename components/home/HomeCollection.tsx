@@ -150,7 +150,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
           titlePart1="The Signature"
           titlePart2="Selection"
           subtitle="A curated selection of our most-loved pieces, ready for your home. Crafted with precision and an eye for enduring style."
-          className="mb-10 md:mb-16"
+          className=""
         />
       </div>
 
@@ -229,7 +229,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="max-h-full max-w-[85%] object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)] mx-auto transition-transform duration-500 group-hover:scale-105"
+                      className="max-h-full max-w-[95%] object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)] mx-auto transition-transform duration-500 group-hover:scale-105"
                     />
                     
                     {/* Badge Logic */}
@@ -251,7 +251,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
 
                   {/* Card Box */}
                   <div
-                    className="bg-white w-full h-[75%] rounded-3xl border border-gray-50 flex flex-col justify-center transition-all duration-500 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] text-center relative overflow-hidden"
+                    className="bg-white w-full h-[65%] md:h-[70%] rounded-3xl border border-gray-200  flex flex-col justify-center transition-all duration-500 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] text-center relative overflow-hidden"
                     style={{ paddingTop: "60px" }}
                   >
                     {/* Subtle Background Accent */}
