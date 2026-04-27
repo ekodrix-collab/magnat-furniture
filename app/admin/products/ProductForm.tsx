@@ -173,7 +173,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 >
                   <option value="">Select Category</option>
                   {categories.map(cat => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    <option key={cat.id} value={cat.id}>{cat.base_category}</option>
                   ))}
                 </select>
               </div>

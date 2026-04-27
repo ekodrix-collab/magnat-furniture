@@ -48,7 +48,7 @@ function CategoryCard({ cat }: { cat: Categories }) {
         </div>
         <div className="mt-5 flex flex-col gap-1 text-center px-2">
           <span className="text-[11px] uppercase tracking-[0.25em] text-[#C0001A] font-extrabold">
-            {cat.slug || "Collection"}
+            {cat.base_category || "Collection"}
           </span>
           <h3 className="text-[19px] md:text-[21px] font-bold text-[#111] leading-[1.2] group-hover:text-[#C0001A] transition-colors mt-1 mx-auto max-w-full truncate-none">
             {cat.name}
@@ -62,12 +62,12 @@ function CategoryCard({ cat }: { cat: Categories }) {
   );
 }
 
-export default function SpecialModels({ 
-  categories, 
-  section 
-}: { 
-  categories?: Categories[], 
-  section?: HomepageSection 
+export default function SpecialModels({
+  categories,
+  section
+}: {
+  categories?: Categories[],
+  section?: HomepageSection
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const displayItems = (categories && categories.length > 0) ? categories : FALLBACK_ITEMS;

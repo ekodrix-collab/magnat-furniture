@@ -12,12 +12,12 @@ interface MainContentWrapperProps {
  */
 export default function MainContentWrapper({ children }: MainContentWrapperProps) {
   const pathname = usePathname();
-  
+
   // Check if we are on an admin route
   const isAdmin = pathname?.startsWith("/admin");
-  
+
   // Padding is only needed for public pages to clear the fixed navbar
-  const paddingClasses = isAdmin ? "" : "pt-[136px] md:pt-[140px]";
+  const paddingClasses = isAdmin ? "" : "pt-[136px] md:pt-[100px]";
 
   return (
     <main className={`flex-1 ${paddingClasses}`}>
