@@ -73,7 +73,7 @@ export default async function SofasPage() {
     <main className="bg-[#fafaf9] min-h-screen">
 
       {/* ── SEO Intro — desktop only ── */}
-      <section className="hidden md:block bg-white border-b border-[#f0f0f0] pb-10">
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] md:py-20">
         <div className="max-container">
 
           {/* Kicker with line */}

@@ -5,12 +5,12 @@ import Image from "next/image";
 
 export default function ShowroomsPage() {
   return (
-    <main className="pt-6 pb-24 min-h-[80vh] bg-white">
+    <main className="pb-5 md:py-15 min-h-[80vh] bg-white">
       <div className="max-container">
         
-        <FadeInView className="text-center mb-16 md:mb-24">
+        <FadeInView className="text-center mb-10">
           <h1 
-            className="text-3xl md:text-4xl font-bold text-[#111111] uppercase tracking-[0.2em]" 
+            className="text-3xl md:text-4xl font-bold text-[#e81111] uppercase tracking-[0.2em]" 
             style={{ fontFamily: "var(--font-inter)" }}
           >
             Showrooms
@@ -35,7 +35,7 @@ export default function ShowroomsPage() {
 
           {/* Right Column: Simple Details */}
           <FadeInView direction="left" className="space-y-8 flex flex-col justify-center h-full">
-            <div className="space-y-6 text-[#666666] text-base md:text-lg leading-relaxed text-center lg:text-left">
+            <div className="space-y-6 text-[#666666] text-base md:text-lg leading-relaxed text-start md:text-center lg:text-left">
               <p>
                 Welcome to the MAGNAT Showroom. Step inside to experience a curated selection of our finest luxury home furniture, where quality materials meet exceptional craftsmanship. 
               </p>
