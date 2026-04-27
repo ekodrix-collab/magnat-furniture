@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Layers } from "lucide-react";
 import { saveCategory } from "@/app/actions/cms";
-import { Category } from "@/lib/types";
+import { Categories} from "@/lib/types";
 import ImageUploadField from "@/components/ui/ImageUploadField";
 
 import { toast } from "sonner";
 
 interface CategoryFormProps {
-  category?: Category;
+  category?: Categories;
 }
 
 export default function CategoryForm({ category }: CategoryFormProps) {
@@ -105,6 +105,7 @@ export default function CategoryForm({ category }: CategoryFormProps) {
                   <option value="chairs">Chairs</option>
                   <option value="sofas">Sofas</option>
                   <option value="curtains">Curtains</option>
+
                   <option value="dining">Dining</option>
                   <option value="bedroom">Bedroom</option>
                 </select>

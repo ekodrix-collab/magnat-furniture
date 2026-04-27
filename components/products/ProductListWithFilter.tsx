@@ -84,7 +84,7 @@ export default function ProductListWithFilter({
       <motion.div
         animate={{ top: stickyTop }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky z-40 bg-white border-b border-[#f0f0f0] py-5 max-sm:py-4 shadow-sm"
+        className="z-40 bg-white border-b mt-[-58px] md:mt-0 border-[#f0f0f0] py-5 max-sm:py-4 shadow-sm"
       >
         <div className="max-container">
           <div className="flex items-center justify-between">
@@ -156,7 +156,7 @@ export default function ProductListWithFilter({
       </AnimatePresence>
 
       {/* Product Grid */}
-      <section className="pt-20 pb-12 max-sm:pt-16 max-sm:pb-7 min-h-[400px]">
+      <section className="pt-5 pb-12  min-h-[400px]">
 
         <div className="max-container">
           <motion.div

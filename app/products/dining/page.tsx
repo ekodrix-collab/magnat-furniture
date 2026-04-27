@@ -1,7 +1,6 @@
 // app/products/dining/page.tsx
 import type { Metadata } from "next";
-import { MessageCircle, ChevronDown } from "lucide-react";
-import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
@@ -49,29 +48,16 @@ const seoStats = [
   { num: "Premium", label: "Finish Quality" },
 ];
 
-const faqItems = [
-  {
-    q: "Do you offer custom sizes for dining tables?",
-    a: "Yes, we specialize in custom manufacturing and can adjust table dimensions to fit your specific dining area perfectly.",
-  },
-  {
-    q: "Is the wood treated for durability?",
-    a: "Every piece of wood we use undergoes a thorough seasoning and treatment process to ensure resistance against warping and termites.",
-  },
-];
-
 export default async function DiningPage() {
   const allProducts = await getProducts();
   const diningProducts = allProducts.filter(p => 
-    p.category_id === "Dining" || 
-    p.category?.name === "Dining" || 
-    p.category?.slug === "dining"
+    p.categories?.base_category === "dining"
   );
 
   return (
-    <main className="pt-20 bg-[#fafaf9] min-h-screen">
+    <main className="bg-[#fafaf9] min-h-screen">
       {/* ── SEO Intro ── */}
-      <section className="hidden md:block bg-white border-b border-[#f0f0f0] py-16">
+      <section className="hidden md:block bg-white border-b border-[#f0f0f0] pb-10">
         <div className="max-container">
           <div className="seo-kicker flex items-center gap-3 mb-12 text-[10px] tracking-[0.3em] uppercase text-[#C0001A]" >
             The Heart of the Home · Kondotty Craftsmanship
@@ -110,24 +96,6 @@ export default async function DiningPage() {
 
       {/* ── Product List with Filter ── */}
       <ProductListWithFilter initialProducts={diningProducts} category="Dining" />
-
-      {/* ── FAQ ── */}
-      <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">
-        <div className="max-container">
-          <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] mb-12" >Dining <em className="text-[#C0001A]">Insights</em></h2>
-          <div className="grid grid-cols-2 gap-x-16">
-            {faqItems.map((item, i) => (
-              <details key={item.q} className="group/faq border-b border-[#ebebeb] py-0">
-                <summary className="py-6 text-[15px] font-medium text-[#111] cursor-pointer flex items-center justify-between list-none hover:text-[#C0001A]" >
-                   <span>{item.q}</span>
-                   <ChevronDown size={16} />
-                </summary>
-                <div className="pb-6 text-sm text-[#666] leading-[1.8]" >{item.a}</div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

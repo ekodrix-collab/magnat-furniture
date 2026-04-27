@@ -9,10 +9,10 @@ import { useFavorites } from "@/lib/context/FavoritesContext";
 
 const EXPLORE_DATA = {
   categories: [
-    { name: "Sofas", href: "/products?category=sofas", image: "/images/sofa3d.png" },
-    { name: "Chairs", href: "/products?category=chairs", image: "/images/chair.png" },
-    { name: "Dining", href: "/products?category=dining", image: "/images/dining-001.jpg" },
-    { name: "Curtains", href: "/products?category=curtains", image: "/images/curtains_nav.png" },
+    { name: "Sofas", href: "/products/sofas", image: "/images/sofa3d.png" },
+    { name: "Chairs", href: "/products/chairs", image: "/images/chair.png" },
+    { name: "Dining", href: "/products/dining", image: "/images/dining-001.jpg" },
+    { name: "Curtains", href: "/products/curtains", image: "/images/curtains_nav.png" },
   ],
   rooms: [
     { name: "Living Room", href: "/rooms/living-room" },
@@ -42,8 +42,15 @@ function NavbarContent() {
     <div className="max-container h-20 flex items-center justify-between">
       {/* Brand Identity */}
       <Link href="/" className="flex items-center group relative z-[210]">
-        <div className="bg-[#C0001A] px-5 py-2 transition-colors group-hover:bg-[#111]">
-          <span className="text-white font-black tracking-[0.25em] text-[15px]">MAGNAT</span>
+        <div className="bg-[#C0001A] px-4 py-2 flex items-center group-hover:bg-[#111] transition-colors">
+          <img
+            src="/images/magnat-icon-white.png"
+            alt="Magnat Logo"
+            className="h-7 w-auto object-contain"
+          />
+          <span className="text-white font-black tracking-[0.25em] text-[13px] leading-none">
+            MAGNAT
+          </span>
         </div>
       </Link>
 
