@@ -223,7 +223,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
                     className="absolute w-full z-20 flex items-center justify-center pointer-events-none"
                     style={{
                       top: 0,
-                      height: isCenter ? "290px" : "260px",
+                      height: isCenter ? "260px" : "260px",
                     }}
                   >
                     <img
@@ -251,7 +251,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
 
                   {/* Card Box */}
                   <div
-                    className="bg-white w-full h-[65%] md:h-[70%] rounded-3xl border border-gray-200  flex flex-col justify-center transition-all duration-500 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] text-center relative overflow-hidden"
+                    className="bg-white w-full h-[65%] md:h-[70%] rounded-3xl shadow  flex flex-col justify-center transition-all duration-500 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] text-center relative overflow-hidden"
                     style={{ paddingTop: "60px" }}
                   >
                     {/* Subtle Background Accent */}
@@ -308,7 +308,7 @@ export default function FurnitureCarousel({ items }: { items?: FeaturedItem[] })
       </div>
 
       {/* Dots */}
-      <div className="flex gap-3 mt-10">
+      <div className="flex justify-center gap-3 mt-10">
         {Array.from({ length: maxIndex + 1 }).map((_, i) => (
           <button
             key={i}
