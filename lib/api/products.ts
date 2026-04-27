@@ -6,6 +6,7 @@ import { Product } from "@/lib/types";
 function mapProduct(dbProduct: any): Product {
   return {
     ...dbProduct,
+    category: dbProduct.categories || dbProduct.category,
     images: dbProduct.images || [],
     features: dbProduct.features || [],
     specifications: dbProduct.specifications || [],
