@@ -127,18 +127,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           </p>
         )}
 
-        {/* Price */}
-        {price && (
-          <div className="mb-4 sm:mb-3">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-[#aaa] block mb-0.5 font-medium">
-              Starting from
-            </span>
-            <span className="text-[#111] font-bold text-[1.05rem] tracking-tight">
-              {price}
-            </span>
-          </div>
-        )}
-
         {/* CTA Button */}
         <div className="mt-auto pt-4 sm:pt-3">
           <div
