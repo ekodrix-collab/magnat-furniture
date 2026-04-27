@@ -17,7 +17,7 @@ export default function MainContentWrapper({ children }: MainContentWrapperProps
   const isAdmin = pathname?.startsWith("/admin");
 
   // Padding is only needed for public pages to clear the fixed navbar
-  const paddingClasses = isAdmin ? "" : "pt-[136px] md:pt-[100px]";
+  const paddingClasses = isAdmin ? "" : "pt-[136px] md:pt-[80px]";
 
   return (
     <main className={`flex-1 ${paddingClasses}`}>

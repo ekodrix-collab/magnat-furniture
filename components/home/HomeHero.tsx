@@ -161,7 +161,7 @@ export default function HomeHero({
   const kenBurnsEndScale = isMobile ? 1.04 : 1.09;
 
   return (
-    <section className="relative w-full bg-white select-none pb-3 md:pb-4 md:px-6 lg:px-8 mt-[-58px] sm:mt-[-10px]">
+    <section className="relative w-full bg-white select-none pb-3 md:pb-4 md:px-6 lg:px-8 mt-[-58px] sm:mt-[-10px]  md:py-15">
       {/* ── Dot fill bar animation ── */}
       <style>{`
         @keyframes dotFill {
