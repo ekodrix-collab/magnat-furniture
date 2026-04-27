@@ -14,6 +14,7 @@ const EXPLORE_DATA = {
     { name: "Dining", href: "/products/dining", image: "/images/dining-001.jpg" },
     { name: "Curtains", href: "/products/curtains", image: "/images/curtains_nav.png" },
   ],
+
   rooms: [
     { name: "Living Room", href: "/rooms/living-room" },
     { name: "Dining Room", href: "/rooms/dining-room" },
