@@ -63,16 +63,16 @@ export default async function HomePage() {
       <HeritageSection />
 
       {/* ── 2. Signature Showcase (Special Models) ── */}
-      <SpecialModels 
-        categories={categories || undefined} 
+      <SpecialModels
+        categories={categories || undefined}
         section={getSection("elite-home-collections")}
       />
-      
+
       {/* ── 4. Main Portfolio Grid (Full Color) ── */}
       <HomeCollection items={featuredItems} />
 
       {/* ── 4.5 Curtain Spotlight (Indian Style) ── */}
-      <CurtainSpotlight 
+      <CurtainSpotlight
         header={getSection("curtain-spotlight-header")}
         card1={getSection("curtain-spotlight-1")}
         card2={getSection("curtain-spotlight-2")}
@@ -82,8 +82,8 @@ export default async function HomePage() {
       <HomeCurtains steps={processSteps} />
 
       {/* ── 7. Visual Journey of Craft (Gallery) ── */}
-      <KondottyGallery 
-        posts={instagramPosts} 
+      <KondottyGallery
+        posts={instagramPosts}
         section={getSection("instagram-header")}
       />
 
