@@ -190,10 +190,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
 
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="geo.region" content="IN-KL" />
         <meta name="geo.placename" content="Kondotty, Malappuram, Kerala" />
         <meta name="geo.position" content="11.2188;75.9965" />
