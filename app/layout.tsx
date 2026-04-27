@@ -14,6 +14,7 @@ import OrganizationSchema from "@/components/schemas/OrganizationSchema";
 import LocalBusinessSchema from "@/components/schemas/LocalBusinessSchema";
 import MainContentWrapper from "@/components/layout/MainContentWrapper";
 import { Toaster } from "sonner";
+import VisitTracker from "@/components/analytics/VisitTracker";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -189,10 +190,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
 
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="geo.region" content="IN-KL" />
         <meta name="geo.placename" content="Kondotty, Malappuram, Kerala" />
         <meta name="geo.position" content="11.2188;75.9965" />
@@ -201,6 +198,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className="min-h-screen flex flex-col bg-[#F7F4F0] antialiased">
+        <VisitTracker />
         <FavoritesProvider>
           <Preloader />
 

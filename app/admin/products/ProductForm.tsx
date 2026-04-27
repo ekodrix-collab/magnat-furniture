@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { saveProduct } from "@/app/actions/cms";
-import { Product, Category } from "@/lib/types";
+import { Categories, Product } from "@/lib/types";
 import { X, Plus, Save, ArrowLeft, Image as ImageIcon, Trash2, Copy, Check, ExternalLink, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/ui/ImageUpload";
@@ -11,11 +11,23 @@ import { toast } from "sonner";
 
 interface ProductFormProps {
   product?: Partial<Product>;
-  categories: Category[];
+  categories: Categories[];
 }
+
+// Slugify helper
+const slugify = (text: string) => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // Remove non-word characters (except spaces and hyphens)
+    .replace(/[\s_-]+/g, "-") // Replace spaces and underscores with a single hyphen
+    .replace(/^-+|-+$/g, ""); // Remove leading and trailing hyphens
+};
 
 export default function ProductForm({ product, categories }: ProductFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isPrivateParam = searchParams.get("private") === "true";
   const [isPending, setIsPending] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +44,27 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
   const [badgeType, setBadgeType] = useState<"bestseller" | "new" | "none">(
     product?.is_bestseller ? "bestseller" : product?.is_new ? "new" : "none"
   );
-  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? false);
+  const [isPrivate, setIsPrivate] = useState(product?.is_private ?? isPrivateParam);
   const [localToken, setLocalToken] = useState(product?.access_token || "");
   const [copied, setCopied] = useState(false);
+
+  // State for name and slug auto-generation
+  const [name, setName] = useState(product?.name || "");
+  const [slug, setSlug] = useState(product?.slug || "");
+  const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(!!product?.slug);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    setName(newName);
+    if (!isSlugManuallyEdited) {
+      setSlug(slugify(newName));
+    }
+  };
+
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSlug(e.target.value);
+    setIsSlugManuallyEdited(true);
+  };
 
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
@@ -114,7 +144,8 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">Product Title</label>
                 <input
                   name="name"
-                  defaultValue={product?.name}
+                  value={name}
+                  onChange={handleNameChange}
                   required
                   placeholder="e.g. Nordic Lounge Chair"
                   className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all"
@@ -125,7 +156,8 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 <label className="text-[0.65rem] font-bold uppercase tracking-widest text-body/60 pl-1">URL Slug</label>
                 <input
                   name="slug"
-                  defaultValue={product?.slug}
+                  value={slug}
+                  onChange={handleSlugChange}
                   required
                   placeholder="nordic-lounge-chair"
                   className="w-full bg-[#F9F9F9] border border-[#eeeeee] rounded-none px-4 py-3 text-sm focus:outline-none focus:border-[#C0001A] transition-all font-mono"
@@ -141,7 +173,7 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                 >
                   <option value="">Select Category</option>
                   {categories.map(cat => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    <option key={cat.id} value={cat.id}>{cat.base_category}</option>
                   ))}
                 </select>
               </div>
@@ -293,34 +325,34 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
               <div className="pt-4 pb-2 border-t border-[#eeeeee] space-y-3">
                 <p className="text-[9px] font-bold uppercase tracking-widest text-[#999]">Badge type (pick one)</p>
                 <div className="flex items-center gap-3">
-                  <input 
-                    type="radio" 
+                  <input
+                    type="radio"
                     name="badge_selection"
-                    checked={badgeType === "bestseller"} 
-                    onChange={() => setBadgeType("bestseller")} 
-                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                    checked={badgeType === "bestseller"}
+                    onChange={() => setBadgeType("bestseller")}
+                    className="w-3.5 h-3.5 accent-[#C0001A]"
                   />
                   <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">Best Seller</label>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
-                  <input 
-                    type="radio" 
+                  <input
+                    type="radio"
                     name="badge_selection"
-                    checked={badgeType === "new"} 
-                    onChange={() => setBadgeType("new")} 
-                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                    checked={badgeType === "new"}
+                    onChange={() => setBadgeType("new")}
+                    className="w-3.5 h-3.5 accent-[#C0001A]"
                   />
                   <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#111111]">New Arrival</label>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <input 
-                    type="radio" 
+                  <input
+                    type="radio"
                     name="badge_selection"
-                    checked={badgeType === "none"} 
-                    onChange={() => setBadgeType("none")} 
-                    className="w-3.5 h-3.5 accent-[#C0001A]" 
+                    checked={badgeType === "none"}
+                    onChange={() => setBadgeType("none")}
+                    className="w-3.5 h-3.5 accent-[#C0001A]"
                   />
                   <label className="text-[0.65rem] font-bold uppercase tracking-widest text-[#999]">No Badge</label>
                 </div>
@@ -346,10 +378,10 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <input 
-                  type="checkbox" 
-                  name="is_private" 
-                  checked={isPrivate} 
+                <input
+                  type="checkbox"
+                  name="is_private"
+                  checked={isPrivate}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     setIsPrivate(checked);
@@ -357,9 +389,9 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                       const newToken = `mag-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
                       setLocalToken(newToken);
                     }
-                  }} 
-                  value="true" 
-                  className="w-4 h-4 accent-[#C0001A]" 
+                  }}
+                  value="true"
+                  className="w-4 h-4 accent-[#C0001A]"
                 />
                 <div>
                   <label className="text-[0.65rem] font-bold uppercase tracking-widest text-white/90">Exclusive Only</label>
@@ -408,12 +440,12 @@ export default function ProductForm({ product, categories }: ProductFormProps) {
                       <ExternalLink size={14} /> Preview
                     </a>
                   </div>
-                  
+
                   {/* Keep the token in form */}
                   <input type="hidden" name="access_token" value={localToken} />
                 </div>
               )}
-              
+
               {isPrivate && !localToken && (
                 <div className="pt-4 border-t border-white/10">
                   <p className="text-[9px] text-[#C0001A] italic font-medium uppercase tracking-wider">
