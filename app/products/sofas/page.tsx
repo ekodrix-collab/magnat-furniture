@@ -1,6 +1,6 @@
 // app/products/sofas/page.tsx
 import type { Metadata } from "next";
-import { MessageCircle, ChevronDown } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
@@ -61,33 +61,6 @@ const seoTags = [
   "Teak Wood",
   "Recliner Sofas",
   "Custom Fabric",
-];
-
-const faqItems = [
-  {
-    q: "Do you deliver sofas across Kerala?",
-    a: "Yes. We deliver our sofas to all major cities and towns in Kerala including Kozhikode, Kochi, Thrissur, Palakkad, Malappuram, and Kannur. Contact us for delivery charges to your location.",
-  },
-  {
-    q: "Can I customize the sofa fabric or size?",
-    a: "Absolutely. All our sofas are made-to-order in our Kondotty factory. You can choose from a wide range of fabrics, leather, velvet, and leatherette options, as well as custom dimensions.",
-  },
-  {
-    q: "How long does manufacturing and delivery take?",
-    a: "Most sofas are delivered within 2–4 weeks after order confirmation. Custom orders may take slightly longer depending on material availability and complexity.",
-  },
-  {
-    q: "Do you offer a warranty on sofas?",
-    a: "Yes. We provide a manufacturer's warranty on the frame and upholstery. Our after-sales team is always available for repairs, refinishing, and support.",
-  },
-  {
-    q: "Can I visit your showroom to see the sofas?",
-    a: "Yes, our showroom is located in Kondotty, Malappuram, Kerala. You can visit us to experience the sofas in person. Call +91 94465 16395 to confirm showroom hours.",
-  },
-  {
-    q: "What sofa materials are available at MAGNAT?",
-    a: "We offer a wide range of upholstery options including premium fabric, velvet, leatherette, top-grain leather, cotton canvas, and natural rattan. For wooden frames, we use Kerala teak, solid mahogany, and rubberwood. All materials are sourced for durability and suited to Kerala's climate.",
-  },
 ];
 
 export default async function SofasPage() {
@@ -200,64 +173,6 @@ export default async function SofasPage() {
 
       {/* ── Product List with Filter ── */}
       <ProductListWithFilter initialProducts={sofaProducts} category="sofas" />
-
-      {/* ── FAQ — desktop only ── */}
-      <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">
-        <div className="max-container">
-
-          {/* Header row */}
-          <div className="flex items-end justify-between mb-12 pb-8 border-b border-[#ebebeb]">
-            <div>
-              <span className="block text-[10px] tracking-[0.3em] uppercase text-[#C0001A] mb-3" >
-                Common Questions
-              </span>
-              <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] m-0" >
-                Frequently Asked <em style={{ fontStyle: "italic" }} className="text-[#C0001A]">Questions</em>
-              </h2>
-            </div>
-            <div className="flex flex-col items-end gap-3">
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-transparent text-[#111] text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-3 no-underline border border-[#ddd] rounded-[3px] transition-all hover:bg-[#111] hover:text-white hover:border-[#111]"
-                
-              >
-                Send an Enquiry
-              </Link>
-            </div>
-          </div>
-
-          {/* FAQ grid — 2 columns */}
-          <div className="grid grid-cols-2 gap-x-16 gap-y-0">
-            {faqItems.map((item, i) => (
-              <details
-                key={item.q}
-                className="group/faq border-b border-[#ebebeb] py-0 open:pb-2"
-              >
-                <summary
-                  className="py-6 text-[15px] font-medium text-[#111] cursor-pointer flex items-center justify-between gap-4 list-none select-none hover:text-[#C0001A] transition-colors duration-200"
-                  
-                >
-                  <span className="flex items-center gap-4">
-                    <span className="text-[11px] text-[#C0001A] font-normal tracking-widest w-5 flex-shrink-0" >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    {item.q}
-                  </span>
-                  <ChevronDown
-                    className="text-[#C0001A] transition-transform duration-300 group-open/faq:rotate-180 flex-shrink-0"
-                    size={16}
-                  />
-                </summary>
-                <div className="pb-6 pl-9 text-sm text-[#666] leading-[1.8]" >
-                  {item.a}
-                </div>
-              </details>
-            ))}
-          </div>
-
-        </div>
-      </section>
 
     </main >
   );

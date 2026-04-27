@@ -1,7 +1,6 @@
 // app/products/chairs/page.tsx
 import type { Metadata } from "next";
-import { MessageCircle, ChevronDown } from "lucide-react";
-import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
 
@@ -48,21 +47,6 @@ const seoStats = [
   { num: "24", label: "Unique Designs" },
   { num: "5yr", label: "Structural Warranty" },
   { num: "48hr", label: "Fast Shipping" },
-];
-
-const faqItems = [
-  {
-    q: "Do you offer ergonomic office chairs?",
-    a: "Yes, we have a range of ergonomic chairs with adjustable lumbar support, armrests, and height to ensure maximum comfort during long working hours.",
-  },
-  {
-    q: "Can I customize the upholstery of the accent chairs?",
-    a: "Absolutely. You can choose from our selection of premium fabrics, leathers, and colors to match your home decor.",
-  },
-  {
-    q: "What kind of wood is used for the dining chairs?",
-    a: "We primarily use seasoned Kerala Teak and high-quality Rubberwood for durability and a premium finish.",
-  },
 ];
 
 export default async function ChairsPage() {
@@ -114,24 +98,6 @@ export default async function ChairsPage() {
 
       {/* ── Product List with Filter ── */}
       <ProductListWithFilter initialProducts={chairProducts} category="Chairs" />
-
-      {/* ── FAQ ── */}
-      <section className="hidden md:block bg-[#fafaf9] border-t border-[#f0f0f0] py-20">
-        <div className="max-container">
-          <h2 className="text-[44px] font-normal leading-[1.1] text-[#111] mb-12" >Questions & <em className="text-[#C0001A]">Answers</em></h2>
-          <div className="grid grid-cols-2 gap-x-16">
-            {faqItems.map((item, i) => (
-              <details key={item.q} className="group/faq border-b border-[#ebebeb] py-0">
-                <summary className="py-6 text-[15px] font-medium text-[#111] cursor-pointer flex items-center justify-between list-none hover:text-[#C0001A] transition-colors" >
-                   <span>{item.q}</span>
-                   <ChevronDown size={16} />
-                </summary>
-                <div className="pb-6 text-sm text-[#666] leading-[1.8]" >{item.a}</div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
