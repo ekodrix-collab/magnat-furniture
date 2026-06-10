@@ -55,7 +55,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         description={product.description || product.short_description || ""}
         images={product.images || []}
         price={numericPrice}
-        category={product.categories?.name || product.category}
+        category={product.categories?.name || undefined}
         sku={product.slug}
         url={`https://magnat.in/products/${product.slug}`}
       />
