@@ -173,6 +173,9 @@ export const metadata: Metadata = {
     address: true,
     telephone: true,
   },
+  verification: {
+    google: "GQyq1DTvGuhE4QxjoN3KEG27jjirbdLDhrXA3TMg3pI",
+  },
 };
 
 export default function RootLayout({
