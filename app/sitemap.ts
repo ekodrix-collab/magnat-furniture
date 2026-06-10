@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { getProducts } from "@/lib/api/products";
 
 const BASE = "https://magnat.in";
 const NOW = new Date();
@@ -20,25 +21,28 @@ const CATEGORIES = [
   "office-furniture", "bedroom-furniture", "living-room",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static pages ────────────────────────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE,                         lastModified: NOW, changeFrequency: "daily",   priority: 1.0 },
     { url: `${BASE}/about`,              lastModified: NOW, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/contact`,            lastModified: NOW, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/products`,           lastModified: NOW, changeFrequency: "daily",   priority: 0.95 },
-    { url: `${BASE}/design`,             lastModified: NOW, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/privacy`,            lastModified: NOW, changeFrequency: "yearly",  priority: 0.3 },
     { url: `${BASE}/terms`,              lastModified: NOW, changeFrequency: "yearly",  priority: 0.3 },
-    // High-value sofa-specific pages
+    // High-value product-specific pages
     { url: `${BASE}/products/sofas`,     lastModified: NOW, changeFrequency: "weekly",  priority: 0.95 },
     { url: `${BASE}/products/curtains`,  lastModified: NOW, changeFrequency: "weekly",  priority: 0.9  },
     { url: `${BASE}/products/chairs`,    lastModified: NOW, changeFrequency: "weekly",  priority: 0.85 },
     { url: `${BASE}/products/dining`,    lastModified: NOW, changeFrequency: "weekly",  priority: 0.85 },
-    // Showroom page (high local SEO value)
-    { url: `${BASE}/showroom`,           lastModified: NOW, changeFrequency: "weekly",  priority: 0.95 },
-    // Blog (to be created)
-    { url: `${BASE}/blog`,              lastModified: NOW, changeFrequency: "daily",   priority: 0.8  },
+    // Rooms pages
+    { url: `${BASE}/rooms/all-pieces`,   lastModified: NOW, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE}/rooms/bedroom`,      lastModified: NOW, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE}/rooms/dining-room`,  lastModified: NOW, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE}/rooms/living-room`,  lastModified: NOW, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE}/rooms/office`,       lastModified: NOW, changeFrequency: "weekly",  priority: 0.8 },
+    // Showrooms page (corrected from /showroom)
+    { url: `${BASE}/showrooms`,          lastModified: NOW, changeFrequency: "weekly",  priority: 0.95 },
   ];
 
   // ── Product category pages ───────────────────────────────────────────────────
@@ -69,10 +73,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
+  // ── Dynamic Product detail pages ─────────────────────────────────────────────
+  let productPages: MetadataRoute.Sitemap = [];
+  try {
+    const products = await getProducts();
+    if (products && products.length > 0) {
+      productPages = products.map((product) => ({
+        url: `${BASE}/products/${product.slug}`,
+        lastModified: product.created_at ? new Date(product.created_at) : NOW,
+        changeFrequency: "weekly",
+        priority: 0.8,
+      }));
+    }
+  } catch (err) {
+    console.error("Error generating product sitemap pages:", err);
+  }
+
   return [
     ...staticPages,
     ...categoryPages,
     ...locationPages,
     ...locationCategoryPages,
+    ...productPages,
   ];
 }
+

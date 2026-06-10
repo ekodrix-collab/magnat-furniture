@@ -28,11 +28,7 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 1,
       },
     ],
-    sitemap: [
-      "https://magnat.in/sitemap.xml",
-      "https://magnat.in/sitemap-products.xml",
-      "https://magnat.in/sitemap-locations.xml",
-    ],
+    sitemap: "https://magnat.in/sitemap.xml",
     host: "https://magnat.in",
   };
 }
