@@ -174,7 +174,7 @@ export const metadata: Metadata = {
     telephone: true,
   },
   verification: {
-    google: "GQyq1DTvGuhE4QxjoN3KEG27jjirbdLDhrXA3TMg3pI",
+    google: ["-5B831SDmmqEdpt_x36lJrytP0KOfXmnBKoFHxHlojw", "GQyq1DTvGuhE4QxjoN3KEG27jjirbdLDhrXA3TMg3pI"],
   },
 };
 
