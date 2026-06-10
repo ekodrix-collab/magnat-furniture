@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getProductBySlug, getRelatedProducts } from "@/lib/api/products";
 import ProductClientPage from "./ProductClientPage";
+import ProductSchema from "@/components/schemas/ProductSchema";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -41,5 +42,24 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const relatedProducts = await getRelatedProducts(product.categories?.slug || "", slug);
 
-  return <ProductClientPage product={product} relatedProducts={relatedProducts} />;
+  // Parse price (e.g., "₹1,85,000" -> 185000)
+  const priceString = product.price;
+  const numericPrice = priceString && priceString !== "Custom Quote"
+    ? parseFloat(priceString.replace(/[^\d]/g, ""))
+    : undefined;
+
+  return (
+    <>
+      <ProductSchema
+        name={product.name}
+        description={product.description || product.short_description || ""}
+        images={product.images || []}
+        price={numericPrice}
+        category={product.categories?.name || product.category}
+        sku={product.slug}
+        url={`https://magnat.in/products/${product.slug}`}
+      />
+      <ProductClientPage product={product} relatedProducts={relatedProducts} />
+    </>
+  );
 }
