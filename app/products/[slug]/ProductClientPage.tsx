@@ -57,7 +57,7 @@ export default function ProductClientPage({
          {/* ── Mobile Standalone Header ── */}
 
 
-         <div className="max-container pt-8 md:pt-32 px-6 md:px-10 lg:px-16">
+         <div className="max-container pt-4 md:pt-10 px-6 md:px-10 lg:px-16">
 
             {/* ── Desktop Breadcrumbs ── */}
             <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.05em] text-[#999] mb-12">
