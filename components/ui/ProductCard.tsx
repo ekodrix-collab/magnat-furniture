@@ -109,16 +109,15 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
       {/* ── Content Area ── */}
       <div className="
         flex flex-col flex-1
-        px-6 pt-5 pb-6
-        sm:px-4 sm:pt-4 sm:pb-5
-        xs:px-3 xs:pt-3 xs:pb-4
+        px-3 pt-3.5 pb-4
+        sm:px-6 sm:pt-5 sm:pb-6
       ">
 
         {/* Label (Material or Category) */}
         {displayLabel && (
           <span className="
-            block mb-2 text-[9px] font-bold tracking-[0.28em] uppercase text-[#C0001A]
-            sm:text-[8px] sm:mb-1.5
+            block mb-1 text-[8px] font-bold tracking-[0.2em] uppercase text-[#C0001A]
+            sm:text-[9px] sm:tracking-[0.28em] sm:mb-2
           ">
             {displayLabel}
           </span>
@@ -126,55 +125,51 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
         {/* Product Name */}
         <h3 className="
-          font-semibold leading-tight text-[#111] mb-2
-          text-[1.05rem]
-          sm:text-[0.95rem]
-          xs:text-[0.875rem]
+          font-semibold leading-tight text-[#111] mb-1.5
+          text-[13px]
+          sm:text-[1.05rem]
           transition-colors duration-300 group-hover:text-[#111]
-          tracking-[-0.01em]
+          tracking-tight
+          line-clamp-2
         ">
           {name}
         </h3>
 
         {/* Divider */}
-        <div className="w-8 h-px bg-[#ddd] mb-3 sm:mb-2" />
+        <div className="hidden sm:block w-8 h-px bg-[#ddd] mb-3" />
 
         {/* Description */}
         {displayDescription && (
           <p className="
-            text-[#888] leading-relaxed mb-4 flex-1 line-clamp-2
+            hidden sm:line-clamp-2 text-[#888] leading-relaxed mb-4 flex-1
             text-[0.825rem]
-            sm:text-[0.775rem]
-            xs:text-[0.72rem]
-            sm:mb-3
           ">
             {displayDescription}
           </p>
         )}
 
         {/* CTA Button */}
-        <div className="mt-auto pt-4 sm:pt-3">
+        <div className="mt-auto pt-3 sm:pt-4">
           <div
             className="
-              w-full inline-flex items-center justify-center gap-2
+              w-full inline-flex items-center justify-center gap-1.5
               bg-[#111] text-white
-              text-[10px] font-bold tracking-[0.2em] uppercase
-              px-5 py-3
+              text-[9px] font-bold tracking-[0.12em] uppercase
+              px-2 py-2
               rounded-[2px]
               no-underline
               transition-all duration-300
               hover:bg-[#C0001A]
               active:scale-[0.98]
-              sm:py-2.5 sm:text-[9px] sm:tracking-[0.15em]
-              xs:py-2 xs:px-3
+              sm:py-3 sm:px-5 sm:text-[10px] sm:tracking-[0.2em] sm:gap-2
               group/btn
             "
           >
             <span>Details</span>
             <ArrowRight
-              size={13}
+              size={12}
               strokeWidth={2.5}
-              className="transition-transform duration-300 group-hover/btn:translate-x-0.5"
+              className="transition-transform duration-300 group-hover/btn:translate-x-0.5 sm:size-[13px]"
             />
           </div>
         </div>
