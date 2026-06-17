@@ -1,4 +1,6 @@
 // app/products/sofas/page.tsx
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
@@ -66,7 +68,7 @@ const seoTags = [
 export default async function SofasPage() {
   const allProducts = await getProducts();
   const sofaProducts = allProducts.filter(p => 
-     p.categories?.base_category === "sofas"
+     p.categories?.base_category?.toLowerCase() === "sofas"
   );
 
   return (

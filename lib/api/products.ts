@@ -42,7 +42,7 @@ function mapFallbackProduct(p: FallbackProduct): Product {
     categories: {
       id: p.category,
       name: p.category,
-      base_category: p.category,
+      base_category: p.category.toLowerCase(),
       slug: p.category.toLowerCase(),
       description: null,
       image_url: null,

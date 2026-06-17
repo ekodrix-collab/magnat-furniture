@@ -1,4 +1,6 @@
 // app/products/curtains/page.tsx
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +38,7 @@ const seoStats = [
 export default async function CurtainsPage() {
   const allProducts = await getProducts();
   const curtainProducts = allProducts.filter(p => 
-    p.categories?.base_category === "curtains"
+    p.categories?.base_category?.toLowerCase() === "curtains"
   );
 
   return (

@@ -1,8 +1,11 @@
 // app/products/chairs/page.tsx
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { MessageCircle } from "lucide-react";
 import { getProducts } from "@/lib/api/products";
 import ProductListWithFilter from "@/components/products/ProductListWithFilter";
+
 
 // ─────────────────────────────────────────────────────────────
 // SEO METADATA
@@ -52,7 +55,7 @@ const seoStats = [
 export default async function ChairsPage() {
   const allProducts = await getProducts();
   const chairProducts = allProducts.filter(p => 
-    p.categories?.base_category === "chairs"
+    p.categories?.base_category?.toLowerCase() === "chairs"
   );
 
   return (

@@ -1,4 +1,6 @@
 // app/products/dining/page.tsx
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { MessageCircle } from "lucide-react";
 import { getProducts } from "@/lib/api/products";
@@ -51,7 +53,7 @@ const seoStats = [
 export default async function DiningPage() {
   const allProducts = await getProducts();
   const diningProducts = allProducts.filter(p => 
-    p.categories?.base_category === "dining"
+    p.categories?.base_category?.toLowerCase() === "dining"
   );
 
   return (
