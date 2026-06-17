@@ -190,7 +190,7 @@ function NavbarContent() {
                     +91 94465 16395
                   </a>
                   <div className="flex gap-4">
-                    <a href="https://instagram.com" target="_blank" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
+                    <a href="https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#C0001A]/5 text-[#C0001A] rounded-full flex items-center justify-center"><Instagram size={20} /></a>
                     <Link href="/contact" className="flex-1 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase rounded-full flex items-center justify-center" onClick={() => setMobileOpen(false)}>Book Visit</Link>
                   </div>
                 </div>

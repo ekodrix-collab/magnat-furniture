@@ -76,7 +76,7 @@ export default function Footer() {
                 className="w-10 h-10 rounded-full sm:border sm:border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
                 <Facebook size={18} strokeWidth={1.5} />
               </a>
-              <a href="https://instagram.com/magnat_furniture_.kondotty" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full sm:border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all">
                 <Instagram size={18} strokeWidth={1.5} />
               </a>

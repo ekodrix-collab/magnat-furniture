@@ -37,7 +37,7 @@ export default function InstagramSection({ posts }: { posts?: InstagramPost[] })
           
           <FadeInView delay={0.4}>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -51,37 +51,20 @@ export default function InstagramSection({ posts }: { posts?: InstagramPost[] })
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {activePosts.map((post, index) => (
             <FadeInView key={index} delay={index * 0.1} className="group relative aspect-square overflow-hidden bg-white">
-              {post.post_url ? (
-                <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                  <Image
-                    src={post.image_url}
-                    alt={post.caption || `Instagram Post ${index + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                    className="object-cover transition-all duration-1000 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-[#111111]/30 opacity-0 transition-opacity duration-700 group-hover:opacity-100 flex items-center justify-center">
-                    <div className="border border-white/40 p-5 rounded-full backdrop-blur-sm">
-                      <Instagram size={20} className="text-white" strokeWidth={1.5} />
-                    </div>
+              <a href={post.post_url || "https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                <Image
+                  src={post.image_url}
+                  alt={post.caption || `Instagram Post ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  className="object-cover transition-all duration-1000 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-[#111111]/30 opacity-0 transition-opacity duration-700 group-hover:opacity-100 flex items-center justify-center">
+                  <div className="border border-white/40 p-5 rounded-full backdrop-blur-sm">
+                    <Instagram size={20} className="text-white" strokeWidth={1.5} />
                   </div>
-                </a>
-              ) : (
-                <>
-                  <Image
-                    src={post.image_url}
-                    alt={post.caption || `Instagram Post ${index + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                    className="object-cover transition-all duration-1000 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-[#111111]/30 opacity-0 transition-opacity duration-700 group-hover:opacity-100 flex items-center justify-center">
-                    <div className="border border-white/40 p-5 rounded-full backdrop-blur-sm">
-                      <Instagram size={20} className="text-white" strokeWidth={1.5} />
-                    </div>
-                  </div>
-                </>
-              )}
+                </div>
+              </a>
             </FadeInView>
           ))}
         </div>

@@ -137,9 +137,9 @@ export default function ContactPage() {
                               <Mail size={16} className="text-[#C0001A]" />
                               info@magnat.in
                            </a>
-                           <a href="https://instagram.com" className="flex items-center gap-3 hover:text-[#C0001A] transition-colors">
+                           <a href="https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-[#C0001A] transition-colors">
                               <Instagram size={16} className="text-[#C0001A]" />
-                              @magnat_official
+                              @magnat_furniture_.kondotty
                            </a>
                         </div>
                      </div>

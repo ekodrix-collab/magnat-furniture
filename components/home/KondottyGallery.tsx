@@ -33,7 +33,7 @@ export default function KondottyGallery({ posts, section }: Props) {
    const displayItems = [...items, ...items];
 
    // Extract handle from subtitle for the cards
-   const fullSubtitle = section?.subtitle || "@magnat_furniture.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces.";
+   const fullSubtitle = section?.subtitle || "@magnat_furniture_.kondotty — Follow us for the latest in architectural furniture trends and studio masterpieces.";
    const handleWithAt = fullSubtitle.split(" ")[0];
    const handle = handleWithAt.startsWith("@") ? handleWithAt.slice(1) : handleWithAt;
    const location = section?.description || "Kondotty, Kerala";
@@ -45,7 +45,16 @@ export default function KondottyGallery({ posts, section }: Props) {
                label="Visual Journey"
                titlePart1={section?.title?.split(" ").slice(0, 2).join(" ") || "We're on"}
                titlePart2={section?.title?.split(" ").slice(2).join(" ") || "Instagram"}
-               subtitle={fullSubtitle}
+               subtitle={
+                  <a 
+                     href="https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     className="hover:text-[#C0001A] transition-colors"
+                  >
+                     {fullSubtitle}
+                  </a>
+               }
             />
          </div>
 
@@ -84,7 +93,7 @@ export default function KondottyGallery({ posts, section }: Props) {
                {displayItems.map((item, index) => (
                   <a
                      key={`${item.id}-${index}`}
-                     href={item.post_url ?? `https://www.instagram.com/${handle}`}
+                     href={item.post_url || "https://www.instagram.com/magnat_furniture_.kondotty?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="}
                      target="_blank"
                      rel="noopener noreferrer"
                      className="w-[280px] md:w-[320px] flex-shrink-0 bg-white rounded-2xl p-4 shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-black/5 cursor-pointer block hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 group"

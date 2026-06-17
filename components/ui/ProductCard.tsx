@@ -90,12 +90,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
         {/* Badge */}
         {displayBadge && (
-          <div className="absolute top-4 left-4 z-10">
+          <div className="absolute top-1.5 left-1.5 sm:top-4 sm:left-4 z-10">
             <span className="
               inline-block bg-[#111] text-white
-              text-[9px] font-semibold tracking-[0.22em] uppercase
-              px-3 py-1.5 rounded-[2px]
-              sm:text-[8px] sm:px-2.5 sm:py-1
+              text-[7.5px] font-bold tracking-[0.1em] uppercase
+              px-1.5 py-0.5 rounded-[1px]
+              sm:text-[8px] sm:tracking-[0.22em] sm:px-2.5 sm:py-1 sm:rounded-[2px]
             ">
               {displayBadge}
             </span>
