@@ -51,6 +51,13 @@ export default function ProductClientPage({
    const whatsappLink = `https://wa.me/919446516395?text=${whatsappMessage}`;
    const images = product.images && product.images.length > 0 ? product.images : ["/images/placeholder-furniture.jpg"];
 
+   const isSofa = 
+      product.categories?.base_category?.toLowerCase().includes("sofa") ||
+      product.categories?.slug?.toLowerCase().includes("sofa") ||
+      product.categories?.name?.toLowerCase().includes("sofa") ||
+      product.name?.toLowerCase().includes("sofa") ||
+      product.slug?.toLowerCase().includes("sofa");
+
    return (
       <div className="bg-white min-h-screen pb-32">
 
@@ -75,7 +82,11 @@ export default function ProductClientPage({
                <div className="w-full lg:w-[55%] flex flex-col gap-6">
 
                   {/* Main Image Viewport */}
-                  <div className="relative w-full aspect-[4/5] md:aspect-[1.1/1] bg-[#f9f9f8] rounded-2xl overflow-hidden group">
+                  <div className={`relative w-full transition-all duration-500 ${
+                     isSofa 
+                        ? "aspect-[4/3] md:aspect-[3/2] bg-white border border-[#f0f0f0]" 
+                        : "aspect-[4/5] md:aspect-[1.1/1] bg-[#f9f9f8]"
+                  } rounded-2xl overflow-hidden group`}>
                      <AnimatePresence mode="wait">
                         <motion.div
                            key={currentImageIndex}
@@ -91,7 +102,7 @@ export default function ProductClientPage({
                               fill
                               priority
                               sizes="(min-width: 1024px) 50vw, 100vw"
-                              className="object-cover"
+                              className={isSofa ? "object-contain p-4" : "object-cover"}
                            />
                         </motion.div>
                      </AnimatePresence>
@@ -108,16 +119,18 @@ export default function ProductClientPage({
                         {images.map((img: string, i: number) => (
                            <button
                               key={i}
-                              className={`relative flex-shrink-0 w-24 md:w-32 aspect-square rounded-xl overflow-hidden transition-all duration-500 snap-start ${currentImageIndex === i
+                              className={`relative flex-shrink-0 w-24 md:w-32 aspect-square rounded-xl overflow-hidden transition-all duration-500 snap-start ${
+                                 isSofa ? "bg-white border border-[#f0f0f0]" : "bg-[#f9f9f8]"
+                              } ${currentImageIndex === i
                                  ? 'ring-2 ring-[#C0001A] ring-offset-2 scale-95 shadow-lg'
                                  : 'opacity-50 hover:opacity-100 hover:scale-[1.02]'
                                  }`}
                               onClick={() => setCurrentImageIndex(i)}
                            >
-                              <Image src={img} alt={`${product.name} thumbnail ${i}`} fill className="object-cover" />
+                              <Image src={img} alt={`${product.name} thumbnail ${i}`} fill className={isSofa ? "object-contain p-1" : "object-cover"} />
                            </button>
                         ))}
-                     </div>
+                      </div>
                   )}
                </div>
 

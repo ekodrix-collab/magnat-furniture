@@ -37,9 +37,12 @@ const seoStats = [
 
 export default async function CurtainsPage() {
   const allProducts = await getProducts();
-  const curtainProducts = allProducts.filter(p => 
-    p.categories?.base_category?.toLowerCase() === "curtains"
-  );
+  const curtainProducts = allProducts.filter(p => {
+    const baseCat = p.categories?.base_category?.toLowerCase();
+    const slug = p.categories?.slug?.toLowerCase();
+    const name = p.categories?.name?.toLowerCase();
+    return baseCat === "curtains" || slug?.includes("curtain") || name?.includes("curtain") || name?.includes("drape");
+  });
 
   return (
     <main className="bg-[#fafaf9] min-h-screen">

@@ -67,9 +67,12 @@ const seoTags = [
 
 export default async function SofasPage() {
   const allProducts = await getProducts();
-  const sofaProducts = allProducts.filter(p => 
-     p.categories?.base_category?.toLowerCase() === "sofas"
-  );
+  const sofaProducts = allProducts.filter(p => {
+    const baseCat = p.categories?.base_category?.toLowerCase();
+    const slug = p.categories?.slug?.toLowerCase();
+    const name = p.categories?.name?.toLowerCase();
+    return baseCat === "sofas" || slug?.includes("sofa") || name?.includes("sofa");
+  });
 
   return (
     <main className="bg-[#fafaf9] min-h-screen">

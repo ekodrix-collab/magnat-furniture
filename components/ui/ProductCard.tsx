@@ -32,6 +32,13 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const displayLabel = material || categories?.name;
   const displayBadge = badge || (is_new ? "New Arrival" : is_bestseller ? "Best Seller" : null);
 
+  const isSofa = 
+    categories?.base_category?.toLowerCase().includes("sofa") ||
+    categories?.slug?.toLowerCase().includes("sofa") ||
+    categories?.name?.toLowerCase().includes("sofa") ||
+    name?.toLowerCase().includes("sofa") ||
+    slug?.toLowerCase().includes("sofa");
+
   return (
     <Link href={`/products/${slug}`} className="block h-full no-underline">
       <article
@@ -49,7 +56,9 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
       {/* ── Image Container ── */}
       <div
-        className="relative w-full overflow-hidden bg-[#f5f3f0] flex-shrink-0 "
+        className={`relative w-full overflow-hidden flex-shrink-0 transition-colors duration-500 ${
+          isSofa ? "bg-white" : "bg-[#f5f3f0]"
+        }`}
         style={{ aspectRatio: "4/3" }}
       >
         <Image
@@ -57,7 +66,9 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           alt={`${name} — MAGNAT Furniture`}
           fill
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.05]"
+          className={`transition-all duration-700 ease-out group-hover:scale-[1.02] ${
+            isSofa ? "object-contain p-2" : "object-cover"
+          }`}
           priority={false}
         />
 
@@ -67,7 +78,9 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             alt={`${name} (Alternative view) — MAGNAT Furniture`}
             fill
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            className="object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-[1.05]"
+            className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-[1.02] ${
+              isSofa ? "object-contain p-2" : "object-cover"
+            }`}
             priority={false}
           />
         )}

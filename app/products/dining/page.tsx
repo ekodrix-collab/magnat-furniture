@@ -52,9 +52,12 @@ const seoStats = [
 
 export default async function DiningPage() {
   const allProducts = await getProducts();
-  const diningProducts = allProducts.filter(p => 
-    p.categories?.base_category?.toLowerCase() === "dining"
-  );
+  const diningProducts = allProducts.filter(p => {
+    const baseCat = p.categories?.base_category?.toLowerCase();
+    const slug = p.categories?.slug?.toLowerCase();
+    const name = p.categories?.name?.toLowerCase();
+    return baseCat === "dining" || slug?.includes("dining") || name?.includes("dining");
+  });
 
   return (
     <main className="bg-[#fafaf9] min-h-screen">

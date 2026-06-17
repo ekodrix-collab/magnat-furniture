@@ -54,9 +54,12 @@ const seoStats = [
 
 export default async function ChairsPage() {
   const allProducts = await getProducts();
-  const chairProducts = allProducts.filter(p => 
-    p.categories?.base_category?.toLowerCase() === "chairs"
-  );
+  const chairProducts = allProducts.filter(p => {
+    const baseCat = p.categories?.base_category?.toLowerCase();
+    const slug = p.categories?.slug?.toLowerCase();
+    const name = p.categories?.name?.toLowerCase();
+    return baseCat === "chairs" || slug === "chairs" || name === "chairs" || name?.includes("chair");
+  });
 
   return (
     <main className="bg-[#fafaf9] min-h-screen">
