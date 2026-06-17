@@ -27,6 +27,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
   // Handle both possible sources of images and description
   const mainImage = images?.[0] || "/images/placeholder-furniture.jpg";
+  const hoverImage = images?.[1];
   const displayDescription = short_description || description;
   const displayLabel = material || categories?.name;
   const displayBadge = badge || (is_new ? "New Arrival" : is_bestseller ? "Best Seller" : null);
@@ -56,9 +57,20 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           alt={`${name} — MAGNAT Furniture`}
           fill
           sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+          className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.05]"
           priority={false}
         />
+
+        {hoverImage && (
+          <Image
+            src={hoverImage}
+            alt={`${name} (Alternative view) — MAGNAT Furniture`}
+            fill
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            className="object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-[1.05]"
+            priority={false}
+          />
+        )}
 
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
