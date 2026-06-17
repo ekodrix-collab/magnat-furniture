@@ -42,17 +42,14 @@ function NavbarContent() {
   return (
     <div className="max-container h-20 flex items-center justify-between">
       {/* Brand Identity */}
-      <Link href="/" className="flex items-center group relative z-[210]">
-        <div className="bg-[#C0001A] px-4 py-2 flex items-center group-hover:bg-[#111] transition-colors">
-          <img
-            src="/images/magnat-icon-white.png"
-            alt="Magnat Logo"
-            className="h-7 w-auto object-contain"
-          />
-          <span className="text-white font-black tracking-[0.25em] text-[13px] leading-none">
-            MAGNAT
-          </span>
-        </div>
+      <Link href="/" className="flex items-center group relative z-[210] hover:opacity-95 transition-opacity">
+        <img
+          src="/images/magnat-logo-header.png"
+          alt="Magnat Logo"
+          width={205}
+          height={48}
+          className="h-12 w-auto object-contain"
+        />
       </Link>
 
       {/* Primary Navigation (Desktop) */}

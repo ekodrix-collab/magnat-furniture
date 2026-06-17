@@ -40,6 +40,19 @@ export default function Footer() {
     <footer id="contact" className="bg-[#0A0A0A] text-[#F7F4F0] border-t border-white/5 pt-16 pb-8">
       <div className="max-container px-6">
 
+        {/* Brand Logo */}
+        <div className="mb-12">
+          <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+            <img
+              src="/images/magnat-logo-footer.png"
+              alt="Magnat Logo"
+              width={188}
+              height={44}
+              className="h-11 w-auto object-contain"
+            />
+          </Link>
+        </div>
+
         {/* ── Main Footer Grid ── */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-16">
 
