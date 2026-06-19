@@ -94,7 +94,20 @@ export default function ProductClientPage({
                            animate={{ opacity: 1, scale: 1 }}
                            exit={{ opacity: 0, scale: 0.98 }}
                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                           className="relative w-full h-full"
+                           className="relative w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
+                           drag="x"
+                           dragConstraints={{ left: 0, right: 0 }}
+                           dragElastic={0.6}
+                           onDragEnd={(event, info) => {
+                              const swipeThreshold = 50; // pixels
+                              if (info.offset.x < -swipeThreshold) {
+                                 // Swiped left -> next image
+                                 setCurrentImageIndex((prev) => (prev + 1) % images.length);
+                              } else if (info.offset.x > swipeThreshold) {
+                                 // Swiped right -> previous image
+                                 setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+                              }
+                           }}
                         >
                            <Image
                               src={images[currentImageIndex]}
@@ -102,7 +115,7 @@ export default function ProductClientPage({
                               fill
                               priority
                               sizes="(min-width: 1024px) 50vw, 100vw"
-                              className={isSofa ? "object-contain p-4" : "object-cover"}
+                              className={isSofa ? "object-contain p-4 select-none pointer-events-none" : "object-cover select-none pointer-events-none"}
                            />
                         </motion.div>
                      </AnimatePresence>
