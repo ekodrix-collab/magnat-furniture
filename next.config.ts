@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.supabase.co" },
       { protocol: "https", hostname: "www.storieshomes.com" },
       { protocol: "https", hostname: "www.vilangadanfurniture.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
     ],
 
     // Device sizes for responsive images

@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase-server";
 import { revalidatePath } from "next/cache";
 import { slugify, ensureUniqueSlug } from "@/lib/utils/slug";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 
 /**
@@ -475,33 +476,21 @@ export async function deleteInstagramPost(id: string) {
 }
 
 /**
- * Upload an image to Supabase Storage
+ * Upload an image to Cloudinary
  */
 export async function uploadImage(formData: FormData) {
-  const supabase = await createClient();
   const file = formData.get("file") as File;
 
   if (!file) {
     return { error: "No file provided" };
   }
 
-  const fileExt = file.name.split(".").pop();
-  const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-  const filePath = `uploads/${fileName}`;
-
-  const { data, error } = await supabase.storage
-    .from("magnat-media")
-    .upload(filePath, file);
-
-  if (error) {
-    console.error("Error uploading image:", error);
-    return { error: error.message };
+  try {
+    const url = await uploadToCloudinary(file);
+    return { url };
+  } catch (error: any) {
+    console.error("Error uploading image to Cloudinary:", error);
+    return { error: error.message || "Failed to upload image" };
   }
-
-  const { data: { publicUrl } } = supabase.storage
-    .from("magnat-media")
-    .getPublicUrl(filePath);
-
-  return { url: publicUrl };
 }
 

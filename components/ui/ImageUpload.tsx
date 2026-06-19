@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { supabase } from "@/lib/supabase";
+import { uploadImage } from "@/app/actions/cms";
 import { UploadCloud, X, Loader2, Image as ImageIcon } from "lucide-react";
 
 interface ImageUploadProps {
@@ -35,26 +35,17 @@ export default function ImageUpload({ onUploadSuccess, isUploading, setIsUploadi
           continue;
         }
 
-        // Create unique filename
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
-        const filePath = `products/${fileName}`;
+        const formData = new FormData();
+        formData.append("file", file);
 
-        const { data, error: uploadError } = await supabase.storage
-          .from("magnat-media")
-          .upload(filePath, file, {
-            cacheControl: "3600",
-            upsert: false,
-          });
+        const result = await uploadImage(formData);
 
-        if (uploadError) throw uploadError;
+        if (result.error) {
+          throw new Error(result.error);
+        }
 
-        const { data: publicUrlData } = supabase.storage
-          .from("magnat-media")
-          .getPublicUrl(filePath);
-
-        if (publicUrlData?.publicUrl) {
-          onUploadSuccess(publicUrlData.publicUrl);
+        if (result.url) {
+          onUploadSuccess(result.url);
         }
       }
       
