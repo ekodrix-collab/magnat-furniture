@@ -30,9 +30,20 @@ function CategoryCard({ cat }: { cat: Categories }) {
 
   const displayImage = cat.image_url || getPlaceholder(cat.slug);
 
+  const getCategoryUrl = (cat: Categories) => {
+    const slug = cat.slug.toLowerCase();
+    if (slug === "sofas") return "/products/sofas";
+    if (slug === "curtains") return "/products/curtains";
+    if (slug === "chairs") return "/products/chairs";
+    if (slug === "dining" || slug === "dining-sets") return "/products/dining";
+    
+    const categoryFilter = cat.base_category || cat.slug || cat.name;
+    return `/products?category=${encodeURIComponent(categoryFilter)}`;
+  };
+
   return (
     <div className="flex-shrink-0 w-[280px] md:w-[320px] group cursor-pointer">
-      <Link href={`/category/${cat.slug}`} className="block">
+      <Link href={getCategoryUrl(cat)} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl">
           <img
             src={displayImage}

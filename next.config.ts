@@ -91,6 +91,10 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        source: "/category/dining-sets",
+        destination: "/products/dining",
+      },
+      {
         source: "/category/:slug",
         destination: "/products/:slug",
       },
